@@ -1,0 +1,7 @@
+#!/bin/bash
+
+sync
+export LD_LIBRARY_PATH=/root/test/PosixNVM:$LD_LIBRARY_PATH
+export LD_PRELOAD="libnvp.so"
+export NVP_TREE_FILE="/root/test/PosixNVM/bin/nvp_nvp.tree"
+$@

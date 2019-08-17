@@ -1,0 +1,37 @@
+config PMFS_FS
+	tristate "Persistent and Protected PM file system support"
+	depends on FS_DAX 
+	select CRC16
+	help
+	   If your system has a block of fast (comparable in access speed to
+	   system memory) and non-volatile byte-addressable memory and you wish to
+	   mount a light-weight, full-featured, and space-efficient filesystem over
+	   it, say Y here, and read <file:Documentation/filesystems/pmfs.txt>.
+
+	   To compile this as a module,  choose M here: the module will be
+	   called pmfs.
+
+config PMFS_XIP
+	bool "Execute-in-place in PMFS"
+	depends on PMFS && BLOCK
+	help
+	   Say Y here to enable XIP feature of PMFS.
+
+config PMFS_WRITE_PROTECT
+	bool "PMFS write protection"
+	depends on PMFS && MMU && HAVE_SET_MEMORY_RO
+	default y
+	help
+	   Say Y here to enable the write protect feature of PMFS.
+
+config PMFS_TEST
+	boolean
+	depends on PMFS
+
+config PMFS_TEST_MODULE
+	tristate "PMFS Test"
+	depends on PMFS && PMFS_WRITE_PROTECT && m
+	select PMFS_TEST
+	help
+	  Say Y here to build a simple module to test the protection of
+	  PMFS. The module will be called pmfs_test.

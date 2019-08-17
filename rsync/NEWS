@@ -1,0 +1,150 @@
+NEWS for rsync 3.1.0 (UNRELEASED)
+Protocol: 31 (changed)
+Changes since 3.0.4:
+
+  OUTPUT CHANGES:
+
+    - Output numbers in 3-digit groups by default (e.g. 1,234,567).  See the
+      --human-readable option for a way to turn it off.  See also the daemon's
+      "log format" parameter and related command-line options (including
+      --out-format) for a modifier that can be used to request digit-grouping
+      or human-readable output in log escapes. (Note that log output is
+      unchanged by default.)
+
+    - The --list-only option is now affected by the --human-readable setting.
+      It will display digit groupings by default, and unit suffixes if higher
+      levels of readability are requested.  Also, the column width for the size
+      output has increased from 11 to 14 characters when human readability is
+      enabled.  Use --no-h to get the old-style output and column size.
+
+    - The output of the --progress option has changed:  the string "xfer" was
+      shortened to "xfr", and the string "to-check" was shortened to "to-chk",
+      both designed to make room for the (by default) wider display of file
+      size numbers without making the total line-length longer.  Also, when
+      incremental recursion is enabled, the string "ir-chk" will be used
+      instead of "to-chk" up until the incremental-recursion scan is done,
+      letting you know that the value to check and the total value will still
+      be increasing as new files are found.
+
+    - Enhanced the --stats output: 1) to mention how many files were created
+      (protocol >= 28), 2) to mention how many files were deleted (a new line
+      for protocol 31, but only output when --delete is in effect), and 3) to
+      follow the file-count, created-count, and deleted-count with a subcount
+      list that shows the counts by type.  The wording of the transferred count
+      has also changed so that it is clearer that it is only a count of regular
+      files.
+
+  BUG FIXES:
+
+    - Changed the way --progress overwrites its prior output in order to make
+      it nearly impossible for the progress to get overwritten by an error.
+
+    - Fixed some rare bugs in --iconv processing that might cause a multibyte
+      character to get translated incorrectly.
+
+    - Improved the propagation of abnormal-exit error messages.  This should
+      help the client side to receive errors from the server when it is exiting
+      abnormally, and should also avoid dying with an "connection unexpectedly
+      closed" exit when the closed connection is really expected.
+
+  ENHANCEMENTS:
+
+    - Added the --remote-option=OPT (-M OPT) command-line option that is useful
+      for things like sending a remote --log-file=FILE or --fake-super option.
+
+    - Added the --info=FLAGS and --debug=FLAGS options to allow finer-grained
+      control over what is output.  Added an extra type of --progress output
+      using --info=progress2.
+
+    - The --msgs2stderr option can help with debugging rsync by allowing the
+      debug messages to get output to stderr rather than travel via the socket
+      protocol.
+
+    - Added the --delete-missing-args and --ignore-missing-args options to
+      either delete or ignore user-specified files on the receiver that are
+      missing on the sender (normally the absence of user-specified files
+      generates an error).
+
+    - Added a "T" (terabyte) category to the --human-readable size suffixes.
+
+    - Added the --usermap/--groupmap/--chown options for manipulating file
+      ownership during the copy.
+
+    - Added the "%C" escape to the log-output handling, which will output the
+      MD5 checksum of any transferred file, or all files if --checksum was
+      specified (when protocol 30 or above is in effect).
+
+    - Added the "reverse lookup" parameter to the rsync daemon config file to
+      allow reverse-DNS lookups to be disabled.
+
+    - Added a forward-DNS lookup for the daemon's hosts allow/deny config.  Can
+      be disabled via "forward lookup" parameter (defaults to enabled).
+
+    - Added a way for more than one group to be specified in the daemon's
+      config file, including a way to specify that you want all of the
+      specified user's groups without having to name them.  Also changed the
+      daemon to complain about an inability to set explicitly-specified uid/gid
+      values, even when not run by a super-user.
+
+    - Added per-user authorization options and group-authorization support to
+      the daemon's "auth users" parameter.
+
+    - Added a way to reference environment variables in a daemon's config file
+      (using %VAR% references).
+
+    - When replacing a non-dir with a symlink/hard-link/device/special-file,
+      the update should now be done in an atomic manner.
+
+    - Fixed a free of the wrong pointer in uncache_tmp_xattrs() (which only
+      sometimes affects an --xattr transfer when --backup is used).
+
+    - When backing up a file, try to hard-link the file into place so that the
+      upcoming replacement of the destination file will be atomic.
+
+    - Added the ability to synchronize nano-second modified times.
+
+    - Added a few more default suffixes for the "dont compress" settings.
+
+    - Added the checking of the RSYNC_PROTECT_ARGS environment variable to allow
+      the default for the --protect-args command-line option to be overridden.
+
+    - Added some Solaris xattr code.
+
+  EXTRAS:
+
+    - Added an "instant-rsyncd" script to the support directory, which makes
+      it easy to configure a simple rsync daemon in the current directory.
+
+    - Added the "mapfrom" and "mapto" scripts to the support directory, which
+      makes it easier to do user/group mapping in a local transfer based on
+      passwd/group files from another machine.
+
+  INTERNAL:
+
+    - The I/O code was rewritten to be simpler and do bigger buffered reads
+      over the socket.  The I/O between the receiver and the generator was
+      changed to be standard multiplexed-I/O (like that over the socket).
+
+    - The sender tries to use any dead time while the generator is looking for
+      files to transfer in order to do sender-side directory scanning in a more
+      parallel manner.
+
+    - A daemon can now inform a client about a daemon-configured timeout value
+      so that the client can assist in the keep-alive activity (protocol 31).
+
+    - The filter code received some refactoring to make it more extendable, to
+      read better, and do better sanity checking.
+
+    - Really big numbers are now output using our own big-num routine rather
+      than casting them to a double and using a %.0f conversion.
+
+    - The pool_alloc library has received some minor improvements in alignment
+      handling.
+
+    - Added init_stat_x() function to avoid duplication of acl/xattr init code.
+
+  DEVELOPER RELATED:
+
+    - Added more conditional debug output.
+
+    - Changed configure.in to configure.ac.
