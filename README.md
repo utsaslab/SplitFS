@@ -6,7 +6,7 @@ SplitFS introduces a new primitive termed **relink** to efficiently support file
 
 The [Experiments
 page](https://github.com/rohankadekodi/SplitFS/blob/master/experiments.md)
-has a list of experiments evaluating SplitFS(strict, sync and POSIX) vs ext4 DAX, NOVA-strict, NOVA-relaxed and PMFS. The summary is that SplitFS outperforms the other file systems on the data intensive workloads, while incurring a modest overhead on metadata heavy workloads. Please see the paper for more details. 
+has a list of experiments evaluating SplitFS(strict, sync and POSIX) vs ext4 DAX, NOVA-strict, NOVA-relaxed and PMFS. The summary is that SplitFS outperforms the other file systems on the data intensive workloads, while incurring a modest overhead on metadata heavy workloads. Please see the paper for more details. This repository contains all the information needed to reproduce the main results from our paper.
 
 Please cite the following paper if you use SplitFS:
 
