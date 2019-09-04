@@ -12,9 +12,7 @@ Please cite the following paper if you use SplitFS:
 
 **SplitFS: Reducing Software Overhead in File Systems for Persistent Memory**. Rohan Kadekodi, Se Kwon Lee, Sanidhya Kashyap, Taesoo Kim, Aasheesh Kolli, Vijay Chidambaram. *Proceedings of the The 27th ACM Symposium on Operating Systems Principles (SOSP 19)*. [Paper PDF](https://www.cs.utexas.edu/~vijay/papers/sosp19-splitfs.pdf). [Bibtex](https://www.cs.utexas.edu/~vijay/bibtex/sosp19-splitfs.bib)
 
----
-
-### Contents
+## Contents
 
 1. `splitfs/` contains the source code for SplitFS-strict
 2. `dependencies/` contains packages and scripts to resolve dependencies
@@ -27,9 +25,8 @@ Please cite the following paper if you use SplitFS:
 9. `tpcc-sqlite/` contains TPCC source code
 10. `ycsb/` contains YCSB source code
 
----
 
-### System Requirements
+## System Requirements
 
 1. Ubuntu 16.04
 2. At least 32 GB DRAM
@@ -37,9 +34,7 @@ Please cite the following paper if you use SplitFS:
 4. Baremetal machine (Not a VM)
 5. Intel Processor supporting `clflushopt` instruction (Introduced in Intel processor family -- Broadwell). This can be verified with `lscpu | grep clflushopt`
 
----
-
-### Dependencies
+## Dependencies
 
 1. kernel: Installing the linux kernel 4.13.0 involves installing `bc`, `libelf-dev` and `libncurses5-dev`. For ubuntu, please run the script `cd dependencies; ./kernel_deps.sh; cd ..`
 2. LevelDB: Compiling LevelDB requires installing cmake version > 3.9. For ubuntu, please run `cd dependencies; ./leveldb_deps.sh; cd ..`
@@ -52,8 +47,6 @@ Please cite the following paper if you use SplitFS:
     * Check installation using `java -version`
     * `$ sudo apt install maven`
 4. SplitFS: Compiling SplitFS requires installing `Boost`. For Ubuntu, please run `cd dependencies; ./splitfs_deps.sh; cd ..`
-
----
 
 ## License
 
