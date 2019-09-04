@@ -55,6 +55,16 @@ Please cite the following paper if you use SplitFS:
 
 ---
 
+## License
+
+SplitFS has two parts: a kernel component and a user-space component. The kernel component uses the Liunx ext4 file system, which uses the GPL license. The user-space component is released under the Apache License.
+
+Copyright for SplitFS is held by the University of Texas at Austin. Please contact us if you would like to obtain a license to use SplitFS in your commercial product. 
+
+## Acknowledgements
+
+We thank the National Science Foundation, VMware, Google, and Facebook for partially funding this project.
+
 ### Contact
 
 Please e-mail `vijayc@utexas.edu` and `rak@cs.utexas.edu` with any questions.
