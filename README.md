@@ -12,6 +12,14 @@ Please cite the following paper if you use SplitFS:
 
 **SplitFS: Reducing Software Overhead in File Systems for Persistent Memory**. Rohan Kadekodi, Se Kwon Lee, Sanidhya Kashyap, Taesoo Kim, Aasheesh Kolli, Vijay Chidambaram. *Proceedings of the The 27th ACM Symposium on Operating Systems Principles (SOSP 19)*. [Paper PDF](https://www.cs.utexas.edu/~vijay/papers/sosp19-splitfs.pdf). [Bibtex](https://www.cs.utexas.edu/~vijay/bibtex/sosp19-splitfs.bib)
 
+## Features
+
+SplitFS offers some features not found in existing peristent-memory file systems. 
+
+1. **Low software overhead**. SplitFS tries to obtain performance that is close to the maximum provided by persistent-memory hardware. The overhead due to SplitFS software is significantly lower (by 4-12x) than state-of-the-art file systems such as NOVA or ext4 DAX. As a result, performance on some applications is increased by as much as **2x**.  
+
+2. **Flexible guarantees**. SplitFS is the only persistent-memory file system that allows simultaneously running applications to receive different guarantees from the file system. SplitFS offers three modes: POSIX, Sync, and Strict. Application A may in Strict mode, obtaining atomic, synchronous operations from SplitFS, while Application B may simultaneously run in POSIX mode and obtain higher performance. This is possible due to the novel split architecture used in SplitFS. 
+
 ## Contents
 
 1. `splitfs/` contains the source code for SplitFS-strict
@@ -58,6 +66,6 @@ Copyright for SplitFS is held by the University of Texas at Austin. Please conta
 
 We thank the National Science Foundation, VMware, Google, and Facebook for partially funding this project.
 
-### Contact
+## Contact
 
 Please e-mail `vijayc@utexas.edu` and `rak@cs.utexas.edu` with any questions.
