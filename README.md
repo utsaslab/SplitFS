@@ -57,4 +57,4 @@ Please cite the following paper if you use SplitFS:
 
 ### Contact
 
-In case of any difficulties, please send an e-mail to `rak@cs.utexas.edu`
+Please e-mail `vijayc@utexas.edu` and `rak@cs.utexas.edu` with any questions.
