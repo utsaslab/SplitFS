@@ -14,11 +14,11 @@ Please cite the following paper if you use SplitFS:
 
 ## Features
 
-SplitFS offers some features not found in existing peristent-memory file systems. 
-
 1. **Low software overhead**. SplitFS tries to obtain performance that is close to the maximum provided by persistent-memory hardware. The overhead due to SplitFS software is significantly lower (by 4-12x) than state-of-the-art file systems such as NOVA or ext4 DAX. As a result, performance on some applications is increased by as much as **2x**.  
 
 2. **Flexible guarantees**. SplitFS is the only persistent-memory file system that allows simultaneously running applications to receive different guarantees from the file system. SplitFS offers three modes: POSIX, Sync, and Strict. Application A may in Strict mode, obtaining atomic, synchronous operations from SplitFS, while Application B may simultaneously run in POSIX mode and obtain higher performance. This is possible due to the novel split architecture used in SplitFS. 
+
+3.**Portability and Stability**. SplitFS uses ext4 DAX as its kernel component, so it works with any kernel where ext4 DAX is supported. ext4 DAX is a mature, robust code base that is actively being maintained and developed; as ext4 DAX performance increases over time, SplitFS performance increases as well. This is contrast to research file systems for persistent memory, which do not see development at the same rate as ext4 DAX.  
 
 ## Contents
 
