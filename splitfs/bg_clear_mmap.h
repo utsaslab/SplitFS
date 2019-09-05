@@ -26,7 +26,7 @@ static void clean_dr_mmap() {
 	char prefault_buf[MMAP_PAGE_SIZE];
 	struct stat stat_buf;
 	char dr_fname[256];
-
+	
 	DEBUG_FILE("%s: Enterred BG thread successfully. Will mmap\n", __func__);
 
 	for (i = 0; i < MMAP_PAGE_SIZE; i++)
@@ -34,9 +34,9 @@ static void clean_dr_mmap() {
 	for (i = 0; i < BG_NUM_DR; i++) {
 		temp_dr_good_info = (struct free_dr_pool *) malloc(sizeof(struct free_dr_pool));
 		if (clean_overwrite)
-			sprintf(dr_fname, "%s%s", NVMM_PATH, "DR-OVER-XXXXXX");
+			sprintf(dr_fname, "%s%s", NVMM_PATH, "DR-OVER-XXXXXX");		
 		else
-			sprintf(dr_fname, "%s%s", NVMM_PATH, "DR-XXXXXX");
+			sprintf(dr_fname, "%s%s", NVMM_PATH, "DR-XXXXXX");				
 		dr_fd = _hub_find_fileop("posix")->OPEN(mktemp(dr_fname), O_RDWR | O_CREAT, 0666);
 		if (dr_fd < 0) {
 			MSG("%s: mkstemp of DR file failed. Err = %s\n",
@@ -47,7 +47,7 @@ static void clean_dr_mmap() {
 			ret = posix_fallocate(dr_fd, 0, DR_OVER_SIZE);
 		else
 			ret = posix_fallocate(dr_fd, 0, DR_SIZE);
-
+			
 		if (ret < 0) {
 			MSG("%s: posix_fallocate failed. Err = %s\n",
 			    __func__, strerror(errno));
@@ -60,7 +60,7 @@ static void clean_dr_mmap() {
 				 NULL,
 				 DR_OVER_SIZE,
 				 PROT_READ | PROT_WRITE, //max_perms,
-				 MAP_SHARED | MAP_POPULATE,
+				 MAP_PRIVATE | MAP_POPULATE,
 				 dr_fd, //fd_with_max_perms,
 				 0
 				 );
@@ -70,7 +70,7 @@ static void clean_dr_mmap() {
 				 NULL,
 				 DR_SIZE,
 				 PROT_READ | PROT_WRITE, //max_perms,
-				 MAP_SHARED | MAP_POPULATE,
+				 MAP_PRIVATE | MAP_POPULATE,
 				 dr_fd, //fd_with_max_perms,
 				 0
 				 );
@@ -96,7 +96,7 @@ static void clean_dr_mmap() {
 			perfmodel_add_delay(0, MMAP_PAGE_SIZE);
 #endif //NVM_DELAY
 		}
-
+	
 		num_mmap++;
 		num_drs++;
 		fstat(dr_fd, &stat_buf);
@@ -133,11 +133,11 @@ static void clean_dr_mmap() {
 
 static void *bgThreadCleaningWrapper() {
  start:
-	pthread_mutex_lock(&mu_clean);
+	pthread_mutex_lock(&mu_clean);	
 	waiting_for_cleaning_signal = 1;
-	while(!run_background_cleaning_thread) {
-	 	pthread_cond_wait(&bg_cleaning_signal, &mu_clean);
-	}
+	while(!run_background_cleaning_thread) { 
+	 	pthread_cond_wait(&bg_cleaning_signal, &mu_clean); 
+	} 		
 	waiting_for_cleaning_signal = 0;
 	pthread_mutex_unlock(&mu_clean);
         clean_dr_mmap();
@@ -154,8 +154,8 @@ static void activateBgCleaningThread(int is_overwrite) {
 		clean_overwrite = 1;
 	else
 		clean_overwrite = 0;
-	pthread_cond_signal(&bg_cleaning_signal);
-	pthread_mutex_unlock(&mu_clean);
+	pthread_cond_signal(&bg_cleaning_signal);	
+	pthread_mutex_unlock(&mu_clean);	
 }
 
 void startBgCleaningThread() {
@@ -178,16 +178,16 @@ void cancelBgCleaningThread() {
 	}
 }
 
-void initEnvForBgClean() {
+void initEnvForBgClean() {	
 	pthread_cond_init(&bg_cleaning_signal, NULL);
 	pthread_mutex_init(&mu_clean, NULL);
 }
 
 void callBgCleaningThread(int is_overwrite) {
 	if(run_background_cleaning_thread)
-		return;
+		return;	
 	calledBgCleaningThread++;
-	activateBgCleaningThread(is_overwrite);
+	activateBgCleaningThread(is_overwrite);	
 }
 
 #endif

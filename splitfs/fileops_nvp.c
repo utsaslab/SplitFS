@@ -1097,63 +1097,6 @@ void _nvp_SHM_COPY() {
 	shm_unlink("exec-ledger");
 }
 
-static int fill_mmap_cache(const char *fpath, const struct stat *sb,
-			    int tflag, struct FTW *ftwbuf) {
-	ino_t serialno = 0;
-	size_t fsize = 0;
-	int mapping_index = 0;
-	size_t size_mapped = 0;
-	unsigned long start_addr = 0;
-	int fd = 0;
-	char buf[MMAP_PAGE_SIZE];
-	
-	if (tflag == FTW_F) {
-		serialno = sb->st_ino;
-		fsize = sb->st_size;
-		if (fsize % MAX_MMAP_SIZE != 0) {
-			fsize -= (fsize % MAX_MMAP_SIZE);
-		}
-		size_mapped = 0;
-		if (fsize >= MAX_MMAP_SIZE) {
-			size_mapped = 0;
-			fd = _hub_find_fileop("posix")->OPEN(fpath, O_RDWR, 0666);
-			if (fd < 0) {
-				MSG("%s: File open failed. Reason = %s\n", __func__, strerror(errno));
-				assert(0);
-			}
-			mapping_index = serialno % MMAP_CACHE_ENTRIES;
-			while (size_mapped < fsize) {
-				if (_nvp_ino_mapping[mapping_index].serialno == 0) {
-					start_addr = (unsigned long) FSYNC_MMAP(NULL,
-										MAX_MMAP_SIZE,
-										PROT_READ | PROT_WRITE,
-										MAP_SHARED | MAP_POPULATE,
-										fd,
-										size_mapped);
-					if (start_addr == 0) {
-						MSG("%s: mmap failed. Err = %s\n", __func__, strerror(errno));
-						assert(0);
-					}
-										
-					_nvp_ino_mapping[mapping_index].root[size_mapped/MAX_MMAP_SIZE] = start_addr;
-				}
-				size_mapped += MAX_MMAP_SIZE;
-			}
-			if (_nvp_ino_mapping[mapping_index].serialno == 0)
-				_nvp_ino_mapping[mapping_index].serialno = serialno;
-			_hub_find_fileop("posix")->CLOSE(fd);
-		}
-	}
-	return 0;
-}
-
-static void create_mmap_cache() {
-	int flags = 0;
-	if (nftw(NVMM_PATH, fill_mmap_cache, 1, flags) == -1) {
-		MSG("%s: nftw failed. Err = %s\n", __func__, strerror(errno));
-		assert(0);
-	}
-}
 
 void _nvp_init2(void)
 {
@@ -1240,18 +1183,18 @@ void _nvp_init2(void)
 	/* 
 	   Allocating and Initializing mmap cache. Can hold mmaps, merkle trees and dirty mmap caches belonging to 1024 files. _nvp_ino_mapping is an array of struct InodeToMapping 
 	*/	
-	_nvp_ino_mapping = (struct InodeToMapping*)calloc(MMAP_CACHE_ENTRIES, sizeof(struct InodeToMapping));
-	memset((void *)_nvp_ino_mapping, 0, MMAP_CACHE_ENTRIES * sizeof(struct InodeToMapping));		
+	_nvp_ino_mapping = (struct InodeToMapping*)calloc(OPEN_MAX, sizeof(struct InodeToMapping));
+	memset((void *)_nvp_ino_mapping, 0, OPEN_MAX * sizeof(struct InodeToMapping));		
 	if (!_nvp_ino_mapping)
 		assert(0);
-	for(i=0; i<MMAP_CACHE_ENTRIES; i++) {
+	for(i=0; i<OPEN_MAX; i++) {
 		tempMapping = &_nvp_ino_mapping[i];
 		// Allocating region to store mmap() addresses
-		tempMapping->root = malloc(PER_NODE_MAPPINGS * sizeof(unsigned long));
-		memset((void *)tempMapping->root, 0, PER_NODE_MAPPINGS * sizeof(unsigned long));
+		tempMapping->root = malloc(1024 * sizeof(unsigned long));
+		memset((void *)tempMapping->root, 0, 1024 * sizeof(unsigned long));
 
-		tempMapping->merkle_root = malloc(PER_NODE_MAPPINGS * sizeof(unsigned long));
-		memset((void *)tempMapping->merkle_root, 0, PER_NODE_MAPPINGS * sizeof(unsigned long));		
+		tempMapping->merkle_root = malloc(1024 * sizeof(unsigned long));
+		memset((void *)tempMapping->merkle_root, 0, 1024 * sizeof(unsigned long));		
 
 		// Allocating region to store dirty mmap caches
 		tempMapping->root_dirty_cache = malloc(20 * sizeof(unsigned long));
@@ -1288,12 +1231,12 @@ void _nvp_init2(void)
 			NVP_LOCK_INIT(_nvp_node_lookup[i][j].lock);
 
 			// Allocating and Initializing mmap() roots associated with NVNode 
-			_nvp_node_lookup[i][j].root = malloc(PER_NODE_MAPPINGS * sizeof(unsigned long));
-			memset((void *)_nvp_node_lookup[i][j].root, 0, PER_NODE_MAPPINGS * sizeof(unsigned long));
+			_nvp_node_lookup[i][j].root = malloc(1024 * sizeof(unsigned long));
+			memset((void *)_nvp_node_lookup[i][j].root, 0, 1024 * sizeof(unsigned long));
 
 			// Allocating and Initializing merkle tree roots associated with NVNode 
-			_nvp_node_lookup[i][j].merkle_root = malloc(PER_NODE_MAPPINGS * sizeof(unsigned long));
-			memset((void *)_nvp_node_lookup[i][j].merkle_root, 0, PER_NODE_MAPPINGS * sizeof(unsigned long));
+			_nvp_node_lookup[i][j].merkle_root = malloc(1024 * sizeof(unsigned long));			
+			memset((void *)_nvp_node_lookup[i][j].merkle_root, 0, 1024 * sizeof(unsigned long));
 			
 			// Allocating and Initializing the dirty mmap cache associated with NVNode
 			_nvp_node_lookup[i][j].root_dirty_cache = malloc(20 * sizeof(unsigned long));
@@ -1319,8 +1262,10 @@ void _nvp_init2(void)
 	*/
 	lfds711_queue_umm_init_valid_on_current_logical_core( &qs, &qe_dummy, NULL );
 
-#if DATA_JOURNALING_ENABLED	
+#if DATA_JOURNALING_ENABLED
+	
 	lfds711_queue_umm_init_valid_on_current_logical_core( &qs_over, &qe_dummy_over, NULL );	
+
 #endif
 	
 	MMAP_PAGE_SIZE = getpagesize();
@@ -1329,10 +1274,7 @@ void _nvp_init2(void)
 #if !POSIX_ENABLED
 	init_logs();
 #endif
-
-#if WORKLOAD_YCSB
-	create_mmap_cache();	
-#endif	
+	
 	struct free_dr_pool *free_pool_mmaps;
 	char prefault_buf[MMAP_PAGE_SIZE];
 	char dr_fname[256];
@@ -1686,15 +1628,6 @@ void nvp_free_btree(unsigned long *root, unsigned long *merkle_root, unsigned lo
 	int i, dirty_index;
 	dirty_index = 0;
 	if (height == 0) {
-#if WORKLOAD_YCSB
-		for (i = 0; i < PER_NODE_MAPPINGS; i++) {
-			if (root && root[i]) {
-				munmap((void *) root[i], MAX_MMAP_SIZE);
-				root[i] = 0;
-				merkle_root[i] = 0;
-			}
-		}
-#else
 		for(i = 0; i < root_dirty_num; i++) {
 			dirty_index = dirty_cache[i];
 			if(root && root[dirty_index]) {
@@ -1705,7 +1638,7 @@ void nvp_free_btree(unsigned long *root, unsigned long *merkle_root, unsigned lo
 		}
 		root_dirty_num = 0;
 		if(total_dirty_mmaps) {
-			for (i = 0; i < PER_NODE_MAPPINGS; i++) {
+			for (i = 0; i < 1024; i++) {
 				if (root && root[i]) {
 					DEBUG("munmap: %d, addr 0x%lx\n",
 					      i, root[i]);
@@ -1715,10 +1648,9 @@ void nvp_free_btree(unsigned long *root, unsigned long *merkle_root, unsigned lo
 				}
 			}
 		}
-#endif
 		return;
 	}
-	for (i = 0; i < PER_NODE_MAPPINGS; i++) {
+	for (i = 0; i < 1024; i++) {
 		if (root[i] && merkle_root[i]) {
 			nvp_free_btree((unsigned long *)root[i], (unsigned long *)merkle_root[i],
 				       height - 1, NULL, 0, 1);
@@ -1735,7 +1667,7 @@ void nvp_add_to_inode_mapping(struct NVNode *node, ino_t serialno)
 {
 	struct InodeToMapping *mappingToBeAdded;
 	
-	int index = serialno % MMAP_CACHE_ENTRIES;
+	int index = serialno % 1024;
 	int i, dirty_index;
 
 	if (serialno == 0)
@@ -1745,25 +1677,15 @@ void nvp_add_to_inode_mapping(struct NVNode *node, ino_t serialno)
 	mappingToBeAdded = &_nvp_ino_mapping[index];
 	if(mappingToBeAdded->serialno != 0 && mappingToBeAdded->serialno != serialno) {
 		// Replacing some mmap() in that global mmap() cache. So must munmap() all the mmap() ranges in that cache. 
-		nvp_free_btree(mappingToBeAdded->root,
-			       mappingToBeAdded->merkle_root,
-			       mappingToBeAdded->height,
-			       mappingToBeAdded->root_dirty_cache,
-			       mappingToBeAdded->root_dirty_num,
-			       mappingToBeAdded->total_dirty_mmaps);		
+		nvp_free_btree(mappingToBeAdded->root, mappingToBeAdded->merkle_root, mappingToBeAdded->height, mappingToBeAdded->root_dirty_cache, mappingToBeAdded->root_dirty_num, mappingToBeAdded->total_dirty_mmaps);		
 
 		mappingToBeAdded->serialno = 0;
-		MSG("%s: Found conflicting mmap entry\n", __func__);
 	}
 
 	// Check if many mmap()s need to be copied. If total_dirty_mmaps is set, that means all the mmap()s need to be copied. 
-#if WORKLOAD_YCSB
-	if (mappingToBeAdded->serialno == 0)
-		memcpy(mappingToBeAdded->root, node->root, PER_NODE_MAPPINGS * sizeof(unsigned long));
-#else
 	if(node->total_dirty_mmaps) {
-		memcpy(mappingToBeAdded->root, node->root, PER_NODE_MAPPINGS * sizeof(unsigned long));
-		memcpy(mappingToBeAdded->merkle_root, node->merkle_root, PER_NODE_MAPPINGS * sizeof(unsigned long));
+		memcpy(mappingToBeAdded->root, node->root, 1024 * sizeof(unsigned long));
+		memcpy(mappingToBeAdded->merkle_root, node->merkle_root, 1024 * sizeof(unsigned long));
 		
 	} else {
 		// Only copy the dirty mmaps. The indexes can be found in the root_dirty_cache. 
@@ -1776,15 +1698,14 @@ void nvp_add_to_inode_mapping(struct NVNode *node, ino_t serialno)
 				mappingToBeAdded->merkle_root[dirty_index] = node->merkle_root[dirty_index];
 		}
 	}
-#endif	
+
 	mappingToBeAdded->serialno = serialno;
 	
-#if !WORKLOAD_YCSB
 	if(node->root_dirty_num)
 		memcpy(mappingToBeAdded->root_dirty_cache, node->root_dirty_cache, 20 * sizeof(unsigned long));
+
 	mappingToBeAdded->root_dirty_num = node->root_dirty_num;
 	mappingToBeAdded->total_dirty_mmaps = node->total_dirty_mmaps;
-#endif	
 	mappingToBeAdded->height = node->height;      	
 }
 
@@ -1795,7 +1716,7 @@ int nvp_retrieve_inode_mapping(struct NVNode *node)
 {
 
 	struct InodeToMapping *mappingToBeRetrieved;
-	int index = node->serialno % MMAP_CACHE_ENTRIES;
+	int index = node->serialno % 1024;
 	int dirty_index, i;
 	
 	DEBUG("Cleanup: root 0x%x, height %u\n", root, height);
@@ -1807,20 +1728,17 @@ int nvp_retrieve_inode_mapping(struct NVNode *node)
 	mappingToBeRetrieved = &_nvp_ino_mapping[index];
 	
 	if(mappingToBeRetrieved->serialno == node->serialno) {
-#if WORKLOAD_YCSB
-		memcpy(node->root, mappingToBeRetrieved->root, PER_NODE_MAPPINGS * sizeof(unsigned long));
-		// memset(mappingToBeRetrieved->root, 0, PER_NODE_MAPPINGS * sizeof(unsigned long));
-		mappingToBeRetrieved->serialno = 0;
-#else
+
 		/* 
-		 * Copy the file backed mmap()s and the merkle roots. 
-		 * total_dirty_mmaps suggests that there are more than
+		 * Copy the file backed mmap()s and the merkle roots. total_dirty_mmaps suggests that there are more than
 		 * 20 mmaps that need to be copied.
 		 */
 		if(mappingToBeRetrieved->total_dirty_mmaps) {
-			memcpy(node->root, mappingToBeRetrieved->root, PER_NODE_MAPPINGS * sizeof(unsigned long));
-			memcpy(node->merkle_root, mappingToBeRetrieved->merkle_root, PER_NODE_MAPPINGS * sizeof(unsigned long));			
-		} else {	
+			memcpy(node->root, mappingToBeRetrieved->root, 1024 * sizeof(unsigned long));
+			memcpy(node->merkle_root, mappingToBeRetrieved->merkle_root, 1024 * sizeof(unsigned long));
+			
+		} else {
+	
 			for(i = 0; i < mappingToBeRetrieved->root_dirty_num; i++) {
 				dirty_index = mappingToBeRetrieved->root_dirty_cache[i];
 				if(mappingToBeRetrieved->root && mappingToBeRetrieved->root[dirty_index])
@@ -1830,15 +1748,16 @@ int nvp_retrieve_inode_mapping(struct NVNode *node)
 					node->merkle_root[dirty_index] = mappingToBeRetrieved->merkle_root[dirty_index];
 			}
 		}
-#endif		
+		
 		// Copy the root_dirty_cache from the global mmap() cache on to the node mmap() cache
 		//if(mappingToBeRetrieved->root_dirty_num)
-#if !WORKLOAD_YCSB
 		memcpy(node->root_dirty_cache, mappingToBeRetrieved->root_dirty_cache, 20 * sizeof(unsigned long));
+		
 		node->root_dirty_num = mappingToBeRetrieved->root_dirty_num;
 		node->total_dirty_mmaps = mappingToBeRetrieved->total_dirty_mmaps;
-#endif
 		node->height = mappingToBeRetrieved->height;      	
+
+		//printf("%s: end: node->root[0] = %lu, mapping root = %lu, mapping root dirty num = %d, node->serialno = %lu, index = %d, node reference = %d, thread_id = %lu\n", __func__, node->root[0], mappingToBeRetrieved->root[0], mappingToBeRetrieved->root_dirty_num, node->serialno, index, node->reference, pthread_self());
 
 		goto out;
 	}
@@ -1854,14 +1773,11 @@ void nvp_reset_mappings(struct NVNode *node)
 	
 	DEBUG("Cleanup: root 0x%x, height %u\n", root, height);
 
-#if WORKLOAD_YCSB
-	memset((void *)node->root, 0, PER_NODE_MAPPINGS * sizeof(unsigned long));
-#else
 	if(node->root_dirty_num) {		
 		// Check if many mmap()s need to be memset. If total_dirty_mmaps is set, that means all the mmap()s need to be copied 
 		if(node->total_dirty_mmaps) {
-			memset((void *)node->root, 0, PER_NODE_MAPPINGS * sizeof(unsigned long));		
-			memset((void *)node->merkle_root, 0, PER_NODE_MAPPINGS * sizeof(unsigned long));	
+			memset((void *)node->root, 0, 1024 * sizeof(unsigned long));		
+			memset((void *)node->merkle_root, 0, 1024 * sizeof(unsigned long));	
 		} else {
 			// Only copy the dirty mmaps. The indexes can be found in the root_dirty_cache. 
 			for(i = 0; i < node->root_dirty_num; i++) {
@@ -1875,7 +1791,6 @@ void nvp_reset_mappings(struct NVNode *node)
 		if(node->root_dirty_num)
 			memset((void *)node->root_dirty_cache, 0, 20 * sizeof(unsigned long));	
 	}
-#endif
 	node->isRootSet = 0;
 	node->height = 0;
 	node->total_dirty_mmaps = 0;
@@ -1935,20 +1850,18 @@ void nvp_init_node(struct NVNode *node)
 {
 	int i;
 	if (!node->root) {
-		node->root = malloc(PER_NODE_MAPPINGS * sizeof(unsigned long));
-		memset((void *)node->root, 0, PER_NODE_MAPPINGS * sizeof(unsigned long));
+		node->root = malloc(1024 * sizeof(unsigned long));
+		memset((void *)node->root, 0, 1024 * sizeof(unsigned long));
 	}
 	if(!node->merkle_root) {
-		node->merkle_root = malloc(PER_NODE_MAPPINGS * sizeof(struct merkleBtreeNode *));
-		for(i=0; i<PER_NODE_MAPPINGS; i++)
+		node->merkle_root = malloc(1024 * sizeof(struct merkleBtreeNode *));
+		for(i=0; i<1024; i++)
 			node->merkle_root[i] = 0;
 	}
-#if !WORKLOAD_YCSB
 	if(!node->root_dirty_cache) {
 		node->root_dirty_cache = malloc(20 * sizeof(unsigned long));
 		memset((void *)node->root_dirty_cache, 0, 20 * sizeof(unsigned long));
-	}
-#endif
+	}					
 }
 
 struct NVNode * nvp_allocate_node(int list_idx)
@@ -2081,9 +1994,12 @@ struct NVNode * nvp_get_node(const char *path, struct stat *file_st, int result)
 	if (node->true_length == 0) {
 		clear_tbl_mmap_entry(&_nvp_tbl_mmaps[file_st->st_ino % APPEND_TBL_MAX]);
 
-#if DATA_JOURNALING_ENABLED		
+#if DATA_JOURNALING_ENABLED
+		
 		clear_tbl_mmap_entry(&_nvp_over_tbl_mmaps[file_st->st_ino % OVER_TBL_MAX]);
+
 #endif // DATA_JOURNALING_ENABLED
+
 	}
 
 	if(node->dr_info.start_addr != 0 || node->dr_over_info.start_addr != 0) {
@@ -2103,7 +2019,7 @@ static unsigned long calculate_capacity(unsigned int height)
 	unsigned long capacity = MAX_MMAP_SIZE;
 
 	while (height) {
-		capacity *= PER_NODE_MAPPINGS;
+		capacity *= 1024;
 		height--;
 	}
 
@@ -2113,10 +2029,10 @@ static unsigned long calculate_capacity(unsigned int height)
 static unsigned int calculate_new_height(off_t offset)
 {
 	unsigned int height = 0;
-	off_t temp_offset = offset / ((unsigned long)PER_NODE_MAPPINGS * MAX_MMAP_SIZE);
+	off_t temp_offset = offset / ((unsigned long)1024 * MAX_MMAP_SIZE);
 
 	while (temp_offset) {
-		temp_offset /= PER_NODE_MAPPINGS;
+		temp_offset /= 1024;
 		height++;
 	}
 
@@ -2150,20 +2066,23 @@ static int nvp_get_mmap_address(struct NVFile *nvf, off_t offset, size_t count, 
 
 		DEBUG("index %d\n", index);
 #if !NON_TEMPORAL_WRITES	
-		if (index >= PER_NODE_MAPPINGS || root[index] == 0 || merkle_root[index] == 0) {
+		if (index >= 1024 || root[index] == 0 || merkle_root[index] == 0) {
 #else
-		if (index >= PER_NODE_MAPPINGS || root[index] == 0) {
+		if (index >= 1024 || root[index] == 0) {
 #endif
 			goto not_found;
 		}
 		if (height) {
 			root = (unsigned long *)root[index];
+
 #if !NON_TEMPORAL_WRITES	
 			merkle_root = (unsigned long *)merkle_root[index];
 #endif
+
 			DEBUG("%p\n", root);
 		} else {
 			start_addr = root[index];
+
 #if !NON_TEMPORAL_WRITES
 			merkle_start_addr = merkle_root[index];
 #endif
@@ -2171,6 +2090,7 @@ static int nvp_get_mmap_address(struct NVFile *nvf, off_t offset, size_t count, 
 		}
 		start_offset = start_offset % capacity;
 	} while(height--);
+	//NVP_END_TIMING(lookup_t, lookup_time);
 
 #if !NON_TEMPORAL_WRITES	
 	if (IS_ERR(start_addr) || start_addr == 0 || merkle_start_addr == 0) {
@@ -2273,33 +2193,94 @@ not_found:
 
 	num_mmap++;
 
+	DEBUG("mmap offset 0x%lx, start_offset 0x%lx\n", offset, start_offset);
+
 	height = nvf->node->height;
 	new_height = calculate_new_height(offset);
+
+	if (height < new_height) {
+		MSG("Increase height from %u to %u\n", height, new_height);
+
+		while (height < new_height) {
+			unsigned long old_root = (unsigned long)nvf->node->root;
+			nvf->node->root = malloc(1024 * sizeof(unsigned long));
+
+#if !NON_TEMPORAL_WRITES	
+			unsigned long old_merkle_root = (unsigned long)nvf->node->merkle_root;
+			nvf->node->merkle_root = malloc(1024 * sizeof(unsigned long));
+			for (i = 0; i < 1024; i++) {
+				nvf->node->root[i] = 0;
+				nvf->node->merkle_root[i] = 0;
+			}
+			nvf->node->merkle_root[0] = (unsigned long)old_merkle_root;
+#else
+			for (i = 0; i < 1024; i++) {
+				nvf->node->root[i] = 0;
+			}
+#endif
+			DEBUG("Malloc new root @ %p\n", nvf->node->root);
+			nvf->node->root[0] = (unsigned long)old_root;
+			DEBUG("Old root 0x%lx\n", nvf->node->root[0]);
+			height++;
+		}
+
+		nvf->node->height = new_height;
+		height = new_height;
+	}
+
 	root = nvf->node->root;
 #if !NON_TEMPORAL_WRITES	
 	merkle_root = nvf->node->merkle_root;
 #endif
-	capacity = calculate_capacity(height);
-	index = start_offset / capacity;
-	DEBUG("index %d\n", index);
-	root[index] = start_addr;
-	nvf->node->root_dirty_cache[nvf->node->root_dirty_num] = index;
-#if !WORKLOAD_YCSB
-	if(!nvf->node->total_dirty_mmaps) {
-		nvf->node->root_dirty_num++;
-		if(nvf->node->root_dirty_num == 20)
-			nvf->node->total_dirty_mmaps = 1;
-	}
-#endif
+	do {
+		capacity = calculate_capacity(height);
+		index = start_offset / capacity;
+		DEBUG("index %d\n", index);
+		if (height) {
+			if (root[index] == 0) {
+				root[index] = (unsigned long)malloc(1024 *
+						sizeof(unsigned long));
+
 #if !NON_TEMPORAL_WRITES	
-	merkle_root[index] = merkle_start_addr;
+				merkle_root[index] = (unsigned long)malloc(1024 * sizeof(unsigned long));
+				root = (unsigned long *)root[index];
+				merkle_root = (unsigned long *)merkle_root[index];
+				for (i = 0; i < 1024; i++) {
+					root[i] = 0;
+					merkle_root[i] = 0;
+				}
+#else
+				root = (unsigned long *)root[index];
+				for (i = 0; i < 1024; i++) {
+					root[i] = 0;
+				}
+#endif				
+			} else {
+				root = (unsigned long *)root[index];
+#if !NON_TEMPORAL_WRITES	
+				merkle_root = (unsigned long *)merkle_root[index];
 #endif
-	start_offset = start_offset % capacity;	
+			}
+		} else {
+			root[index] = start_addr;
+			nvf->node->root_dirty_cache[nvf->node->root_dirty_num] = index;
+			if(!nvf->node->total_dirty_mmaps) {
+				nvf->node->root_dirty_num++;
+				if(nvf->node->root_dirty_num == 20)
+					nvf->node->total_dirty_mmaps = 1;
+			}
+#if !NON_TEMPORAL_WRITES	
+			merkle_root[index] = merkle_start_addr;
+#endif
+		}
+		start_offset = start_offset % capacity;
+	} while(height--);
+
 	nvf->node->isRootSet = 1;
 	(*mmap_addr) = (start_addr + (offset % MAX_MMAP_SIZE));
 	*offset_within_mmap = offset % MAX_MMAP_SIZE;
 
-#if !NON_TEMPORAL_WRITES
+#if !NON_TEMPORAL_WRITES	
 	*bitmap_root = merkle_start_addr;
 #endif
 	(*extent_length) = (MAX_MMAP_SIZE - (offset % MAX_MMAP_SIZE));
@@ -2884,7 +2865,6 @@ not_found:
 	unsigned long mmap_addr;
 	off_t read_offset_beyond_true_length, offset_within_mmap;
 	instrumentation_type copy_appendread_time, get_dr_mmap_time;
-	instrumentation_type device_time;
 	
 	num_anon_read++;
 	
@@ -2928,8 +2908,6 @@ not_found:
 			extent_length = len_to_read;
 		
 		START_TIMING(copy_appendread_t, copy_appendread_time);
-		START_TIMING(device_t, device_time);
-
 		if(FSYNC_MEMCPY(buf, (char *)mmap_addr, extent_length) != buf) {
 			MSG("%s: memcpy read failed\n", __func__);
 			assert(0);
@@ -2937,8 +2915,7 @@ not_found:
 
 #if NVM_DELAY
 		perfmodel_add_delay(1, extent_length);
-#endif
-		END_TIMING(device_t, device_time);
+#endif		
 		END_TIMING(copy_appendread_t, copy_appendread_time);
 		num_memcpy_read++;
 		memcpy_read_size += extent_length;
@@ -2973,7 +2950,6 @@ RETT_PREAD read_from_file_mmap(int file,
 	off_t offset_within_mmap = 0;
 	size_t extent_length = 0, read_count = 0, posix_read = 0;
 	instrumentation_type copy_overread_time, get_mmap_time;
-	instrumentation_type device_time;
 	
 	START_TIMING(get_mmap_t, get_mmap_time);
 	ret = nvp_get_mmap_address(nvf,
@@ -3009,7 +2985,6 @@ RETT_PREAD read_from_file_mmap(int file,
 		extent_length = len_to_read_within_true_length;		
 		
 	START_TIMING(copy_overread_t, copy_overread_time);
-	START_TIMING(device_t, device_time);
 	DEBUG_FILE("%s: Reading from addr = %p, offset = %lu, size = %lu\n", __func__, (void *) mmap_addr, offset_within_mmap, extent_length);
 	if(FSYNC_MEMCPY(buf, (const void * restrict)mmap_addr, extent_length) != buf) {
 		printf("%s: memcpy read failed\n", __func__);
@@ -3020,7 +2995,6 @@ RETT_PREAD read_from_file_mmap(int file,
 #if NVM_DELAY
 	perfmodel_add_delay(1, extent_length);
 #endif
-	END_TIMING(device_t, device_time);
 
 	END_TIMING(copy_overread_t, copy_overread_time);
 
@@ -3039,78 +3013,78 @@ RETT_PWRITE write_to_file_mmap(int file,
 			      const void *buf, 
 			      struct NVFile *nvf)
 {
-	int ret = 0;
-	unsigned long mmap_addr = 0, bitmap_root = 0;
-	off_t offset_within_mmap = 0;
-	size_t extent_length = 0, write_count = 0, posix_write = 0;
-	instrumentation_type copy_overwrite_time, get_mmap_time;
-	instrumentation_type device_time;
-	
-	START_TIMING(get_mmap_t, get_mmap_time);
-	ret = nvp_get_mmap_address(nvf,
-				   write_offset_within_true_length,
-				   write_count,
-				   &mmap_addr,
-				   &bitmap_root,
-				   &offset_within_mmap,
-				   &extent_length,
-				   wr_lock,
-				   cpuid,
-				   NULL,
-				   NULL);
-	END_TIMING(get_mmap_t, get_mmap_time);
+    int ret = 0;
+    unsigned long mmap_addr = 0, bitmap_root = 0;
+    off_t offset_within_mmap = 0;
+    size_t extent_length = 0, write_count = 0, posix_write = 0, data_written = 0;
+    instrumentation_type copy_overwrite_time, get_mmap_time;
 
-	switch (ret) {
-	case 0: // Mmaped. Do memcpy.
-		break;
-	case 1: // Not mmaped. Calling Posix pread.
-		posix_write = _nvp_fileops->PWRITE(file,
-						 buf,
-						 len_to_write_within_true_length,
-						 write_offset_within_true_length);
-		num_posix_write++;
-		posix_write_size += posix_write;
-		return posix_write;
-	default:
-		break;
-	}
+    while(len_to_write_within_true_length > 0) {
+        START_TIMING(get_mmap_t, get_mmap_time);
+        ret = nvp_get_mmap_address(nvf,
+                write_offset_within_true_length,
+                write_count,
+                &mmap_addr,
+                &bitmap_root,
+                &offset_within_mmap,
+                &extent_length,
+                wr_lock,
+                cpuid,
+                NULL,
+                NULL);
+        END_TIMING(get_mmap_t, get_mmap_time);
 
-	if (extent_length > len_to_write_within_true_length)
-		extent_length = len_to_write_within_true_length;		
-	
-	START_TIMING(copy_overwrite_t, copy_overwrite_time);	
-	START_TIMING(device_t, device_time);
+        switch (ret) {
+            case 0: // Mmaped. Do memcpy.
+                break;
+            case 1: // Not mmaped. Calling Posix pread.
+                posix_write = _nvp_fileops->PWRITE(file,
+                        buf,
+                        len_to_write_within_true_length,
+                        write_offset_within_true_length);
+                num_posix_write++;
+                posix_write_size += posix_write;
+                return posix_write;
+            default:
+                break;
+        }
+
+        if (extent_length > len_to_write_within_true_length)
+            extent_length = len_to_write_within_true_length;
+
+        START_TIMING(copy_overwrite_t, copy_overwrite_time);
+
 #if NON_TEMPORAL_WRITES
-
-	if(MEMCPY_NON_TEMPORAL((char *)mmap_addr, buf, extent_length) == NULL) {
-		printf("%s: non-temporal memcpy failed\n", __func__);
-		fflush(NULL);
-		assert(0);
-	}
-	_mm_sfence();
-	num_mfence++;
-	num_write_nontemporal++;
-	non_temporal_write_size += extent_length;			
-
+        DEBUG_FILE("%s: args: mmap_addr = %p, offset in mmap = %lu, length to write = %lu\n", __func__, (char *)mmap_addr, offset_within_mmap, extent_length);
+        if(MEMCPY_NON_TEMPORAL((char *)mmap_addr, buf, extent_length) == NULL) {
+            printf("%s: non-temporal memcpy failed\n", __func__);
+            fflush(NULL);
+            assert(0);
+        }
+        num_write_nontemporal++;
+        non_temporal_write_size += extent_length;
 #else //NON_TEMPORAL_WRITES
-
-	if(FSYNC_MEMCPY((char *)mmap_addr, buf, extent_length) == NULL) {
-		printf("%s: non-temporal memcpy failed\n", __func__);
-		fflush(NULL);
-		assert(0);
-	}
-	num_memcpy_write++;
-	memcpy_write_size += extent_length;
-
+        if(FSYNC_MEMCPY((char *)mmap_addr, buf, extent_length) == NULL) {
+            printf("%s: non-temporal memcpy failed\n", __func__);
+            fflush(NULL);
+            assert(0);
+        }
 #endif //NON TEMPORAL WRITES
-
 #if NVM_DELAY
-	perfmodel_add_delay(0, extent_length);
+        perfmodel_add_delay(0, extent_length);
 #endif
-	END_TIMING(device_t, device_time);
-	END_TIMING(copy_overwrite_t, copy_overwrite_time);
+        num_memcpy_write++;
+        memcpy_write_size += extent_length;
+        len_to_write_within_true_length -= extent_length;
+        write_offset_within_true_length += extent_length;
+        buf += extent_length;
+        data_written += extent_length;
+        num_mfence++;
+        _mm_sfence();
 
-	return extent_length;
+        END_TIMING(copy_overwrite_t, copy_overwrite_time);
+    }
+    return data_written;
 } 
 
  
@@ -3126,8 +3100,7 @@ RETT_PWRITE write_to_file_mmap(int file,
 	off_t offset_within_mmap;
 	ssize_t available_length = (nvf->node->length) - offset;
 	instrumentation_type copy_overread_time, read_tbl_mmap_time;
-	instrumentation_type device_time;
-	
+
 	if (UNLIKELY(!nvf->canRead)) {
 		DEBUG("FD not open for reading: %i\n", file);
 		errno = EBADF;
@@ -3284,10 +3257,7 @@ RETT_PWRITE write_to_file_mmap(int file,
 		}
 		
 		DEBUG_FILE("%s: memcpy args: buf = %p, mmap_addr = %p, length = %lu. File off = %lld. Inode = %lu\n", __func__, buf, (void *) mmap_addr, extent_length, read_offset_within_true_length, nvf->node->serialno);
-
 		START_TIMING(copy_overread_t, copy_overread_time);
-		START_TIMING(device_t, device_time);
-		
 		if(FSYNC_MEMCPY(buf,
 				(void *)mmap_addr,
 				extent_length) != buf) {
@@ -3295,11 +3265,9 @@ RETT_PWRITE write_to_file_mmap(int file,
 			fflush(NULL);
 			assert(0);
 		}
-
 #if NVM_DELAY
 		perfmodel_add_delay(1, extent_length);
 #endif		
-		END_TIMING(device_t, device_time);
 		END_TIMING(copy_overread_t, copy_overread_time);
 		// Add the NVM read latency
 
@@ -3346,18 +3314,17 @@ RETT_PWRITE write_to_file_mmap(int file,
  * anonymous memory region through memcpy. During fsync() time, the data is copied non-temporally from
  * anonymous DRAM to the file. 
  */
-RETT_PWRITE _nvp_extend_write(INTF_PWRITE,
+ RETT_PWRITE _nvp_extend_write(INTF_PWRITE,
 			       int wr_lock,
 			       int cpuid,
 			       struct NVFile *nvf,
 			       struct NVTable_maps *tbl_app,
 			       struct NVTable_maps *tbl_over)
-{
+ {
 
 	size_t len_to_write, write_count;
 	off_t write_offset;
 	instrumentation_type get_dr_mmap_time, copy_appendwrite_time, clear_dr_time, swap_extents_time;
-	instrumentation_type device_time;
 	
 	// Increment counter for append
 	_nvp_wr_extended++;
@@ -3486,7 +3453,6 @@ RETT_PWRITE _nvp_extend_write(INTF_PWRITE,
 	// Write to anonymous DRAM. No dirty tracking to be performed here. 
 	START_TIMING(copy_appendwrite_t, copy_appendwrite_time);
 
-	 START_TIMING(device_t, device_time);
 #if NON_TEMPORAL_WRITES
 
 	DEBUG_FILE("%s: memcpy args: buf = %p, mmap_addr = %p, length = %lu. File off = %lld. Inode = %lu\n", __func__, buf, (void *) mmap_addr, extent_length, write_offset, nvf->node->serialno);
@@ -3511,9 +3477,10 @@ RETT_PWRITE _nvp_extend_write(INTF_PWRITE,
 #endif // NON_TEMPORAL_WRITES
 
 #if NVM_DELAY
+
 	perfmodel_add_delay(0, extent_length);
+
 #endif // NVM_DELAY
-	END_TIMING(device_t, device_time);
 
 	END_TIMING(copy_appendwrite_t, copy_appendwrite_time);
 	
@@ -3569,7 +3536,6 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 	uint64_t extendFileReturn;
 	instrumentation_type appends_time, read_tbl_mmap_time, copy_overwrite_time, get_dr_mmap_time,
 		append_log_entry_time, clear_dr_time, insert_tbl_mmap_time;
-	instrumentation_type device_time;
 	DEBUG_FILE("_nvp_do_pwrite. fd = %d, offset = %lu, count = %lu\n", file, offset, count);		
 	_nvp_wr_total++;
 	
@@ -3660,10 +3626,9 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 	 write_offset = offset;		
 
 	 if (write_offset >= nvf->node->length + 1) {
-		 MSG("%s: Hole getting created. Doing Write system call\n", __func__);
+		 DEBUG_FILE("%s: Hole getting created. Doing Write system call\n", __func__);
 		 posix_write = _nvp_fileops->PWRITE(file, buf, count, write_offset);
 		 _nvp_fileops->FSYNC(file);
-		 MSG("%s: fsync returned\n", __func__);
 		 num_posix_write++;
 		 posix_write_size += posix_write;
 		 if (!wr_lock) {
@@ -3704,8 +3669,10 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 	 if (write_offset == nvf->node->length)
 		 goto appends;
 
-	 if (write_offset >= nvf->node->true_length)
+	 if (write_offset >= nvf->node->true_length) {
+		 MSG("%s: write_offset = %lu, true_length = %lu\n", __func__, write_offset, nvf->node->true_length);
 		 assert(0);
+	 }
 
 #if DATA_JOURNALING_ENABLED	 
 	 
@@ -3727,7 +3694,7 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 	 END_TIMING(get_dr_mmap_t, get_dr_mmap_time);
 
 	 if (extent_length < len_to_write) {
-		 size_t len_swapped = swap_extents(nvf, nvf->node->true_length);		
+		 //size_t len_swapped = swap_extents(nvf, nvf->node->true_length);		
 		 off_t offset_in_page = 0;
 		 START_TIMING(clear_dr_t, clear_dr_time);
 		 DEBUG_FILE("%s: EXTENT_LENGTH < LEN_TO_WRITE, EXTENT FD = %d, extent_length = %lu, len_to_write = %lu\n",
@@ -3796,7 +3763,6 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 		
 	 // The write is performed to file backed mmap			
 	 START_TIMING(copy_overwrite_t, copy_overwrite_time);
-	 START_TIMING(device_t, device_time);
 
 #if NON_TEMPORAL_WRITES
 	 
@@ -3833,7 +3799,7 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 #if NVM_DELAY
 	 perfmodel_add_delay(0, extent_length);
 #endif
-	 END_TIMING(device_t, device_time);
+
 	 END_TIMING(copy_overwrite_t, copy_overwrite_time);
 
 #if DATA_JOURNALING_ENABLED
@@ -4041,6 +4007,7 @@ RETT_CLOSE _nvp_REAL_CLOSE(INTF_CLOSE, ino_t serialno, int async_file_closing) {
 		return -1;
 	
 	struct NVFile* nvf = &_nvp_fd_lookup[file];
+	num_close++;	
 	if (nvf->posix) {
 		nvf->valid = 0;
 		nvf->posix = 0;
@@ -4146,9 +4113,6 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 {	
 	int result;	
 	instrumentation_type open_time, clf_lock_time, nvnode_lock_time;
-	instrumentation_type soft_overhead_time;
-
-	START_TIMING(soft_overhead_t, soft_overhead_time);
 #if BG_CLOSING
 	int closed_filedesc = -1, fd = -1, hash_index = -1;
 #if SEQ_LIST || RAND_LIST
@@ -4158,11 +4122,11 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 #endif // SEQ_LIST || RAND_LIST
 #endif // BG_CLOSING
 
-	num_open++;
 	START_TIMING(open_t, open_time);
 	GLOBAL_LOCK_WR();
 	
 #if PASS_THROUGH_CALLS
+	num_open++;
 	if (FLAGS_INCLUDE(oflag,O_CREAT))
 	{
 		va_list arg;
@@ -4181,13 +4145,11 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 
 		GLOBAL_UNLOCK_WR();
 		END_TIMING(open_t, open_time);
-		END_TIMING(soft_overhead_t, soft_overhead_time);
 		return result;
 	}	
 
 	GLOBAL_UNLOCK_WR();
 	END_TIMING(open_t, open_time);
-	END_TIMING(soft_overhead_t, soft_overhead_time);
 	return result;
 #endif // PASS_THROUGH_CALLS
 	
@@ -4199,11 +4161,11 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 		END_TIMING(open_t, open_time);
 
 		GLOBAL_UNLOCK_WR();
-		END_TIMING(soft_overhead_t, soft_overhead_time);
 		return -1;
 	}
 
         DEBUG_FILE("_nvp_OPEN(%s)\n", path);
+	num_open++;
 	
 	DEBUG("Attempting to _nvp_OPEN the file \"%s\" with the following "
 		"flags (0x%X): ", path, oflag);
@@ -4286,7 +4248,6 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 			_nvp_fileops->name, strerror(errno));
 		END_TIMING(open_t, open_time);
 		GLOBAL_UNLOCK_WR();
-		END_TIMING(soft_overhead_t, soft_overhead_time);
 		return result;
 	}	
         DEBUG_FILE("_nvp_OPEN(%s), fd = %d\n", path, result);
@@ -4354,7 +4315,6 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 		assert(0);
 		END_TIMING(open_t, open_time);
 		GLOBAL_UNLOCK_WR();
-		END_TIMING(soft_overhead_t, soft_overhead_time);
 		return result;
 	}
 
@@ -4404,7 +4364,6 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 		NVP_UNLOCK_FD_WR(nvf);
 		END_TIMING(open_t, open_time);
 		GLOBAL_UNLOCK_WR();
-		END_TIMING(soft_overhead_t, soft_overhead_time);
 		return nvf->fd;
 
 #endif // WORKLOAD_TAR
@@ -4468,7 +4427,6 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 	END_TIMING(open_t, open_time);
 
 	GLOBAL_UNLOCK_WR();
-	END_TIMING(soft_overhead_t, soft_overhead_time);
 	return nvf->fd;
 }
 
@@ -4609,10 +4567,6 @@ RETT_CLOSE _nvp_CLOSE(INTF_CLOSE)
 	ino_t serialno;
 	struct NVFile* nvf = NULL;
 	instrumentation_type close_time;
-	instrumentation_type soft_overhead_time;
-	
-	num_close++;
-	START_TIMING(soft_overhead_t, soft_overhead_time);
 
 	START_TIMING(close_t, close_time);
 
@@ -4620,10 +4574,10 @@ RETT_CLOSE _nvp_CLOSE(INTF_CLOSE)
 	DEBUG_FILE("_nvp_CLOSE(%i)\n", file);
 	
 #if PASS_THROUGH_CALLS	
+	num_close++;
 	result = _nvp_fileops->CLOSE(CALL_CLOSE);
 	GLOBAL_UNLOCK_WR();
 	END_TIMING(close_t, close_time);
-	END_TIMING(soft_overhead_t, soft_overhead_time);
 	return result;	
 #endif // PASS_THROUGH_CALLS
 	
@@ -4664,7 +4618,6 @@ RETT_CLOSE _nvp_CLOSE(INTF_CLOSE)
 		result = _nvp_fileops->CLOSE(CALL_CLOSE);
 		END_TIMING(close_t, close_time);
 		GLOBAL_UNLOCK_WR();
-		END_TIMING(soft_overhead_t, soft_overhead_time);
 		return result;
 	}
 	
@@ -4714,7 +4667,6 @@ RETT_CLOSE _nvp_CLOSE(INTF_CLOSE)
 
 		END_TIMING(close_t, close_time);
 		GLOBAL_UNLOCK_WR();
-		END_TIMING(soft_overhead_t, soft_overhead_time);
 		return 0;
 	}
 
@@ -4732,7 +4684,6 @@ RETT_CLOSE _nvp_CLOSE(INTF_CLOSE)
 	result = _nvp_REAL_CLOSE(CALL_CLOSE, serialno, 0);	
 	END_TIMING(close_t, close_time);
 	GLOBAL_UNLOCK_WR();
-	END_TIMING(soft_overhead_t, soft_overhead_time);
 	return result;	
 
  sync_close_bg_enabled:
@@ -4745,7 +4696,6 @@ RETT_CLOSE _nvp_CLOSE(INTF_CLOSE)
 		nvf->serialno = 0;
 		result = _nvp_fileops->CLOSE(CALL_CLOSE);
 		END_TIMING(close_t, close_time);
-		END_TIMING(soft_overhead_t, soft_overhead_time);
 		return result;				
 	}
 	
@@ -4755,7 +4705,6 @@ RETT_CLOSE _nvp_CLOSE(INTF_CLOSE)
 	result = _nvp_REAL_CLOSE(CALL_CLOSE, serialno, 0);	
 	END_TIMING(close_t, close_time);
 	GLOBAL_UNLOCK_WR();
-	END_TIMING(soft_overhead_t, soft_overhead_time);
 	return result;		
 }
 
@@ -4914,7 +4863,6 @@ RETT_FCLOSE _nvp_FCLOSE(INTF_FCLOSE)
 	int fd = -1;
 	
 #if PASS_THROUGH_CALLS
-	num_close++;
 	result = _nvp_fileops->FCLOSE(CALL_FCLOSE);	
 	return result;
 #endif
@@ -4932,13 +4880,10 @@ RETT_FREAD _nvp_FREAD(INTF_FREAD)
 	DEBUG_FILE("%s: start\n", __func__);
 	DEBUG("_nvp_READ %d\n", fileno(fp));
 	RETT_READ result;
-	instrumentation_type read_time;
-	num_read++;
-	START_TIMING(read_t, read_time);
 
 #if PASS_THROUGH_CALLS
+	num_read++;
 	result = _nvp_fileops->FREAD(CALL_FREAD);
-	END_TIMING(read_t, read_time);
 	return result;
 #endif
 	
@@ -4957,13 +4902,11 @@ RETT_FREAD _nvp_FREAD(INTF_FREAD)
 		read_size += result;
 		num_posix_read++;
 		posix_read_size += result;
-		END_TIMING(read_t, read_time);
 		return result;
 	}
 
 	result = _nvp_check_read_size_valid(length);
 	if (result <= 0) {
-		END_TIMING(read_t, read_time);
 		return result;
 	}
 
@@ -5009,9 +4952,9 @@ RETT_FREAD _nvp_FREAD(INTF_FREAD)
 
 	NVP_UNLOCK_FD_RD(nvf, cpuid);
 
+	num_read++;
 	read_size += result;
 
-	END_TIMING(read_t, read_time);
 	return result;
 }
 #endif
@@ -5027,6 +4970,7 @@ RETT_READ _nvp_READ(INTF_READ)
 	GLOBAL_LOCK_WR();
 	
 #if PASS_THROUGH_CALLS	
+	num_read++;
 	result = _nvp_fileops->READ(CALL_READ);
 	GLOBAL_UNLOCK_WR();
 	END_TIMING(read_t, read_time);
@@ -5114,13 +5058,9 @@ RETT_FWRITE _nvp_FWRITE(INTF_FWRITE)
 	DEBUG_FILE("_nvp_WRITE %d\n", fileno(fp));
 	num_write++;
 	RETT_FWRITE result;
-	instrumentation_type write_time;
-
-	START_TIMING(write_t, write_time);
 
 #if PASS_THROUGH_CALLS
 	result = _nvp_fileops->FWRITE(CALL_FWRITE);
-	END_TIMING(write_t, write_time);
 	return result;
 #endif
 	
@@ -5133,7 +5073,6 @@ RETT_FWRITE _nvp_FWRITE(INTF_FWRITE)
 		write_size += result;
 		num_posix_write++;
 		posix_write_size += result;
-		END_TIMING(write_t, write_time);
 		return result;
 	}
 
@@ -5143,7 +5082,6 @@ RETT_FWRITE _nvp_FWRITE(INTF_FWRITE)
 		write_size += result;
 		num_posix_write++;
 		posix_write_size += result;
-		END_TIMING(write_t, write_time);
 		return result;
 	}
 	
@@ -5158,7 +5096,6 @@ RETT_FWRITE _nvp_FWRITE(INTF_FWRITE)
 	
 	result = _nvp_check_write_size_valid(length);
 	if (result <= 0) {
-		END_TIMING(write_t, write_time);
 		return result;
 	}
 
@@ -5189,7 +5126,6 @@ RETT_FWRITE _nvp_FWRITE(INTF_FWRITE)
 		nvf->node->maplength);
 
 	write_size += result;
-	END_TIMING(write_t, write_time);
 	return result;
 }
 #endif
@@ -5346,13 +5282,13 @@ RETT_PREAD _nvp_PREAD(INTF_PREAD)
 	instrumentation_type read_time;
 	RETT_PREAD result;
 
-	START_TIMING(read_t, read_time);
+	START_TIMING(pread_t, read_time);
 	GLOBAL_LOCK_WR();
 
 #if PASS_THROUGH_CALLS
 	result = _nvp_fileops->PREAD(CALL_PREAD);
 	GLOBAL_UNLOCK_WR();
-	END_TIMING(read_t, read_time);
+	END_TIMING(pread_t, read_time);
 	return result;
 #endif
 	
@@ -5372,14 +5308,14 @@ RETT_PREAD _nvp_PREAD(INTF_PREAD)
 		num_posix_read++;
 		posix_read_size += result;
 
-		END_TIMING(read_t, read_time);
+		END_TIMING(pread_t, read_time);
 		GLOBAL_UNLOCK_WR();
 		return result;
 	}
 
 	result = _nvp_check_read_size_valid(count);
 	if (result <= 0) {
-		END_TIMING(read_t, read_time);
+		END_TIMING(pread_t, read_time);
 		GLOBAL_UNLOCK_WR();
 		return result;
 	}
@@ -5404,7 +5340,7 @@ RETT_PREAD _nvp_PREAD(INTF_PREAD)
 
 	read_size += result;
 
-	END_TIMING(read_t, read_time);
+	END_TIMING(pread_t, read_time);
 	DEBUG_FILE("_nvp_PREAD %d returns %lu\n", file, result);
 	GLOBAL_UNLOCK_WR();
 	return result;
@@ -5418,13 +5354,13 @@ RETT_PWRITE _nvp_PWRITE(INTF_PWRITE)
 	instrumentation_type write_time;
 	RETT_PWRITE result;
 
-	START_TIMING(write_t, write_time);
+	START_TIMING(pwrite_t, write_time);
 	GLOBAL_LOCK_WR();
 	
 #if PASS_THROUGH_CALLS
 	result = _nvp_fileops->PWRITE(CALL_PWRITE);
 	GLOBAL_UNLOCK_WR();
-	END_TIMING(write_t, write_time);
+	END_TIMING(pwrite_t, write_time);
 	return result;
 #endif
 		
@@ -5436,7 +5372,7 @@ RETT_PWRITE _nvp_PWRITE(INTF_PWRITE)
 		write_size += result;
 		num_posix_write++;
 		posix_write_size += result;
-		END_TIMING(write_t, write_time);
+		END_TIMING(pwrite_t, write_time);
 		GLOBAL_UNLOCK_WR();
 		return result;
 	}
@@ -5461,7 +5397,7 @@ RETT_PWRITE _nvp_PWRITE(INTF_PWRITE)
 	
 	result = _nvp_check_write_size_valid(count);
 	if (result <= 0) {
-		END_TIMING(write_t, write_time);
+		END_TIMING(pwrite_t, write_time);
 		return result;
 	}
 	int cpuid = GET_CPUID();
@@ -5487,7 +5423,7 @@ RETT_PWRITE _nvp_PWRITE(INTF_PWRITE)
 
 	write_size += result;
 
-	END_TIMING(write_t, write_time);
+	END_TIMING(pwrite_t, write_time);
 
 	GLOBAL_UNLOCK_WR();
 
@@ -5985,9 +5921,7 @@ RETT_UNLINK _nvp_UNLINK(INTF_UNLINK)
 	int index, tbl_mmap_idx, over_tbl_mmap_idx;
 	struct InodeToMapping* mappingToBeRemoved;
 	instrumentation_type unlink_time, clf_lock_time, clear_mmap_tbl_time, op_log_entry_time;
-	instrumentation_type soft_overhead_time;
 	RETT_UNLINK result = 0;
-	int mapping_index = 0;
 #if BG_CLOSING
 	int hash_index = -1, closed_filedesc = -1, stale_fd = 0;
 	ino_t closed_serialno = 0;
@@ -5998,30 +5932,24 @@ RETT_UNLINK _nvp_UNLINK(INTF_UNLINK)
 #endif //SEQ_LIST || RAND_LIST
 #endif //BG_CLOSING
 
-	START_TIMING(soft_overhead_t, soft_overhead_time);
-
-	num_unlink++;
 	START_TIMING(unlink_t, unlink_time);
 	GLOBAL_LOCK_WR();
 
 #if PASS_THROUGH_CALLS
+	num_unlink++;
         result = _nvp_fileops->UNLINK(CALL_UNLINK);
 	GLOBAL_UNLOCK_WR();
 	END_TIMING(unlink_t, unlink_time);
-	END_TIMING(soft_overhead_t, soft_overhead_time);
 	return result;
 #endif
 	
 	num_stat++;
 	
 	CHECK_RESOLVE_FILEOPS(_nvp_);
+	DEBUG("CALL: _nvp_UNLINK\n");
 
 	if (stat(path, &file_st) == 0) {
-
-		DEBUG_FILE("_nvp_UNLINK(%s). Size = %lu\n",path, file_st.st_size);
-
 		index = file_st.st_ino % OPEN_MAX;
-		mapping_index = file_st.st_ino % MMAP_CACHE_ENTRIES;
 		tbl_mmap_idx = file_st.st_ino % APPEND_TBL_MAX;
 		struct NVTable_maps *tbl_app = &_nvp_tbl_mmaps[tbl_mmap_idx];
 
@@ -6082,16 +6010,13 @@ RETT_UNLINK _nvp_UNLINK(INTF_UNLINK)
 #endif //SEQ_LIST || RAND_LIST
 		GLOBAL_UNLOCK_CLOSE_WR();
 #endif //BG_CLOSING
-		mappingToBeRemoved = &_nvp_ino_mapping[mapping_index];
-#if WORKLOAD_YCSB
-		if(file_st.st_ino == mappingToBeRemoved->serialno) {
-#else
+		mappingToBeRemoved = &_nvp_ino_mapping[index];
 		if(file_st.st_ino == mappingToBeRemoved->serialno && mappingToBeRemoved->root_dirty_num) {
-#endif
 			nvp_free_btree(mappingToBeRemoved->root, mappingToBeRemoved->merkle_root, mappingToBeRemoved->height, mappingToBeRemoved->root_dirty_cache, mappingToBeRemoved->root_dirty_num, mappingToBeRemoved->total_dirty_mmaps);					
 			mappingToBeRemoved->serialno = 0;
 		}
 	}	
+	num_unlink++;
 	result = _nvp_fileops->UNLINK(CALL_UNLINK);
 	
 #if !POSIX_ENABLED
@@ -6106,7 +6031,6 @@ RETT_UNLINK _nvp_UNLINK(INTF_UNLINK)
 	
 	END_TIMING(unlink_t, unlink_time);
 	GLOBAL_UNLOCK_WR();
-	END_TIMING(soft_overhead_t, soft_overhead_time);
 	return result;
 }
 
@@ -6139,11 +6063,11 @@ RETT_FSYNC _nvp_FSYNC(INTF_FSYNC)
 	instrumentation_type fsync_time;
 	int cpuid = -1;
 
-	num_fsync++;
 	START_TIMING(fsync_t, fsync_time);
 	GLOBAL_LOCK_WR();
 
 #if PASS_THROUGH_CALLS
+	num_fsync++;
 	result = _nvp_fileops->FSYNC(file);
 	GLOBAL_UNLOCK_WR();
 	END_TIMING(fsync_t, fsync_time);
@@ -6155,6 +6079,7 @@ RETT_FSYNC _nvp_FSYNC(INTF_FSYNC)
 	struct NVFile* nvf = &_nvp_fd_lookup[file];
 	// This goes to fsync_flush_on_fsync()	
 	FSYNC_FSYNC(nvf, cpuid, 0, 0);
+	num_fsync++;	
 	END_TIMING(fsync_t, fsync_time);
 	GLOBAL_UNLOCK_WR();
 	return result;
@@ -6167,11 +6092,11 @@ RETT_FDSYNC _nvp_FDSYNC(INTF_FDSYNC)
 	int cpuid = -1;
 	instrumentation_type fsync_time;
 
-	num_fsync++;
 	START_TIMING(fsync_t, fsync_time);
 	GLOBAL_LOCK_WR();
 
 #if PASS_THROUGH_CALLS
+	num_fsync++;
 	result = _nvp_fileops->FSYNC(file);
 	GLOBAL_UNLOCK_WR();
 	END_TIMING(fsync_t, fsync_time);
@@ -6182,9 +6107,9 @@ RETT_FDSYNC _nvp_FDSYNC(INTF_FDSYNC)
 
 	cpuid = GET_CPUID();
 	FSYNC_FSYNC(nvf, cpuid, 0, 1);
+	num_fsync++;
 
 	GLOBAL_UNLOCK_WR();
-	END_TIMING(fsync_t, fsync_time);
 	return result;
 }
 

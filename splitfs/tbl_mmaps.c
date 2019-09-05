@@ -915,7 +915,7 @@ void insert_over_tbl_mmap_entry(struct NVNode *node,
 		else
 			goto merge_entries;
 	} else {
-		idx_to_insert = find_idx_to_insert(file_off_start, tbl_over);
+		idx_to_insert = tbl_over->tbl_mmap_index; //find_idx_to_insert(file_off_start, tbl_over);
 		if (idx_to_insert == 0)
 			goto shift_and_add;
 	}

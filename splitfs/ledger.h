@@ -143,9 +143,9 @@ struct full_dr {
 #define RAND_LIST 1
 #define DIRTY_TRACKING 0
 #define NUM_NODE_LISTS 1
-#define INIT_NUM_DR 10
-#define INIT_NUM_DR_OVER 1
-#define BG_NUM_DR 1
+#define INIT_NUM_DR 2
+#define INIT_NUM_DR_OVER 2
+#define BG_NUM_DR 2
 #define PRINT_CONTENTION_MSGS 0
 #define TOTAL_CLOSED_INODES 4096
 #define LARGE_TBL_MAX 5
@@ -153,20 +153,12 @@ struct full_dr {
 #define OVER_TBL_MAX 4096
 
 #if WORKLOAD_YCSB
-#define PER_NODE_MAPPINGS 10
-#define MMAP_CACHE_ENTRIES 51200
-#else
-#define PER_NODE_MAPPINGS 1024
-#define MMAP_CACHE_ENTRIES 1024
-#endif
-
-#if WORKLOAD_YCSB
 #define NUM_OVER_TBL_MMAP_ENTRIES 1024
 #define NUM_APP_TBL_MMAP_ENTRIES 1024
 #endif
 
 #if WORKLOAD_TPCC | WORKLOAD_REDIS
-#define NUM_OVER_TBL_MMAP_ENTRIES 10240
+#define NUM_OVER_TBL_MMAP_ENTRIES 32768
 #define NUM_APP_TBL_MMAP_ENTRIES 10240
 #endif
 
@@ -176,9 +168,17 @@ struct full_dr {
 #endif
 
 #define REGION_COVERAGE (40*1024)
-#define LARGE_TBL_REGIONS (500*1024*1024 / REGION_COVERAGE)
-#define PER_REGION_TABLES 100 // (REGION_COVERAGE / 1024) 
-#define LARGE_FILE_THRESHOLD (300*1024*1024)
+#define LARGE_TBL_REGIONS (512*1024*1024 / REGION_COVERAGE)
+
+#if WORKLOAD_TPCC
+#define PER_REGION_TABLES (REGION_COVERAGE / 1024)
+#endif
+
+#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC
+#define PER_REGION_TABLES 100 // (REGION_COVERAGE / 1024)
+#endif
+
+#define LARGE_FILE_THRESHOLD (3ULL*1024*1024*1024)
 
 volatile int async_close_enable;
 
@@ -376,8 +376,8 @@ volatile int async_close_enable;
 #define ANON_MAX_MMAP_SIZE 536870912
 #endif
 
-#define DR_SIZE (160*1024*1024)
-#define DR_OVER_SIZE (40*1024*1024)
+#define DR_SIZE (512*1024*1024)
+#define DR_OVER_SIZE (512*1024*1024)
 #define NVMM_PATH "/mnt/pmem_emul/"
 #define DR_APPEND_PATH "/mnt/pmem_emul/DR-XXXXXX"
 #define DR_OVER_PATH "/mnt/pmem_emul/DR-OVER-XXXXXX"

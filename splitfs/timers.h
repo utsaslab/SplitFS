@@ -84,8 +84,6 @@ enum instrumentation_vars {
 	op_log_entry_t,
 	append_log_reinit_t,
 	remove_overlapping_entry_t,
-	device_t,
-	soft_overhead_t,
 	INSTRUMENT_NUM,
 };
 
@@ -119,8 +117,8 @@ typedef struct timespec instrumentation_type;
 		int i;							\
 		for(i=0; i<INSTRUMENT_NUM; i++)	{			\
 			if (Instrustats[i] != 0) 			\
-				MSG("%s: timing = %lu ms\n",		\
-				    Instruprint[i], Instrustats[i] / 1000000); \
+				MSG("%s: timing = %lu us\n",		\
+				    Instruprint[i], Instrustats[i]/1000);	\
 		}							\
 	}
 

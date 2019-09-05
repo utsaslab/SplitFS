@@ -39,11 +39,10 @@ void persist_append_entry(uint32_t file_ino,
 	app_entry.data_size = size;
 	create_crc32((void *) &(app_entry.file_ino), 32, &(app_entry.checksum)); 
 	//app_entry.checksum = checksum; // [TODO] Calculate Checksum
-    _mm_sfence();
 	MEMCPY_NON_TEMPORAL((void *)app_log + log_off,
 			    &app_entry,
 			    APPEND_LOG_ENTRY_SIZE);
-	_mm_sfence();
+	_mm_sfence();	
 #if NVM_DELAY
 	perfmodel_add_delay(0, APPEND_LOG_ENTRY_SIZE);
 #endif
@@ -170,7 +169,7 @@ void init_logs() {
 		 NULL,
 		 APPEND_LOG_SIZE,
 		 PROT_READ | PROT_WRITE, //max_perms,
-		 MAP_SHARED | MAP_POPULATE,
+		 MAP_PRIVATE | MAP_POPULATE,
 		 app_log_fd, //fd_with_max_perms,
 		 0
 		 );
@@ -180,7 +179,7 @@ void init_logs() {
 		 NULL,
 		 OP_LOG_SIZE,
 		 PROT_READ | PROT_WRITE, //max_perms,
-		 MAP_SHARED | MAP_POPULATE,
+		 MAP_PRIVATE | MAP_POPULATE,
 		 op_log_fd, //fd_with_max_perms,
 		 0
 		 );
@@ -619,7 +618,7 @@ void ledger_append_log_recovery() {
 			 NULL,
 			 ino_path_dr.file_size,
 			 PROT_READ | PROT_WRITE, //max_perms,
-			 MAP_SHARED | MAP_POPULATE,
+			 MAP_PRIVATE | MAP_POPULATE,
 			 dr_fd, //fd_with_max_perms,
 			 0
 			 );

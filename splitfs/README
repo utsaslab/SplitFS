@@ -1,0 +1,240 @@
+
+This file includes basic info about how to use libnvm.
+
+===============================================================================
+				Introduction
+===============================================================================
+
+libnvm consists of a collection of "modules".  Each module contains a set of
+functions which wrap or replace a bunch of standard system calls, most notably
+open, read, write, close, and lseek.  For a complete list of wrapped functions,
+see ALLOPS in nv_common.h.
+
+libnvm overwrites the standard aliases for the wrapped functions.  These aliases
+are always picked up by the "hub" module.  The hub module simply redirects the
+calls to another module.  The target module is determined by an environment
+variable at runtime.  For example, when the user calls open(), the call will go
+to _hub_open(), which might call _wrap_open(), which might call __libc_open().
+(A better example is below.)
+
+Every module* has one (or occasionally more tha one) target module.
+The selection of target module is based on a tree structure.  Some sample trees
+are stored in the bin/ folder.  Selection of a tree file is controlled by the
+NVP_TREE_FILE environment variable.  Any module can point to any other module.
+It is up to the user not to create any cycles in the calling tree.  It is not
+yet possible to reuse modules in multiple nodes in the tree, but this is a
+planned feature.
+*There are 2 modules with 0 targets: posix and death
+
+A list of modules with a brief description:
+
+hub		2 targets
+This module is always loaded.  Calls to any of the aliased functions in ALLOPS
+are always redirected here first.  This module contains a list of all loaded
+modules which is populated at runtime, before main() is called.  Hub controls
+the loading of modules and resolving of module function pointers.  Hub also
+performs filtering: files which exist and are not regular files are unmanaged,
+while other files are managed.
+
+posix		0 targets
+This module is always loaded.  Its function pointers are populated at runtime
+directly from libc-2.5.so using dlsym.
+
+wrap		1 target
+This module simply puts its name on the MSG output and calls its target.
+
+death		0 targets
+When a function from this module is called, it will report and assert(0).
+Guaranteed not to return, or double your money back!
+
+harness		2 targets
+This module compares the return value and error codes between its two target
+modules.  Return values and error codes are determined by REF.  "Paranoid file
+checking" can be enabled by a preprocessor directive.
+
+nvp		1 target
+This module is a replacement for the standard POSIX file operations using
+memory-mapped commands to bypass the OS whenever possible.  When it isn't
+possible, it calls its target module.  This module is not finished yet.
+
+bankshot2	1 target
+This module is the library part of bankshot2, a project that uses NVMM as
+a cache for disks, It needs to co-work with bankshot2 kernel module.
+
+moneta		1 target
+This module adapts standard POSIX operations to talk to Moneta.
+This module is not finished yet.
+
+semguard	1 target
+Enforces mutual exclusion for any file descriptors obtained through _sem_OPEN
+for any subsequent calls on that descriptor for all modules farther down the
+calling tree.  However, semguard itself is not (yet) guaranteed to be thread
+safe.
+
+filter		2 targets
+This module can be used to assign a target module on a file descriptor-by-file
+descriptor basis.  Currently this module can only assign a file descriptor one
+of two targets, MANAGED or UNMANAGED.  Current implementation: if a file is
+acceptable for Moneta, it is assigned to MANAGED.
+
+
+===============================================================================
+				Build
+===============================================================================
+
+Just run make in the directory.
+
+Boost is required to compile.
+/lib64/libc.so.6 must exist for quill to run.
+
+
+===============================================================================
+				Usage
+===============================================================================
+
+Using libnvm is simple. You can use the run_nvp script to run the nvp module.
+you might need to fix the path in the script though.
+
+	./run_nvp ./a.out
+
+For a more general way, you just need to specify where Quill is and which
+module you want to use, by specifying the tree name.
+
+	gcc mytest.c -o mytest
+	export LD_LIBRARY_PATH=$(MY_LD_LIB_PATH); export LD_PRELOAD="libnvp.so"; export NVP_TREE_FILE=$(TREE_NAME); ./mytest
+
+# A simpler way is to use the run_quill.sh script:
+	gcc mytest.c -o mytest
+	./run_quill.sh -p </path/to/quill> -t <tree_name> ./mytest
+
+When using Quill to run the program, it will echo the following lines:
+
+	NVP_MSG: Initializing the libnvp hub.  If you're reading this, the library is being loaded! 
+	NVP_MSG: Call tree will be parsed from ./bin/tree_name
+
+An example is shown below.
+
+
+===============================================================================
+				Example
+===============================================================================
+
+Take helloworld.c under test folder as example:
+
+	cd test
+	gcc helloworld.c -o helloworld
+
+When running directly:
+
+	./helloworld
+
+Output:
+	Hello World!
+	Program complete.  Goodbye!
+	./helloworld.testexe: RESULT: SUCCESS
+
+When running with Quill library and nvp_wrap.tree (wrap module), which echos allthe file operations the application calls: 
+
+	cd ../
+	./run_quill.sh -p ./ -t nvp_wrap.tree test/helloworld
+
+Output:
+	Quill path = ./
+	tree = ./bin/nvp_wrap.tree
+	NVP_MSG (22510): Initializing the libnvp hub.  If you're reading this, the library is being loaded! (this is PID 22510, my parent is 22509)
+	NVP_MSG (22510): Call tree will be parsed from ./bin/nvp_wrap.tree
+	Hello World!
+	CALL: _wrap_OPEN is calling "posix"->OPEN(helloworld.txt, 66, 438)
+	CALL: _wrap_WRITE is calling "posix"->WRITE(4, 0xF29730, 13)
+	CALL: _wrap_CLOSE is calling "posix"->CLOSE(4)
+	Program complete.  Goodbye!
+	./helloworld.testexe: RESULT: SUCCESS
+
+
+===============================================================================
+			How to add a new module
+===============================================================================
+
+Let's say you want to add a new module "foo" with 1 target:
+
+1.  Include "nv_common.h"
+
+2.  Declare (without aliasing) all the functions in your module which
+    correspond with ALLOPS.  A boost macro can do this (for the fucntions with
+    fixed paramenters) for you:
+    BOOST_PP_SEQ_FOR_EACH(DECLARE_WITHOUT_ALIAS_FUNCTS_IWRAP, _foo_,
+    ALLOPS_FINITEPARAMS_WPAREN), where _foo_ will be the prefix on your
+    functions (eg, _foo_OPEN, _foo_FORK, etc).  Functions with variable
+    parameters must be declared manually, eg RETT_OPEN _foo_OPEN(INTF_OPEN);
+
+3.  Include code to register your module with _hub_.  Use this macro:
+    MODULE_RESGISTRATION_F("modulename", prefix, environment_variable)
+    (eg MODULE_REGISTRATION_F("foo", _foo_, "NVP_FOO_FOP")
+
+4a. _foo_init() will be automatically generated.  If your module has any code
+    that needs to be run before main() is called, add it to the end of
+    MODULE_REGISTRATION_F(). eg: MODULE_REGISTRATION_F("foo", _foo_,
+    "NVP_FOO_FOP", myglobal=0; _foo_init2(myglobal);)
+
+5.  Implement your module's functions.
+
+5a. Remember to format the the function names like _prefix_FUNCT, eg _foo_OPEN,
+    _foo_READ, etc.  Macros exist in nv_common.h for return type (RETT_FUNCT),
+    interface (INTF_FUNCT), calling (CALL_FUNCT), libc handles (STD_FUNCT), and
+    alises (ALIAS_FUNCT).
+
+5b. Macros exist for printing and error codes: ERROR, WARNING, DEBUG, MSG which
+    work like printf.  (Don't use printf, since that uses some of the functions
+    which have been redirected.)
+
+5d. The target functions of your module are stored in struct Fileops_p*
+    _hub_fileops_lookup.  However, every module resolves its own fileops, and
+    stores a pointer to the corresponding struct, prefix_fileops
+    (eg _foo_fileops).  Call them like so: _foo_fileops->OPEN(CALL_OPEN);
+
+5e. Any module can call the functions of any loaded module.  Locate a module by
+    name using int _hub_find_fileop(const char* name).  Note: this is the
+    preferred way of using the standard libc functions (stored in the "posix"
+    module).
+
+5f. Macros exist for functions which your module doesn't implement and which
+    you want to catch and die.  Define a macro like FOO_NOT_IMPLEMENTED (OPEN)
+    (READ) (WRITE) etc. and use BOOST_PP_SEQ_FOR_EACH(WRAP_NOT_IMPLEMENTED_IWRAP
+    , _foo_, FOO_NOT_IMPLEMENTED) .  Alternatively, you can replace
+    WRAP_NOT_IMPLEMENTED with FOO_NOT_IMPLEMENTED and specify your own
+    implementation. (eg, just wrap POSIX.  See "wrapops.c" for an example.)
+
+
+
+BOOST_PP_SEQ_FOR_EACH(macro, data, list) is a preprocessor macro provided by
+the Boost preprocessor library.  It iterates over a list.
+	macro: name of a macro to call (which must have the form MACRO(r, data, elem))
+	data:  a piece of data passed unchanged to MACRO in the data element.
+	list:  a parenthesis-delimited list to iterate through.
+Example:
+	#define LETTERS (A) (B) (C) (D) (E)
+	#define ALPHA_INIT(PREFIX, LET) char* PREFIX##LET = #LET;
+	#define ALPHA_INIT_WRAP(r, data, elem) ALPHA_INIT(data, elem)
+	struct Alphabet {
+		BOOST_PP_SEQ_FOR_EACH(ALPHA_INIT_WRAP, my_, LETTERS)
+	};
+	will be expanded to 
+	struct Alphabet {
+		char* my_A = "A"; char* my_B = "B"; char* my_C = "C"; char* my_D = "D"; char* my_E = "E";
+	};
+
+What you do in MACRO can be arbitrarily complicated.  For example, you could use
+it to decalare, alias, and implement the functions listed in nv_common:
+	#define TOO_COMPLICATED(FUNCT, PREFIX) \
+		RETT_##FUNCT PREFIX##FUNCT ( INTF_##FUNCT ) WEAK_ALIAS(ALIAS_##FUNCT) ; \
+		RETT_##FUNCT PREFIX##FUNCT ( INTF_##FUNCT ) { \
+			CHECK_RESOLVE_FILEOPS(PREFIX); \
+			DEBUG("You called " MK_STR2(PREFIX##FUNCT) "!\n"); \
+			return PREFIX##_fileops->FUNCT(CALL_FUNCT); \
+		}
+	#define TOO_COMPLICATED_IWRAP(r, data, elem) TOO_COMPLICATED(elem, data)
+	BOOST_PP_SEQ_FOR_EACH(TOO_COMPLICATED_IWRAP, _foo_, ALLOPS_FINITEPARAMS)
+
+An almost practical use: you could modify this to allow you to implement a (very
+undebuggable) module in less than 10 lines (eg fileops_death.c).
+

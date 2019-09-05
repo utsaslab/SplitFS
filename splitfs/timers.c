@@ -84,6 +84,4 @@ const char *Instruprint[INSTRUMENT_NUM] =
 	"op_log_entry",
 	"append_log_reinit",
 	"remove_overlapping_entry",
-	"device",
-	"soft_overhead",
 };
