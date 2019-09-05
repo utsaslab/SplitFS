@@ -5,12 +5,28 @@ We evaluate and benchmark on SplitFS using different application benchmarks like
 2. Running TPC-C on SplitFS-POSIX and comparing it with ext4 DAX and NOVA-strict supports the claim that SplitFS is able to provide different guarantees to applications according to their needs without remounting the underlying file system. SQLite in WAL mode does not require the strict guarantees that NOVA-strict provides leading to suboptimal performance, while running SQLite on SplitFS-POSIX helps boost performance while only providing the required guarantees from the underlying file system
 3. Running rsync on SplitFS-sync and comparing it with NOVA-relaxed and PMFS supports the claim that SplitFS incurs a modest overhead in performance for utility workloads that are metadata intensive
 
+---
+
+### Dependencies
+
+1. LevelDB: Compiling LevelDB requires installing cmake version > 3.9. For ubuntu, please run `cd dependencies; ./leveldb_deps.sh; cd ..`
+2. YCSB: Compiling YCSB requires installing JDK 8 as well as installing maven version 3. Please follow the steps below:
+    * `$ sudo add-apt-repository ppa:openjdk-r/ppa`
+    * `$ sudo apt update`
+    * `$ sudo apt install openjdk-8-jdk`
+    * `$ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64`
+    * `$ export PATH=$PATH:$JAVA_HOME/bin`
+    * Check installation using `java -version`
+    * `$ sudo apt install maven`
+
+---
 
 ### Experiment Setup
 
 1. kernel: `cd scripts/kernel-setup; ./compile_kernel.sh; cd ..` -- This will compile the Linux 4.13.0 kernel along with loadable modules for NOVA and PMFS. It will also install the kernel after compiling. Run with `sudo` 
 2. PM Emulation: 
     * Open `/etc/default/grub`
+    * modify `GRUB_DEFAULT=0` to `GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 4.13.0"`
     * add `GRUB_CMDLINE_LINUX="memmap=24G!4G nokaslr"`
     * Close file
     * `$ sudo update-grub && sudo update-grub2`
@@ -36,11 +52,18 @@ Note: The <num_threads> argument in the compilation scripts performs the compila
 
 ---
 
-### Run Workloads
+### Run Application Workloads
 
 1. YCSB: `cd scripts/ycsb; ./run_ycsb.sh; cd ../..` -- This will run all the YCSB workloads on LevelDB (Load A, Run A-F, Load E, Run E) with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS, SplitFS-strict` 
 2. TPCC: `cd scripts/tpcc; ./run_tpcc.sh; cd ../..` -- This will run the TPCC workload on SQLite3 with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS, SplitFS-POSIX`
 3. rsync: `cd scripts/rsync; ./run_rsync.sh; cd ../..` -- This will run the rsync workload with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS, SplitFS-sync`
+
+---
+
+### Run Software Overhead Workloads
+
+1. YCSB: `cd scripts/ycsb; ./run_ycsb_soft.sh; cd ../..` -- This will run all the YCSB workloads on LevelDB (Load A, Run A) with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS, SplitFS-strict, SplitFS-sync, SplitFS-POSIX` 
+2. TPCC: `cd scripts/tpcc; ./run_tpcc_soft.sh; cd ../..` -- This will run the TPCC workload on SQLite3 with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS, SplitFS-strict, SplitFS-sync, SplitFS-POSIX`
 
 ---
 
