@@ -87,7 +87,7 @@ Compile microbenchmark: `cd micro; gcc rw_experiment.c -o rw_expt -O3; cd ..`
 
 #### Run microbenchmark with SplitFS:
 1. Clear the caches: `sync && echo 3 > /proc/sys/vm/drop_caches` (Run this with superuser)
-2. Run microbenchmark with SplitFS: `LD_PRELOAD=./splitfs-so/micro/posix/libnvp.so micro/rw_expt write seq 4096`
+2. Run microbenchmark with SplitFS: `LD_PRELOAD=./splitfs/libnvp.so micro/rw_expt write seq 4096`
 3. Clear the PMEM partition: `rm -rf /mnt/pmem_emul/*`
 
 ---
