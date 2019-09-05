@@ -24,7 +24,7 @@ $ ./splitfs_deps.sh
 $ ./kernel_deps.sh
 $ cd ..
 ```
-2. [Setup kernel] (https://github.com/utsaslab/SplitFS/blob/master/experiments.md/#kernel-setup)
+2. [<b>Setup kernel</b>](https://github.com/utsaslab/SplitFS/blob/master/experiments.md/#kernel-setup)
 
 3. <b>Set up SplitFS</b>
 ```
