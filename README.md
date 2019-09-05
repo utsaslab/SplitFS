@@ -4,10 +4,6 @@
 
 SplitFS introduces a new primitive termed relink to efficiently support file appends and atomic data operations. SplitFS provides three consistency modes,which different applications can choose from without interfering with each other.
 
-The [Experiments
-page](https://github.com/rohankadekodi/SplitFS/blob/master/experiments.md)
-has a list of experiments evaluating SplitFS(strict, sync and POSIX) vs ext4 DAX, NOVA-strict, NOVA-relaxed and PMFS. The summary is that SplitFS outperforms the other file systems on the data intensive workloads, while incurring a modest overhead on metadata heavy workloads. Please see the paper for more details. 
-
 Please cite the following paper if you use SplitFS: 
 
 **SplitFS : Reducing Software Overhead in File Systems for Persistent Memory**.
@@ -70,6 +66,10 @@ $ rm -rf /mnt/pmem_emul/*
 8. `sqlite3-trace/` contains SQLite3 source code
 9. `tpcc-sqlite/` contains TPCC source code
 10. `ycsb/` contains YCSB source code
+
+The [Experiments
+page](https://github.com/rohankadekodi/SplitFS/blob/master/experiments.md)
+has a list of experiments evaluating SplitFS(strict, sync and POSIX) vs ext4 DAX, NOVA-strict, NOVA-relaxed and PMFS. The summary is that SplitFS outperforms the other file systems on the data intensive workloads, while incurring a modest overhead on metadata heavy workloads. Please see the paper for more details.
 
 ---
 
