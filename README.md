@@ -56,6 +56,8 @@ This tutorial provides the steps for compiling SplitFS in different guarantee mo
 3. Set the NVP_TREE_FILE environment variable: `export NVP_TREE_FILE=<path_to_splitfs_src>/bin/nvp_nvp.tree`
 4. Run  application binary: `LD_PRELOAD=<path_to_splitfs_src>/libnvp.so <application_binary>`
 
+---
+
 ### Try it out
 
 This tutorial walks you through the workflow of compiling an application and running it with SplitFS, using a simple microbenchmark of appending data to a file.
