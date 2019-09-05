@@ -15,7 +15,7 @@ Rohan Kadekodi, Se Kwon Lee, Sanidhya Kashyap, Taesoo Kim, Aasheesh Kolli, Vijay
 
 ### Getting Started with SplitFS
 
-This tutorial walks you through the workflow of compiling splitfs, setting up ext4-DAX, compiling an application and running it with ext4-DAX as well as SplitFS, using a simple microbenchmark of appending data to a file. Please check the System Requirements, install Dependencies, and compile Linux-4.13.0 kernel before proceeding with the setup.
+This tutorial walks you through the workflow of compiling splitfs, setting up ext4-DAX, compiling an application and running it with ext4-DAX as well as SplitFS, using a simple microbenchmark. The microbenchmark appends 128MB data to an empty file, in chunks of 4KB each, and does an fsync() at the end.
 
 1. [<b>Installing Dependencies</b>](#dependencies)
 
