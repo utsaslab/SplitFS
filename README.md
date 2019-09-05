@@ -101,4 +101,4 @@ We thank the National Science Foundation, VMware, Google, and Facebook for parti
 
 ## Contact
 
-In case of any difficulties, please send an e-mail to `rak@cs.utexas.edu`
+Please contact us at `rak@cs.utexas.edu` or `vijayc@utexas.edu` with any questions.
