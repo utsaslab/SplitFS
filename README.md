@@ -69,7 +69,7 @@ This tutorial provides the steps for compiling SplitFS in different guarantee mo
 
 This tutorial walks you through the workflow of compiling an application and running it with SplitFS, using a simple microbenchmark of appending data to a file.
 
-#### Set up SplitFS
+1. <b>Set up SplitFS</b>
 ```
 $ cd splitfs; make clean; make; cd .. # Compile SplitFS
 $ export LD_LIBRARY_PATH=./splitfs
