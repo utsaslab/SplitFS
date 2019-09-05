@@ -8,6 +8,13 @@ The [Experiments
 page](https://github.com/rohankadekodi/SplitFS/blob/master/experiments.md)
 has a list of experiments evaluating SplitFS(strict, sync and POSIX) vs ext4 DAX, NOVA-strict, NOVA-relaxed and PMFS. The summary is that SplitFS outperforms the other file systems on the data intensive workloads, while incurring a modest overhead on metadata heavy workloads. Please see the paper for more details. 
 
+Please cite the following paper if you use SplitFS: 
+
+**SplitFS : Reducing Software Overhead in File Systems for Persistent Memory**.
+Rohan Kadekodi, Se Kwon Lee, Sanidhya Kashyap, Taesoo Kim, Aasheesh Kolli, Vijay Chidambaram. 
+*Proceedings of the The 27th ACM Symposium on Operating Systems Principles (SOSP 19)*. 
+[Paper PDF](https://www.cs.utexas.edu/~vijay/papers/sosp19-splitfs.pdf). [Bibtex](https://www.cs.utexas.edu/~vijay/bibtex/sosp19-splitfs.bib).
+
 ---
 
 ### Contents
