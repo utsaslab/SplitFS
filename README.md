@@ -17,9 +17,49 @@ Rohan Kadekodi, Se Kwon Lee, Sanidhya Kashyap, Taesoo Kim, Aasheesh Kolli, Vijay
 
 ---
 
+### Try it out
+
+This tutorial walks you through the workflow of compiling splitfs, setting up ext4-DAX, compiling an application and running it with ext4-DAX as well as SplitFS, using a simple microbenchmark of appending data to a file.
+
+1. <b>Set up SplitFS</b>
+```
+$ cd splitfs; make clean; make; cd .. # Compile SplitFS
+$ export LD_LIBRARY_PATH=./splitfs
+$ export NVP_TREE_FILE=./splitfs/bin/nvp_nvp.tree
+```
+2. <b>Set up ext4-DAX </b>
+```
+$ sudo mkfs.ext4 -b 4096 /dev/pmem0
+$ sudo mount -o dax /dev/pmem0 /mnt/pmem_emul
+$ sudo chown -R $USER:$USER /mnt/pmem_emul
+```
+3. <b>Setup microbenchmark </b>
+```
+$ cd micro
+$ gcc rw_experiment.c -o rw_expt -O3
+$ cd ..
+```
+4. <b>Run microbenchmark with ext4-DAX </b>
+```
+$ sync && echo 3 > /proc/sys/vm/drop_caches # Run this with superuser
+$ ./micro/rw_expt write seq 4096
+$ rm -rf /mnt/pmem_emul/*
+```
+5. <b>Run microbenchmark with SplitFS</b>
+```
+$ sync && echo 3 > /proc/sys/vm/drop_caches # Run this with superuser
+$ LD_PRELOAD=./splitfs/libnvp.so micro/rw_expt write seq 4096
+$ rm -rf /mnt/pmem_emul/*
+```
+6. <b>Expected Results </b>
+    * ext4-DAX: `0.33M writes/sec`
+    * SplitFS: `1.92M writes/sec`
+
+---
+
 ### Contents
 
-1. `splitfs/` contains the source code for SplitFS-strict
+1. `splitfs/` contains the source code for SplitFS-POSIX
 2. `dependencies/` contains packages and scripts to resolve dependencies
 3. `kernel/` contains the Linux 4.13.0 kernel
 4. `micro/` contains the microbenchmark
@@ -65,45 +105,6 @@ This tutorial provides the steps for compiling SplitFS in different guarantee mo
 
 ---
 
-### Try it out
-
-This tutorial walks you through the workflow of compiling an application and running it with SplitFS, using a simple microbenchmark of appending data to a file.
-
-1. <b>Set up SplitFS</b>
-```
-$ cd splitfs; make clean; make; cd .. # Compile SplitFS
-$ export LD_LIBRARY_PATH=./splitfs
-$ export NVP_TREE_FILE=./splitfs/bin/nvp_nvp.tree
-```
-2. <b>Set up ext4-DAX </b>
-```
-$ sudo mkfs.ext4 -b 4096 /dev/pmem0
-$ sudo mount -o dax /dev/pmem0 /mnt/pmem_emul
-$ sudo chown -R $USER:$USER /mnt/pmem_emul
-```
-3. <b>Setup microbenchmark </b>
-```
-$ cd micro
-$ gcc rw_experiment.c -o rw_expt -O3
-$ cd ..
-```
-4. <b>Run microbenchmark with ext4-DAX </b>
-```
-$ sync && echo 3 > /proc/sys/vm/drop_caches # Run this with superuser
-$ ./micro/rw_expt write seq 4096
-$ rm -rf /mnt/pmem_emul/*
-```
-5. <b>Run microbenchmark with SplitFS</b>
-```
-$ sync && echo 3 > /proc/sys/vm/drop_caches # Run this with superuser
-$ LD_PRELOAD=./splitfs/libnvp.so micro/rw_expt write seq 4096
-$ rm -rf /mnt/pmem_emul/*
-```
-6. <b>Expected Results </b>
-    * ext4-DAX: `0.33M writes/sec`
-    * SplitFS: `1.92M writes/sec`
-
----
 
 ### Contact
 
