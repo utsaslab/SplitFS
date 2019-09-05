@@ -17,13 +17,8 @@ Rohan Kadekodi, Se Kwon Lee, Sanidhya Kashyap, Taesoo Kim, Aasheesh Kolli, Vijay
 
 This tutorial walks you through the workflow of compiling splitfs, setting up ext4-DAX, compiling an application and running it with ext4-DAX as well as SplitFS, using a simple microbenchmark of appending data to a file. Please check the System Requirements, install Dependencies, and compile Linux-4.13.0 kernel before proceeding with the setup.
 
-1. <b>Installing Dependencies</b>
-```
-$ cd dependencies
-$ ./splitfs_deps.sh
-$ ./kernel_deps.sh
-$ cd ..
-```
+1. [<b>Installing Dependencies</b>](#dependencies)
+
 2. [<b>Setup kernel</b>](https://github.com/utsaslab/SplitFS/blob/master/experiments.md/#kernel-setup)
 
 3. <b>Set up SplitFS</b>
@@ -99,6 +94,12 @@ has a list of experiments evaluating SplitFS(strict, sync and POSIX) vs ext4 DAX
 3. At least 4 cores
 4. Baremetal machine (Not a VM)
 5. Intel Processor supporting `clflushopt` instruction (Introduced in Intel processor family -- Broadwell). This can be verified with `lscpu | grep clflushopt`
+
+---
+
+### Dependencies
+1. kernel: Installing the linux kernel 4.13.0 involves installing bc, libelf-dev and libncurses5-dev. For ubuntu, please run the script `cd dependencies; ./kernel_deps.sh; cd ..`
+2. SplitFS: Compiling SplitFS requires installing Boost. For Ubuntu, please run `cd dependencies; ./splitfs_deps.sh; cd ..`
 
 ---
 
