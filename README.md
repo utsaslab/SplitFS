@@ -4,13 +4,49 @@
 
 SplitFS introduces a new primitive termed **relink** to efficiently support file appends and atomic data operations. SplitFS provides three consistency modes,which different applications can choose from without interfering with each other.
 
-The [Experiments
-page](https://github.com/rohankadekodi/SplitFS/blob/master/experiments.md)
-has a list of experiments evaluating SplitFS(strict, sync and POSIX) vs ext4 DAX, NOVA-strict, NOVA-relaxed and PMFS. The summary is that SplitFS outperforms the other file systems on the data intensive workloads, while incurring a modest overhead on metadata heavy workloads. Please see the paper for more details. This repository contains all the information needed to reproduce the main results from our paper.
-
 Please cite the following paper if you use SplitFS:
 
 **SplitFS: Reducing Software Overhead in File Systems for Persistent Memory**. Rohan Kadekodi, Se Kwon Lee, Sanidhya Kashyap, Taesoo Kim, Aasheesh Kolli, Vijay Chidambaram. *Proceedings of the The 27th ACM Symposium on Operating Systems Principles (SOSP 19)*. [Paper PDF](https://www.cs.utexas.edu/~vijay/papers/sosp19-splitfs.pdf). [Bibtex](https://www.cs.utexas.edu/~vijay/bibtex/sosp19-splitfs.bib)
+
+### Try it out
+
+This tutorial walks you through the workflow of compiling splitfs, setting up ext4-DAX, compiling an application and running it with ext4-DAX as well as SplitFS, using a simple microbenchmark of appending data to a file.
+
+1. <b>Set up SplitFS</b>
+```
+$ cd splitfs; make clean; make; cd .. # Compile SplitFS
+$ export LD_LIBRARY_PATH=./splitfs
+$ export NVP_TREE_FILE=./splitfs/bin/nvp_nvp.tree
+```
+2. <b>Set up ext4-DAX </b>
+```
+$ sudo mkfs.ext4 -b 4096 /dev/pmem0
+$ sudo mount -o dax /dev/pmem0 /mnt/pmem_emul
+$ sudo chown -R $USER:$USER /mnt/pmem_emul
+```
+3. <b>Setup microbenchmark </b>
+```
+$ cd micro
+$ gcc rw_experiment.c -o rw_expt -O3
+$ cd ..
+```
+4. <b>Run microbenchmark with ext4-DAX </b>
+```
+$ sync && echo 3 > /proc/sys/vm/drop_caches # Run this with superuser
+$ ./micro/rw_expt write seq 4096
+$ rm -rf /mnt/pmem_emul/*
+```
+5. <b>Run microbenchmark with SplitFS</b>
+```
+$ sync && echo 3 > /proc/sys/vm/drop_caches # Run this with superuser
+$ LD_PRELOAD=./splitfs/libnvp.so micro/rw_expt write seq 4096
+$ rm -rf /mnt/pmem_emul/*
+```
+6. <b>Expected Results </b>
+    * ext4-DAX: `0.33M writes/sec`
+    * SplitFS: `1.92M writes/sec`
+
+---
 
 ## Features
 
@@ -33,6 +69,9 @@ Please cite the following paper if you use SplitFS:
 9. `tpcc-sqlite/` contains TPCC source code
 10. `ycsb/` contains YCSB source code
 
+The [Experiments
+page](https://github.com/rohankadekodi/SplitFS/blob/master/experiments.md)
+has a list of experiments evaluating SplitFS(strict, sync and POSIX) vs ext4 DAX, NOVA-strict, NOVA-relaxed and PMFS. The summary is that SplitFS outperforms the other file systems on the data intensive workloads, while incurring a modest overhead on metadata heavy workloads. Please see the paper for more details. This repository contains all the information needed to reproduce the main results from our paper.
 
 ## System Requirements
 
@@ -60,7 +99,7 @@ Please cite the following paper if you use SplitFS:
 
 SplitFS has two parts: a kernel component and a user-space component. The kernel component uses the Liunx ext4 file system, which uses the GPL license. The user-space component is released under the Apache License.
 
-Copyright for SplitFS is held by the University of Texas at Austin. Please contact us if you would like to obtain a license to use SplitFS in your commercial product. 
+Copyright for SplitFS is held by the University of Texas at Austin. Please contact us if you would like to obtain a license to use SplitFS in your commercial product.
 
 ## Acknowledgements
 
