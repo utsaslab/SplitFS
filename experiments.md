@@ -21,7 +21,7 @@ We evaluate and benchmark on SplitFS using different application benchmarks like
 
 ---
 
-### Experiment Setup
+### Kernel Setup
 
 1. kernel: `cd scripts/kernel-setup; ./compile_kernel.sh; cd ..` -- This will compile the Linux 4.13.0 kernel along with loadable modules for NOVA and PMFS. It will also install the kernel after compiling. Run with `sudo` 
 2. PM Emulation: 
@@ -33,12 +33,17 @@ We evaluate and benchmark on SplitFS using different application benchmarks like
     * Reboot system
     * Run `uname -r` to ensure that system is booted with 4.13.0 kernel, and ensure that `/dev/pmem0` exists
     * `$ mkdir /mnt/pmem_emul`
-3. SplitFS: `cd scripts/splitfs-setup; ./compile_splitfs.sh; cd ../..` -- This will compile splitfs strict
-4. LevelDB: `cd scripts/ycsb; ./compile_leveldb.sh; cd ../..` -- This will compile LevelDB
-5. YCSB: `cd scripts/ycsb; ./compile_ycsb.sh; cd ../..` -- This will compile YCSB workload
-6. SQLite: `cd scripts/tpcc; ./compile_sqlite.sh; cd ../..` -- This will compile SQLite3
-7. TPCC: `cd scripts/tpcc; ./compile_tpcc.sh; cd ../..` -- This will compile TPCC workload
-8. rsync: `cd scripts/rsync; ./compile_rsync.sh; cd ../..` -- This will compile rsync
+
+---
+
+### Experiment Setup
+
+1. SplitFS: `cd scripts/splitfs-setup; ./compile_splitfs.sh; cd ../..` -- This will compile splitfs strict
+2. LevelDB: `cd scripts/ycsb; ./compile_leveldb.sh; cd ../..` -- This will compile LevelDB
+3. YCSB: `cd scripts/ycsb; ./compile_ycsb.sh; cd ../..` -- This will compile YCSB workload
+4. SQLite: `cd scripts/tpcc; ./compile_sqlite.sh; cd ../..` -- This will compile SQLite3
+5. TPCC: `cd scripts/tpcc; ./compile_tpcc.sh; cd ../..` -- This will compile TPCC workload
+6. rsync: `cd scripts/rsync; ./compile_rsync.sh; cd ../..` -- This will compile rsync
 
 Note: The <num_threads> argument in the compilation scripts performs the compilation with the number of threads given as input to the script, to improve the speed of compilation. 
 

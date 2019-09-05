@@ -13,41 +13,50 @@ Rohan Kadekodi, Se Kwon Lee, Sanidhya Kashyap, Taesoo Kim, Aasheesh Kolli, Vijay
 
 ---
 
-### Try it out
+### Getting Started with SplitFS
 
-This tutorial walks you through the workflow of compiling splitfs, setting up ext4-DAX, compiling an application and running it with ext4-DAX as well as SplitFS, using a simple microbenchmark of appending data to a file.
+This tutorial walks you through the workflow of compiling splitfs, setting up ext4-DAX, compiling an application and running it with ext4-DAX as well as SplitFS, using a simple microbenchmark of appending data to a file. Please check the System Requirements, install Dependencies, and compile Linux-4.13.0 kernel before proceeding with the setup.
 
-1. <b>Set up SplitFS</b>
+1. <b>Installing Dependencies</b>
+```
+$ cd dependencies
+$ ./splitfs_deps.sh
+$ ./kernel_deps.sh
+$ cd ..
+```
+2. [Setup kernel] (https://github.com/utsaslab/SplitFS/blob/master/experiments.md/#kernel-setup)
+
+3. <b>Set up SplitFS</b>
 ```
 $ cd splitfs; make clean; make; cd .. # Compile SplitFS
 $ export LD_LIBRARY_PATH=./splitfs
 $ export NVP_TREE_FILE=./splitfs/bin/nvp_nvp.tree
 ```
-2. <b>Set up ext4-DAX </b>
+4. <b>Set up ext4-DAX </b>
 ```
 $ sudo mkfs.ext4 -b 4096 /dev/pmem0
 $ sudo mount -o dax /dev/pmem0 /mnt/pmem_emul
 $ sudo chown -R $USER:$USER /mnt/pmem_emul
 ```
-3. <b>Setup microbenchmark </b>
+5. <b>Setup microbenchmark </b>
 ```
 $ cd micro
 $ gcc rw_experiment.c -o rw_expt -O3
 $ cd ..
 ```
-4. <b>Run microbenchmark with ext4-DAX </b>
+6. <b>Run microbenchmark with ext4-DAX </b>
 ```
 $ sync && echo 3 > /proc/sys/vm/drop_caches # Run this with superuser
 $ ./micro/rw_expt write seq 4096
 $ rm -rf /mnt/pmem_emul/*
 ```
-5. <b>Run microbenchmark with SplitFS</b>
+7. <b>Run microbenchmark with SplitFS</b>
 ```
 $ sync && echo 3 > /proc/sys/vm/drop_caches # Run this with superuser
 $ LD_PRELOAD=./splitfs/libnvp.so micro/rw_expt write seq 4096
 $ rm -rf /mnt/pmem_emul/*
 ```
-6. <b>Expected Results </b>
+8. <b>Expected Results </b>
     * ext4-DAX: `0.33M writes/sec`
     * SplitFS: `1.92M writes/sec`
 
@@ -90,13 +99,6 @@ has a list of experiments evaluating SplitFS(strict, sync and POSIX) vs ext4 DAX
 3. At least 4 cores
 4. Baremetal machine (Not a VM)
 5. Intel Processor supporting `clflushopt` instruction (Introduced in Intel processor family -- Broadwell). This can be verified with `lscpu | grep clflushopt`
-
----
-
-### Dependencies
-
-1. kernel: Installing the linux kernel 4.13.0 involves installing `bc`, `libelf-dev` and `libncurses5-dev`. For ubuntu, please run the script `cd dependencies; ./kernel_deps.sh; cd ..`
-2. SplitFS: Compiling SplitFS requires installing `Boost`. For Ubuntu, please run `cd dependencies; ./splitfs_deps.sh; cd ..`
 
 ---
 
