@@ -70,31 +70,29 @@ This tutorial provides the steps for compiling SplitFS in different guarantee mo
 This tutorial walks you through the workflow of compiling an application and running it with SplitFS, using a simple microbenchmark of appending data to a file.
 
 #### Set up SplitFS
-1. Compile SplitFS: `cd splitfs; make clean; make; cd ..`
-2. Set the LD_LIBRARY_PATH environment var: `export LD_LIBRARY_PATH=./splitfs`
-3. Set the NVP_TREE_FILE environment var: `export NVP_TREE_FILE=./splitfs/bin/nvp_nvp.tree`
-
+```
+$ cd splitfs; make clean; make; cd .. # Compile SplitFS
+$ export LD_LIBRARY_PATH=./splitfs
+$ export NVP_TREE_FILE=./splitfs/bin/nvp_nvp.tree
+```
 #### Set up ext4-DAX:
 ```
 $ sudo mkfs.ext4 -b 4096 /dev/pmem0
 $ sudo mount -o dax /dev/pmem0 /mnt/pmem_emul
 $ sudo chown -R $USER:$USER /mnt/pmem_emul
 ```
-
 #### Setup microbenchmark:
 ```
 $ cd micro
 $ gcc rw_experiment.c -o rw_expt -O3
 $ cd ..
 ```
-
 #### Run microbenchmark with ext4-DAX:
 ```
 $ sync && echo 3 > /proc/sys/vm/drop_caches # Run this with superuser
 $ ./micro/rw_expt write seq 4096
 $ rm -rf /mnt/pmem_emul/*
 ```
-
 #### Run microbenchmark with SplitFS:
 ```
 $ sync && echo 3 > /proc/sys/vm/drop_caches # Run this with superuser
