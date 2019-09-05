@@ -49,9 +49,9 @@ $ sync && echo 3 > /proc/sys/vm/drop_caches # Run this with superuser
 $ LD_PRELOAD=./splitfs/libnvp.so micro/rw_expt write seq 4096
 $ rm -rf /mnt/pmem_emul/*
 ```
-8. <b>Expected Results </b>
-    * ext4-DAX: `0.33M writes/sec`
-    * SplitFS: `1.92M writes/sec`
+8. <b>Results</b>. The resultes show the throughput of doing appends on ext4 DAX and SplitFS. Appends are **5.8x** faster on SplitFS.
+    * ext4-DAX: `0.33M appends/sec`
+    * SplitFS: `1.92M appends/sec`
 
 ## Features
 
