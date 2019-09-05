@@ -53,7 +53,17 @@ $ rm -rf /mnt/pmem_emul/*
 
 ---
 
-### Contents
+## Features
+
+1. **Low software overhead**. SplitFS tries to obtain performance that is close to the maximum provided by persistent-memory hardware. The overhead due to SplitFS software is significantly lower (by 4-12x) than state-of-the-art file systems such as NOVA or ext4 DAX. As a result, performance on some applications is increased by as much as **2x**.  
+
+2. **Flexible guarantees**. SplitFS is the only persistent-memory file system that allows simultaneously running applications to receive different guarantees from the file system. SplitFS offers three modes: POSIX, Sync, and Strict. Application A may in Strict mode, obtaining atomic, synchronous operations from SplitFS, while Application B may simultaneously run in POSIX mode and obtain higher performance. This is possible due to the novel split architecture used in SplitFS. 
+
+3. **Portability and Stability**. SplitFS uses ext4 DAX as its kernel component, so it works with any kernel where ext4 DAX is supported. ext4 DAX is a mature, robust code base that is actively being maintained and developed; as ext4 DAX performance increases over time, SplitFS performance increases as well. This is contrast to research file systems for persistent memory, which do not see development at the same rate as ext4 DAX.  
+
+---
+
+## Contents
 
 1. `splitfs/` contains the source code for SplitFS-POSIX
 2. `dependencies/` contains packages and scripts to resolve dependencies
@@ -90,18 +100,9 @@ has a list of experiments evaluating SplitFS(strict, sync and POSIX) vs ext4 DAX
 
 ---
 
-### Tutorial
+### License
 
-This tutorial provides the steps for compiling SplitFS in different guarantee modes (POSIX, sync or strict), and running an application using SplitFS.
-
-1. Set mode for U-Split (strict, sync or POSIX): modify `<path_to_splitfs_src>/common.mk`:
-    * `LEDGER_DATAJ=1; LEDGER_POSIX=0` for SplitFS-strict
-    * `LEDGER_DATAJ=0; LEDGER_POSIX=0` for SplitFS-sync
-    * `LEDGER_DATAJ=0; LEDGER_POSIX=1` for SplitFS-POSIX
-1. Create ext4 file system and mount with `-o dax`: `sudo mkfs.ext4 -b 4096 /dev/pmem0; sudo mount -o dax /dev/pmem0 /mnt/pmem_emul`
-2. Set the LD_LIBRARY_PATH environment variable: `export LD_LIBRARY_PATH=<path_to_splitfs_src>`
-3. Set the NVP_TREE_FILE environment variable: `export NVP_TREE_FILE=<path_to_splitfs_src>/bin/nvp_nvp.tree`
-4. Run  application binary: `LD_PRELOAD=<path_to_splitfs_src>/libnvp.so <application_binary>`
+Copyright for SplitFS is held by the University of Texas at Austin. Please contact us if you would like to obtain a license to use SplitFS in your commercial product.
 
 ---
 
