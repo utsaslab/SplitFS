@@ -105,7 +105,6 @@ This tutorial provides the steps for compiling SplitFS in different guarantee mo
 
 ---
 
-
 ### Contact
 
 In case of any difficulties, please send an e-mail to `rak@cs.utexas.edu`
