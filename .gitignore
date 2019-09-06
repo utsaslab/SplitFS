@@ -7,7 +7,6 @@ dependencies/jdk1.8.0_221/
 kernel/kbuild/*
 *.o
 tpcc-sqlite/database/
-core
 sqlite3-trace/.libs
 *output*
 *trace*
