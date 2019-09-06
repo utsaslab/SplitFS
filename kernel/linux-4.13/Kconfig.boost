@@ -1,7 +1,0 @@
-menu "LEDGER"
-
-config LEDGER
-	tristate "Enable performance model for EXT4-DAX"
-	default y
-
-endmenu
