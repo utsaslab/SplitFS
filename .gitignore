@@ -9,7 +9,6 @@ kernel/kbuild/*
 tpcc-sqlite/database/
 sqlite3-trace/.libs
 *output*
-*trace*
 *swp
 
 rsync/workload/
