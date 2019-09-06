@@ -1,0 +1,10 @@
+KERNEL_SRC := ../linux-4.13
+
+.PHONY: all
+
+all:
+		$(MAKE) -C $(KERNEL_SRC) O=$(abspath .) prepare
+
+.config:
+		@echo "No config file present, taking $(KERNEL_SRC)/boost.config"
+		cp $(KERNEL_SRC)/boost.config .config
