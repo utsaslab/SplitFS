@@ -91,6 +91,11 @@ has a list of experiments evaluating SplitFS(strict, sync and POSIX) vs ext4 DAX
 1. kernel: Installing the linux kernel 4.13.0 involves installing bc, libelf-dev and libncurses5-dev. For ubuntu, please run the script `cd dependencies; ./kernel_deps.sh; cd ..`
 2. SplitFS: Compiling SplitFS requires installing Boost. For Ubuntu, please run `cd dependencies; ./splitfs_deps.sh; cd ..`
 
+## Limitations
+SplitFS is under active development.
+1. The current implementation of SplitFS handles the following system calls: `open, openat, close, read, pread64, write, pwrite64, fsync, unlink, ftruncate, fallocate, stat, fstat, lstat, dup, dup2, execve and clone`. The rest of the calls are passed through to the kernel.
+2. The current implementation of SplitFS works correctly for the following applictions: `LevelDB running YCSB, SQLite running TPCC, tar, git, rsync`. This limitation is purely due to the state of the implementation, and we aim to increase the coverage of applications by supporting more system calls in the future.
+
 ## License
 
 Copyright for SplitFS is held by the University of Texas at Austin. Please contact us if you would like to obtain a license to use SplitFS in your commercial product.
