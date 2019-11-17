@@ -1,0 +1,1132 @@
+From 035d8a7b6467d459c95cde52b80d455f67b7bf27 Mon Sep 17 00:00:00 2001
+From: RohanKadekodi <kadekodirohan@gmail.com>
+Date: Fri, 15 Nov 2019 18:24:58 -0600
+Subject: [PATCH] relink implementation
+
+---
+ arch/x86/entry/syscalls/syscall_64.tbl |   2 +
+ fs/ext4/ext4.h                         |  10 ++
+ fs/ext4/extents.c                      | 277 +++++++++++++++++++++++++++++++--
+ fs/ext4/file.c                         |   1 +
+ fs/ext4/inode.c                        |  82 +++++++---
+ fs/ext4/move_extent.c                  | 274 ++++++++++++++++++++++++++++++++
+ fs/open.c                              | 179 +++++++++++++++++++++
+ include/linux/fs.h                     |   3 +
+ include/linux/syscalls.h               |   8 +
+ 9 files changed, 797 insertions(+), 39 deletions(-)
+
+diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
+index 5aef183..aa923fa 100644
+--- a/arch/x86/entry/syscalls/syscall_64.tbl
++++ b/arch/x86/entry/syscalls/syscall_64.tbl
+@@ -339,6 +339,8 @@
+ 330	common	pkey_alloc		sys_pkey_alloc
+ 331	common	pkey_free		sys_pkey_free
+ 332	common	statx			sys_statx
++334 common  open_ino_size           sys_open_ino_size
++335	common	dynamic_remap		sys_dynamic_remap
+ 
+ #
+ # x32-specific system call numbers start at 512 to avoid cache impact
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+index a2bb7d2..0191f7c 100644
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -2499,6 +2499,7 @@ extern int ext4_inode_attach_jinode(struct inode *inode);
+ extern int ext4_can_truncate(struct inode *inode);
+ extern int ext4_truncate(struct inode *);
+ extern int ext4_punch_hole(struct inode *inode, loff_t offset, loff_t length);
++extern int ext4_punch_hole_impl(handle_t *handle, struct inode *inode, loff_t offset, loff_t length, int relink);
+ extern int ext4_truncate_restart_trans(handle_t *, struct inode *, int nblocks);
+ extern void ext4_set_inode_flags(struct inode *);
+ extern int ext4_alloc_da_blocks(struct inode *inode);
+@@ -3141,6 +3142,8 @@ extern void ext4_ext_init(struct super_block *);
+ extern void ext4_ext_release(struct super_block *);
+ extern long ext4_fallocate(struct file *file, int mode, loff_t offset,
+ 			  loff_t len);
++extern long ext4_fallocate_impl(handle_t *handle, struct file *file, int mode, loff_t offset,
++			  loff_t len, int relink);
+ extern int ext4_convert_unwritten_extents(handle_t *handle, struct inode *inode,
+ 					  loff_t offset, ssize_t len);
+ extern int ext4_map_blocks(handle_t *handle, struct inode *inode,
+@@ -3175,6 +3178,10 @@ extern int ext4_swap_extents(handle_t *handle, struct inode *inode1,
+ 				struct inode *inode2, ext4_lblk_t lblk1,
+ 			     ext4_lblk_t lblk2,  ext4_lblk_t count,
+ 			     int mark_unwritten,int *err);
++extern int ext4_meta_swap_extents(handle_t *handle, struct inode *inode1,
++				  struct inode *inode2, ext4_lblk_t lblk1,
++				  ext4_lblk_t lblk2,  ext4_lblk_t count,
++				  int *err);
+ 
+ /* move_extent.c */
+ extern void ext4_double_down_write_data_sem(struct inode *first,
+@@ -3184,6 +3191,9 @@ extern void ext4_double_up_write_data_sem(struct inode *orig_inode,
+ extern int ext4_move_extents(struct file *o_filp, struct file *d_filp,
+ 			     __u64 start_orig, __u64 start_donor,
+ 			     __u64 len, __u64 *moved_len);
++extern long ext4_dynamic_remap(struct file *file1, struct file *file2,
++			       loff_t offset1, loff_t offset2, 
++			       loff_t count);
+ 
+ /* page-io.c */
+ extern int __init ext4_init_pageio(void);
+diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+index 97f0fd0..6d07aef 100644
+--- a/fs/ext4/extents.c
++++ b/fs/ext4/extents.c
+@@ -4650,12 +4650,11 @@ int ext4_ext_truncate(handle_t *handle, struct inode *inode)
+ 	return ext4_ext_remove_space(inode, last_block, EXT_MAX_BLOCKS - 1);
+ }
+ 
+-static int ext4_alloc_file_blocks(struct file *file, ext4_lblk_t offset,
+-				  ext4_lblk_t len, loff_t new_size,
+-				  int flags)
++static int ext4_alloc_file_blocks_impl(handle_t *handle, struct file *file, ext4_lblk_t offset,
++				       ext4_lblk_t len, loff_t new_size,
++				       int flags, int relink)
+ {
+ 	struct inode *inode = file_inode(file);
+-	handle_t *handle;
+ 	int ret = 0;
+ 	int ret2 = 0;
+ 	int retries = 0;
+@@ -4691,12 +4690,17 @@ static int ext4_alloc_file_blocks(struct file *file, ext4_lblk_t offset,
+ 			depth = ext_depth(inode);
+ 		}
+ 
+-		handle = ext4_journal_start(inode, EXT4_HT_MAP_BLOCKS,
+-					    credits);
+-		if (IS_ERR(handle)) {
+-			ret = PTR_ERR(handle);
+-			break;
++		if (relink) {
++			if (ext4_journal_extend(handle, credits) != 0)
++				return -ENOSPC;
++		} else {
++			handle = ext4_journal_start(inode, EXT4_HT_MAP_BLOCKS, credits);
++			if (IS_ERR(handle)) {
++				ret = PTR_ERR(handle);
++				break;
++			}
+ 		}
++
+ 		ret = ext4_map_blocks(handle, inode, &map, flags);
+ 		if (ret <= 0) {
+ 			ext4_debug("inode #%lu: block %u: len %u: "
+@@ -4722,12 +4726,16 @@ static int ext4_alloc_file_blocks(struct file *file, ext4_lblk_t offset,
+ 						    EXT4_INODE_EOFBLOCKS);
+ 		}
+ 		ext4_mark_inode_dirty(handle, inode);
+-		ret2 = ext4_journal_stop(handle);
++
++		if (!relink) {
++			ret2 = ext4_journal_stop(handle);
++		}
++
+ 		if (ret2)
+ 			break;
+ 	}
+ 	if (ret == -ENOSPC &&
+-			ext4_should_retry_alloc(inode->i_sb, &retries)) {
++	    ext4_should_retry_alloc(inode->i_sb, &retries)) {
+ 		ret = 0;
+ 		goto retry;
+ 	}
+@@ -4735,6 +4743,14 @@ static int ext4_alloc_file_blocks(struct file *file, ext4_lblk_t offset,
+ 	return ret > 0 ? ret2 : ret;
+ }
+ 
++static int ext4_alloc_file_blocks(struct file *file, ext4_lblk_t offset,
++				  ext4_lblk_t len, loff_t new_size,
++				  int flags)
++{
++	return ext4_alloc_file_blocks_impl(NULL, file, offset,
++					   len, new_size, flags, 0);
++}
++
+ static long ext4_zero_range(struct file *file, loff_t offset,
+ 			    loff_t len, int mode)
+ {
+@@ -4899,7 +4915,7 @@ static long ext4_zero_range(struct file *file, loff_t offset,
+  * of writing zeroes to the required new blocks (the same behavior which is
+  * expected for file systems which do not support fallocate() system call).
+  */
+-long ext4_fallocate(struct file *file, int mode, loff_t offset, loff_t len)
++long ext4_fallocate_impl(handle_t *handle, struct file *file, int mode, loff_t offset, loff_t len, int relink)
+ {
+ 	struct inode *inode = file_inode(file);
+ 	loff_t new_size = 0;
+@@ -4930,8 +4946,12 @@ long ext4_fallocate(struct file *file, int mode, loff_t offset, loff_t len)
+ 		     FALLOC_FL_INSERT_RANGE))
+ 		return -EOPNOTSUPP;
+ 
+-	if (mode & FALLOC_FL_PUNCH_HOLE)
+-		return ext4_punch_hole(inode, offset, len);
++	if (mode & FALLOC_FL_PUNCH_HOLE) {
++		if (relink)
++			return ext4_punch_hole_impl(handle, inode, offset, len, relink);
++		else
++			return ext4_punch_hole(inode, offset, len);
++	}
+ 
+ 	ret = ext4_convert_inline_data(inode);
+ 	if (ret)
+@@ -4954,7 +4974,8 @@ long ext4_fallocate(struct file *file, int mode, loff_t offset, loff_t len)
+ 	if (mode & FALLOC_FL_KEEP_SIZE)
+ 		flags |= EXT4_GET_BLOCKS_KEEP_SIZE;
+ 
+-	inode_lock(inode);
++	if (!relink)
++		inode_lock(inode);
+ 
+ 	/*
+ 	 * We only support preallocation for extent-based files only
+@@ -4976,7 +4997,11 @@ long ext4_fallocate(struct file *file, int mode, loff_t offset, loff_t len)
+ 	ext4_inode_block_unlocked_dio(inode);
+ 	inode_dio_wait(inode);
+ 
+-	ret = ext4_alloc_file_blocks(file, lblk, max_blocks, new_size, flags);
++	if (relink)
++		ret = ext4_alloc_file_blocks_impl(handle, file, lblk, max_blocks, new_size, flags, relink);
++	else
++		ret = ext4_alloc_file_blocks(file, lblk, max_blocks, new_size, flags);
++
+ 	ext4_inode_resume_unlocked_dio(inode);
+ 	if (ret)
+ 		goto out;
+@@ -4986,12 +5011,26 @@ long ext4_fallocate(struct file *file, int mode, loff_t offset, loff_t len)
+ 						EXT4_I(inode)->i_sync_tid);
+ 	}
+ out:
+-	inode_unlock(inode);
++	if (!relink)
++		inode_unlock(inode);
++
+ 	trace_ext4_fallocate_exit(inode, offset, max_blocks, ret);
+ 	return ret;
+ }
+ 
+ /*
++ * preallocate space for a file. This implements ext4's fallocate file
++ * operation, which gets called from sys_fallocate system call.
++ * For block-mapped files, posix_fallocate should fall back to the method
++ * of writing zeroes to the required new blocks (the same behavior which is
++ * expected for file systems which do not support fallocate() system call).
++ */
++long ext4_fallocate(struct file *file, int mode, loff_t offset, loff_t len)
++{
++	return ext4_fallocate_impl(NULL, file, mode, offset, len, 0);	
++}
++
++/*
+  * This function convert a range of blocks to written extents
+  * The caller of this function will pass the start offset and the size.
+  * all unwritten extents within this range will be converted to
+@@ -5947,3 +5986,207 @@ ext4_swap_extents(handle_t *handle, struct inode *inode1,
+ 	}
+ 	return replaced_count;
+ }
++
++/**
++ * Donate extent from donor inode to
++ * receiver inode.
++ * @rec_inode:     Receiver inode
++ * @donor_inode:        Donor inode
++ * @rec_lblk:              Start block for receiver inode
++ * @donor_lblk:              Start block for donor inode
++ * @count:              Number of blocks to transfer
++ * @erp:                Pointer to save error value
++ *
++ * This routine is used by the dynamic remapping feature of Ledger. It
++ * remaps an extent from the donor inode to the receiver inode without
++ * any data copy involved
++ * Locking:
++ *                     i_mutex is held for both inodes
++ * Assumptions:
++ *                     All pages from requested range are locked for both inodes
++ */
++
++int ext4_meta_swap_extents(handle_t *handle, struct inode *receiver_inode,
++			   struct inode *donor_inode, ext4_lblk_t rec_lblk,
++			   ext4_lblk_t donor_lblk,
++			   ext4_lblk_t count, int *erp)
++{
++	struct ext4_ext_path *donor_path = NULL;
++	struct ext4_ext_path *receiver_path = NULL;
++
++	int replaced_count = 0;
++
++	BUG_ON(!rwsem_is_locked(&EXT4_I(receiver_inode)->i_data_sem));
++	BUG_ON(!rwsem_is_locked(&EXT4_I(donor_inode)->i_data_sem));
++	BUG_ON(!inode_is_locked(receiver_inode));
++	BUG_ON(!inode_is_locked(donor_inode));
++
++	*erp = ext4_es_remove_extent(receiver_inode, rec_lblk, count);
++	if (unlikely(*erp)) {
++		return 0;
++	}
++
++	*erp = ext4_es_remove_extent(donor_inode, donor_lblk, count);
++	if (unlikely(*erp)) {
++		return 0;
++	}
++
++	while (count) {
++		struct ext4_extent *donor_ex, *rec_ex, tmp_ex;
++		ext4_lblk_t er_blk, ed_blk;
++		int ed_len, er_len, len;
++		int split = 0;
++
++		receiver_path = ext4_find_extent(receiver_inode, rec_lblk, NULL, EXT4_EX_NOCACHE); 
++		if (IS_ERR(receiver_path)) {
++			*erp = PTR_ERR(receiver_path);
++			receiver_path = NULL;
++		finish:
++			count = 0;
++			goto repeat;
++		}
++		donor_path = ext4_find_extent(donor_inode, donor_lblk, NULL, EXT4_EX_NOCACHE);
++		if (IS_ERR(donor_path)) {
++			*erp = PTR_ERR(donor_path);
++			donor_path = NULL;
++			goto finish;
++		}
++
++		rec_ex = receiver_path[receiver_path->p_depth].p_ext;
++		donor_ex = donor_path[donor_path->p_depth].p_ext;
++		/* Do we have somthing to swap ? */
++		if (unlikely(!donor_ex || !rec_ex)) {
++			goto finish;
++		}
++
++		er_blk = le32_to_cpu(rec_ex->ee_block);
++		ed_blk = le32_to_cpu(donor_ex->ee_block);
++		er_len = ext4_ext_get_actual_len(rec_ex);
++		ed_len = ext4_ext_get_actual_len(donor_ex);
++
++		/* Hole handling */
++		if (!in_range(rec_lblk, er_blk, er_len) ||
++		    !in_range(donor_lblk, ed_blk, ed_len)) {
++			ext4_lblk_t next1, next2;
++
++			/* if hole after extent, then go to next extent */
++			next1 = ext4_ext_next_allocated_block(receiver_path);
++			next2 = ext4_ext_next_allocated_block(donor_path);
++			/* If hole before extent, then shift to that extent */
++			if (er_blk > rec_lblk)
++				next1 = er_blk;
++			if (ed_blk > donor_lblk)
++				next2 = ed_blk;
++			/* Do we have something to swap */
++			if (next1 == EXT_MAX_BLOCKS || next2 == EXT_MAX_BLOCKS) {
++				goto finish;
++			}
++			/* Move to the rightest boundary */
++			len = next1 - rec_lblk;
++			if (len < next2 - donor_lblk)
++				len = next2 - donor_lblk;
++			if (len > count)
++				len = count;
++			rec_lblk += len;
++			donor_lblk += len;
++			count -= len;
++			goto repeat;
++		}
++
++		/* Prepare left boundary */
++		if (er_blk < rec_lblk) {
++			split = 1;
++			*erp = ext4_force_split_extent_at(handle, receiver_inode,
++						&receiver_path, rec_lblk, 0);
++			if (unlikely(*erp)) {
++				goto finish;
++			}
++		}
++		if (ed_blk < donor_lblk) {
++			split = 1;
++			*erp = ext4_force_split_extent_at(handle, donor_inode,
++						&donor_path, donor_lblk, 0);
++			if (unlikely(*erp)) {
++				goto finish;
++			}
++		}
++		/* ext4_split_extent_at() may result in leaf extent split,
++		 * path must to be revalidated. */
++		if (split) {
++			//LEDGER_END_TIMER(swap_while_two_t, swap_while_two_time);
++			goto repeat;
++		}
++
++		/* Prepare right boundary */
++		len = count;
++		if (len > er_blk + er_len - rec_lblk)
++			len = er_blk + er_len - rec_lblk;
++		if (len > ed_blk + ed_len - donor_lblk)
++			len = ed_blk + ed_len - donor_lblk;
++
++		if (len != er_len) {
++			split = 1;
++			*erp = ext4_force_split_extent_at(handle, receiver_inode, &receiver_path, rec_lblk + len, 0);
++			if (unlikely(*erp)) {
++				goto finish;
++			}
++		}
++		if (len != ed_len) {
++			split = 1;
++			*erp = ext4_force_split_extent_at(handle, donor_inode, &donor_path, donor_lblk + len, 0);
++			if (*erp) {
++				goto finish;
++			}
++		}
++		/* ext4_split_extent_at() may result in leaf extent split,
++		 * path must to be revalidated. */
++		if (split) {
++			goto repeat;
++		}
++
++		*erp = ext4_ext_get_access(handle, receiver_inode, receiver_path + receiver_path->p_depth);
++		if (unlikely(*erp)) {
++			goto finish;
++		}
++		*erp = ext4_ext_get_access(handle, donor_inode, donor_path + donor_path->p_depth);
++		if (unlikely(*erp)) {
++			goto finish;
++		}
++
++		/* Both extents are fully inside boundaries. Swap it now */
++		tmp_ex = *rec_ex;
++		ext4_ext_store_pblock(rec_ex, ext4_ext_pblock(donor_ex));
++		ext4_ext_store_pblock(donor_ex, ext4_ext_pblock(&tmp_ex));
++		rec_ex->ee_len = cpu_to_le16(ed_len);
++		donor_ex->ee_len = cpu_to_le16(er_len);
++
++		ext4_ext_try_to_merge(handle, donor_inode, donor_path, donor_ex);
++		ext4_ext_try_to_merge(handle, receiver_inode, receiver_path, rec_ex);
++		*erp = ext4_ext_dirty(handle, donor_inode, donor_path +
++				      donor_path->p_depth);
++		if (unlikely(*erp)) {
++			goto finish;
++		}
++
++		*erp = ext4_ext_dirty(handle, receiver_inode,
++				      receiver_path +
++				      receiver_path->p_depth);
++		if (unlikely(*erp)) {
++			goto finish;
++		}
++
++		donor_lblk += len;
++		rec_lblk += len;
++		replaced_count += len;
++		count -= len;
++
++	repeat:
++		ext4_ext_drop_refs(receiver_path);
++		kfree(receiver_path);
++		ext4_ext_drop_refs(donor_path);
++		kfree(donor_path);
++		receiver_path = donor_path = NULL;
++	}
++
++	return replaced_count;
++}
+diff --git a/fs/ext4/file.c b/fs/ext4/file.c
+index 0d7cf0c..5637156 100644
+--- a/fs/ext4/file.c
++++ b/fs/ext4/file.c
+@@ -750,6 +750,7 @@ const struct file_operations ext4_file_operations = {
+ 	.splice_read	= generic_file_splice_read,
+ 	.splice_write	= iter_file_splice_write,
+ 	.fallocate	= ext4_fallocate,
++    .dynamic_remap = ext4_dynamic_remap,
+ };
+ 
+ const struct inode_operations ext4_file_inode_operations = {
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index c774bdc..9e07384 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -4146,13 +4146,13 @@ int ext4_update_disksize_before_punch(struct inode *inode, loff_t offset,
+  * Returns: 0 on success or negative on failure
+  */
+ 
+-int ext4_punch_hole(struct inode *inode, loff_t offset, loff_t length)
++int ext4_punch_hole_impl(handle_t *handle, struct inode *inode, loff_t offset, loff_t length, int relink)
+ {
+ 	struct super_block *sb = inode->i_sb;
+ 	ext4_lblk_t first_block, stop_block;
+ 	struct address_space *mapping = inode->i_mapping;
+ 	loff_t first_block_offset, last_block_offset;
+-	handle_t *handle;
++	//handle_t *handle;
+ 	unsigned int credits;
+ 	int ret = 0;
+ 
+@@ -4165,14 +4165,17 @@ int ext4_punch_hole(struct inode *inode, loff_t offset, loff_t length)
+ 	 * Write out all dirty pages to avoid race conditions
+ 	 * Then release them.
+ 	 */
+-	if (mapping_tagged(mapping, PAGECACHE_TAG_DIRTY)) {
+-		ret = filemap_write_and_wait_range(mapping, offset,
+-						   offset + length - 1);
+-		if (ret)
+-			return ret;
++	if (!relink) {
++		if (mapping_tagged(mapping, PAGECACHE_TAG_DIRTY)) {
++			ret = filemap_write_and_wait_range(mapping, offset,
++							   offset + length - 1);
++			if (ret)
++				return ret;
++		}
+ 	}
+ 
+-	inode_lock(inode);
++	if (!relink)
++		inode_lock(inode);
+ 
+ 	/* No need to punch hole beyond i_size */
+ 	if (offset >= inode->i_size)
+@@ -4208,7 +4211,9 @@ int ext4_punch_hole(struct inode *inode, loff_t offset, loff_t length)
+ 	 * Prevent page faults from reinstantiating pages we have released from
+ 	 * page cache.
+ 	 */
+-	down_write(&EXT4_I(inode)->i_mmap_sem);
++	if (!relink)
++		down_write(&EXT4_I(inode)->i_mmap_sem);
++
+ 	first_block_offset = round_up(offset, sb->s_blocksize);
+ 	last_block_offset = round_down((offset + length), sb->s_blocksize) - 1;
+ 
+@@ -4217,19 +4222,28 @@ int ext4_punch_hole(struct inode *inode, loff_t offset, loff_t length)
+ 		ret = ext4_update_disksize_before_punch(inode, offset, length);
+ 		if (ret)
+ 			goto out_dio;
+-		truncate_pagecache_range(inode, first_block_offset,
+-					 last_block_offset);
++
++		if (!relink) {
++			truncate_pagecache_range(inode, first_block_offset,
++						 last_block_offset);
++		}
+ 	}
+ 
+ 	if (ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS))
+ 		credits = ext4_writepage_trans_blocks(inode);
+ 	else
+ 		credits = ext4_blocks_for_truncate(inode);
+-	handle = ext4_journal_start(inode, EXT4_HT_TRUNCATE, credits);
+-	if (IS_ERR(handle)) {
+-		ret = PTR_ERR(handle);
+-		ext4_std_error(sb, ret);
+-		goto out_dio;
++
++	if (relink) {
++		if (ext4_journal_extend(handle, credits) != 0)
++			return -ENOSPC;
++	} else {
++		handle = ext4_journal_start(inode, EXT4_HT_TRUNCATE, credits);
++		if (IS_ERR(handle)) {
++			ret = PTR_ERR(handle);
++			ext4_std_error(sb, ret);
++			goto out_dio;
++		}
+ 	}
+ 
+ 	ret = ext4_zero_partial_blocks(handle, inode, offset,
+@@ -4245,13 +4259,17 @@ int ext4_punch_hole(struct inode *inode, loff_t offset, loff_t length)
+ 	if (first_block >= stop_block)
+ 		goto out_stop;
+ 
+-	down_write(&EXT4_I(inode)->i_data_sem);
++
++	if (!relink)
++		down_write(&EXT4_I(inode)->i_data_sem);
++
+ 	ext4_discard_preallocations(inode);
+ 
+ 	ret = ext4_es_remove_extent(inode, first_block,
+ 				    stop_block - first_block);
+ 	if (ret) {
+-		up_write(&EXT4_I(inode)->i_data_sem);
++		if (!relink)
++			up_write(&EXT4_I(inode)->i_data_sem);
+ 		goto out_stop;
+ 	}
+ 
+@@ -4262,7 +4280,9 @@ int ext4_punch_hole(struct inode *inode, loff_t offset, loff_t length)
+ 		ret = ext4_ind_remove_space(handle, inode, first_block,
+ 					    stop_block);
+ 
+-	up_write(&EXT4_I(inode)->i_data_sem);
++	if (!relink)
++		up_write(&EXT4_I(inode)->i_data_sem);
++
+ 	if (IS_SYNC(inode))
+ 		ext4_handle_sync(handle);
+ 
+@@ -4271,15 +4291,33 @@ int ext4_punch_hole(struct inode *inode, loff_t offset, loff_t length)
+ 	if (ret >= 0)
+ 		ext4_update_inode_fsync_trans(handle, inode, 1);
+ out_stop:
+-	ext4_journal_stop(handle);
++	if (!relink)
++		ext4_journal_stop(handle);
+ out_dio:
+-	up_write(&EXT4_I(inode)->i_mmap_sem);
++	if (!relink)
++		up_write(&EXT4_I(inode)->i_mmap_sem);
+ 	ext4_inode_resume_unlocked_dio(inode);
+ out_mutex:
+-	inode_unlock(inode);
++	if (!relink)
++		inode_unlock(inode);
+ 	return ret;
+ }
+ 
++/*
++ * ext4_punch_hole: punches a hole in a file by releasing the blocks
++ * associated with the given offset and length
++ *
++ * @inode:  File inode
++ * @offset: The offset where the hole will begin
++ * @len:    The length of the hole
++ *
++ * Returns: 0 on success or negative on failure
++ */
++
++int ext4_punch_hole(struct inode *inode, loff_t offset, loff_t length) {
++	return ext4_punch_hole_impl(NULL, inode, offset, length, 0);
++}
++
+ int ext4_inode_attach_jinode(struct inode *inode)
+ {
+ 	struct ext4_inode_info *ei = EXT4_I(inode);
+diff --git a/fs/ext4/move_extent.c b/fs/ext4/move_extent.c
+index 9bb36909..c2d4441 100644
+--- a/fs/ext4/move_extent.c
++++ b/fs/ext4/move_extent.c
+@@ -707,3 +707,277 @@ ext4_move_extents(struct file *o_filp, struct file *d_filp, __u64 orig_blk,
+ 
+ 	return ret;
+ }
++
++/**
++ * move_meta_extent_per_page - Move extent metadata per page
++ *
++ * @o_filp:                       file structure of original fine
++ * @donor_inode:                  donor inode
++ * @rec_page_offset:              page index on receiver file
++ * @donor_page_offset:            page index on donor file
++ * @data_offset_in_page:          block index where data swapping starts
++ * @block_len_in_page:            the number of blocks to be swapped
++ * @err:                          pointer to save return value
++ *
++ * Replace original inode extents with donor inode extents by calling
++ * ext4_meta_swap_extents(). Return replaced block_count.
++ */
++static int
++move_extent_per_page_relink(handle_t *handle, struct file *o_filp,
++			    struct inode *donor_inode,
++			    pgoff_t rec_page_offset,
++			    pgoff_t donor_page_offset,
++			    int data_offset_in_page,
++			    int block_len_in_page, int *err)
++{
++	struct inode *rec_inode = file_inode(o_filp);
++	ext4_lblk_t rec_blk_offset, donor_blk_offset;
++	unsigned long blocksize = rec_inode->i_sb->s_blocksize;
++	unsigned int tmp_data_size, data_size, replaced_size;
++	int replaced_count = 0, rentries = 0;
++	int blocks_per_page = PAGE_SIZE >> rec_inode->i_blkbits;
++	struct super_block *sb = rec_inode->i_sb;
++
++	/*
++	 * It needs twice the amount of ordinary journal buffers because
++	 * inode and donor_inode may change each different metadata blocks.
++	 */
++ again:
++	*err = 0;
++
++	rec_blk_offset = rec_page_offset * blocks_per_page +
++		data_offset_in_page;
++
++	donor_blk_offset = donor_page_offset * blocks_per_page +
++		data_offset_in_page;
++
++	/* Calculate the data size */
++	if ((rec_blk_offset + block_len_in_page - 1) ==
++	    ((rec_inode->i_size - 1) >> rec_inode->i_blkbits)) {
++		/* Replace the last block */
++		tmp_data_size = rec_inode->i_size & (blocksize - 1);
++		/*
++		 * If data_size equal zero,
++		 * it shows data_size is multiples of
++		 * blocksize. So we set appropriate value.
++		 */
++		if (tmp_data_size == 0)
++			tmp_data_size = blocksize;
++
++		data_size = tmp_data_size +
++			((block_len_in_page - 1) << rec_inode->i_blkbits);
++	} else
++		data_size = block_len_in_page << rec_inode->i_blkbits;
++
++	replaced_size = data_size;
++
++	ext4_double_down_write_data_sem(rec_inode, donor_inode);
++
++	replaced_count = ext4_meta_swap_extents(handle, rec_inode,
++						donor_inode, rec_blk_offset,
++						donor_blk_offset,
++						block_len_in_page, err);
++
++	ext4_double_up_write_data_sem(rec_inode, donor_inode);
++	goto unlock_pages;
++
++ unlock_pages:
++	if (*err == -ENOSPC &&
++	    ext4_should_retry_alloc(sb, &rentries))
++		goto again;
++	/* Buffer was busy because probably is pinned to journal transaction,
++	 * force transaction commit may help to free it. */
++	if (*err == -EBUSY && rentries++ < 4 && EXT4_SB(sb)->s_journal &&
++	    jbd2_journal_force_commit_nested(EXT4_SB(sb)->s_journal))
++		goto again;
++	return replaced_count;
++}
++
++/**
++ * ext4_dynamic_remap - Extend file 1 and swap extents between file 1
++ * and file 2
++ *
++ * @file1:	First file
++ * @file2:	Second inode
++ * @offset1:	Start offset for first inode
++ * @offset2:	Start offset for second inode
++ * @count:	Number of bytes to swap
++ *
++ * This helper routine initally extends file 1 by count blocks, and
++ * then calls ext4_meta_swap_extents to swap the extents between file 1
++ * and file 2 without transferring any data between them .
++ *
++ * Locking:
++ * 		i_mutex is held for both inodes
++ * 		i_data_sem is locked for write for both inodes
++ * Assumptions:
++ *		All pages from requested range are locked for both inodes
++ */
++long
++ext4_dynamic_remap(struct file *file1, struct file *file2,
++		  loff_t offset1, loff_t offset2,
++		   loff_t count)
++{
++	struct inode *rec_inode = file_inode(file1);
++	struct inode *donor_inode = file_inode(file2);
++	struct ext4_ext_path *path = NULL;
++	handle_t *handle;
++	int blocks_per_page = PAGE_SIZE >> rec_inode->i_blkbits;
++	unsigned int blkbits = rec_inode->i_blkbits;
++	ext4_lblk_t o_end, o_start = 0;
++	ext4_lblk_t d_start = 0, d_trunc_start = 0, d_trunc_end = 0;
++	__u64 len;
++	ext4_lblk_t rec_blk, donor_blk;
++	int ret, jblocks = 0, credits = 0;
++	long size_remapped = 0;
++
++	/* Protect rec and donor inodes against a truncate */
++	// Change the offset and count to logical blocks and counts in blocks
++	len = (count >> blkbits);
++	if (count % PAGE_SIZE != 0)
++		len += 1;
++
++	lock_two_nondirectories(rec_inode, donor_inode);
++
++	jblocks = ext4_writepage_trans_blocks(rec_inode) * 2;
++	credits = ext4_chunk_trans_blocks(rec_inode, len);
++	jblocks = jblocks + credits;
++	handle = ext4_journal_start(rec_inode, EXT4_HT_MOVE_EXTENTS, jblocks);
++
++
++	if (IS_ERR(handle)) {
++		ret = PTR_ERR(handle);
++		//printk(KERN_INFO "%s: journal start failed\n", __func__);
++		return 0;
++	}
++
++	// Call the ext4_fallocate function to allocate memory to file 1.
++
++	ext4_fallocate_impl(handle, file1, 0, offset1, count, 1);
++
++	/* Wait for all existing dio workers */
++	ext4_inode_block_unlocked_dio(rec_inode);
++	ext4_inode_block_unlocked_dio(donor_inode);
++	inode_dio_wait(rec_inode);
++	inode_dio_wait(donor_inode);
++
++	/* Protect extent tree against block allocations via delalloc */
++	ext4_double_down_write_data_sem(rec_inode, donor_inode);
++
++	o_start = offset1 >> blkbits;
++	o_end = o_start + len;
++	d_start = offset2 >> blkbits;
++	d_trunc_start = d_start;
++	d_trunc_end = d_start + len - 1;
++	rec_blk = o_start;
++	donor_blk = d_start;
++
++	/* Check filesystem environment whether move_extent can be done */
++	ret = mext_check_arguments(rec_inode, donor_inode, rec_blk,
++				   donor_blk, &len);
++	if (ret) {
++		goto out;
++	}
++
++	// Call the ext4_meta_swap_extents to change metadata of extents.
++	o_end = o_start + len;
++
++	while (o_start < o_end) {
++		struct ext4_extent *ex;
++		ext4_lblk_t cur_blk, next_blk;
++		pgoff_t rec_page_index, donor_page_index;
++		int offset_in_page;
++		int cur_len;
++
++		ret = get_ext_path(rec_inode, o_start, &path);
++		if (ret) {
++			goto out;
++		}
++		ex = path[path->p_depth].p_ext;
++		next_blk = ext4_ext_next_allocated_block(path);
++		cur_blk = le32_to_cpu(ex->ee_block);
++		cur_len = ext4_ext_get_actual_len(ex);
++		/* Check hole before the start pos */
++		if (cur_blk + cur_len - 1 < o_start) {
++			if (next_blk == EXT_MAX_BLOCKS) {
++				o_start = o_end;
++				ret = -ENODATA;
++				goto out;
++			}
++			d_start += next_blk - o_start;
++			o_start = next_blk;
++			continue;
++		} else if (cur_blk > o_start) {
++			/* Skip hole */
++			d_start += cur_blk - o_start;
++			o_start = cur_blk;
++			/* Extent inside requested range ?*/
++			if (cur_blk >= o_end) {
++				goto out;
++			}
++		} else { /* in_range(o_start, o_blk, o_len) */
++			cur_len += cur_blk - o_start;
++		}
++		if (o_end - o_start < cur_len)
++			cur_len = o_end - o_start;
++		rec_page_index = o_start >> (PAGE_SHIFT -
++					      rec_inode->i_blkbits);
++		donor_page_index = d_start >> (PAGE_SHIFT -
++					       donor_inode->i_blkbits);
++		offset_in_page = o_start % blocks_per_page;
++		/*
++		if (cur_len > blocks_per_page - offset_in_page)
++			cur_len = blocks_per_page - offset_in_page;
++		*/
++		/*
++		 * Up semaphore to avoid following problems:
++		 * a. transaction deadlock among ext4_journal_start,
++		 *    ->write_begin via pagefault, and jdb2_journal_commit
++		 * b. racing with ->readpage, ->write_begin, and ext4_get_block
++		 *    in move_extent_per_page
++		 */
++
++		ext4_double_up_write_data_sem(rec_inode, donor_inode);
++		/* Swap original branches with new branches */
++		move_extent_per_page_relink(handle, file1, donor_inode,
++					    rec_page_index, donor_page_index,
++					    offset_in_page, cur_len,
++					    &ret);
++		ext4_double_down_write_data_sem(rec_inode, donor_inode);
++
++		if (ret < 0)
++			break;
++		o_start += cur_len;
++		d_start += cur_len;
++	}
++
++	len = count;
++	if (len % PAGE_SIZE != 0)
++		len = len - (len % PAGE_SIZE);
++	if (offset2 % PAGE_SIZE != 0)
++		offset2 = offset2 + (PAGE_SIZE - (offset2 % PAGE_SIZE));
++	ext4_fallocate_impl(handle, file2, FALLOC_FL_PUNCH_HOLE, offset2, len, 1);
++
++	size_remapped = (o_start - rec_blk) << blkbits;
++	if (size_remapped > count)
++		size_remapped = count;
++
++ out:
++	if (size_remapped) {
++		ext4_discard_preallocations(rec_inode);
++		ext4_discard_preallocations(donor_inode);
++	}
++
++	ext4_ext_drop_refs(path);
++	kfree(path);
++	ext4_double_up_write_data_sem(rec_inode, donor_inode);
++	ext4_inode_resume_unlocked_dio(rec_inode);
++	ext4_inode_resume_unlocked_dio(donor_inode);
++
++	ext4_handle_sync(handle);
++	ext4_journal_stop(handle);
++	unlock_two_nondirectories(rec_inode, donor_inode);
++
++	return size_remapped;
++}
++
+diff --git a/fs/open.c b/fs/open.c
+index 35bb784..3c94264 100644
+--- a/fs/open.c
++++ b/fs/open.c
+@@ -333,6 +333,119 @@ int vfs_fallocate(struct file *file, int mode, loff_t offset, loff_t len)
+ }
+ EXPORT_SYMBOL_GPL(vfs_fallocate);
+ 
++long vfs_dynamic_remap(struct file *file1, struct file *file2,
++		       loff_t offset1, loff_t offset2,
++		       const char __user *start_addr,
++		       loff_t count)
++{
++	struct inode *inode1 = file_inode(file1);
++	struct inode *inode2 = file_inode(file2);
++
++	long ret = 0;
++	long ret_remap = 0;
++	size_t len = 0, max_page_dirty = 0;
++	unsigned long end_offset = 0, start_offset = 0;
++
++	LIST_HEAD(uf);
++
++	if (offset1 < 0 || offset2 < 0 || count <= 0)
++		return -EINVAL;
++
++	if (!(file1->f_mode & FMODE_WRITE) || !(file2->f_mode & FMODE_WRITE))
++		return -EBADF;
++
++	if (IS_IMMUTABLE(inode1) || IS_IMMUTABLE(inode2))
++		return -EPERM;
++
++	/*
++	 * We cannot allow any fallocate operation on an active swapfile
++	 */
++	if (IS_SWAPFILE(inode1) || IS_SWAPFILE(inode2))
++		return -ETXTBSY;
++
++	/*
++	 * Revalidate the write permissions, in case security policy has
++	 * changed since the files were opened.
++	 */
++	ret = security_file_permission(file1, MAY_WRITE);
++	if (ret)
++		return ret;
++
++	ret = security_file_permission(file2, MAY_WRITE);
++	if (ret)
++		return ret;
++
++	if (S_ISFIFO(inode1->i_mode) || S_ISFIFO(inode2->i_mode))
++		return -ESPIPE;
++
++	if (S_ISDIR(inode1->i_mode) || S_ISDIR(inode2->i_mode))
++		return -EISDIR;
++
++	if (!S_ISREG(inode1->i_mode) && !S_ISBLK(inode1->i_mode))
++		return -ENODEV;
++
++	if (!S_ISREG(inode2->i_mode) && !S_ISBLK(inode2->i_mode))
++		return -ENODEV;
++
++	/* Check for wrap through zero too */
++	if (((offset1 + count) > inode1->i_sb->s_maxbytes) || ((offset1 + count) < 0))
++		return -EFBIG;
++
++	/* Check for wrap through zero too */
++	if (((offset2 + count) > inode2->i_sb->s_maxbytes) || ((offset2 + count) < 0))
++		return -EFBIG;
++
++	if (!file1->f_op->dynamic_remap)
++		return -EOPNOTSUPP;
++
++	// perform write on the unaligned portion
++	start_offset = offset2;
++	end_offset = offset2 + count;
++	if (offset1 % PAGE_SIZE != 0) {
++		max_page_dirty = PAGE_SIZE - (offset1 % PAGE_SIZE);
++		len = count < max_page_dirty ? count : max_page_dirty;
++		ret = vfs_write(file1, start_addr + offset2, len, &offset1);
++		if (ret < len) {
++			goto out;
++		}
++		count -= ret;
++		offset1 += ret;
++		offset2 += ret;
++	}
++
++	if (count == 0) {
++		goto out;
++	}
++
++	file_start_write(file1);
++	file_start_write(file2);
++
++	ret_remap = file1->f_op->dynamic_remap(file1, file2, offset1, offset2, count);
++	offset1 += ret_remap;
++	offset2 += ret_remap;
++	count -= ret_remap;
++	ret += ret_remap;
++
++	/*
++	 * Create inotify and fanotify events.
++	 *
++	 * To keep the logic simple always create events if fallocate succeeds.
++	 * This implies that events are even created if the file size remains
++	 * unchanged, e.g. when using flag FALLOC_FL_KEEP_SIZE.
++	 */
++	if (ret >= 0) {
++		fsnotify_modify(file1);
++		fsnotify_modify(file2);
++	}
++
++	file_end_write(file1);
++	file_end_write(file2);
++
++ out:
++	return ret;
++}
++
++
+ SYSCALL_DEFINE4(fallocate, int, fd, int, mode, loff_t, offset, loff_t, len)
+ {
+ 	struct fd f = fdget(fd);
+@@ -345,6 +458,23 @@ SYSCALL_DEFINE4(fallocate, int, fd, int, mode, loff_t, offset, loff_t, len)
+ 	return error;
+ }
+ 
++SYSCALL_DEFINE6(dynamic_remap, int, fd1, int, fd2,
++		loff_t, offset1, loff_t, offset2,
++		const char __user *, start_addr,
++		loff_t, count)
++{
++	struct fd f1 = fdget(fd1);
++	struct fd f2 = fdget(fd2);
++	int error = -EBADF;
++
++	if (f1.file && f2.file) {
++		error = vfs_dynamic_remap(f1.file, f2.file, offset1, offset2, start_addr, count);
++		fdput(f1);
++		fdput(f2);
++	}
++	return error;
++}
++
+ /*
+  * access() needs to use the real uid/gid, not the effective uid/gid.
+  * We do this by temporarily clearing all FS-related capabilities and
+@@ -1041,6 +1171,55 @@ struct file *filp_clone_open(struct file *oldfile)
+ }
+ EXPORT_SYMBOL(filp_clone_open);
+ 
++long do_sys_open_inode_size(int dfd, const char __user *filename, int flags, umode_t mode, unsigned long __user* inodeno, unsigned long long __user *size)
++{
++	struct open_flags op;
++	int fd = build_open_flags(flags, mode, &op);
++	struct filename *tmp;
++	unsigned long ino = 0;
++	unsigned long long length = 0;
++
++	if (fd)
++		return fd;
++
++	tmp = getname(filename);
++	if (IS_ERR(tmp))
++		return PTR_ERR(tmp);
++
++	fd = get_unused_fd_flags(flags);
++	if (fd >= 0) {
++		struct file *f = do_filp_open(dfd, tmp, &op);
++		if (IS_ERR(f)) {
++			put_unused_fd(fd);
++			fd = PTR_ERR(f);
++		} else {
++			fsnotify_open(f);
++			fd_install(fd, f);
++			copy_to_user(inodeno, &((f->f_inode)->i_ino), sizeof(unsigned long));
++			copy_to_user(size, &((f->f_inode)->i_size), sizeof(unsigned long long));
++		}
++
++	} else {
++
++		copy_to_user(inodeno, &ino, sizeof(unsigned long));
++		copy_to_user(size, &length, sizeof(unsigned long long));
++
++	}
++
++	putname(tmp);
++
++	return fd;
++}
++
++
++SYSCALL_DEFINE5(open_ino_size, const char __user *, filename, int, flags, umode_t, mode, unsigned long __user *, inodeno, unsigned long long __user *, size)
++{
++	if (force_o_largefile())
++		flags |= O_LARGEFILE;
++
++	return do_sys_open_inode_size(AT_FDCWD, filename, flags, mode, inodeno, size);
++}
++
+ long do_sys_open(int dfd, const char __user *filename, int flags, umode_t mode)
+ {
+ 	struct open_flags op;
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index cbfe127..2a2c2ee 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -1689,6 +1689,9 @@ struct file_operations {
+ 	int (*setlease)(struct file *, long, struct file_lock **, void **);
+ 	long (*fallocate)(struct file *file, int mode, loff_t offset,
+ 			  loff_t len);
++	long (*dynamic_remap)(struct file *file1, struct file *file2,
++			      loff_t offset1, loff_t offset2,
++			      loff_t count);
+ 	void (*show_fdinfo)(struct seq_file *m, struct file *f);
+ #ifndef CONFIG_MMU
+ 	unsigned (*mmap_capabilities)(struct file *);
+diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
+index 3cb15ea..47cb468 100644
+--- a/include/linux/syscalls.h
++++ b/include/linux/syscalls.h
+@@ -517,6 +517,10 @@ asmlinkage long sys_readlink(const char __user *path,
+ asmlinkage long sys_creat(const char __user *pathname, umode_t mode);
+ asmlinkage long sys_open(const char __user *filename,
+ 				int flags, umode_t mode);
++asmlinkage long sys_open_ino_size(const char __user *filename,
++				  int flags, umode_t mode,
++				  unsigned long __user *inodeno,
++				  unsigned long long __user *size);
+ asmlinkage long sys_close(unsigned int fd);
+ asmlinkage long sys_access(const char __user *filename, int mode);
+ asmlinkage long sys_vhangup(void);
+@@ -819,6 +823,10 @@ asmlinkage long sys_eventfd2(unsigned int count, int flags);
+ asmlinkage long sys_memfd_create(const char __user *uname_ptr, unsigned int flags);
+ asmlinkage long sys_userfaultfd(int flags);
+ asmlinkage long sys_fallocate(int fd, int mode, loff_t offset, loff_t len);
++asmlinkage long sys_dynamic_remap(int fd1, int fd2,
++				  loff_t offset1, loff_t offset2,
++				  const char __user *start_addr,
++				  loff_t count);
+ asmlinkage long sys_old_readdir(unsigned int, struct old_linux_dirent __user *, unsigned int);
+ asmlinkage long sys_pselect6(int, fd_set __user *, fd_set __user *,
+ 			     fd_set __user *, struct timespec __user *,
+-- 
+2.7.4
+
