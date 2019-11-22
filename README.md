@@ -4,7 +4,9 @@
 
 SplitFS introduces a new primitive termed relink to efficiently support file appends and atomic data operations. SplitFS provides three consistency modes,which different applications can choose from without interfering with each other.
 
-Please cite the following paper if you use SplitFS: 
+SplitFS is built on top of [Quill](https://github.com/NVSL/Quill) by NVSL. We re-use the implementation of Quill to track the glibc calls requested by an application and provide our implementation for the calls. We then run the applications using LD_PRELOAD to intercept the calls during runtime and forward them to SplitFS.
+
+Please cite the following paper if you use SplitFS:
 
 **SplitFS : Reducing Software Overhead in File Systems for Persistent Memory**.
 Rohan Kadekodi, Se Kwon Lee, Sanidhya Kashyap, Taesoo Kim, Aasheesh Kolli, Vijay Chidambaram. 
