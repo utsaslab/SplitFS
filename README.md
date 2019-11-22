@@ -81,6 +81,8 @@ The [Experiments
 page](https://github.com/rohankadekodi/SplitFS/blob/master/experiments.md)
 has a list of experiments evaluating SplitFS(strict, sync and POSIX) vs ext4 DAX, NOVA-strict, NOVA-relaxed and PMFS. The summary is that SplitFS outperforms the other file systems on the data intensive workloads, while incurring a modest overhead on metadata heavy workloads. Please see the paper for more details.
 
+The kernel patch for the implementation of relink() system call for linux v4.13 is [here](https://github.com/rohankadekodi/SplitFS/blob/master/relink_v4.13.patch)
+
 ## System Requirements
 
 1. Ubuntu 16.04 / 18.04
