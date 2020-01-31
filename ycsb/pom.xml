@@ -40,7 +40,7 @@ LICENSE file.
       <dependency>
         <groupId>com.puppycrawl.tools</groupId>
         <artifactId>checkstyle</artifactId>
-        <version>7.7.1</version>
+        <version>8.29</version>
       </dependency>
       <dependency>
         <groupId>org.jdom</groupId>
