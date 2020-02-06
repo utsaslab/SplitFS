@@ -169,7 +169,7 @@ void init_logs() {
 		 NULL,
 		 APPEND_LOG_SIZE,
 		 PROT_READ | PROT_WRITE, //max_perms,
-		 MAP_PRIVATE | MAP_POPULATE,
+		 MAP_SHARED | MAP_POPULATE,
 		 app_log_fd, //fd_with_max_perms,
 		 0
 		 );
@@ -179,7 +179,7 @@ void init_logs() {
 		 NULL,
 		 OP_LOG_SIZE,
 		 PROT_READ | PROT_WRITE, //max_perms,
-		 MAP_PRIVATE | MAP_POPULATE,
+		 MAP_SHARED | MAP_POPULATE,
 		 op_log_fd, //fd_with_max_perms,
 		 0
 		 );
