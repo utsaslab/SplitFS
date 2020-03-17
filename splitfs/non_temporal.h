@@ -50,13 +50,9 @@
 #define MOVNT_THRESHOLD_GRANULARITY 64
 
 #define CLFLUSH_SIZE 64
-#ifndef __CLFLUSHOPT__
- #define _mm_clflushopt(addr)\
-  asm volatile("clflush %0" : "+m" (*(volatile char *)(addr)))
-#else
- #define _mm_clflushopt(addr)\
-  asm volatile("clflushopt %0" : "+m" (*(volatile char *)(addr)))
-#endif
+/* This will point to the right function during startup of 
+ splitfs (_nvp_init2) */
+void (*_mm_flush)(void const* p);
 
 
 char *addr;
@@ -82,7 +78,7 @@ flush_dcache_invalidate_opt(const void *addr, size_t len)
 
         for (uptr = (uintptr_t)addr & ~(FLUSH_ALIGN - 1);
                 uptr < (uintptr_t)addr + len; uptr += FLUSH_ALIGN) {
-                _mm_clflushopt((char *)uptr);
+                _mm_flush((char *)uptr);
         }
 }
 */

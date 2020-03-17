@@ -89,7 +89,7 @@ The kernel patch for the implementation of relink() system call for linux v4.13 
 2. At least 32 GB DRAM
 3. At least 4 cores
 4. Baremetal machine (Not a VM)
-5. Intel Processor supporting `clflush` or `clflushopt` (Introduced in Intel processor family -- Broadwell) instruction. This can be verified with `lscpu | grep clflush`. `clflushopt` will lead to better performance in strict mode.
+5. Intel Processor supporting `clflush` (Comes with SSE2) or `clflushopt` (Introduced in Intel processor family -- Broadwell) instruction. This can be verified with `lscpu | grep clflush` and `lscpu | grep clflushopt` respectively.
 
 ## Dependencies
 1. kernel: Installing the linux kernel 4.13.0 involves installing bc, libelf-dev and libncurses5-dev. For ubuntu, please run the script `cd dependencies; ./kernel_deps.sh; cd ..`
@@ -108,6 +108,7 @@ Copyright for SplitFS is held by the University of Texas at Austin. Please conta
 
 1. [Rohan Kadekodi](https://github.com/rohankadekodi), UT Austin
 2. [Rui Wang](https://github.com/wraymo), Beijing University of Posts and Telecommunications
+3. [Om Saran](https://github.com/OmSaran)
 
 ## Acknowledgements
 

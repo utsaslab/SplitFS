@@ -12,9 +12,11 @@
 #include <sys/syscall.h>
 #include <unistd.h>
 #include <string.h>
+#include <cpuid.h>
 
 #include "perfcount.h"
 
+#include "non_temporal.h"
 #include "fileops_nvp.h"
 #include "merkleLogicalBtree.h"
 #include "thread_handle.h"
@@ -1097,6 +1099,20 @@ void _nvp_SHM_COPY() {
 	shm_unlink("exec-ledger");
 }
 
+void _mm_cache_flush(void const* p) {
+  asm volatile("clflush %0" : "+m" (*(volatile char *)(p)));
+}
+
+void _mm_cache_flush_optimised(void const* p) {
+  asm volatile("clflushopt %0" : "+m" (*(volatile char *)(p)));
+}
+
+// Figure out if CLFLUSHOPT is supported 
+int is_clflushopt_supported() {
+	unsigned int eax, ebx, ecx, edx;
+	__cpuid_count(7, 0, eax, ebx, ecx, edx);
+	return ebx & bit_CLFLUSHOPT;
+}
 
 void _nvp_init2(void)
 {
@@ -1104,6 +1120,18 @@ void _nvp_init2(void)
 	struct InodeToMapping *tempMapping;
 
 	assert(!posix_memalign(((void**)&_nvp_zbuf), 4096, 4096));
+
+	/*
+	 Based on availability of CLFLUSHOPT instruction, point _mm_flush to the 
+	 appropriate function
+	*/
+	if(is_clflushopt_supported()) {
+		MSG("CLFLUSHOPT is supported!\n");
+		_mm_flush = _mm_cache_flush_optimised;
+	} else { 
+		MSG("CLFLUSHOPT is not supported! Using CLFLUSH \n");
+		_mm_flush = _mm_cache_flush;
+	}
 
 #if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC
 	ASYNC_CLOSING = 0;

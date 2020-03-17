@@ -466,7 +466,7 @@ static inline void do_cflushopt_len(volatile void* addr, size_t length)
 	// note: it's necessary to do an mfence before and after calling this function
 	size_t i;
 	for (i = 0; i < length; i += CLFLUSH_SIZE) {
-		_mm_clflushopt((void *)(addr + i));
+		_mm_flush((void *)(addr + i));
 	}
 
 	perfmodel_add_delay(0, length);
