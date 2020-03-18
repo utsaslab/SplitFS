@@ -19,3 +19,4 @@ rsync/rsync
 !ycsb/core
 !ycsb/tracerecorder
 !kernel/kbuild/Makefile.setup
+!sqlite3-trace/
