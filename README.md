@@ -104,6 +104,11 @@ SplitFS is under active development.
 
 Copyright for SplitFS is held by the University of Texas at Austin. Please contact us if you would like to obtain a license to use SplitFS in your commercial product.
 
+# Contributors
+
+1. [Rohan Kadekodi](https://github.com/rohankadekodi), UT Austin
+2. [Rui Wang](https://github.com/wraymo), Beijing University of Posts and Telecommunications
+
 ## Acknowledgements
 
 We thank the National Science Foundation, VMware, Google, and Facebook for partially funding this project. We thank Intel and ETRI IITP/KEIT[2014-3-00035] for providing access to Optane DC Persistent Memory to perform our experiments.
