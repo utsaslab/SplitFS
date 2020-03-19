@@ -23,7 +23,7 @@ static inline void do_cflush_len(volatile void* addr, size_t length)
 
 	size_t i;
 	for (i = 0; i < length; i += 64) {
-		_mm_clflush((void const*)(addr + i));
+		_mm_flush((void const*)(addr + i));
 	}
 }
 

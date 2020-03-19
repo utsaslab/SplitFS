@@ -21,7 +21,7 @@ flush_dcache_invalidate_opt(const void *addr, size_t len)
          */
         for (uptr = (uintptr_t)addr & ~(FLUSH_ALIGN - 1);
                 uptr < (uintptr_t)addr + len; uptr += FLUSH_ALIGN) {
-                _mm_clflushopt((char *)uptr);
+                _mm_flush((char *)uptr);
         }
 }
 
