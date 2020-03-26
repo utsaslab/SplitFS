@@ -1101,7 +1101,13 @@ RETT_CLOSE _hub_CLOSE(INTF_CLOSE)
 	DEBUG("_hub_CLOSE is calling %s->CLOSE\n", _hub_fd_lookup[file]->name);
 	
 	struct Fileops_p* temp = _hub_fd_lookup[file];
-	_hub_fd_lookup[file] = NULL;
+
+  // Restore it to the state similar to the initialised state.
+  if(file == 0 || file == 1 || file == 2) {
+    _hub_fd_lookup[file] = _hub_managed_fileops;
+  } else {
+    _hub_fd_lookup[file] = _hub_fileops;
+  }
 	int result = temp->CLOSE(CALL_CLOSE);
 
 	if(result) {
@@ -1225,12 +1231,6 @@ RETT_DUP2 _hub_DUP2(INTF_DUP2)
 	else
 	{ 
 		DEBUG("DUP2 call completed successfully.\n");
-		
-		if(result != fd2)
-		{
-			DEBUG("_hub_DUP2: result!=fd2 (%i != %i), so let's update the table...\n", result, fd2);
-			_hub_fd_lookup[fd2] = NULL;
-		}
 
 		DEBUG("Hub(dup2) managing new FD %i with same ops (\"%s\") as initial FD (%i)\n",
 			result, _hub_fd_lookup[file]->name, file);
