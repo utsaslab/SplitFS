@@ -2,7 +2,7 @@
 
 [SplitFS](https://github.com/rohankadekodi/SplitFS) is a file system for Persistent Memory (PM) which is aimed at reducing the software overhead of applications accessing Persistent Memory. SplitFS presents a novel split of responsibilities between a user-space library file system and an existing kernel PM file system. The user-space library file system handles data operations by intercepting POSIX calls, memory mapping the underlying file, and serving the reads and overwrites using processor loads and stores. Metadata operations are handled by the kernel file system (ext4 DAX). 
 
-SplitFS introduces a new primitive termed relink to efficiently support file appends and atomic data operations. SplitFS provides three consistency modes,which different applications can choose from without interfering with each other.
+SplitFS introduces a new primitive termed relink to efficiently support file appends and atomic data operations. SplitFS provides three consistency modes, which different applications can choose from without interfering with each other.
 
 SplitFS is built on top of [Quill](https://github.com/NVSL/Quill) by NVSL. We re-use the implementation of Quill to track the glibc calls requested by an application and provide our implementation for the calls. We then run the applications using LD_PRELOAD to intercept the calls during runtime and forward them to SplitFS.
 
@@ -11,7 +11,7 @@ Please cite the following paper if you use SplitFS:
 **SplitFS : Reducing Software Overhead in File Systems for Persistent Memory**.
 Rohan Kadekodi, Se Kwon Lee, Sanidhya Kashyap, Taesoo Kim, Aasheesh Kolli, Vijay Chidambaram. 
 *Proceedings of the The 27th ACM Symposium on Operating Systems Principles (SOSP 19)*. 
-[Paper PDF](https://www.cs.utexas.edu/~vijay/papers/sosp19-splitfs.pdf). [Bibtex](https://www.cs.utexas.edu/~vijay/bibtex/sosp19-splitfs.bib).
+[Paper PDF](https://www.cs.utexas.edu/~vijay/papers/sosp19-splitfs.pdf). [Bibtex](https://www.cs.utexas.edu/~vijay/bibtex/sosp19-splitfs.bib). [Talk Video](https://sosp19.rcs.uwaterloo.ca/videos/D3-S1-P4.mp4)
 
 ## Getting Started with SplitFS
 
