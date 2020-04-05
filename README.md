@@ -100,6 +100,16 @@ SplitFS is under active development.
 1. The current implementation of SplitFS handles the following system calls: `open, openat, close, read, pread64, write, pwrite64, fsync, unlink, ftruncate, fallocate, stat, fstat, lstat, dup, dup2, execve and clone`. The rest of the calls are passed through to the kernel.
 2. The current implementation of SplitFS works correctly for the following applictions: `LevelDB running YCSB, SQLite running TPCC, tar, git, rsync`. This limitation is purely due to the state of the implementation, and we aim to increase the coverage of applications by supporting more system calls in the future.
 
+## Testing
+[PJD POSIX Test Suite](https://www.tuxera.com/community/posix-test-suite/) that tests primarily the metadata operations was run on SplitFS and yielded the following result.  
+Tests Passed: 1944 out of a total of 1957.  
+Tests that failed include: 
+1. Tests on `link` (tests 56-58, 63-65 in links/00.t)
+2. Tests on `rename` (tests 49, 53, 57, 61 in rename/00.t)
+3. Tests on `unlink` (tests 17, 22, 53 in in unlink/00.t)  
+
+We aim to to improve this to a 100% pass rate soon.
+
 ## License
 
 Copyright for SplitFS is held by the University of Texas at Austin. Please contact us if you would like to obtain a license to use SplitFS in your commercial product.
