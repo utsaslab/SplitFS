@@ -813,7 +813,7 @@ RETT_OPENAT _hub_OPENAT(INTF_OPENAT)
 
 RETT_EXECVE _hub_EXECVE(INTF_EXECVE) {
 	int pid = getpid();
-	char buf[BUF_SIZE];
+	char exec_hub_filename[BUF_SIZE];
 
         HUB_CHECK_RESOLVE_FILEOPS(_hub_, EXECVE);
 
@@ -831,8 +831,8 @@ RETT_EXECVE _hub_EXECVE(INTF_EXECVE) {
 			hub_ops[i] = 2;
 	}
 
-	sprintf(buf, "exec-hub-%d", pid);
-        exec_hub_fd = shm_open(buf, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+        sprintf(exec_hub_filename, "exec-hub-%d", pid);
+        exec_hub_fd = shm_open(exec_hub_filename, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
         if (exec_hub_fd == -1) {
 		printf("%s: %s\n", __func__, strerror(errno));
 		assert(0);
@@ -865,7 +865,7 @@ RETT_EXECVE _hub_EXECVE(INTF_EXECVE) {
 
 RETT_EXECVP _hub_EXECVP(INTF_EXECVP) {
 	int pid = getpid();
-	char buf[BUF_SIZE];
+	char exec_hub_filename[BUF_SIZE];
 
 	HUB_CHECK_RESOLVE_FILEOPS(_hub_, EXECVP);
 
@@ -883,8 +883,8 @@ RETT_EXECVP _hub_EXECVP(INTF_EXECVP) {
 			hub_ops[i] = 2;
 	}
 	
-	sprintf(buf, "exec-hub-%d", pid);
-	exec_hub_fd = shm_open(buf, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	sprintf(exec_hub_filename, "exec-hub-%d", pid);
+	exec_hub_fd = shm_open(exec_hub_filename, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
 	if (exec_hub_fd == -1) {
 		printf("%s: %s\n", __func__, strerror(errno));
 		assert(0);
@@ -922,10 +922,10 @@ RETT_SHM_COPY _hub_SHM_COPY() {
 	int hub_ops[1024];
 	unsigned long offset_in_map = 0;
 	int pid = getpid();
-	char buf[BUF_SIZE];
+	char exec_hub_filename[BUF_SIZE];
 	
-	sprintf(buf, "exec-hub-%d", pid);
-	exec_hub_fd = shm_open(buf, O_RDONLY, 0666);
+	sprintf(exec_hub_filename, "exec-hub-%d", pid);
+	exec_hub_fd = shm_open(exec_hub_filename, O_RDONLY, 0666);
 	if (exec_hub_fd == -1) {
 		MSG("%s: %s\n", __func__, strerror(errno));
 		assert(0);
@@ -952,7 +952,7 @@ RETT_SHM_COPY _hub_SHM_COPY() {
 	}
 
         munmap(shm_area, 1024*1024);
-	shm_unlink(buf);
+	shm_unlink(exec_hub_filename);
 	
 	return _hub_managed_fileops->SHM_COPY();
 }
@@ -1108,8 +1108,8 @@ RETT_CLOSE _hub_CLOSE(INTF_CLOSE)
 	
 	struct Fileops_p* temp = _hub_fd_lookup[file];
 
-  // Restore it to the state similar to the initialised state.
-  _hub_fd_lookup[file] = _hub_fileops;
+	// Restore it to the state similar to the initialised state.
+	_hub_fd_lookup[file] = _hub_fileops;
 	int result = temp->CLOSE(CALL_CLOSE);
 
 	if(result) {

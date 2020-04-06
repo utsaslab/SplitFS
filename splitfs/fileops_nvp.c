@@ -1022,10 +1022,10 @@ void _nvp_SHM_COPY() {
 	int i,j;
 	unsigned long offset_in_map = 0;
 	int pid = getpid();
-	char buf[BUF_SIZE];
+	char exec_nvp_filename[BUF_SIZE];
 
-	sprintf(buf, "exec-ledger-%d", pid);
-	exec_ledger_fd = shm_open(buf, O_RDONLY, 0666);
+	sprintf(exec_nvp_filename, "exec-ledger-%d", pid);
+	exec_ledger_fd = shm_open(exec_nvp_filename, O_RDONLY, 0666);
 
 	if (exec_ledger_fd == -1) {
 		printf("%s: shm_open failed. Err = %s\n", __func__, strerror(errno));
@@ -1099,7 +1099,7 @@ void _nvp_SHM_COPY() {
 	}
 
 	munmap(shm_area, 10*1024*1024);
-	shm_unlink(buf);
+	shm_unlink(exec_nvp_filename);
 }
 
 void _mm_cache_flush(void const* p) {
@@ -1555,10 +1555,10 @@ void _nvp_init2(void)
 	atexit(nvp_exit_handler);
 
 	int pid = getpid();
-	char buf[BUF_SIZE];
+	char exec_nvp_filename[BUF_SIZE];
 
-	sprintf(buf, "/dev/shm/exec-ledger-%d", pid);
-	if (access(buf, F_OK ) != -1)
+	sprintf(exec_nvp_filename, "/dev/shm/exec-ledger-%d", pid);
+	if (access(exec_nvp_filename, F_OK ) != -1)
 		execv_done = 1;
 	else
 		execv_done = 0;
@@ -4744,7 +4744,7 @@ RETT_EXECVE _nvp_EXECVE(INTF_EXECVE) {
 	int exec_ledger_fd = -1, i = 0;
 	unsigned long offset_in_map = 0;
 	int pid = getpid();
-	char buf[BUF_SIZE];
+	char exec_nvp_filename[BUF_SIZE];
 
 	for (i = 0; i < 1024; i++) {
 		if (_nvp_fd_lookup[i].offset != NULL)
@@ -4753,8 +4753,8 @@ RETT_EXECVE _nvp_EXECVE(INTF_EXECVE) {
 			execve_fd_passing[i] = 0;
 	}
 
-	sprintf(buf, "exec-ledger-%d", pid);
-	exec_ledger_fd = shm_open(buf, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	sprintf(exec_nvp_filename, "exec-ledger-%d", pid);
+	exec_ledger_fd = shm_open(exec_nvp_filename, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
 	if (exec_ledger_fd == -1) {
 		printf("%s: %s\n", __func__, strerror(errno));
 		assert(0);
@@ -4816,7 +4816,7 @@ RETT_EXECVP _nvp_EXECVP(INTF_EXECVP) {
 	int exec_ledger_fd = -1, i = 0;
 	unsigned long offset_in_map = 0;
 	int pid = getpid();
-	char buf[BUF_SIZE];
+	char exec_nvp_filename[BUF_SIZE];
 
 	for (i = 0; i < 1024; i++) {
 		if (_nvp_fd_lookup[i].offset != NULL)
@@ -4830,8 +4830,8 @@ RETT_EXECVP _nvp_EXECVP(INTF_EXECVP) {
 			_nvp_FSYNC(_nvp_fd_lookup[i].fd);
 	}
 	
-	sprintf(buf, "exec-ledger-%d", pid);
-	exec_ledger_fd = shm_open(buf, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	sprintf(exec_nvp_filename, "exec-ledger-%d", pid);
+	exec_ledger_fd = shm_open(exec_nvp_filename, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
 	if (exec_ledger_fd == -1) {
 		printf("%s: %s\n", __func__, strerror(errno));
 		assert(0);
@@ -5916,9 +5916,9 @@ RETT_DUP2 _nvp_DUP2(INTF_DUP2)
 	nvf2->node = nvf->node;
 	nvf2->valid = nvf->valid;
 	nvf2->posix = nvf->posix;
-  // Increment the refernce count as this file 
-  // descriptor is pointing to the same NVFNode
-  nvf2->node->reference++;
+	// Increment the refernce count as this file 
+	// descriptor is pointing to the same NVFNode
+	nvf2->node->reference++;
 
 	SANITYCHECK(nvf2->node != NULL);
 	SANITYCHECK(nvf2->valid);
