@@ -27,7 +27,7 @@ $ cd splitfs; make clean; make; cd .. # Compile SplitFS
 $ export LD_LIBRARY_PATH=./splitfs
 $ export NVP_TREE_FILE=./splitfs/bin/nvp_nvp.tree
 ```
-4. <b>Set up ext4-DAX </b>
+4. #### Set up ext4-DAX 
 ```
 $ sudo mkfs.ext4 -b 4096 /dev/pmem0
 $ sudo mount -o dax /dev/pmem0 /mnt/pmem_emul
@@ -109,6 +109,21 @@ Tests that failed include:
 3. Tests on `unlink` (tests 17, 22, 53 in in unlink/00.t)  
 
 We aim to to improve this to a 100% pass rate soon.
+
+**Running the Test Suite**  
+Before running the tests, make sure you have [set-up ext4-DAX](#set-up-ext4-DAX)  
+
+To run tests in all modes:  
+```
+$ make test
+```
+To run tests in a specific mode:
+```
+$ make -C tests pjd.<mode>
+```
+where `<mode>` is one of `posix`, `sync` or `strict`.  Example: `make -C tests pjd.posix`  
+
+Tip: Redirect stderr for less verbose output: e.g `make test 2>/dev/null`
 
 ## License
 
