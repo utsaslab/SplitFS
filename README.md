@@ -27,7 +27,7 @@ $ cd splitfs; make clean; make; cd .. # Compile SplitFS
 $ export LD_LIBRARY_PATH=./splitfs
 $ export NVP_TREE_FILE=./splitfs/bin/nvp_nvp.tree
 ```
-4. <b>Set up ext4-DAX </b>
+4. #### Set up ext4-DAX 
 ```
 $ sudo mkfs.ext4 -b 4096 /dev/pmem0
 $ sudo mount -o dax /dev/pmem0 /mnt/pmem_emul
@@ -99,6 +99,31 @@ The kernel patch for the implementation of relink() system call for linux v4.13 
 SplitFS is under active development.
 1. The current implementation of SplitFS handles the following system calls: `open, openat, close, read, pread64, write, pwrite64, fsync, unlink, ftruncate, fallocate, stat, fstat, lstat, dup, dup2, execve and clone`. The rest of the calls are passed through to the kernel.
 2. The current implementation of SplitFS works correctly for the following applictions: `LevelDB running YCSB, SQLite running TPCC, tar, git, rsync`. This limitation is purely due to the state of the implementation, and we aim to increase the coverage of applications by supporting more system calls in the future.
+
+## Testing
+[PJD POSIX Test Suite](https://www.tuxera.com/community/posix-test-suite/) that tests primarily the metadata operations was run on SplitFS and yielded the following result.  
+Tests Passed: 1944 out of a total of 1957.  
+Tests that failed include: 
+1. Tests on `link` (tests 56-58, 63-65 in links/00.t)
+2. Tests on `rename` (tests 49, 53, 57, 61 in rename/00.t)
+3. Tests on `unlink` (tests 17, 22, 53 in in unlink/00.t)  
+
+We aim to to improve this to a 100% pass rate soon.
+
+**Running the Test Suite**  
+Before running the tests, make sure you have [set-up ext4-DAX](#set-up-ext4-DAX)  
+
+To run tests in all modes:  
+```
+$ make test
+```
+To run tests in a specific mode:
+```
+$ make -C tests pjd.<mode>
+```
+where `<mode>` is one of `posix`, `sync` or `strict`.  Example: `make -C tests pjd.posix`  
+
+Tip: Redirect stderr for less verbose output: e.g `make test 2>/dev/null`
 
 ## License
 

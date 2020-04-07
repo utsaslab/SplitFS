@@ -1021,8 +1021,11 @@ void _nvp_SHM_COPY() {
         int exec_ledger_fd = -1;
 	int i,j;
 	unsigned long offset_in_map = 0;
-	
-	exec_ledger_fd = shm_open("exec-ledger", O_RDONLY, 0666);
+	int pid = getpid();
+	char exec_nvp_filename[BUF_SIZE];
+
+	sprintf(exec_nvp_filename, "exec-ledger-%d", pid);
+	exec_ledger_fd = shm_open(exec_nvp_filename, O_RDONLY, 0666);
 
 	if (exec_ledger_fd == -1) {
 		printf("%s: shm_open failed. Err = %s\n", __func__, strerror(errno));
@@ -1096,7 +1099,7 @@ void _nvp_SHM_COPY() {
 	}
 
 	munmap(shm_area, 10*1024*1024);
-	shm_unlink("exec-ledger");
+	shm_unlink(exec_nvp_filename);
 }
 
 void _mm_cache_flush(void const* p) {
@@ -1244,13 +1247,11 @@ void _nvp_init2(void)
 		if (!_nvp_node_lookup[i])
 			assert(0);
 
-#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC
 		_nvp_backup_roots[i] = (struct backupRoots*)calloc(OPEN_MAX,
 								   sizeof(struct backupRoots));
 		if (!_nvp_backup_roots[i])
 			assert(0);
 
-#endif	// WORKLOAD_TAR
 		
 		memset((void *)_nvp_node_lookup[i], 0, OPEN_MAX * sizeof(struct NVNode));	
 		// Allocating and initializing all the dynamic structs inside struct NVNode 
@@ -1276,11 +1277,9 @@ void _nvp_init2(void)
 			// Allocating and Initializing DR root of the node
 			memset((void *)&_nvp_node_lookup[i][j].dr_info, 0, sizeof(struct free_dr_pool));
 
-#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC
 			_nvp_backup_roots[i][j].root = _nvp_node_lookup[i][j].root;
 			_nvp_backup_roots[i][j].merkle_root = _nvp_node_lookup[i][j].merkle_root;
 			_nvp_backup_roots[i][j].root_dirty_cache = _nvp_node_lookup[i][j].root_dirty_cache;
-#endif // WORKLOAD_TAR
 			
 		}
 	}
@@ -1555,14 +1554,14 @@ void _nvp_init2(void)
 	*/
 	atexit(nvp_exit_handler);
 
-#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC
+	int pid = getpid();
+	char exec_nvp_filename[BUF_SIZE];
 
-	if (access("/dev/shm/exec-ledger", F_OK ) != -1) 
+	sprintf(exec_nvp_filename, "/dev/shm/exec-ledger-%d", pid);
+	if (access(exec_nvp_filename, F_OK ) != -1)
 		execv_done = 1;
 	else
 		execv_done = 0;
-
-#endif // WORKLOAD_TAR
 
 }
 
@@ -4744,6 +4743,8 @@ RETT_EXECVE _nvp_EXECVE(INTF_EXECVE) {
 
 	int exec_ledger_fd = -1, i = 0;
 	unsigned long offset_in_map = 0;
+	int pid = getpid();
+	char exec_nvp_filename[BUF_SIZE];
 
 	for (i = 0; i < 1024; i++) {
 		if (_nvp_fd_lookup[i].offset != NULL)
@@ -4752,7 +4753,8 @@ RETT_EXECVE _nvp_EXECVE(INTF_EXECVE) {
 			execve_fd_passing[i] = 0;
 	}
 
-	exec_ledger_fd = shm_open("exec-ledger", O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	sprintf(exec_nvp_filename, "exec-ledger-%d", pid);
+	exec_ledger_fd = shm_open(exec_nvp_filename, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
 	if (exec_ledger_fd == -1) {
 		printf("%s: %s\n", __func__, strerror(errno));
 		assert(0);
@@ -4813,6 +4815,8 @@ RETT_EXECVP _nvp_EXECVP(INTF_EXECVP) {
 
 	int exec_ledger_fd = -1, i = 0;
 	unsigned long offset_in_map = 0;
+	int pid = getpid();
+	char exec_nvp_filename[BUF_SIZE];
 
 	for (i = 0; i < 1024; i++) {
 		if (_nvp_fd_lookup[i].offset != NULL)
@@ -4825,8 +4829,9 @@ RETT_EXECVP _nvp_EXECVP(INTF_EXECVP) {
 		if (_nvp_fd_lookup[i].node != NULL && _nvp_fd_lookup[i].valid)
 			_nvp_FSYNC(_nvp_fd_lookup[i].fd);
 	}
-		
-	exec_ledger_fd = shm_open("exec-ledger", O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	
+	sprintf(exec_nvp_filename, "exec-ledger-%d", pid);
+	exec_ledger_fd = shm_open(exec_nvp_filename, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
 	if (exec_ledger_fd == -1) {
 		printf("%s: %s\n", __func__, strerror(errno));
 		assert(0);
@@ -5911,6 +5916,9 @@ RETT_DUP2 _nvp_DUP2(INTF_DUP2)
 	nvf2->node = nvf->node;
 	nvf2->valid = nvf->valid;
 	nvf2->posix = nvf->posix;
+	// Increment the refernce count as this file 
+	// descriptor is pointing to the same NVFNode
+	nvf2->node->reference++;
 
 	SANITYCHECK(nvf2->node != NULL);
 	SANITYCHECK(nvf2->valid);
@@ -6541,3 +6549,4 @@ RETT_FALLOCATE _nvp_FALLOCATE(INTF_FALLOCATE)
 	return result;
 }
 */
+

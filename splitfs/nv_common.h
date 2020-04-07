@@ -32,6 +32,8 @@
 #include "boost/preprocessor/seq/for_each.hpp"
 //#include "boost/preprocessor/cat.hpp"
 
+#define BUF_SIZE 40
+
 #define MIN(X,Y) (((X)<(Y))?(X):(Y))
 #define MAX(X,Y) (((X)>(Y))?(X):(Y))
 

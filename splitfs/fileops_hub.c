@@ -363,9 +363,6 @@ int hub_check_resolve_fileops(char* tree)
 	{
 		_hub_fd_lookup[i] = _hub_fileops;
 	}
-	_hub_fd_lookup[0] = _hub_managed_fileops;
-	_hub_fd_lookup[1] = _hub_managed_fileops;
-	_hub_fd_lookup[2] = _hub_managed_fileops;
 
 	return 0;
 }
@@ -815,6 +812,8 @@ RETT_OPENAT _hub_OPENAT(INTF_OPENAT)
 }
 
 RETT_EXECVE _hub_EXECVE(INTF_EXECVE) {
+	int pid = getpid();
+	char exec_hub_filename[BUF_SIZE];
 
         HUB_CHECK_RESOLVE_FILEOPS(_hub_, EXECVE);
 
@@ -832,7 +831,8 @@ RETT_EXECVE _hub_EXECVE(INTF_EXECVE) {
 			hub_ops[i] = 2;
 	}
 
-        exec_hub_fd = shm_open("exec-hub", O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+        sprintf(exec_hub_filename, "exec-hub-%d", pid);
+        exec_hub_fd = shm_open(exec_hub_filename, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
         if (exec_hub_fd == -1) {
 		printf("%s: %s\n", __func__, strerror(errno));
 		assert(0);
@@ -864,6 +864,8 @@ RETT_EXECVE _hub_EXECVE(INTF_EXECVE) {
 }
 
 RETT_EXECVP _hub_EXECVP(INTF_EXECVP) {
+	int pid = getpid();
+	char exec_hub_filename[BUF_SIZE];
 
 	HUB_CHECK_RESOLVE_FILEOPS(_hub_, EXECVP);
 
@@ -881,13 +883,14 @@ RETT_EXECVP _hub_EXECVP(INTF_EXECVP) {
 			hub_ops[i] = 2;
 	}
 	
-	exec_hub_fd = shm_open("exec-hub", O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	sprintf(exec_hub_filename, "exec-hub-%d", pid);
+	exec_hub_fd = shm_open(exec_hub_filename, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
 	if (exec_hub_fd == -1) {
 		printf("%s: %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	int res = _hub_managed_fileops->FTRUNC64(exec_hub_fd, (1024*1024));
+	int res = _hub_fileops->FTRUNC64(exec_hub_fd, (1024*1024));
 	if (res == -1) {
 		printf("%s: ftruncate failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
@@ -918,8 +921,11 @@ RETT_SHM_COPY _hub_SHM_COPY() {
 	int exec_hub_fd = -1, i = 0;
 	int hub_ops[1024];
 	unsigned long offset_in_map = 0;
+	int pid = getpid();
+	char exec_hub_filename[BUF_SIZE];
 	
-	exec_hub_fd = shm_open("exec-hub", O_RDONLY, 0666);
+	sprintf(exec_hub_filename, "exec-hub-%d", pid);
+	exec_hub_fd = shm_open(exec_hub_filename, O_RDONLY, 0666);
 	if (exec_hub_fd == -1) {
 		MSG("%s: %s\n", __func__, strerror(errno));
 		assert(0);
@@ -946,7 +952,7 @@ RETT_SHM_COPY _hub_SHM_COPY() {
 	}
 
         munmap(shm_area, 1024*1024);
-	shm_unlink("exec-hub");
+	shm_unlink(exec_hub_filename);
 	
 	return _hub_managed_fileops->SHM_COPY();
 }
@@ -1101,16 +1107,18 @@ RETT_CLOSE _hub_CLOSE(INTF_CLOSE)
 	DEBUG("_hub_CLOSE is calling %s->CLOSE\n", _hub_fd_lookup[file]->name);
 	
 	struct Fileops_p* temp = _hub_fd_lookup[file];
-	_hub_fd_lookup[file] = NULL;
+
+	// Restore it to the state similar to the initialised state.
+	_hub_fd_lookup[file] = _hub_fileops;
 	int result = temp->CLOSE(CALL_CLOSE);
 
 	if(result) {
 		DEBUG("call to %s->CLOSE failed: %s\n", _hub_fileops->name, strerror(errno));
-		return 0;
+		return result;
 	}
 	
 	DEBUG_FILE("%s: Return = %d\n", __func__, result);
-	return 0;
+	return result;
 }
 
 #ifdef TRACE_FP_CALLS				
@@ -1225,12 +1233,6 @@ RETT_DUP2 _hub_DUP2(INTF_DUP2)
 	else
 	{ 
 		DEBUG("DUP2 call completed successfully.\n");
-		
-		if(result != fd2)
-		{
-			DEBUG("_hub_DUP2: result!=fd2 (%i != %i), so let's update the table...\n", result, fd2);
-			_hub_fd_lookup[fd2] = NULL;
-		}
 
 		DEBUG("Hub(dup2) managing new FD %i with same ops (\"%s\") as initial FD (%i)\n",
 			result, _hub_fd_lookup[file]->name, file);
@@ -1479,3 +1481,4 @@ RETT_CLONE _hub_CLONE(INTF_CLONE)
 */
 
 // breaking the build
+
