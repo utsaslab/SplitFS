@@ -639,7 +639,6 @@ RETT_OPEN _hub_OPEN(INTF_OPEN)
 
 #endif
 
-#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC
 
 	if(path[0] == '/' && path[1] == 'v' && path[2] == 'a' && path[3] == 'r') {
 		op_to_use = _hub_fileops;
@@ -692,7 +691,6 @@ RETT_OPEN _hub_OPEN(INTF_OPEN)
 		
 	}
 	
-#endif // WORKLOAD_TAR
 	
 	// op_to_use = _hub_managed_fileops;	
 	assert(op_to_use != NULL);
