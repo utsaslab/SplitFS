@@ -118,6 +118,11 @@ where `<mode>` is one of `posix`, `sync` or `strict`.  Example: `make -C tests p
 
 Tip: Redirect stderr for less verbose output: e.g `make test 2>/dev/null`
 
+## Notes
+1. Only regular files, block special files and directories (only for consistency guarantees) are handled by SplitFS, the other file types are delegated to POSIX.  
+2. Only files in the persistent memory mount are handled by SplitFS, rest are delegated to POSIX.  
+Currently this is only done by examination of absolute paths specified, we aim to have this check for relative paths too, soon.
+
 ## License
 
 Copyright for SplitFS is held by the University of Texas at Austin. Please contact us if you would like to obtain a license to use SplitFS in your commercial product.
