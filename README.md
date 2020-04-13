@@ -101,14 +101,7 @@ SplitFS is under active development.
 2. The current implementation of SplitFS works correctly for the following applictions: `LevelDB running YCSB, SQLite running TPCC, tar, git, rsync`. This limitation is purely due to the state of the implementation, and we aim to increase the coverage of applications by supporting more system calls in the future.
 
 ## Testing
-[PJD POSIX Test Suite](https://www.tuxera.com/community/posix-test-suite/) that tests primarily the metadata operations was run on SplitFS and yielded the following result.  
-Tests Passed: 1944 out of a total of 1957.  
-Tests that failed include: 
-1. Tests on `link` (tests 56-58, 63-65 in links/00.t)
-2. Tests on `rename` (tests 49, 53, 57, 61 in rename/00.t)
-3. Tests on `unlink` (tests 17, 22, 53 in in unlink/00.t)  
-
-We aim to to improve this to a 100% pass rate soon.
+[PJD POSIX Test Suite](https://www.tuxera.com/community/posix-test-suite/) that tests primarily the metadata operations was run on SplitFS successfully.  
 
 **Running the Test Suite**  
 Before running the tests, make sure you have [set-up ext4-DAX](#set-up-ext4-DAX)  
@@ -124,6 +117,13 @@ $ make -C tests pjd.<mode>
 where `<mode>` is one of `posix`, `sync` or `strict`.  Example: `make -C tests pjd.posix`  
 
 Tip: Redirect stderr for less verbose output: e.g `make test 2>/dev/null`
+
+## Implementation Notes
+1. Only regular files, block special files and directories (only for consistency guarantees) are handled by SplitFS, the other file types are delegated to POSIX.  
+2. Only files in the persistent memory mount are handled by SplitFS, rest are delegated to POSIX.  
+Currently this is only done by examination of absolute paths specified, we aim to have this check for relative paths too, soon.
+3. Currently, the persistent memory mount is assumed to be at `/mnt/pmem_emul/`.  
+We aim to have this controlled via a runtime environment variable soon.
 
 ## License
 
