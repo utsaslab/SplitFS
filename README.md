@@ -101,7 +101,7 @@ SplitFS is under active development.
 2. The current implementation of SplitFS works correctly for the following applictions: `LevelDB running YCSB, SQLite running TPCC, tar, git, rsync`. This limitation is purely due to the state of the implementation, and we aim to increase the coverage of applications by supporting more system calls in the future.
 
 ## Testing
-[PJD POSIX Test Suite](https://www.tuxera.com/community/posix-test-suite/) that tests primarily the metadata operations was run on SplitFS successfully.  
+[PJD POSIX Test Suite](https://www.tuxera.com/community/posix-test-suite/) that tests primarily the metadata operations was run on SplitFS successfully. SplitFS passes all tests. 
 
 **Running the Test Suite**  
 Before running the tests, make sure you have [set-up ext4-DAX](#set-up-ext4-DAX)  
@@ -119,11 +119,10 @@ where `<mode>` is one of `posix`, `sync` or `strict`.  Example: `make -C tests p
 Tip: Redirect stderr for less verbose output: e.g `make test 2>/dev/null`
 
 ## Implementation Notes
-1. Only regular files, block special files and directories (only for consistency guarantees) are handled by SplitFS, the other file types are delegated to POSIX.  
-2. Only files in the persistent memory mount are handled by SplitFS, rest are delegated to POSIX.  
+1. Only regular files, block special files, and directories (only for consistency guarantees) are handled by SplitFS, the other file types are delegated to POSIX.  
+2. Only files in the persistent memory mount (`/mnt/pmem_emul/`) are handled by SplitFS, rest are delegated to POSIX.  
 Currently this is only done by examination of absolute paths specified, we aim to have this check for relative paths too, soon.
-3. Currently, the persistent memory mount is assumed to be at `/mnt/pmem_emul/`.  
-We aim to have this controlled via a runtime environment variable soon.
+3. We aim to have the persistent-memory mount point controlled via a runtime environment variable soon.
 
 ## License
 
