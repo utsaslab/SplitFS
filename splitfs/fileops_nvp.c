@@ -1624,7 +1624,18 @@ void nvp_free_dr_mmaps()
 		temp_free_pool_of_dr_mmaps = LFDS711_QUEUE_UMM_GET_VALUE_FROM_ELEMENT( *qe );
 		addr = temp_free_pool_of_dr_mmaps->start_addr;
 		munmap((void *)addr, DR_SIZE);
+
+		// Fetch the name of the file before closing it.
+		char fd_str[256];
+		char new_path[256];
+		sprintf(fd_str, "/proc/self/fd/%d", temp_free_pool_of_dr_mmaps->dr_fd);
+		if (readlink(fd_str, new_path, sizeof(new_path)) == -1)
+			assert(0);
+
 		close(temp_free_pool_of_dr_mmaps->dr_fd);
+
+		// Remove the file.
+		_nvp_fileops->UNLINK(new_path);
 		__atomic_fetch_sub(&num_drs_left, 1, __ATOMIC_SEQ_CST);
 	}
 	lfds711_queue_umm_cleanup( &qs, NULL );
@@ -1635,7 +1646,18 @@ void nvp_free_dr_mmaps()
 		temp_free_pool_of_dr_mmaps = LFDS711_QUEUE_UMM_GET_VALUE_FROM_ELEMENT( *qe_over );
 		addr = temp_free_pool_of_dr_mmaps->start_addr;
 		munmap((void *)addr, DR_OVER_SIZE);
+
+		// Fetch the name of the file before closing it.
+		char fd_str[256];
+		char new_path[256];
+		sprintf(fd_str, "/proc/self/fd/%d", temp_free_pool_of_dr_mmaps->dr_fd);
+		if (readlink(fd_str, new_path, sizeof(new_path)) == -1)
+			assert(0);
+
 		close(temp_free_pool_of_dr_mmaps->dr_fd);
+
+		// Remove the file.
+		_nvp_fileops->UNLINK(new_path);
 		__atomic_fetch_sub(&num_drs_left, 1, __ATOMIC_SEQ_CST);
 	}
 	lfds711_queue_umm_cleanup( &qs_over, NULL );
