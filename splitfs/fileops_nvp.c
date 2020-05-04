@@ -4828,6 +4828,7 @@ RETT_EXECVE _nvp_EXECVE(INTF_EXECVE) {
 		assert(0);
 	}
 
+	nvp_free_dr_mmaps();
 	offset_in_map += (1024 * sizeof(struct StackNode));
 	
 	return _nvp_fileops->EXECVE(CALL_EXECVE);
@@ -4906,7 +4907,8 @@ RETT_EXECVP _nvp_EXECVP(INTF_EXECVP) {
 	}
 
 	offset_in_map += (1024 * sizeof(struct StackNode));
-	
+
+	nvp_free_dr_mmaps();
 	return _nvp_fileops->EXECVP(CALL_EXECVP);
 }
 
