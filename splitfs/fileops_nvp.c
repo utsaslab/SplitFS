@@ -978,7 +978,6 @@ void nvp_cleanup(void)
 
 	DEBUG_FILE("%s: CLEANUP FINISHED\n", __func__);
 	MSG("%s: Done Cleaning up\n", __func__);
-	exit(0);
 }
 
 void nvp_exit_handler(void)
@@ -6056,13 +6055,15 @@ RETT_UNLINK _nvp_UNLINK(INTF_UNLINK)
 	result = _nvp_fileops->UNLINK(CALL_UNLINK);
 	
 #if !POSIX_ENABLED
-	START_TIMING(op_log_entry_t, op_log_entry_time);
-	persist_op_entry(LOG_FILE_UNLINK,
-			 path,
-			 NULL,
-			 0,
-			 0);
-	END_TIMING(op_log_entry_t, op_log_entry_time);
+	if(result == 0) {
+		START_TIMING(op_log_entry_t, op_log_entry_time);
+		persist_op_entry(LOG_FILE_UNLINK,
+				path,
+				NULL,
+				0,
+				0);
+		END_TIMING(op_log_entry_t, op_log_entry_time);
+	}
 #endif
 	
 	END_TIMING(unlink_t, unlink_time);
@@ -6163,13 +6164,15 @@ RETT_MKDIR _nvp_MKDIR(INTF_MKDIR)
 #endif	
 
 #if !POSIX_ENABLED
-	START_TIMING(op_log_entry_t, op_log_entry_time);
-	persist_op_entry(LOG_DIR_CREATE,
-			 path,
-			 NULL,
-			 mode,
-			 0);
-	END_TIMING(op_log_entry_t, op_log_entry_time);
+	if(result == 0) {
+		START_TIMING(op_log_entry_t, op_log_entry_time);
+		persist_op_entry(LOG_DIR_CREATE,
+				path,
+				NULL,
+				mode,
+				0);
+		END_TIMING(op_log_entry_t, op_log_entry_time);
+	}
 #endif
 	return result;
 }
@@ -6186,13 +6189,15 @@ RETT_RENAME _nvp_RENAME(INTF_RENAME)
 #endif	
 
 #if !POSIX_ENABLED
-	START_TIMING(op_log_entry_t, op_log_entry_time);
-	persist_op_entry(LOG_RENAME,
-			 old,
-			 new,
-			 0,
-			 0);
-	END_TIMING(op_log_entry_t, op_log_entry_time);
+	if(result == 0) {
+		START_TIMING(op_log_entry_t, op_log_entry_time);
+		persist_op_entry(LOG_RENAME,
+				old,
+				new,
+				0,
+				0);
+		END_TIMING(op_log_entry_t, op_log_entry_time);
+	}
 #endif
 	return result;
 }
@@ -6209,13 +6214,15 @@ RETT_LINK _nvp_LINK(INTF_LINK)
 #endif	
 
 #if !POSIX_ENABLED
-	START_TIMING(op_log_entry_t, op_log_entry_time);
-	persist_op_entry(LOG_LINK,
-			 path1,
-			 path2,
-			 0,
-			 0);
-	END_TIMING(op_log_entry_t, op_log_entry_time);
+	if(result == 0) {
+		START_TIMING(op_log_entry_t, op_log_entry_time);
+		persist_op_entry(LOG_LINK,
+				path1,
+				path2,
+				0,
+				0);
+		END_TIMING(op_log_entry_t, op_log_entry_time);
+	}
 #endif
 	return result;
 }
@@ -6232,13 +6239,15 @@ RETT_SYMLINK _nvp_SYMLINK(INTF_SYMLINK)
 #endif	
 
 #if !POSIX_ENABLED
-	START_TIMING(op_log_entry_t, op_log_entry_time);
-	persist_op_entry(LOG_SYMLINK,
-			 path1,
-			 path2,
-			 0,
-			 0);
-	END_TIMING(op_log_entry_t, op_log_entry_time);
+	if(result == 0) {
+		START_TIMING(op_log_entry_t, op_log_entry_time);
+		persist_op_entry(LOG_SYMLINK,
+				path1,
+				path2,
+				0,
+				0);
+		END_TIMING(op_log_entry_t, op_log_entry_time);
+	}
 #endif
 	return result;
 }
@@ -6255,13 +6264,15 @@ RETT_RMDIR _nvp_RMDIR(INTF_RMDIR)
 #endif	
 
 #if !POSIX_ENABLED
-	START_TIMING(op_log_entry_t, op_log_entry_time);
-	persist_op_entry(LOG_DIR_DELETE,
-			 path,
-			 NULL,
-			 0,
-			 0);
-	END_TIMING(op_log_entry_t, op_log_entry_time);
+	if(result == 0) {
+		START_TIMING(op_log_entry_t, op_log_entry_time);
+		persist_op_entry(LOG_DIR_DELETE,
+				path,
+				NULL,
+				0,
+				0);
+		END_TIMING(op_log_entry_t, op_log_entry_time);
+	}
 #endif
 	return result;
 }
