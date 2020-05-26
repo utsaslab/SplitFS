@@ -13,6 +13,18 @@ Rohan Kadekodi, Se Kwon Lee, Sanidhya Kashyap, Taesoo Kim, Aasheesh Kolli, Vijay
 *Proceedings of the The 27th ACM Symposium on Operating Systems Principles (SOSP 19)*. 
 [Paper PDF](https://www.cs.utexas.edu/~vijay/papers/sosp19-splitfs.pdf). [Bibtex](https://www.cs.utexas.edu/~vijay/bibtex/sosp19-splitfs.bib). [Talk Video](https://sosp19.rcs.uwaterloo.ca/videos/D3-S1-P4.mp4)
 
+~~~~
+@InProceedings{KadekodiEtAl19-SplitFS,
+  title =        "{SplitFS: A File System that Minimizes Software Overhead in File Systems for Persistent Memory}",
+  author =       "Rohan Kadekodi and Se Kwon Lee and  Sanidhya Kashyap and  Taesoo Kim and  Vijay Chidambaram",
+  booktitle =    "Proceedings of the 27th ACM Symposium on Operating
+                  Systems Principles (SOSP '19)",
+  month =        "October",
+  year =         "2019",
+  address =      "Ontario, Canada",
+}
+~~~~
+
 ## Getting Started with SplitFS
 
 This tutorial walks you through the workflow of compiling splitfs, setting up ext4-DAX, compiling an application and running it with ext4-DAX as well as SplitFS, using a simple microbenchmark. The microbenchmark appends 128MB data to an empty file, in chunks of 4KB each, and does an fsync() at the end.
