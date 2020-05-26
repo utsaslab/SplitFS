@@ -15,7 +15,7 @@ Rohan Kadekodi, Se Kwon Lee, Sanidhya Kashyap, Taesoo Kim, Aasheesh Kolli, Vijay
 
 ~~~~
 @InProceedings{KadekodiEtAl19-SplitFS,
-  title =        "{SplitFS: A File System that Minimizes Software Overhead in File Systems for Persistent Memory}",
+  title =        "{SplitFS: Reducing Software Overhead in File Systems for Persistent Memory}",
   author =       "Rohan Kadekodi and Se Kwon Lee and  Sanidhya Kashyap and  Taesoo Kim and  Vijay Chidambaram",
   booktitle =    "Proceedings of the 27th ACM Symposium on Operating
                   Systems Principles (SOSP '19)",
