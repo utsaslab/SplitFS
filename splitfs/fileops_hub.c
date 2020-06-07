@@ -622,6 +622,20 @@ struct Fileops_p* _hub_find_fileop(const char* name)
 RETT_OPEN _hub_OPEN(INTF_OPEN)
 {
 	CHECK_RESOLVE_FILEOPS(_hub_);
+	int access_result;
+
+	access_result = access(path, F_OK);
+	/**
+	 * We need to check if 'path' is a valid pointer, but not crash it 
+	 * (segfault) if it's invalid.
+	 * 
+	 * Since it is not possible to validate a pointer in the user-space, 
+	 * we are making an access system call which validates  
+	 * the pointer.
+	 */
+	if(access_result == -1 && errno == EFAULT) {
+		return -1;
+	}
         DEBUG_FILE("CALL: _hub_OPEN for (%s)\n", path);
 	struct Fileops_p* op_to_use = NULL;
 	int result;
@@ -662,7 +676,7 @@ RETT_OPEN _hub_OPEN(INTF_OPEN)
 	}
 	*/
 		
-	if(access(path, F_OK))
+	if(access_result)
 	{		
 		if(FLAGS_INCLUDE(oflag, O_CREAT)) {
 			DEBUG("File does not exist and is set to be created.  Using managed fileops (%s)\n",
