@@ -1619,6 +1619,7 @@ void nvp_free_dr_mmaps()
 	unsigned long offset_in_page = 0;
 	struct free_dr_pool *temp_free_pool_of_dr_mmaps;
 	int i = 0;
+	ssize_t file_name_size = 0;
 	
 	while( lfds711_queue_umm_dequeue(&qs, &qe) ) {
 		temp_free_pool_of_dr_mmaps = LFDS711_QUEUE_UMM_GET_VALUE_FROM_ELEMENT( *qe );
@@ -1629,8 +1630,10 @@ void nvp_free_dr_mmaps()
 		char fd_str[256];
 		char new_path[256];
 		sprintf(fd_str, "/proc/self/fd/%d", temp_free_pool_of_dr_mmaps->dr_fd);
-		if (readlink(fd_str, new_path, sizeof(new_path)) == -1)
+		file_name_size = readlink(fd_str, new_path, sizeof(new_path));
+		if (file_name_size == -1)
 			assert(0);
+		new_path[file_name_size] = '\0';
 
 		close(temp_free_pool_of_dr_mmaps->dr_fd);
 
@@ -1651,8 +1654,10 @@ void nvp_free_dr_mmaps()
 		char fd_str[256];
 		char new_path[256];
 		sprintf(fd_str, "/proc/self/fd/%d", temp_free_pool_of_dr_mmaps->dr_fd);
-		if (readlink(fd_str, new_path, sizeof(new_path)) == -1)
+		file_name_size = readlink(fd_str, new_path, sizeof(new_path));
+		if (readlink(file_name_size == -1)
 			assert(0);
+		new_path[file_name_size] = '\0';
 
 		close(temp_free_pool_of_dr_mmaps->dr_fd);
 
