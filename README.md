@@ -81,14 +81,14 @@ $ rm -rf /mnt/pmem_emul/*
 2. `dependencies/` contains packages and scripts to resolve dependencies
 3. `kernel/` contains the Linux 4.13.0 kernel
 4. `micro/` contains the microbenchmark
-4. `leveldb/` contains LevelDB source code
-5. `rsync/` contains the rsync source code
-6. `scripts/` contains scripts to compile and run workloads and kernel
-7. `splitfs-so/` contains the SplitFS-strict shared libraries for running different workloads
-8. `sqlite3-trace/` contains SQLite3 source code
-9. `tpcc-sqlite/` contains TPCC source code
-10. `ycsb/` contains YCSB source code
-11. `tar/` contains tar source code
+5. `leveldb/` contains LevelDB source code
+6. `rsync/` contains the rsync source code
+7. `scripts/` contains scripts to compile and run workloads and kernel
+8. `splitfs-so/` contains the SplitFS-strict shared libraries for running different workloads
+9. `sqlite3-trace/` contains SQLite3 source code
+10. `tpcc-sqlite/` contains TPCC source code
+11. `ycsb/` contains YCSB source code
+12. `tar/` contains tar source code
 
 The [Experiments
 page](https://github.com/utsaslab/SplitFS/blob/master/experiments.md)

@@ -12,6 +12,7 @@ cd $root_dir
 rm $linux_tar
 wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.18.10.tar.gz
 
+rm -rf $pmem_dir/repo
 mkdir -p $pmem_dir/repo
 cp $root_dir/$linux_tar $pmem_dir/repo
 cd $pmem_dir/repo
