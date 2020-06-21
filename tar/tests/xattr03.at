@@ -1,0 +1,58 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2012-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Test description:
+#
+# Setup of the trusted.* domain under privileged user.
+
+AT_SETUP([xattrs: trusted.* attributes])
+AT_KEYWORDS([xattrs xattr03 chdir])
+
+AT_TAR_CHECK([
+AT_PRIVILEGED_PREREQ
+AT_XATTRS_PREREQ
+
+mkdir dir
+mkdir dir/subdir
+mkdir dir/subdir/subsubdir
+genfile --file dir/file1
+genfile --file dir/subdir/file2
+
+setfattr -n trusted.test -v OurFile1Value dir/file1
+setfattr -n trusted.test -v OurFile2Value dir/subdir/file2
+setfattr -n trusted.test -v OurDirValue   dir/subdir/subsubdir
+
+tar --xattrs -cf archive.tar -C dir file1 -C subdir file2 subsubdir
+
+rm -rf dir
+
+tar --xattrs --xattrs-include=trusted* -xf archive.tar
+
+getfattr -mtrusted. -d file1        | grep -v -e '^#' -e ^$
+getfattr -mtrusted. -d file2        | grep -v -e '^#' -e ^$
+getfattr -mtrusted. -d subsubdir    | grep -v -e '^#' -e ^$
+],
+[0],
+[trusted.test="OurFile1Value"
+trusted.test="OurFile2Value"
+trusted.test="OurDirValue"
+])
+
+AT_CLEANUP

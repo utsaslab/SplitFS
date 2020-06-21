@@ -1,0 +1,22 @@
+Description:
+Allow the installer to disable assertions through "configure --disable-assert".
+
+Files:
+m4/assert.m4
+
+Depends-on:
+
+configure.ac:
+gl_ASSERT
+
+Makefile.am:
+
+Include:
+<assert.h>
+
+License:
+GPL
+
+Maintainer:
+Jim Meyering
+

@@ -1643,7 +1643,7 @@ void nvp_free_dr_mmaps()
 	lfds711_queue_umm_cleanup( &qs, NULL );
 
 #if DATA_JOURNALING_ENABLED
-	
+
 	while( lfds711_queue_umm_dequeue(&qs_over, &qe_over) ) {
 		temp_free_pool_of_dr_mmaps = LFDS711_QUEUE_UMM_GET_VALUE_FROM_ELEMENT( *qe_over );
 		addr = temp_free_pool_of_dr_mmaps->start_addr;
@@ -1654,7 +1654,7 @@ void nvp_free_dr_mmaps()
 		char new_path[256];
 		sprintf(fd_str, "/proc/self/fd/%d", temp_free_pool_of_dr_mmaps->dr_fd);
 		file_name_size = readlink(fd_str, new_path, sizeof(new_path));
-		if (readlink(file_name_size == -1)
+		if (file_name_size == -1)
 			assert(0);
 		new_path[file_name_size] = '\0';
 
@@ -1673,7 +1673,7 @@ void nvp_free_dr_mmaps()
 	}
 
 #endif // DATA_JOURNALING_ENABLED
-	
+
 }
 
 void nvp_free_btree(unsigned long *root, unsigned long *merkle_root, unsigned long height, unsigned long *dirty_cache, int root_dirty_num, int total_dirty_mmaps)

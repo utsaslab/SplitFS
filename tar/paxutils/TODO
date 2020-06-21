@@ -1,0 +1,13 @@
+This is the roadmap for GNU paxutils. The entries are in 'historical'
+order, i.e. they must be executed from top to bottom. More entries
+will be added soon.
+
+* Move all project-independent parts of tar and cpio there and
+update both projects to use these.
+
+* Add general-purpose buffering functions for use by tar and cpio.
+
+* Create libpaxutils.
+
+
+

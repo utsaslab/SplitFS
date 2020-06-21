@@ -1,0 +1,51 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2009-2010, 2013-2014, 2016-2017 Free Software Foundation,
+# Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description:
+# When extracting, tar (<1.22) sometimes renamed a backup back to the
+# original name (overwriting the newly-extracted file) for no good reason.
+#
+# Reported by: Carl Worth <cworth@cworth.org>,
+#              Eric Lammerts <eric@lammerts.org>
+#
+# References: <1249419998.4905.84.camel@yoom.home.cworth.org>
+#             http://lists.gnu.org/archive/html/bug-tar/2009-08/msg00005.html
+#             http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=508199
+#
+
+AT_SETUP([extracting existing dir with --backup])
+AT_KEYWORDS([extract backup backup01])
+
+AT_TAR_CHECK([
+unset VERSION_CONTROL
+mkdir dir1 dir2
+echo bla > dir1/file1
+tar cf test.tar dir1 dir2
+tar xfv test.tar --backup --warning=no-timestamp
+],
+[0],
+[dir1/
+dir1/file1
+Renaming 'dir1/file1' to 'dir1/file1~'
+dir2/
+])
+
+AT_CLEANUP

@@ -1,0 +1,61 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description:
+#
+# When an explicitly named directory disappears during creation
+# of incremental dump, tar should still exit with TAREXIT_FAILURE (2).
+#
+# For further details see dirrem01.at
+
+# Remark: This file is based on 'filerem01/02.at', which are test-cases for
+# vanishing files.
+
+AT_SETUP([explicitly named directory removed before reading])
+AT_KEYWORDS([create incremental listed dirchange dirrem dirrem02])
+
+AT_TAR_CHECK([
+mkdir dir
+mkdir dir/sub
+genfile --file dir/file1
+genfile --file dir/sub/file2
+
+case "$TEST_TAR_FORMAT" in
+posix) CPT=5;;
+gnu)   CPT=3;;
+*)     AT_SKIP_TEST
+esac
+
+genfile --run --checkpoint=$CPT --unlink dir/sub/file2 --unlink dir/sub -- \
+       tar --blocking-factor=1 --checkpoint=1 --checkpoint-action='echo' \
+       --checkpoint-action='sleep=1' -c -f archive.tar \
+       --listed-incremental db -v dir dir/sub >/dev/null
+],
+[2],
+[ignore],
+[tar: dir: Directory is new
+tar: dir/sub: Directory is new
+tar: dir/sub: file changed as we read it
+tar: dir/sub: Cannot open: No such file or directory
+tar: Exiting with failure status due to previous errors
+],[],[],[gnu,posix])
+
+AT_CLEANUP
+

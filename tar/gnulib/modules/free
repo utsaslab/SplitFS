@@ -1,0 +1,29 @@
+Description:
+Work around incompatibility on older systems where free (NULL) fails.
+
+Notice:
+This module is obsolete.
+
+Files:
+lib/free.c
+m4/free.m4
+
+Depends-on:
+
+configure.ac:
+gl_FUNC_FREE
+if test $gl_cv_func_free = no; then
+  AC_LIBOBJ([free])
+  gl_PREREQ_FREE
+fi
+
+Makefile.am:
+
+Include:
+<stdlib.h>
+
+License:
+GPL
+
+Maintainer:
+Paul Eggert

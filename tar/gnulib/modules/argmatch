@@ -1,0 +1,32 @@
+Description:
+Search for an exact or abbreviated match of a string in an array of strings.
+
+Files:
+lib/argmatch.h
+lib/argmatch.c
+
+Depends-on:
+gettext-h
+error
+quotearg
+quote
+exitfail
+verify
+stdbool
+stdlib
+memcmp
+getprogname
+
+configure.ac:
+
+Makefile.am:
+lib_SOURCES += argmatch.c
+
+Include:
+"argmatch.h"
+
+License:
+GPL
+
+Maintainer:
+all

@@ -1,0 +1,56 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2012-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Test description:  Test for exclude of xattr during archive creation
+#
+# Relevant mailing list thread:
+#
+# http://lists.gnu.org/archive/html/bug-tar/2016-05/msg00031.html
+
+AT_SETUP([xattrs: exclude xattrs on create ])
+AT_KEYWORDS([xattrs xattr06])
+
+AT_TAR_CHECK([
+AT_XATTRS_PREREQ
+
+mkdir dir
+mkdir output
+genfile --file dir/file
+
+for attr in excluded incla inclb inclc incl_excluded
+do
+  setfattr -n user.${attr} -v value dir/file || AT_SKIP_TEST
+done
+
+tar --xattrs-include=user.incl'*' --xattrs-exclude=user.incl_excluded -cf archive.tar -C dir .
+tar -xf archive.tar --xattrs-include=user.incl[[ab]] --xattrs-exclude=user.inclb -C output
+
+getfattr -d output/file | grep -v \
+    -e excluded \
+    -e inclb \
+    -e inclc > filtered
+getfattr -d output/file > full
+# if they differ then the attribute is still present
+diff filtered full
+],
+[0],
+[])
+
+AT_CLEANUP

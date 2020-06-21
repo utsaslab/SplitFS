@@ -1,0 +1,16 @@
+@node authnone_create
+@subsection @code{authnone_create}
+@findex authnone_create
+
+Gnulib module: ---
+
+Portability problems fixed by Gnulib:
+@itemize
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+Minix 3.1.8, Cygwin, mingw, MSVC 14, BeOS, Android 9.0.
+@end itemize

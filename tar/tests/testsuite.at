@@ -1,0 +1,501 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2004-2008, 2010-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# We need a recent Autotest.
+m4_version_prereq([2.52g])
+
+m4_define([AT_TAR_CHECK_HOOK])
+m4_define([AT_TAR_CHECK],[
+  AT_XFAIL_IF(test -f $[]XFAILFILE)
+  m4_foreach([FMT],
+             [m4_if([$7],[],[v7,oldgnu,ustar,posix,gnu],[$7])],
+             [AT_CHECK([
+mkdir FMT
+(cd FMT
+TEST_TAR_FORMAT=FMT
+export TEST_TAR_FORMAT
+TAR_OPTIONS="-H FMT"
+export TAR_OPTIONS
+rm -rf *
+$1)],$2,$3,$4,$5,$6)
+              AT_TAR_CHECK_HOOK])
+])
+
+m4_define([AT_TAR_WITH_HOOK],[
+  m4_pushdef([AT_TAR_CHECK_HOOK],[$1])
+  $2
+
+  m4_popdef([AT_TAR_CHECK_HOOK])])
+
+m4_define([TAR_IGNREC_HOOK],[
+  AT_CHECK([grep -v '^.*tar: Record size = ' stderr; exit 0])
+])
+
+m4_define([RE_CHECK],[
+AT_DATA([$1.re],[$2])
+awk '{print NR " " $[]0}' $1 > $[]$.1
+awk '{print NR " " $[]0}' $1.re | join - $[]$.1 |
+while read NUM RE LINE
+do
+  echo "$LINE" | grep -- "$RE" >/dev/null || exit 1
+done
+])
+
+m4_define([AT_SKIP_TEST],[exit 77])
+
+m4_define([AT_SKIP_LARGE_FILES],[test "${TARTEST_SKIP_LARGE_FILES:-0}" != 0 && AT_SKIP_TEST])
+
+dnl AT_TARBALL_PREREQ(tarball, md5sum) - Check if test tarball exists
+dnl in $TEST_DATA_DIR. If it does not, try to download it from
+dnl $TEST_DATA_URL. If download fails, or it the file's md5 sum does not
+dnl match second argument, skip the test.
+
+m4_define([AT_TARBALL_PREREQ],[
+test -z "$[]TEST_DATA_DIR" && AT_SKIP_TEST
+tarball_prereq $1 $2 $[]TEST_DATA_DIR $[]TEST_DATA_URL || AT_SKIP_TEST])
+
+dnl AT_STAR_PREREQ(tarball, md5sum) - Same for star testfiles
+m4_define([AT_STAR_PREREQ],[
+test -z "$STAR_TESTSCRIPTS" && AT_SKIP_TEST
+tarball_prereq $1 $2 $[]STAR_TESTSCRIPTS $[]STAR_DATA_URL || AT_SKIP_TEST
+])
+
+dnl AT_GZIP_PREREQ - Skip test unless gzip (or $1) is available
+m4_define([AT_GZIP_PREREQ],[
+cat /dev/null | m4_if([$1],[],gzip,[$1]) - > /dev/null 2>&1 || AT_SKIP_TEST
+])
+
+dnl AT_SIGPIPE_PREREQ - Skip test unless SIGPIPE handling is the default
+m4_define([AT_SIGPIPE_PREREQ],[
+case `(cat "$at_myself" 2>&3 | :) 3>&1 >/dev/null` in #(
+?*) AT_SKIP_TEST;;
+esac
+])
+
+dnl AT_SORT_PREREQ - Skip test if sort utility outputs unwanted data on stderr
+m4_define([AT_SORT_PREREQ],[
+test -z "`sort < /dev/null 2>&1`" || AT_SKIP_TEST
+])
+
+dnl AT_UNPRIVILEGED_PREREQ - Skip test if running at root privileges
+m4_define([AT_UNPRIVILEGED_PREREQ],[
+echo "test" > $[]$
+chmod 0 $[]$
+cat $[]$ > /dev/null 2>&1
+result=$?
+rm -f $[]$
+test $result -eq 0 && AT_SKIP_TEST
+])
+
+dnl AT_PRIVILEGED_PREREQ - Skip test if not running at root privileges
+m4_define([AT_PRIVILEGED_PREREQ],[
+echo "test" > $[]$
+chmod 0 $[]$
+cat $[]$ > /dev/null 2>&1
+result=$?
+rm -f $[]$
+test $result -eq 0 || AT_SKIP_TEST
+])
+
+dnl AT_SEEKHOLE_PREREQ
+m4_define([AT_SEEKHOLE_PREREQ],[
+checkseekhole || AT_SKIP_TEST
+])
+
+m4_define([AT_TIMEOUT_PREREQ],[
+timeout 100 true
+if test $? -ne 0; then
+    echo >&2 "the 'timeout' utility not found"
+    AT_SKIP_TEST
+fi
+])
+
+m4_define([AT_TAR_MKHIER],[
+install-sh -d $1 >/dev/null dnl
+m4_if([$2],,,&& genfile --file [$1]/[$2]) || AT_SKIP_TEST])
+
+dnl Skip test when utlity does not return expected return value
+m4_define([AT_CHECK_UTIL],[
+  $1 &> /dev/null
+  if test "$?" != $2; then
+    AT_SKIP_TEST
+  fi
+])
+
+m4_define([AT_XATTRS_UTILS_PREREQ],[
+  file=$(TMPDIR=. mktemp fiXXXXXX)
+  AT_CHECK_UTIL(setfattr -n user.test -v test $file,0)
+  AT_CHECK_UTIL(getfattr $file,0)
+])
+m4_define([AT_SELINUX_UTILS_PREREQ],[
+  file=$(TMPDIR=. mktemp fiXXXXXX)
+  AT_CHECK_UTIL(restorecon $file, 0)
+  AT_CHECK_UTIL(chcon -h --user=unconfined_u $file,0)
+  rm -rf $file
+])
+m4_define([AT_ACLS_UTILS_PREREQ],[
+  file=$(TMPDIR=. mktemp fiXXXXXX)
+  AT_CHECK_UTIL(setfacl -m u:$UID:rwx $file,0)
+  AT_CHECK_UTIL(getfacl $file,0)
+  rm -rf $file
+])
+m4_define([AT_CAPABILITIES_UTILS_PREREQ],[
+  file=$(TMPDIR=. mktemp fiXXXXXX)
+  AT_CHECK_UTIL(setcap "= cap_chown=ei" $file,0)
+  AT_CHECK_UTIL(getcap $file,0)
+  rm -rf $file
+])
+m4_define([AT_XATTRS_PREREQ],[
+  AT_XATTRS_UTILS_PREREQ
+  file=$(TMPDIR=. mktemp fiXXXXXX)
+  setfattr -n user.test -v ahoj $file
+  # check whether tar fails to store xattrs
+  err=$( tar --xattrs -cf /dev/null $file 2>&1 >/dev/null | wc -l )
+  if test "$err" != "0"; then
+    AT_SKIP_TEST
+  fi
+])
+m4_define([AT_SELINUX_PREREQ],[
+  AT_SELINUX_UTILS_PREREQ
+  file=$(TMPDIR=. mktemp fiXXXXXX)
+  err=$( tar --selinux -cf /dev/null $file 2>&1 >/dev/null | wc -l )
+  if test "$err" != "0"; then
+    AT_SKIP_TEST
+  fi
+])
+m4_define([AT_ACLS_PREREQ],[
+  AT_ACLS_UTILS_PREREQ
+  file=$(TMPDIR=. mktemp fiXXXXXX)
+  setfacl -m u:$UID:rwx $file
+  err=$( tar --acls -cf /dev/null $file 2>&1 >/dev/null | wc -l )
+  if test "$err" != "0"; then
+    AT_SKIP_TEST
+  fi
+])
+
+dnl Check whether a newly created file has timestamp consistent with the
+dnl local time.  Skip the test if not.
+m4_define([AT_CHECK_TIMESTAMP],[ckmtime || AT_SKIP_TEST])
+
+m4_include([sparsemvp.at])
+
+AT_INIT
+
+AT_TESTED([tar])
+
+m4_include([version.at])
+
+m4_include([pipe.at])
+
+m4_include([options.at])
+m4_include([options02.at])
+m4_include([options03.at])
+
+AT_BANNER([Option compatibility])
+m4_include([opcomp01.at])
+m4_include([opcomp02.at])
+m4_include([opcomp03.at])
+m4_include([opcomp04.at])
+m4_include([opcomp05.at])
+m4_include([opcomp06.at])
+
+AT_BANNER([Compression])
+m4_include([compress-gzip.at])
+m4_include([compress-bzip2.at])
+m4_include([compress-xz.at])
+dnl: omit lzma, because it would fail due to magic number mismatch
+m4_include([compress-lzip.at])
+m4_include([compress-lzop.at])
+m4_include([compress-zstd.at])
+
+AT_BANNER([Positional options])
+m4_include([positional01.at])
+m4_include([positional02.at])
+m4_include([positional03.at])
+m4_include([add-file.at])
+
+AT_BANNER([The -T option])
+m4_include([T-mult.at])
+m4_include([T-nest.at])
+m4_include([T-rec.at])
+m4_include([T-recurse.at])
+m4_include([T-cd.at])
+m4_include([T-empty.at])
+m4_include([T-null.at])
+m4_include([T-null2.at])
+m4_include([T-zfile.at])
+m4_include([T-nonl.at])
+m4_include([T-dir00.at])
+m4_include([T-dir01.at])
+
+AT_BANNER([Various options])
+m4_include([indexfile.at])
+m4_include([verbose.at])
+m4_include([gzip.at])
+m4_include([recurse.at])
+m4_include([recurs02.at])
+m4_include([shortrec.at])
+m4_include([numeric.at])
+
+AT_BANNER([The --same-order option])
+m4_include([same-order01.at])
+m4_include([same-order02.at])
+
+AT_BANNER([Append])
+m4_include([append.at])
+m4_include([append01.at])
+m4_include([append02.at])
+m4_include([append03.at])
+m4_include([append04.at])
+m4_include([append05.at])
+
+AT_BANNER([Transforms])
+m4_include([xform-h.at])
+m4_include([xform01.at])
+m4_include([xform02.at])
+m4_include([xform03.at])
+
+AT_BANNER([Exclude])
+m4_include([exclude.at])
+m4_include([exclude01.at])
+m4_include([exclude02.at])
+m4_include([exclude03.at])
+m4_include([exclude04.at])
+m4_include([exclude05.at])
+m4_include([exclude06.at])
+m4_include([exclude07.at])
+m4_include([exclude08.at])
+m4_include([exclude09.at])
+m4_include([exclude10.at])
+m4_include([exclude11.at])
+m4_include([exclude12.at])
+m4_include([exclude13.at])
+m4_include([exclude14.at])
+m4_include([exclude15.at])
+m4_include([exclude16.at])
+
+AT_BANNER([Deletions])
+m4_include([delete01.at])
+m4_include([delete02.at])
+m4_include([delete03.at])
+m4_include([delete04.at])
+m4_include([delete05.at])
+
+AT_BANNER([Extracting])
+m4_include([extrac01.at])
+m4_include([extrac02.at])
+m4_include([extrac03.at])
+m4_include([extrac04.at])
+m4_include([extrac05.at])
+m4_include([extrac06.at])
+m4_include([extrac07.at])
+m4_include([extrac08.at])
+m4_include([extrac09.at])
+m4_include([extrac10.at])
+m4_include([extrac11.at])
+m4_include([extrac12.at])
+m4_include([extrac13.at])
+m4_include([extrac14.at])
+m4_include([extrac15.at])
+m4_include([extrac16.at])
+m4_include([extrac17.at])
+m4_include([extrac18.at])
+m4_include([extrac19.at])
+m4_include([extrac20.at])
+m4_include([extrac21.at])
+
+m4_include([backup01.at])
+
+AT_BANNER([Comparing])
+m4_include([difflink.at])
+
+AT_BANNER([Volume label operations])
+m4_include([label01.at])
+m4_include([label02.at])
+m4_include([label03.at])
+m4_include([label04.at])
+m4_include([label05.at])
+
+AT_BANNER([Incremental archives])
+m4_include([incremental.at])
+m4_include([incr01.at])
+m4_include([incr02.at])
+m4_include([listed01.at])
+m4_include([listed02.at])
+m4_include([listed03.at])
+m4_include([listed04.at])
+m4_include([listed05.at])
+m4_include([incr03.at])
+m4_include([incr04.at])
+m4_include([incr05.at])
+m4_include([incr06.at])
+m4_include([incr07.at])
+m4_include([incr08.at])
+m4_include([incr09.at])
+m4_include([incr10.at])
+m4_include([incr11.at])
+
+AT_BANNER([Files removed while archiving])
+m4_include([filerem01.at])
+m4_include([filerem02.at])
+
+AT_BANNER([Directories removed while archiving])
+m4_include([dirrem01.at])
+m4_include([dirrem02.at])
+
+AT_BANNER([Renames])
+m4_include([rename01.at])
+m4_include([rename02.at])
+m4_include([rename03.at])
+m4_include([rename04.at])
+m4_include([rename05.at])
+m4_include([chtype.at])
+
+AT_BANNER([Ignore failing reads])
+m4_include([ignfail.at])
+
+AT_BANNER([Link handling])
+m4_include([link01.at])
+m4_include([link02.at])
+m4_include([link03.at])
+m4_include([link04.at])
+
+AT_BANNER([Specific archive formats])
+m4_include([longv7.at])
+m4_include([long01.at])
+m4_include([lustar01.at])
+m4_include([lustar02.at])
+m4_include([lustar03.at])
+m4_include([old.at])
+
+m4_include([time01.at])
+m4_include([time02.at])
+
+AT_BANNER([Multivolume archives])
+m4_include([multiv01.at])
+m4_include([multiv02.at])
+m4_include([multiv03.at])
+m4_include([multiv04.at])
+m4_include([multiv05.at])
+m4_include([multiv06.at])
+m4_include([multiv07.at])
+m4_include([multiv08.at])
+m4_include([multiv09.at])
+m4_include([multiv10.at])
+
+AT_BANNER([Owner and Groups])
+m4_include([owner.at])
+m4_include([map.at])
+
+AT_BANNER([Sparse files])
+m4_include([sparse01.at])
+m4_include([sparse02.at])
+m4_include([sparse03.at])
+m4_include([sparse04.at])
+m4_include([sparse05.at])
+m4_include([sparse06.at])
+m4_include([sparse07.at])
+m4_include([sparsemv.at])
+m4_include([spmvp00.at])
+m4_include([spmvp01.at])
+m4_include([spmvp10.at])
+
+AT_BANNER([Updates])
+m4_include([update.at])
+m4_include([update01.at])
+m4_include([update02.at])
+m4_include([update03.at])
+
+AT_BANNER([Verifying the archive])
+m4_include([verify.at])
+
+AT_BANNER([Volume operations])
+m4_include([volume.at])
+m4_include([volsize.at])
+
+AT_BANNER()
+m4_include([comprec.at])
+m4_include([shortfile.at])
+m4_include([shortupd.at])
+
+m4_include([truncate.at])
+m4_include([grow.at])
+m4_include([sigpipe.at])
+m4_include([comperr.at])
+
+AT_BANNER([Removing files after archiving])
+m4_include([remfiles01.at])
+m4_include([remfiles02.at])
+m4_include([remfiles03.at])
+m4_include([remfiles04a.at])
+m4_include([remfiles04b.at])
+m4_include([remfiles04c.at])
+m4_include([remfiles05a.at])
+m4_include([remfiles05b.at])
+m4_include([remfiles05c.at])
+m4_include([remfiles06a.at])
+m4_include([remfiles06b.at])
+m4_include([remfiles06c.at])
+m4_include([remfiles07a.at])
+m4_include([remfiles07b.at])
+m4_include([remfiles07c.at])
+m4_include([remfiles08a.at])
+m4_include([remfiles08b.at])
+m4_include([remfiles08c.at])
+m4_include([remfiles09a.at])
+m4_include([remfiles09b.at])
+m4_include([remfiles09c.at])
+m4_include([remfiles10.at])
+
+AT_BANNER([Extended attributes])
+m4_include([xattr01.at])
+m4_include([xattr02.at])
+m4_include([xattr03.at])
+m4_include([xattr04.at])
+m4_include([xattr05.at])
+m4_include([xattr06.at])
+m4_include([xattr07.at])
+
+m4_include([acls01.at])
+m4_include([acls02.at])
+m4_include([acls03.at])
+
+m4_include([selnx01.at])
+m4_include([selacl01.at])
+
+m4_include([capabs_raw01.at])
+
+AT_BANNER([One top level])
+m4_include([onetop01.at])
+m4_include([onetop02.at])
+m4_include([onetop03.at])
+m4_include([onetop04.at])
+m4_include([onetop05.at])
+
+AT_BANNER([Star tests])
+m4_include([star/gtarfail.at])
+m4_include([star/gtarfail2.at])
+
+m4_include([star/multi-fail.at])
+
+m4_include([star/ustar-big-2g.at])
+m4_include([star/ustar-big-8g.at])
+
+m4_include([star/pax-big-10g.at])

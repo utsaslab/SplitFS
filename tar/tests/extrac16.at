@@ -1,0 +1,38 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# written by Paul Eggert from a bug report by Denis Excoffier
+# <http://lists.gnu.org/archive/html/bug-tar/2010-10/msg00034.html>
+
+# Check extraction of empty directory with -C.
+
+AT_SETUP([extract empty directory with -C])
+AT_KEYWORDS([extract extrac16 chdir])
+
+AT_TAR_CHECK([
+mkdir src src/a src/a/b dest
+touch src/a/c
+
+tar -cf archive.tar -C src a &&
+tar -xf archive.tar -C dest
+],
+[0],[],[],[],[],[gnu])
+
+AT_CLEANUP

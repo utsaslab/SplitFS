@@ -1,0 +1,441 @@
+2008-05-20  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* tests/genfile.c (verify_file): Improve error diagnostics.
+
+2008-02-18  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* tests/genfile.c: Remove setenv.h
+
+2007-12-05  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	Changes needed for cpio mingw build:
+	
+	* lib/system.h: Include pwd.h and grp.h if the corresponding HAVE_
+	preprocessor symbols are defined.
+	* m4/system.m4 (AC_CHECK_HEADERS_ONCE): Add pwd.h and grp.h.
+
+2007-11-07  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* gnulib.modules: Add fseeko.
+
+2007-10-11  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* gnulib.modules: Add strerror.
+	* configure.ac: Don't test for strerror any more; the gnulib
+	strerror module handles this.
+	* m4/rmt.m4 (PU_RMT): Likewise.
+
+2007-08-19  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* paxlib/names.c (safer_name_suffix): Fix variable type
+
+2007-08-17  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* paxlib/names.c (hash_string_insert_prefix): New function
+	(hash_string_insert): Rewrite using hash_string_insert_prefix
+	(safer_name_suffix): Use hash_string_insert_prefix to avoid
+	stack allocation. Bug reported by Dmitry V. Levin;
+
+2007-08-12  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* lib/rtapelib.c, paxlib/rtape.c: Use last_component instead of
+	base_name. Patch by Eric Blake.
+
+2007-06-27  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+        Relicense under GPLv3
+
+2007-06-21  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* tests/genfile.c: Print errno status on errors.
+
+2007-06-21  Eric Blake  <ebb9@byu.net>
+
+	Resolve testsuite failures on cygwin.
+	* tests/genfile.c (generate_simple_file): Force binary
+	mode.
+	(generate_files_from_list, generate_sparse_file)
+	(exec_checkpoint, exec_command): Likewise.
+
+2006-12-18  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* gnulib.modules: Add configmake
+
+2006-12-12  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* rmt/rmt.c (status_device) [!defined MTIOCGET]:
+	Fix bracketing typo.  Problem reported by Yutaka Furubayashi.
+
+2006-12-07  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* doc/genfile.texi (Generate Mode): Document --seek option.
+	* paxlib/error.c (read_fatal_details): Fix wording of the error
+	message.
+	* tests/genfile.c: Implement new option --seek (similar
+	to `dd seek=')
+
+2006-11-29  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* lib/rtapelib.c: Include <rmt-command.h> rather than <localedir.h>,
+	to accommodate recent changes to gnulib and tar.
+	* rmt/rmt.c: Likewise.
+	* rmt/Makefile.am (rmt.o): Depend on configmake.h, not localedir.h.
+	* m4/system.m4 (PU_SUSTEM): Put AC_REQUIRE wrappers around
+	AC_HEADER_STDC, etc.  This avoids a warning from automake,
+	with the latest gnulib.
+
+2006-09-27  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* tests/genfile.c (exec_command): Add extra spaces.
+
+2006-09-08  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* tests/genfile.c (exec_command): Fix memory reallocation.
+
+2006-08-07  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* lib/system.h: Include <inttypes.h> unconditionally.
+	The latest gnulib lets us do this.
+	* m4/system.m4 (PU_SYSTEM): Don't check for inttypes.h
+	Don't require gl_AC_TYPE_UINTMAX_T.
+	Require gl_INTTYPES_H, gl_STDINT_H.
+
+	* tests/genfile.c (reg_action): Return void, not int.
+	(generate_simple_file, exec_command): Remove unused var.
+	(print_stat): Avoid GCC warning about uninitialized var.
+
+2006-07-09  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* THANKS: Add Ralf Wildenhues
+
+2006-07-09  Ralf Wildenhues    <Ralf.Wildenhues@gmx.de>
+
+	* doc/genfile.texi: Fix some typos.
+
+2006-07-03  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* tests/genfile.c (get_size): Rewrite to avoid numeric overflow.
+
+2006-06-25  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* lib/system.h (ST_IS_SPARSE): New macro
+	* tests/genfile.c: Use ST_IS_SPARSE instead of IS_SPARSE_FILE
+
+2006-06-21  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* paxlib/exit.c: Initialize the variable to avoid bogus errors
+	when linking on Darwin. Reported by EXCOFFIER, Denis
+	<denis.excoffier@airbus.com>.
+
+2006-06-02  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* tests/genfile.c: New options --files-from and --null (same as in
+	tar).
+	* doc/genfile.texi: Document --files-from and --null options
+
+2006-04-25  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* doc/genfile.texi: Document exit codes in create mode. Fix file
+	size calculation in the example of genfile --sparse.
+	* tests/genfile.c: Behave as described in the docs in sparse file
+	creation mode. Verify created file, unless it goes to stdout.
+
+2006-04-11  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* tests/genfile.c (print_stat): mode keyword can be optionally
+	followed by a punctuation sign and a number, specifying the mask
+	to be applied to the mode before printing.
+
+	* doc/genfile.texi: Update
+
+2006-03-11  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* rmt/rmt.c (STRING_SIZE): Now UINTMAX_STRSIZE_BOUND + 1, since
+	bounded strings are used only for integers now.
+	(get_string): Use a prototype.  Remove unused local var 'counter'.
+	(get_long): Arg is now char const *, not char *.
+	Check for integer overflow in arg.
+	Check for empty arg.
+	(open_device): Use get_string for oflags, too, since the existing
+	limits were uncomfortably close to being too small.
+	Don't assume free_string does not affect errno.
+
+2006-03-12  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* gnulib.modules: Add obstack
+	* rmt/rmt.c (get_string): Renamed to get_string_n. All callers
+	changed.
+	(get_string,free_string,i18n_setup): New function.
+	(usage): Call i18n_setup
+	(open_device): Use new get_string function to remove the
+	limitation on the device name length.
+	* tests/genfile.c: Properly initialize i18n.
+
+2006-03-07  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* configure.ac (AC_CHECK_HEADERS): Don't check for sys/time.h,
+	since we no longer use HAVE_SYS_TIME_H.
+	(AC_CHECK_DECLS): Don't check for 'time', since we assume
+	C89 or better.
+	* lib/system.h: Include <unistd.h> unconditionally, since we now
+	assume the unistd module.
+	(time): Remove decl; not needed, since we assume C89 or better.
+	Don't bother checking for HAVE_SYS_TIME_H when deciding whether
+	to include <sys/time.h>, since TIME_WITH_SYS_TIME implies sys/time.h
+	exists.
+	(HAVE_DECL_VALLOC) [WITH_DMALLOC]: Remove #undef, since this symbol
+	is no longer used.
+
+	* m4/system.m4 (PU_SYSTEM): Don't check for unistd.h or sys/time.h,
+	or for time or valloc.
+
+2006-02-20  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* m4/system.m4: Remove sys/buf.h from AC_CHECK_HEADERS_ONCE, check
+	for it separately (needs sys/param.h on some systems).
+
+2006-02-20  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* lib/DISTFILES: Add system-ioctl.h.
+	* lib/system.h: Move the MTIO* stuff into....
+	* lib/system-ioctl.h: New file.  That way, the symbols defined
+	by these includes won't collide with the symbols defined by
+	<sys/filio.h> on Solaris when compiling misc.c.
+	* lib/rtapelib.c: Include system-ioctl.h.
+	* paxlib/rtape.c: Likewise.
+	* rmt/rmt.c: Likewise.
+
+2006-02-07  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* gnulib.modules: Add closeout.
+	* rmt/rmt.c: Include closeout.h.
+	(main, usage): Use close_stdout to report write errors properly.
+
+	* gnulib.modules: Add version-etc-fsf.
+	* rmt/rmt.c: Include <version-etc.h>.
+	(main): Use version_etc rather than rolling our own.
+
+2005-12-08  Sergey Poznyakoff  <gray@gnu.org.ua>
+
+	* tests/genfile.c: Fix creation of large files
+
+2005-11-29  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* lib/rtapelib.c (encode_oflag): Simplify code, since O_NONBLOCK
+	is always defined now.
+	* paxlib/rtape.c (encode_oflag): Likewise.
+	* lib/system.h (O_DIRCTORY, O_NOATIME, O_NONBLOCK): Define to 0
+	if not already defined.
+	* paxlib/error.c (rmdir_error): New function.
+	* paxlib/error.h (rmdir_error): New decl.
+	* rmt/rmt.c (decode_oflag): Use '#if O_NONBLOCK", not ifdef.
+
+2005-11-06  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* lib/system.h (strtoimax, strtoumax): Declare if the system
+	headers don't.
+
+2005-09-16  Paul Eggert  <eggert@cs.ucla.edu>
+
+	Merge changes from gnulib for file system sub-second time stamps.
+	* configure.ac: Remove checks for struct stat.st_spare1, struct
+	stat.st_atim.tv_nsec, struct stat.st_atimespec.tv_nsec, struct
+	stat.st_atimensec, as gnulib now does this for us.
+	Similarly for LIB_CLOCK_GETTIME.
+
+2005-06-23  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* tests/genfile.c (print_stat): Use umaxstr.
+
+2005-06-21  Paul Eggert  <eggert@cs.ucla.edu>
+
+	Improve support for wide time stamps and other wide integers.
+	* gnulib.modules: Add inttostr, quote, quotearg.
+	* lib/system.h (TYPE_SIGNED, TYPE_MINIMUM, TYPE_MAXIMUM): Remove.
+	(INT_STRLEN_BOUND): Remove.
+	Include "intprops.h" instead.
+	(UINTMAX_STRSIZE_BOUND): Define in terms of INT_BUFSIZE_BOUND,
+	not INT_STRLEN_BOUND.
+	[HAVE_UTIME_H]: Don't include utime.h.
+	* paxlib/DISTFILES: Remove convert.c.
+	* paxlib/convert.c: Remove.
+	* paxlib/error.c: Include quote.h, quotearg.h.
+	* paxlib/paxlib.h: Include inttostr.h.
+	(STRINGIFY_BIGINT): Define in terms of umaxtostr.
+	(stringify_uintmax_t_backwards): Remove decl.
+	* tests/genfile.c: Include <utimens.h> instead of rolling our own.
+	(exec_checkpoint): Use utimens instead of rolling our own.
+	Don't pass extra args to error.
+	(main): Wrap message inside _().
+
+	* tests/genfile.c: Port to Solaris 8.
+	Include <signal.h>, for 'signal'.
+	(SIGCHLD) [! defined SIGCHLD && defined SIGCLD]: Define.
+	(child_exited, sig_child): Remove; not needed.
+	(exec_command): Use a prototype.
+	(main): Set SIGCHLD handler to default, not to sig_child.
+	And do this only if SIGCHLD is defined.  This uses the
+	same pattern that src/tar.c uses.
+
+2005-06-13  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* m4/rmt.m4 (PU_RMT): Fix building on Cygwin. Proposed by Corinna
+	Vinschen <vinschen@redhat.com>.
+	* m4/system.m4 (PU_SYSTEM): Add AC_STRUCT_ST_BLKSIZE.
+	Require gl_AC_TYPE_UINTMAX_T (this means that uintmax_t.m4 from
+	gnulibs should be used).
+
+2005-05-22  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* paxlib/paxerror.h: Removed
+	* paxlib/names.c: New file
+	* paxlib/paxlib.h: New file
+	* paxlib/DISTFILES: Add names.c,paxlib.h; remove paxerror.h
+	* paxlib/Makefile.am: Likewise
+	* paxlib/error.c: Rename paxerror.h to paxlib.h
+	* paxlib/exit.c: Likewise.
+
+2005-05-19  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* paxlib/DISTFILES: New file
+	* paxlib/convert.c: New file
+	* paxlib/error.c: New file
+	* paxlib/exit.c: New file
+	* paxlib/paxerror.h: New file
+	* paxlib/Makefile.am (libpax_a_SOURCES): Add new files.
+
+	* gnulib.modules: Add getdate. Needed by genfile.
+	* m4/rmt.m4 (PU_RMT): Check for LIB_SETSOCKOPT
+
+2005-05-14  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* COPYING, Makefile.am, configure.ac, build-aux/bootstrap,
+	lib/Makefile.tmpl, lib/rmt.h, lib/rtapelib.c, lib/system.h,
+	paxlib/Makefile.am, paxlib/pax.h, paxlib/paxbuf.c,
+	paxlib/paxbuf.h, paxlib/rtape.c, paxlib/tar.h, paxlib/tarbuf.c,
+	paxlib/tardef.h, paxtest/Makefile.am, paxtest/paxtest.c,
+	paxtest/paxtest.h, rmt/rmt.c, tests/argcv.c, tests/argcv.h,
+	tests/genfile.c:
+	Update FSF postal mail address.
+
+2005-05-14  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* AUTHORS: New file
+	* COPYING: New file
+	* NEWS: New file
+	* THANKS: New file
+	* README-alpha: New file
+	* README: Updated
+	* Makefile.am: New file
+	* configure.ac: New file
+	* .cvsignore: New file
+
+	* paxlib: New directory
+	* paxlib/Makefile.am: New file
+	* paxlib/pax.h: Likewise
+	* paxlib/paxbuf.c: Likewise
+	* paxlib/paxbuf.h: Likewise
+	* paxlib/rtape.c: Likewise
+	* paxlib/tar.h: Likewise
+	* paxlib/tarbuf.c: Likewise
+	* paxlib/tardef.h: Likewise
+	* paxlib/.cvsignore: New file
+
+	* po: New directory
+	* po/.cvsignore: New file
+	* po/Makevars: Likewise
+	* po/POTFILES.in: Likewise
+
+	* paxtest: New directory
+	* paxtest/Makefile.am: New file
+	* paxtest/.cvsignore: New file
+	* paxtest/paxtest.c: New file
+	* paxtest/paxtest.h: New file
+
+	* lib/Makefile.tmpl: New file
+	* lib/.cvsignore: New file
+	* lib/paxbuf.c: Removed
+	* lib/paxbuf.h: Removed
+	* m4/.cvsignore: New file
+
+	* build-aux: New directory
+	* build-aux/bootstrap: New file
+	* build-aux/gnulib.modules: New file
+	* build-aux/.cvsignore: New file
+
+	* doc/genfile.texi: Minor fixes
+
+2005-05-12  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* lib/system.h: If mkdev is defined, use it as makedev. Proposed
+	by Todd Vierling.
+	* rmt/rmt.c (main): Remove unused variable.
+	* tests/DISTFILES: Add new files
+	* tests/argcv.c: New file
+	* tests/argcv.h: New file
+	* tests/genfile.c: Major rewrite. Add new operation mode: --run.
+	* doc: New directory
+	* doc/DISTFILES: New file.
+	* doc/genfile.texi: New file.
+
+2005-03-21  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* tests/genfile.c (main): Allow --length=0
+
+2005-02-07  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* lib/paxbuf.c: New file
+	* lib/paxbuf.h: Likewise
+
+2005-02-06  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+        * gnulib.modules: New file. List of required gnulib
+	modules.
+
+2005-02-04  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* rmt/rmt.c: Cleaned up the mess. Fixed error reporting.
+
+2005-02-03  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* tests/genfile.c: New mode `--stat' prints selected
+	fields from struct stat for existing files.
+	Improved help output.
+
+2005-01-06  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* m4/rtapelib.m4: New file
+	* m4/system.m4: New file
+	* m4/rmt.m4 (PU_RMT): Check for strerror
+	* m4/DISTFILES: Added new files
+	* rmt/rmt.c (main): Fixed declaration
+
+2004-12-22  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* rmt/rmt.c (main): Reverted changes. setlocale()
+	is handled by system.h.
+
+2004-12-21  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* rmt/rmt.c (main): Protect NLS initialization by
+	#ifdef ENABLE_NLS.
+
+2004-09-08  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* tests/genfile.c (parse_opt): Allow --length=0
+
+2004-09-07  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	* tests: New directory
+	* tests/DISTFILES: New file
+	* tests/genfile.c: New file
+
+2004-09-06  Sergey Poznyakoff  <gray@Mirddin.farlep.net>
+
+	Initial import.
+
+
+Local Variables:
+mode: change-log
+version-control: never
+End:

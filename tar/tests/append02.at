@@ -1,0 +1,90 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2006-2007, 2009, 2013-2014, 2016-2017 Free Software
+# Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Using tar 1.15.x the following equivalent command sets:
+#
+#   1. tar cf archive file1 file2
+# and
+#   2. tar cfT archive /dev/null
+#      tar rf archive file1
+#      tar rt archive file2
+#
+# produced different archives (GNU format is assumed). It was reported
+# by TAMUKI Shoichi on 2006-07-21 [1].
+#
+# The bug was due to tar being unable to discern between GNU and OLDGNU
+# formats and always assuming the latter. The main difference between
+# the two is that OLDGNU preserves all bits in the mode field, whereas
+# GNU format keeps only the lower 9 ones (mode & 0777).
+#
+# This was fixed on 2006-07-24 (commit f4e4adea80a) by making tar truncate
+# the mode field even in OLDGNU format. Obviously, the fix broke the
+# format backward compatibility, but it went unnoticed until 2009-10-03
+# (after all, the OLDGNU format is not in much use nowadays), when
+# Igor Zhbanov reported it [2].
+#
+# The final fix was applied on 2009-10-04.
+#
+# References:
+# [1] <200607210526.AA03440@tamuki.linet.gr.jp>
+#     http://lists.gnu.org/archive/html/bug-tar/2006-07/msg00029.html
+# [2] <f44001920910020335v4cadfesf54f6593d5124814@mail.gmail.com>
+#     http://lists.gnu.org/archive/html/bug-tar/2009-10/msg00006.html
+
+# The test case below verifies that the equivalent create and append commands
+# produce binary equivalent archives for all formats.
+
+AT_SETUP([append vs. create])
+AT_KEYWORDS([append append02 append-gnu])
+
+AT_TAR_CHECK([
+genfile --file file1
+genfile --file file2
+
+# Make sure file timestamps in the archive will not differ
+MTIME="--mtime=@0"
+
+# For PAX archives, we need to make sure extended header names are
+# reproducible and that their contents won't change with time
+if test $[]TEST_TAR_FORMAT = posix; then
+  TAR_OPTIONS="$TAR_OPTIONS --pax-option=exthdr.name=%d/PaxHeaders/%f,delete=mtime,delete=atime,delete=ctime"
+fi
+
+echo Creating archive.1
+tar $MTIME -cf archive.1 file1 file2
+
+echo Creating archive.2
+tar $MTIME -cf archive.2 -T /dev/null
+tar $MTIME -rf archive.2 file1
+tar $MTIME -rf archive.2 file2
+
+echo Comparing archives
+cmp archive.1 archive.2
+],
+[0],
+[Creating archive.1
+Creating archive.2
+Comparing archives
+])
+
+AT_CLEANUP
+
+# End of append02.at

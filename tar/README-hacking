@@ -1,0 +1,64 @@
+These notes intend to help people working on the Git version of
+this package.
+
+* Requirements
+
+You need the following packages to build the Git version of GNU
+tar.  We do not make any efforts to accommodate older versions of
+these packages, so please make sure that you have the latest stable
+version.
+
+- Automake <http://www.gnu.org/software/automake/>
+- Autoconf <http://www.gnu.org/software/autoconf/>
+- M4 <http://www.gnu.org/software/m4/>
+- Texinfo <http://www.gnu.org/software/texinfo>
+- Git <http://git.or.cz>
+
+* Bootstrapping
+
+Obviously, if you are reading these notes, you did manage to clone
+tar from Git. The next step is to get other files needed to build,
+which are extracted from other source packages:
+
+1. Change to the source tree directory
+
+   cd tar
+
+2. Run
+
+   ./bootstrap
+
+Once done, proceed as described in the file README (section
+INSTALLATION).
+
+Normally you will have to run bootstrap only once. However, if you
+intend to hack on GNU tar, you might need to run it again later.
+There are lots of options that you may find useful in this case.
+See 'bootstrap --help' for a detailed list.
+
+
+* Copyright information
+
+Copyright 2007-2009, 2013-2017 Free Software Foundation, Inc.
+
+This file is part of GNU tar.
+
+GNU tar is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 3 of the License, or
+(at your option) any later version.
+
+GNU tar is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+^L
+Local Variables:
+mode: outline
+paragraph-separate: "[	^L]*$"
+version-control: never
+End:

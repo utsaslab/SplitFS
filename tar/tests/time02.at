@@ -1,0 +1,43 @@
+# Test clamping mtime GNU tar.  -*- Autotest -*-
+#
+# Copyright 2016-2017 Free Software Foundation, Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# written by Daniel Kahn Gillmor
+
+AT_SETUP([time: clamping mtime])
+AT_KEYWORDS([time time02])
+
+AT_TAR_CHECK([
+AT_SORT_PREREQ
+export TZ=UTC0
+mkdir dir
+
+touch -d 2015-12-01T00:00:00 dir/a >/dev/null 2>&1 || AT_SKIP_TEST
+touch -d 2016-01-01T00:00:00 dir/b >/dev/null 2>&1 || AT_SKIP_TEST
+touch -d 2016-02-01T00:00:00 dir/c >/dev/null 2>&1 || AT_SKIP_TEST
+touch -d 2038-01-01T00:00:00 dir/d >/dev/null 2>&1 || AT_SKIP_TEST
+
+tar -c --mtime 2016-01-15T00:00:00 --clamp-mtime -f archive.tar dir
+tar -d -f archive.tar dir|sort
+],
+[0],
+[
+dir/c: Mod time differs
+dir/d: Mod time differs
+], [], [], [],
+[pax])
+
+AT_CLEANUP

@@ -1,0 +1,40 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2007, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Fixing improper small file recognition in version 1.18 (see shortfile.at
+# and ChangeLog:2007-08-24), introduced another bug: when updating a
+# non-existing archive, tar-1.19 complained about its not being a tar archive
+# and exited immediately, leaving the created zero-sized file after it.
+#
+# This bug was fixed on 2007-12-05.
+#
+# Reported by: Ozan @,{C}a@v{g}layan <ozancag@gmail.com>
+# References: <4755A82A.9060607@gmail.com>
+
+AT_SETUP([updating short archives])
+AT_KEYWORDS([shortfile shortfile1 shortupd])
+
+AT_TAR_CHECK([
+touch foo
+tar uf archive foo
+],
+[0])
+
+AT_CLEANUP

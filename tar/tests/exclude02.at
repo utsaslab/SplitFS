@@ -1,0 +1,79 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Copyright 2009, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_SETUP([exclude: anchoring])
+AT_KEYWORDS([exclude exclude02])
+
+AT_TAR_CHECK([
+AT_SORT_PREREQ
+
+rm -rf testdir
+mkdir -p testdir
+touch file1.txt
+touch testdir/file1.txt
+touch testdir/file2
+
+tar cf archive --exclude="file1.txt" \
+               testdir
+tar tf archive | sort
+
+echo "SUB 1"
+tar cf archive --no-anchored \
+               --exclude="file1.txt" \
+               testdir
+tar tf archive | sort
+
+echo "SUB 2"
+tar cf archive --anchored \
+               --exclude="file1.txt" \
+               testdir
+tar tf archive | sort
+
+echo "SUB 3"
+tar cf archive testdir file1.txt
+tar t "file1.txt" -f archive | sort
+
+echo "SUB 4"
+tar t --no-anchored "file1.txt" -f archive | sort
+
+echo "SUB 5"
+tar t --anchored "file1.txt" -f archive | sort
+
+rm -rf testdir file1.txt
+
+],
+[0],
+[testdir/
+testdir/file2
+SUB 1
+testdir/
+testdir/file2
+SUB 2
+testdir/
+testdir/file1.txt
+testdir/file2
+SUB 3
+file1.txt
+SUB 4
+file1.txt
+testdir/file1.txt
+SUB 5
+file1.txt
+])
+
+AT_CLEANUP

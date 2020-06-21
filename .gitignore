@@ -15,6 +15,7 @@ sqlite3-trace/.libs
 
 rsync/workload/
 rsync/rsync
+tar/workload/
 
 !ycsb/core
 !ycsb/tracerecorder

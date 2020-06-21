@@ -1,0 +1,51 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2008, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# When volume size equals record size, swapping buffers in
+# new_volume triggers a call to flush_archive.  The size left variables
+# must be corrected after that, which was not done in versions <= 1.20.
+# Reported by: Marek Kielar <mkielar@go2.pl>
+# References: <1907cbb6.79e32b49.48887f09.fd55@o2.pl>
+
+AT_SETUP([Multivolumes with L=record_size])
+AT_KEYWORDS([multivolume multiv multiv06])
+
+AT_TAR_CHECK([
+exec <&-
+decho Creating file
+genfile --length 20139 --file file
+decho Creating archive
+tar -c -M -L10 -b20 -farc.1 -farc.2 -farc.3 file
+decho Testing archive
+tar -t -M -farc.1 -farc.2 -farc.3],
+[0],
+[Creating file
+Creating archive
+Testing archive
+file
+],
+[Creating file
+Creating archive
+Testing archive
+],
+[],[],
+[gnu, pax])
+
+AT_CLEANUP

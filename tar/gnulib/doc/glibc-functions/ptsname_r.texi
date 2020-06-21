@@ -1,0 +1,29 @@
+@node ptsname_r
+@subsection @code{ptsname_r}
+@findex ptsname_r
+
+Gnulib module: ptsname_r
+
+Portability problems fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+Mac OS X 10.5, FreeBSD 6.0, NetBSD 5.0, OpenBSD 3.8, Minix 3.1.8,
+AIX 5.1, HP-UX 11, IRIX 6.5, Solaris 11.3, Cygwin 1.7.9, mingw,
+MSVC 14, BeOS.
+@item
+This function is not declared unless @code{_REENTRANT} is defined,
+on some platforms:
+OSF/1 5.1.
+@item
+This function has an incompatible declaration on some platforms:
+OSF/1 5.1.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+When this functions fails, it provides the error code only as the
+return value, without setting @code{errno}, on some platforms:
+musl libc.
+@end itemize

@@ -1,0 +1,62 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Copyright 2009-2010, 2013-2014, 2016-2017 Free Software Foundation,
+# Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Test the functioning of many items in an exclude list (should run quickly)
+
+AT_SETUP([exclude: lots of excludes])
+AT_KEYWORDS([exclude exclude05])
+
+AT_TAR_CHECK([
+AT_SORT_PREREQ
+
+rm -rf testdir exclfile
+mkdir -p testdir
+awk 'BEGIN {for (i=9; i < 100; ++i ) { print "testdir/file" i; }}' < /dev/null | \
+ while read name
+ do
+   genfile --file $name
+ done
+
+awk 'BEGIN {for (i=1000000; i >= 12; --i ) { print "testdir/file" i }}' < /dev/null > exclfile
+
+tar cf archive --anchored --exclude-from=exclfile \
+               testdir
+tar tf archive | sort
+
+echo "NEXT"
+tar cf archive --exclude-from=exclfile \
+               testdir
+tar tf archive | sort
+
+rm -rf testdir exclfile
+
+],
+[0],
+[testdir/
+testdir/file10
+testdir/file11
+testdir/file9
+NEXT
+testdir/
+testdir/file10
+testdir/file11
+testdir/file9
+])
+
+AT_CLEANUP

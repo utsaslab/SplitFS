@@ -1,0 +1,66 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2004, 2007, 2013-2014, 2016-2017 Free Software Foundation,
+# Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# A directory older than the listed entry was skipped completely.
+
+AT_SETUP([incremental])
+AT_KEYWORDS([incremental listed incr00])
+
+AT_TAR_CHECK([
+AT_CHECK_TIMESTAMP
+
+mkdir structure
+echo x >structure/file
+
+# On Nextstep (and perhaps other 4.3BSD systems),
+# a newly created file's ctime isn't updated
+# until the next sync or stat operation on the file.
+ls -l structure/file >/dev/null
+
+# If the time of an initial backup and the creation time of a file contained
+# in that backup are the same, the file will be backed up again when an
+# incremental backup is done, because the incremental backup backs up
+# files created "on or after" the initial backup time.  Without the sleep
+# command, behaviour of tar becomes variable, depending whether the system
+# clock ticked over to the next second between creating the file and
+# backing it up.
+sleep 1
+
+tar cf archive --listed=list structure
+tar cfv archive --listed=list structure
+echo separator
+# ReiserFS often offsets the timestamps of newly created files
+# 1 second to the past.  Try to compensate for it, until a better
+# solution is found.
+sleep 2
+echo y >structure/file
+tar cfv archive --listed=list structure
+],
+[0],
+[
+structure/
+separator
+structure/
+structure/file
+],
+[],[],[],[gnu,oldgnu,posix])
+
+AT_CLEANUP

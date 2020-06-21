@@ -1,0 +1,113 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Test suite for GNU tar.
+# Copyright 2009, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_SETUP([incremental restores with -C])
+AT_KEYWORDS([incremental extract incr07 chdir])
+
+# Tar 1.26 had problems extracting from incremental restores when given
+# the -C option.  The code in incremen.c:try_purge_directory and
+# misc.c:remove_any_file was using savedir(), which ignored eventual changes
+# in the current working directory and caused the malfunctioning.
+#
+# The problem was reported by Piotr Rotter on 2013-03-22.
+#
+# This testcase is based on scripts provided by Piotr Rotter and Nathan
+# Stratton Treadway.
+#
+# References: <514C8F56.90900@active24.pl>,
+#             http://lists.gnu.org/archive/html/bug-tar/2013-03/msg00036.html, 
+#             <20130326181922.GZ3732@shire.ontko.com>,
+#             http://lists.gnu.org/archive/html/bug-tar/2013-03/msg00042.html,
+#             <20130327051828.GA3732@shire.ontko.com>,
+#             http://lists.gnu.org/archive/html/bug-tar/2013-03/msg00043.html,
+#             <20130327054957.GB3732@shire.ontko.com>,
+#             http://lists.gnu.org/archive/html/bug-tar/2013-03/msg00044.html
+
+AT_TAR_CHECK([
+AT_CHECK_TIMESTAMP
+mkdir dirA
+echo 'a' > dirA/a
+echo 'a' > dirA/b
+
+decho C0
+tar -g test.snar -vcf test.0.tar dirA
+
+echo 'a' > dirA/c
+decho C1
+tar -g test.snar -vcf test.1.tar dirA
+
+rm -f dirA/a
+decho C2
+tar -g test.snar -vcf test.2.tar dirA
+
+mkdir ext
+rm -rf dirA
+
+decho E0
+tar -g test.snar -vxf test.0.tar -C ext/
+decho E1
+tar -g test.snar -vxf test.1.tar -C ext/
+
+decho E2
+tar -g test.snar -vxf test.2.tar -C ext/
+
+mkdir ext/dirA/dirB
+touch ext/dirA/dirB/file
+
+decho E3
+tar -g test.snar -vxf test.2.tar -C ext/
+
+echo FIN
+test -d dirA && echo >&2 "toplevel dirA exists"
+exit 0
+],
+[0],
+[C0
+dirA/
+dirA/a
+dirA/b
+C1
+dirA/
+dirA/c
+C2
+dirA/
+E0
+dirA/
+dirA/a
+dirA/b
+E1
+dirA/
+dirA/c
+E2
+dirA/
+tar: Deleting 'dirA/a'
+E3
+dirA/
+tar: Deleting 'dirA/dirB'
+FIN
+],
+[C0
+tar: dirA: Directory is new
+C1
+C2
+E0
+E1
+E2
+E3
+],[],[],[gnu, oldgnu, posix])
+
+AT_CLEANUP

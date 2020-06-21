@@ -1,0 +1,44 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2013-2014, 2016-2017 Free Software Foundation, Inc.
+#
+# This file is part of GNU tar.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_SETUP([-C in file lists])
+AT_KEYWORDS([files-from T-cd chdir])
+
+AT_TAR_CHECK([
+AT_SORT_PREREQ
+>file1
+mkdir dir
+>dir/file2
+>dir/file3
+AT_DATA([F1],[file1
+-C dir
+.
+])
+tar cf archive -T F1
+tar tf archive | sort
+],
+[0],
+[./
+./file2
+./file3
+file1
+],[],[],[],[ustar])
+
+AT_CLEANUP

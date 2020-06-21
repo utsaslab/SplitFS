@@ -1,0 +1,62 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Test suite for GNU tar.
+# Copyright 2013-2014, 2016-2017 Free Software Foundation, Inc.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: ensure tar correctly respects -C option when deleting
+# files due to the --remove-files option.
+#
+# This case checks the use of a single relative-path -C option,
+# in --append mode.
+#
+# (Tar 1.26 would remove files in original working directory when called in
+# this manner.  [It would follow the -C for archiving the files, but ignore it
+# for removing them afterwards.]
+#
+# Reported by: Jörgen Strand <Jorgen.Strand@sonymobile.com>
+# References: <9FC79E5CB90CEC47B9647DCAB7BD327A01AD83B452EE@seldmbx02.corpusers.net>
+#             http://lists.gnu.org/archive/html/bug-tar/2013-09/msg00024.html
+# )
+
+AT_SETUP([remove-files with -C:rel in -r mode])
+AT_KEYWORDS([create append remove-files remfiles04 remfiles04c chdir])
+
+AT_TAR_CHECK([
+AT_SORT_PREREQ
+mkdir foo
+echo bar > bar
+echo foobar > foo/bar
+tar -cf foo.tar -C foo bar
+echo A
+find . | sort
+tar -rf foo.tar --remove-files -C foo bar
+echo B
+find . | sort
+],
+[0],
+[A
+.
+./bar
+./foo
+./foo.tar
+./foo/bar
+B
+.
+./bar
+./foo
+./foo.tar
+],[],[],[],[gnu])
+
+AT_CLEANUP

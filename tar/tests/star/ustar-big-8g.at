@@ -1,0 +1,43 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2004, 2006-2007, 2013-2014, 2016-2017 Free Software
+# Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_SETUP([ustar-big-8g])
+AT_KEYWORDS([star ustar-big-8g largefile])
+
+unset TAR_OPTIONS
+
+AT_CHECK([
+AT_SKIP_LARGE_FILES
+AT_GZIP_PREREQ([bzip2])
+AT_STAR_PREREQ([ustar-big-8g.tar.bz2],[60ff503fa4b8288bef7ada89e9c91b0f])
+
+tar --utc -tvjf $STAR_TESTSCRIPTS/ustar-big-8g.tar.bz2
+],
+[0],
+[-rw------- jes/glone 8589934591 2002-06-15 15:08 8gb-1
+-rw-r--r-- jes/glone          0 2002-06-15 14:53 file
+],
+[stderr])
+
+RE_CHECK([stderr],[tar: Record size = .*
+])
+
+AT_CLEANUP

@@ -1,0 +1,52 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2009, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description:
+# When extracting, tar (<1.22) did not restore directory permissions on
+# existing directories.
+# This was discovered when fixing debian bug #508199. See also backup01.at.
+#
+# Reported by: Carl Worth <cworth@cworth.org>,
+#
+# References: <1249419998.4905.84.camel@yoom.home.cworth.org>
+#             http://lists.gnu.org/archive/html/bug-tar/2009-08/msg00005.html
+#             http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=508199
+#
+
+AT_SETUP([restoring mode on existing directory])
+AT_KEYWORDS([extract extrac08])
+
+AT_TAR_CHECK([
+umask 000
+mkdir dir
+chmod 755 dir
+echo bla > dir/file
+tar cf test.tar dir
+chmod 700 dir
+tar xfv test.tar --warning=no-timestamp
+genfile --stat=mode.777 dir
+],
+[0],
+[dir/
+dir/file
+755
+])
+
+AT_CLEANUP

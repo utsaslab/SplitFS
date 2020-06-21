@@ -1,0 +1,21 @@
+The paxutils project was started somewhere near 1994-06-30 (at least
+this is the date of the earliest entry in the ChangeLog for version
+2.4h). Unfortunately it has never reached mature status and was
+abandoned after 1999-06-11 (again, as per its ChangeLog). Both
+GNU tar and cpio, which were included in this project, have since
+then developed independently, which brought all projects out
+of synch with each other.
+
+On 2003-06-21 I have taken the maintenance of GNU tar, on 2003-11-01
+that of cpio, and finally on 2003-12-19 that of paxutils. By that time
+tar needed lots of work, so I decided first to take care of it, in the
+mean time preparing it and cpio for the future merging. The version 1.14
+of tar (the first stable version since 1999) was released on 2004-05-11,
+the next maintenance release (1.14.90) followed it on 2004-09-02.
+On 2004-09-06, after more than half a year's delay, Savannah finally
+approved the project, and I started merging the three projects.
+
+More information about backgrounds of GNU paxutils and its history
+is available at http://paxutils.progiciels-bpi.ca.
+
+

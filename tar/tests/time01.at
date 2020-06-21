@@ -1,0 +1,70 @@
+# Test time stamps for GNU tar.  -*- Autotest -*-
+#
+# Copyright 2012-2014, 2016-2017 Free Software Foundation, Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3, or (at your option)
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# written by Paul Eggert
+
+AT_SETUP([time: tricky time stamps])
+AT_KEYWORDS([time time01])
+
+AT_TAR_CHECK([
+export TZ=UTC0
+mkdir dir
+
+# Test files with time stamps that are near common sources of error,
+# typically near powers of 2 (for seconds) or near 0, 1970, or 9999 (years).
+# Use GNU-style @ notation for very large time stamps, since they
+# typically don't render into years correctly due to int overflow.
+for s in \
+  @-9223372036854775809 @-9223372036854775808 @-9223372036854775807 \
+  0000-01-01T00:00:00 0000-01-01T00:00:01 \
+  0000-01-02T00:00:00 \
+  1697-10-17T11:03:27 1697-10-17T11:03:28 1697-10-17T11:03:29 \
+  1833-11-24T17:31:43 1833-11-24T17:31:44 1833-11-24T17:31:45 \
+  1901-12-13T20:45:51 1901-12-13T20:45:52 1901-12-13T20:45:53 \
+  1901-12-14T20:45:51 \
+  1969-12-31T23:59:58 1969-12-31T23:59:59 \
+  1970-01-01T00:00:00 1970-01-01T00:00:01 \
+  2038-01-18T03:14:07 \
+  2038-01-19T03:14:07 2038-01-19T03:14:08 \
+  2106-02-07T06:28:15 2106-02-07T06:28:16 \
+  2242-03-16T12:56:31 2242-03-16T12:56:32 \
+  9999-12-31T23:59:58 9999-12-31T23:59:59 \
+  @9223372036854775807 @9223372036854775808
+do
+  # Skip a time stamp $s if it's out of range for this platform,
+  # of if it uses a notation that this platform does not recognize.
+  touch -d $s dir/f$s >/dev/null 2>&1 || continue
+
+  # Likewise for $s.1.  If $s is the most negative time stamp and
+  # time stamps are signed, then $s.1 is out of range.
+  touch -d $s.1 dir/f$s.$ns >/dev/null 2>&1 || continue
+
+  for frac in   01 001 00001 000001 0000001 00000001 000000001 0000000001 \
+	      9 99 999 99999 999999 9999999 99999999 999999999 9999999999
+  do
+    touch -d $s.$frac dir/f$s.$frac
+  done
+done
+
+tar -c -f archive.tar dir
+tar -d -f archive.tar dir
+],
+[0],
+[], [], [], [],
+[pax])
+
+AT_CLEANUP

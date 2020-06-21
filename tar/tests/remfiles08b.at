@@ -1,0 +1,60 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Test suite for GNU tar.
+# Copyright 2013-2014, 2016-2017 Free Software Foundation, Inc.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: If tar 1.26 was called with the --remove-files option and told
+# to archive (and thus delete) two subdirectories where the second was
+# specified relative to the first, it would be unable to delete the
+# second directory (and its contents), since the relative path would no
+# longer be valid once the first directory was deleted.
+#
+# This case checks for successful deletion of all archived items
+# in --create/incremental mode.
+#
+# Note: tar 1.27 fails this test case due to a more general issue
+# archving-and-removing a full directory tree when run in incremental
+# mode; see remfiles09b.at for that specific test case.
+
+AT_SETUP([remove-files deleting two subdirs in -c/incr. mode])
+AT_KEYWORDS([create incremental remove-files remfiles08 remfiles08b chdir])
+
+AT_TAR_CHECK([
+mkdir foo
+mkdir bar
+echo foo/foo_file > foo/foo_file
+echo bar/bar_file > bar/bar_file
+decho A
+tar -cvf foo.tar --incremental --remove-files -C foo . -C ../bar .
+decho B
+find .
+],
+[0],
+[A
+./
+./
+./foo_file
+./bar_file
+B
+.
+./foo.tar
+],
+[A
+tar: .: Directory is new
+tar: .: Directory is new
+B
+],[],[],[gnu])
+
+AT_CLEANUP

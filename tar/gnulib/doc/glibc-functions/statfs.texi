@@ -1,0 +1,21 @@
+@node statfs
+@subsection @code{statfs}
+@findex statfs
+
+Gnulib module: ---
+
+Portability problems fixed by Gnulib:
+@itemize
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+Minix 3.1.8, AIX 5.1, mingw, MSVC 14, Interix 3.5, BeOS.
+@item
+On platforms where @code{f_blocks} in @samp{struct statfs} is a 32-bit
+value, this function may not work correctly on files systems larger than
+4 TiB.  The fix is to use the @code{AC_SYS_LARGEFILE} macro.  This affects
+Mac OS X.
+@end itemize

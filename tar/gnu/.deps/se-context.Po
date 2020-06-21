@@ -1,0 +1,8 @@
+se-context.o: se-context.c /usr/include/stdc-predef.h ../config.h \
+ /usr/include/selinux/context.h
+
+/usr/include/stdc-predef.h:
+
+../config.h:
+
+/usr/include/selinux/context.h:

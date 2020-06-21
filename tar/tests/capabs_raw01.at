@@ -1,0 +1,53 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2012-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Test description:  Test if file capabilities are archived/restored correctly
+# using just the default xattr support (capabilities are stored/restored in
+# binary format -> system dependant).
+
+AT_SETUP([capabilities: binary store/restore])
+AT_KEYWORDS([xattrs capabilities capabs_raw01])
+
+AT_TAR_CHECK([
+AT_PRIVILEGED_PREREQ
+AT_XATTRS_PREREQ
+AT_CAPABILITIES_UTILS_PREREQ
+
+mkdir dir
+genfile --file dir/file
+
+setcap "= cap_chown=ei" dir/file
+
+# archive whole directory including binary xattrs
+tar --xattrs -cf archive.tar dir
+
+# clear the directory
+rm -rf dir
+
+# restore _all_ xattrs (not just the user.* domain)
+tar --xattrs --xattrs-include='*' -xf archive.tar
+
+getcap dir/file
+],
+[0],
+[dir/file = cap_chown+ei
+])
+
+AT_CLEANUP

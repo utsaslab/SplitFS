@@ -1,0 +1,46 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2013-2014, 2016-2017 Free Software Foundation, Inc.
+#
+# This file is part of GNU tar.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_SETUP([recursive file lists])
+AT_KEYWORDS([files-from T-rec])
+
+AT_TAR_CHECK([
+>file1
+>file2
+AT_DATA([F1],[file1
+-T F2
+])
+AT_DATA([F2],[file2
+-T F1
+])
+tar cf archive -T F1
+echo $?
+tar tf archive
+],
+[0],
+[2
+file1
+file2
+],
+[tar: F1: file list requested from F2 already read from command line
+tar: Exiting with failure status due to previous errors
+],[],[],[ustar])
+
+AT_CLEANUP

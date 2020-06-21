@@ -1,0 +1,27 @@
+Description:
+fnmatch() function: wildcard matching.
+
+Status:
+deprecated
+
+Notice:
+This module is deprecated. Use the module 'fnmatch' instead.
+
+Files:
+
+Depends-on:
+fnmatch
+
+configure.ac:
+
+Makefile.am:
+
+Include:
+"fnmatch.h"
+
+License:
+LGPLv2+
+
+Maintainer:
+all
+

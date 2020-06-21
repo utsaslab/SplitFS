@@ -1,0 +1,57 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# The --exclude-tag options interacted incorrectly with --listed-incremental
+# since their very inception.  The testcases exclude08 through exclude16
+# verify that --exclude-tag operates consistently whether or not
+# --listed-incremental option is given.
+#
+# This testcase verifies whether the --exclude-tag option works
+# as expected whe used together with --listed-incremental, i.e. excludes
+# the contents of the directory containing the tag, but preserves the
+# directory and the tag itself.
+#
+# Reported-by: Nathan Stratton Treadway <nathanst+bugtar@ontko.com>
+# Last-Affected-Version: 1.26
+# References: <20120528140419.GT2654@shire.ontko.com>,
+#   <20130311210006.GA3732@shire.ontko.com>,
+#   http://lists.gnu.org/archive/html/bug-tar/2012-06/msg00013.html
+ 
+AT_SETUP([--exclude-tag option and --listed-incremental])
+AT_KEYWORDS([exclude exclude-tag listed incremental exclude09])
+
+AT_TAR_CHECK([
+AT_SORT_PREREQ
+mkexcltest etest
+tar -c -f etest.tar --exclude-tag=excludeme --listed=snar -v etest | sort
+],
+[0],
+[etest/
+etest/subdir/
+etest/subdir/excludeme
+etest/top-level-file
+],
+[tar: etest: Directory is new
+tar: etest/subdir: Directory is new
+tar: etest/subdir: contains a cache directory tag excludeme; contents not dumped
+],[],[],[gnu])
+
+AT_CLEANUP
+

@@ -1,0 +1,14 @@
+Files:
+tests/test-tls.c
+
+Depends-on:
+thread
+yield
+
+configure.ac:
+
+Makefile.am:
+TESTS += test-tls
+check_PROGRAMS += test-tls
+test_tls_LDADD = $(LDADD) @LIBMULTITHREAD@ @YIELD_LIB@
+

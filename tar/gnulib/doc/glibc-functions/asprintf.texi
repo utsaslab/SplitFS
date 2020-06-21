@@ -1,0 +1,67 @@
+@node asprintf
+@subsection @code{asprintf}
+@findex asprintf
+
+Gnulib module: vasprintf or vasprintf-posix
+
+Portability problems fixed by either Gnulib module @code{vasprintf} or @code{vasprintf-posix}:
+@itemize
+@item
+This function is missing on some platforms:
+AIX 5.1, HP-UX 11, IRIX 6.5, OSF/1 5.1, Solaris 10, mingw, MSVC 14, Interix 3.5.
+@end itemize
+
+Portability problems fixed by Gnulib module @code{vasprintf-posix}:
+@itemize
+@item
+This function does not support size specifiers as in C99 (@code{hh}, @code{ll},
+@code{j}, @code{t}, @code{z}) on some platforms:
+Cygwin 1.5.24, BeOS.
+@item
+printf of @samp{long double} numbers is unsupported on some platforms:
+BeOS.
+@item
+printf @code{"%f"}, @code{"%e"}, @code{"%g"} of Infinity and NaN yields an
+incorrect result on some platforms:
+Solaris 11.0.
+@item
+This function does not support the @samp{a} and @samp{A} directives on some
+platforms:
+glibc-2.3.6, Mac OS X 10.5, NetBSD 5.0, OpenBSD 4.0, Solaris 11.3, Cygwin 1.5.x, BeOS.
+@item
+This function does not support the @samp{F} directive on some platforms:
+NetBSD 3.0, Cygwin 1.5.x, BeOS.
+@item
+This function does not support the @samp{ls} directive on some platforms:
+OpenBSD 4.0, Cygwin 1.5.x, Haiku.
+@item
+This function does not support precisions in the @samp{ls} directive correctly
+on some platforms:
+Solaris 11.3.
+@item
+This function does not support format directives that access arguments in an
+arbitrary order, such as @code{"%2$s"}, on some platforms:
+NetBSD 3.0, BeOS.
+@item
+This function doesn't support the @code{'} flag on some platforms:
+NetBSD 3.0, Cygwin 1.5.24.
+@item
+This function does not round the argument of the @samp{a} directive correctly
+on some platforms:
+Mac OS X 10.12, FreeBSD 6.1.
+@item
+printf @code{"%010f"} of NaN and Infinity yields an incorrect result (padded
+with zeroes) on some platforms:
+Mac OS X 10.5, FreeBSD 6.0, NetBSD 5.0, Solaris 11.0, Cygwin 1.5.x.
+@item
+This function does not support precisions larger than 512 or 1024 in integer,
+floating-point and pointer output on some platforms:
+BeOS.
+@item
+This function can crash in out-of-memory conditions on some platforms:
+Mac OS X 10.3, FreeBSD 6.0, NetBSD 5.0.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@end itemize

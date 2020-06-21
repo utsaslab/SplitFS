@@ -1,0 +1,33 @@
+Description:
+Determine whether two file names refer to the same directory entry of the same
+directory.
+
+Files:
+lib/same.h
+lib/same.c
+m4/same.m4
+
+Depends-on:
+error
+dirname
+fstatat
+openat
+same-inode
+stat
+stdbool
+memcmp
+
+configure.ac:
+gl_SAME
+
+Makefile.am:
+lib_SOURCES += same.c
+
+Include:
+"same.h"
+
+License:
+GPL
+
+Maintainer:
+Jim Meyering

@@ -1,0 +1,73 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2011, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Test description:
+# Test that --keep-old-files doesn't change xattrs of already existing file.
+# Per report:
+# https://lists.gnu.org/archive/html/bug-tar/2016-10/msg00001.html
+
+AT_SETUP([xattrs: xattrs and --skip-old-files])
+AT_KEYWORDS([xattrs xattr07])
+
+AT_TAR_CHECK([
+AT_XATTRS_PREREQ
+mkdir dir
+genfile --file dir/file
+genfile --file dir/file2
+
+setfattr -n user.test -v OurDirValue dir
+setfattr -n user.test -v OurFileValue dir/file
+setfattr -n user.test -v OurFileValue dir/file2
+
+tar --xattrs --no-recursion -cf archive.tar dir dir/file dir/file2
+
+setfattr -n user.test -v OurDirValue2 dir
+setfattr -n user.test -v OurFileValue2 dir/file
+setfattr -n user.test -v OurFileValue2 dir/file2
+
+# Check that tar continues to file2 too!
+tar --xattrs -xvf archive.tar --skip-old-files
+tar --xattrs -xvf archive.tar --keep-old-files
+
+getfattr -h -d dir         | grep -v -e '^#' -e ^$
+getfattr -h -d dir/file    | grep -v -e '^#' -e ^$
+getfattr -h -d dir/file2   | grep -v -e '^#' -e ^$
+],
+[0],
+[dir/
+dir/file
+dir/file2
+dir/
+dir/file
+dir/file2
+user.test="OurDirValue2"
+user.test="OurFileValue2"
+user.test="OurFileValue2"
+], [tar: dir: skipping existing file
+tar: dir/file: skipping existing file
+tar: dir/file: skipping existing file
+tar: dir/file2: skipping existing file
+tar: dir/file2: skipping existing file
+tar: dir/file: Cannot open: File exists
+tar: dir/file2: Cannot open: File exists
+tar: Exiting with failure status due to previous errors
+])
+
+AT_CLEANUP

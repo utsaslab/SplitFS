@@ -1,0 +1,27 @@
+Description:
+Convert float to accurate string.
+
+Files:
+lib/ftoastr.h
+lib/ftoastr.c
+m4/c-strtod.m4
+
+Depends-on:
+extensions
+intprops
+
+configure.ac:
+AC_CHECK_FUNCS_ONCE([strtof])
+AC_REQUIRE([gl_C99_STRTOLD])
+
+Makefile.am:
+lib_SOURCES += ftoastr.c
+
+Include:
+"ftoastr.h"
+
+License:
+GPL
+
+Maintainer:
+Paul Eggert

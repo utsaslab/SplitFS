@@ -1,0 +1,2858 @@
+# Traditional Chinese Messages for tar.
+# Copyright (C) 2005 Free Software Foundation, Inc.
+# This file is distributed under the same license as the tar package.
+# Wei-Lun Chao <bluebat@member.fsf.org>, 2009, 2013, 2016.
+# pan93412 <pan93412@gmail.com>, 2018.
+#
+#: src/create.c:1599
+msgid ""
+msgstr ""
+"Project-Id-Version: GNU tar 1.30\n"
+"Report-Msgid-Bugs-To: bug-tar@gnu.org\n"
+"POT-Creation-Date: 2017-12-17 12:31+0200\n"
+"PO-Revision-Date: 2018-05-05 19:29+0800\n"
+"Last-Translator: pan93412 <pan93412@gmail.com>\n"
+"Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#: gnu/argmatch.c:134
+#, c-format
+msgid "invalid argument %s for %s"
+msgstr "%2$s 的引數 %1$s 無效"
+
+#: gnu/argmatch.c:135
+#, c-format
+msgid "ambiguous argument %s for %s"
+msgstr "%2$s 的引數 %1$s 是模稜兩可的"
+
+#: gnu/argmatch.c:154
+msgid "Valid arguments are:"
+msgstr "有效的引數為："
+
+#: gnu/argp-help.c:148
+#, c-format
+msgid "ARGP_HELP_FMT: %s value is less than or equal to %s"
+msgstr "ARGP_HELP_FMT：%s 值是少於或等於 %s"
+
+#: gnu/argp-help.c:224
+#, c-format
+msgid "%.*s: ARGP_HELP_FMT parameter requires a value"
+msgstr "%.*s: ARGP_HELP_FMT 參數需要一個值"
+
+#: gnu/argp-help.c:234
+#, c-format
+msgid "%.*s: Unknown ARGP_HELP_FMT parameter"
+msgstr "%.*s: 不明的 ARGP_HELP_FMT 參數"
+
+#: gnu/argp-help.c:247
+#, c-format
+msgid "Garbage in ARGP_HELP_FMT: %s"
+msgstr "ARGP_HELP_FMT 中無用的資訊: %s"
+
+#: gnu/argp-help.c:1228
+msgid "Mandatory or optional arguments to long options are also mandatory or optional for any corresponding short options."
+msgstr "長選項的必須或可選用的引數也是相對應短選項的必須或可選用的引數。"
+
+#: gnu/argp-help.c:1615
+msgid "Usage:"
+msgstr "用法："
+
+#: gnu/argp-help.c:1619
+msgid "  or: "
+msgstr "  或："
+
+#: gnu/argp-help.c:1631
+msgid " [OPTION...]"
+msgstr " [選項…]"
+
+#: gnu/argp-help.c:1658
+#, c-format
+msgid "Try '%s --help' or '%s --usage' for more information.\n"
+msgstr "試試 %s --help 或 %s --usage 以獲得更多資訊。\n"
+
+#: gnu/argp-help.c:1686
+#, c-format
+msgid "Report bugs to %s.\n"
+msgstr "請向 %s 回報錯誤。\n"
+
+#: gnu/argp-help.c:1887 gnu/error.c:195
+msgid "Unknown system error"
+msgstr "不明的系統錯誤"
+
+#: gnu/argp-parse.c:81
+msgid "give this help list"
+msgstr "給出這個使用方式列表"
+
+#: gnu/argp-parse.c:82
+msgid "give a short usage message"
+msgstr "給出簡短的使用訊息"
+
+#: gnu/argp-parse.c:83 src/tar.c:507 src/tar.c:509 src/tar.c:612
+#: tests/genfile.c:134
+msgid "NAME"
+msgstr "名稱"
+
+#: gnu/argp-parse.c:84
+msgid "set the program name"
+msgstr "設定程式名稱"
+
+#: gnu/argp-parse.c:85
+msgid "SECS"
+msgstr "秒"
+
+#: gnu/argp-parse.c:86
+msgid "hang for SECS seconds (default 3600)"
+msgstr "掛斷若干秒 (預設 3600)"
+
+#: gnu/argp-parse.c:143
+msgid "print program version"
+msgstr "印出程式版本"
+
+#: gnu/argp-parse.c:160
+msgid "(PROGRAM ERROR) No version known!?"
+msgstr "(程式錯誤) 沒有已知版本 !?"
+
+#: gnu/argp-parse.c:613
+#, c-format
+msgid "%s: Too many arguments\n"
+msgstr "%s：太多引數\n"
+
+#: gnu/argp-parse.c:759
+msgid "(PROGRAM ERROR) Option should have been recognized!?"
+msgstr "(程式錯誤) 選項應該已被辨識 !?"
+
+#: gnu/closeout.c:122
+msgid "write error"
+msgstr "寫入錯誤"
+
+#: gnu/getopt.c:278
+#, c-format
+msgid "%s: option '%s%s' is ambiguous\n"
+msgstr "%s：選項「%s%s」是模稜兩可的\n"
+
+#: gnu/getopt.c:284
+#, c-format
+msgid "%s: option '%s%s' is ambiguous; possibilities:"
+msgstr "%s：選項「%s%s」是模稜兩可的；可能是："
+
+#: gnu/getopt.c:319
+#, c-format
+msgid "%s: unrecognized option '%s%s'\n"
+msgstr "%s：無法辨識的選項「%s%s」\n"
+
+#: gnu/getopt.c:345
+#, c-format
+msgid "%s: option '%s%s' doesn't allow an argument\n"
+msgstr "%s：選項「%s%s」不允許有引數\n"
+
+#: gnu/getopt.c:360
+#, c-format
+msgid "%s: option '%s%s' requires an argument\n"
+msgstr "%s：選項「%s%s」需要一個引數\n"
+
+#: gnu/getopt.c:621
+#, c-format
+msgid "%s: invalid option -- '%c'\n"
+msgstr "%s：無效的選項 -- %c\n"
+
+#: gnu/getopt.c:636 gnu/getopt.c:682
+#, c-format
+msgid "%s: option requires an argument -- '%c'\n"
+msgstr "%s：選項需要一個引數 -- %c\n"
+
+#: gnu/obstack.c:338 gnu/obstack.c:340 gnu/xalloc-die.c:34
+msgid "memory exhausted"
+msgstr "記憶體已耗盡"
+
+#: gnu/openat-die.c:38
+#, c-format
+msgid "unable to record current working directory"
+msgstr "無法記錄目前的工作目錄"
+
+#: gnu/openat-die.c:57
+#, c-format
+msgid "failed to return to initial working directory"
+msgstr "回到初始工作目錄時失敗"
+
+#. TRANSLATORS:
+#. Get translations for open and closing quotation marks.
+#. The message catalog should translate "`" to a left
+#. quotation mark suitable for the locale, and similarly for
+#. "'".  For example, a French Unicode local should translate
+#. these to U+00AB (LEFT-POINTING DOUBLE ANGLE
+#. QUOTATION MARK), and U+00BB (RIGHT-POINTING DOUBLE ANGLE
+#. QUOTATION MARK), respectively.
+#.
+#. If the catalog has no translation, we will try to
+#. use Unicode U+2018 (LEFT SINGLE QUOTATION MARK) and
+#. Unicode U+2019 (RIGHT SINGLE QUOTATION MARK).  If the
+#. current locale is not Unicode, locale_quoting_style
+#. will quote 'like this', and clocale_quoting_style will
+#. quote "like this".  You should always include translations
+#. for "`" and "'" even if U+2018 and U+2019 are appropriate
+#. for your locale.
+#.
+#. If you don't know what to put here, please see
+#. <https://en.wikipedia.org/wiki/Quotation_marks_in_other_languages>
+#. and use glyphs suitable for your language.
+#: gnu/quotearg.c:362
+msgid "`"
+msgstr "「"
+
+#: gnu/quotearg.c:363
+msgid "'"
+msgstr "」"
+
+#. TRANSLATORS: A regular expression testing for an affirmative answer
+#. (english: "yes").  Testing the first character may be sufficient.
+#. Take care to consider upper and lower case.
+#. To enquire the regular expression that your system uses for this
+#. purpose, you can use the command
+#. locale -k LC_MESSAGES | grep '^yesexpr='
+#: gnu/rpmatch.c:150
+msgid "^[yY]"
+msgstr "^[yY是]"
+
+#. TRANSLATORS: A regular expression testing for a negative answer
+#. (english: "no").  Testing the first character may be sufficient.
+#. Take care to consider upper and lower case.
+#. To enquire the regular expression that your system uses for this
+#. purpose, you can use the command
+#. locale -k LC_MESSAGES | grep '^noexpr='
+#: gnu/rpmatch.c:163
+msgid "^[nN]"
+msgstr "^[nN否]"
+
+#: gnu/version-etc.c:74
+#, c-format
+msgid "Packaged by %s (%s)\n"
+msgstr "由 %s (%s) 打包套件\n"
+
+#: gnu/version-etc.c:77
+#, c-format
+msgid "Packaged by %s\n"
+msgstr "由 %s 打包套件\n"
+
+#. TRANSLATORS: Translate "(C)" to the copyright symbol
+#. (C-in-a-circle), if this symbol is available in the user's
+#. locale.  Otherwise, do not translate "(C)"; leave it as-is.
+#: gnu/version-etc.c:84
+msgid "(C)"
+msgstr "©"
+
+#: gnu/version-etc.c:86
+msgid ""
+"\n"
+"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
+"\n"
+msgstr ""
+"\n"
+"使用授權 GPLv3+: GNU GPL 第三版或後續版本<http://gnu.org/licenses/gpl.html>。\n"
+"這是自由軟體：您可以自由變更和再次散布它。\n"
+"在法律所允許的範圍內沒有任何擔保。\n"
+"\n"
+
+#. TRANSLATORS: %s denotes an author name.
+#: gnu/version-etc.c:102
+#, c-format
+msgid "Written by %s.\n"
+msgstr "由 %s 編寫。\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: gnu/version-etc.c:106
+#, c-format
+msgid "Written by %s and %s.\n"
+msgstr "由 %s 和 %s 編寫。\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: gnu/version-etc.c:110
+#, c-format
+msgid "Written by %s, %s, and %s.\n"
+msgstr "由 %s, %s, 和 %s 編寫。\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:117
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+"由 %s, %s, %s,\n"
+"和 %s 編寫。\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:124
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+"寫作由 %s, %s, %s,\n"
+" %s, 和 %s 編寫。\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:131
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, and %s.\n"
+msgstr ""
+"寫作由 %s, %s, %s,\n"
+" %s, %s, 和 %s 編寫。\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:139
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, and %s.\n"
+msgstr ""
+"寫作由 %s, %s, %s,\n"
+" %s, %s, %s, 和 %s 編寫。\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:147
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+"寫作由 %s, %s, %s,\n"
+" %s, %s, %s, %s,\n"
+"和 %s 編寫。\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:156
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+"寫作由 %s, %s, %s,\n"
+" %s, %s, %s, %s,\n"
+" %s, 和 %s 編寫。\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:167
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, %s, and others.\n"
+msgstr ""
+"寫作由 %s, %s, %s,\n"
+" %s, %s, %s, %s,\n"
+" %s, %s, 和其他人編寫。\n"
+
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: gnu/version-etc.c:245
+#, c-format
+msgid ""
+"\n"
+"Report bugs to: %s\n"
+msgstr ""
+"\n"
+"將錯誤通報給：%s\n"
+
+#: gnu/version-etc.c:247
+#, c-format
+msgid "Report %s bugs to: %s\n"
+msgstr "通報 %s 錯誤給：%s\n"
+
+#: gnu/version-etc.c:251
+#, c-format
+msgid "%s home page: <%s>\n"
+msgstr "%s 首頁：<%s>\n"
+
+#: gnu/version-etc.c:253
+#, c-format
+msgid "%s home page: <https://www.gnu.org/software/%s/>\n"
+msgstr "%s 首頁：<http://www.gnu.org/software/%s/>\n"
+
+#: gnu/version-etc.c:256
+msgid "General help using GNU software: <https://www.gnu.org/gethelp/>\n"
+msgstr "使用 GNU 軟體的一般說明：<http://www.gnu.org/gethelp/>\n"
+
+#. TRANSLATORS: %s after `Cannot' is a function name, e.g. `Cannot open'.
+#. Directly translating this to another language will not work, first because
+#. %s itself is not translated.
+#. Translate it as `%s: Function %s failed'.
+#: lib/paxerror.c:60 lib/paxerror.c:73
+#, c-format
+msgid "%s: Cannot %s"
+msgstr "%s：無法 %s"
+
+#. TRANSLATORS: %s after `Cannot' is a function name, e.g. `Cannot open'.
+#. Directly translating this to another language will not work, first because
+#. %s itself is not translated.
+#. Translate it as `%s: Function %s failed'.
+#: lib/paxerror.c:86
+#, c-format
+msgid "%s: Warning: Cannot %s"
+msgstr "%s：警告：無法 %s"
+
+#: lib/paxerror.c:95
+#, c-format
+msgid "%s: Cannot change mode to %s"
+msgstr "%s：無法變更模式為 %s"
+
+#: lib/paxerror.c:103
+#, c-format
+msgid "%s: Cannot change ownership to uid %lu, gid %lu"
+msgstr "%s：無法變更所有權為 uid %lu，gid %lu"
+
+#: lib/paxerror.c:129
+#, c-format
+msgid "%s: Cannot hard link to %s"
+msgstr "%s：無法建立硬式連結到 %s"
+
+#: lib/paxerror.c:181 lib/paxerror.c:213
+#, c-format
+msgid "%s: Read error at byte %s, while reading %lu byte"
+msgid_plural "%s: Read error at byte %s, while reading %lu bytes"
+msgstr[0] "%s：讀取 %s 位元組時錯誤，正在讀取 %lu 位元組"
+
+#: lib/paxerror.c:194
+#, c-format
+msgid "%s: Warning: Read error at byte %s, while reading %lu byte"
+msgid_plural "%s: Warning: Read error at byte %s, while reading %lu bytes"
+msgstr[0] "%s：警告：讀取 %s 位元組時錯誤，正在讀取 %lu 位元組"
+
+#: lib/paxerror.c:261
+#, c-format
+msgid "%s: Cannot seek to %s"
+msgstr "%s：無法尋求到 %s"
+
+#: lib/paxerror.c:277
+#, c-format
+msgid "%s: Warning: Cannot seek to %s"
+msgstr "%s：警告：無法尋求到 %s"
+
+#: lib/paxerror.c:286
+#, c-format
+msgid "%s: Cannot create symlink to %s"
+msgstr "%s：無法建立符號連結到 %s"
+
+#: lib/paxerror.c:351
+#, c-format
+msgid "%s: Wrote only %lu of %lu byte"
+msgid_plural "%s: Wrote only %lu of %lu bytes"
+msgstr[0] "%1$s：只能寫入 %3$lu 位元組中的 %2$lu 個"
+
+#: lib/paxnames.c:140
+#, c-format
+msgid "Removing leading `%s' from member names"
+msgstr "從成員名稱中移除前端的 %s"
+
+#: lib/paxnames.c:141
+#, c-format
+msgid "Removing leading `%s' from hard link targets"
+msgstr "從硬式連結目標中移除前端的 %s"
+
+#: lib/paxnames.c:154
+msgid "Substituting `.' for empty member name"
+msgstr "以 . 來替換空的成員名稱"
+
+#: lib/paxnames.c:155
+msgid "Substituting `.' for empty hard link target"
+msgstr "以 . 來替換空的硬式連結目標"
+
+#: lib/rtapelib.c:299
+#, c-format
+msgid "exec/tcp: Service not available"
+msgstr "exec/tcp：無法提供服務"
+
+#: lib/rtapelib.c:303
+#, c-format
+msgid "stdin"
+msgstr "標準輸入"
+
+#: lib/rtapelib.c:306
+#, c-format
+msgid "stdout"
+msgstr "標準輸出"
+
+#: lib/rtapelib.c:429
+#, c-format
+msgid "Cannot connect to %s: resolve failed"
+msgstr "無法連線到 %s：解析失敗"
+
+#: lib/rtapelib.c:502
+#, c-format
+msgid "Cannot redirect files for remote shell"
+msgstr "無法將檔案重導至遠端命令殼"
+
+#: lib/rtapelib.c:516
+#, c-format
+msgid "Cannot execute remote shell"
+msgstr "無法執行遠端命令殼"
+
+#: rmt/rmt.c:432
+msgid "Seek direction out of range"
+msgstr "尋求方向超出範圍"
+
+#: rmt/rmt.c:438
+msgid "Invalid seek direction"
+msgstr "無效的尋求方向"
+
+#: rmt/rmt.c:446
+msgid "Invalid seek offset"
+msgstr "無效的尋求偏移"
+
+#: rmt/rmt.c:452
+msgid "Seek offset out of range"
+msgstr "尋求偏移值超出範圍"
+
+#: rmt/rmt.c:493 rmt/rmt.c:544 rmt/rmt.c:608
+msgid "Invalid byte count"
+msgstr "無效的位元組計數"
+
+#: rmt/rmt.c:499 rmt/rmt.c:550 rmt/rmt.c:614 rmt/rmt.c:625
+msgid "Byte count out of range"
+msgstr "位元組計數超出範圍"
+
+#: rmt/rmt.c:558
+msgid "Premature eof"
+msgstr "過早出現檔尾"
+
+#: rmt/rmt.c:601
+msgid "Invalid operation code"
+msgstr "無效的運算碼"
+
+#: rmt/rmt.c:636 rmt/rmt.c:680
+msgid "Operation not supported"
+msgstr "作業不支援"
+
+#: rmt/rmt.c:664
+msgid "Unexpected arguments"
+msgstr "未預期的引數"
+
+#: rmt/rmt.c:689
+msgid "Manipulate a tape drive, accepting commands from a remote process"
+msgstr "操控磁帶機，從遠端行程接受命令"
+
+#: rmt/rmt.c:696 src/tar.c:432 src/tar.c:436 src/tar.c:610 src/tar.c:625
+#: src/tar.c:714 src/tar.c:730 tests/genfile.c:171
+msgid "NUMBER"
+msgstr "數目"
+
+#: rmt/rmt.c:697
+msgid "set debug level"
+msgstr "設定除錯等級"
+
+#: rmt/rmt.c:698 src/names.c:71 src/names.c:75 src/names.c:93 src/names.c:103
+#: src/names.c:106 src/names.c:109 src/names.c:112 src/names.c:114
+#: src/tar.c:430 src/tar.c:511 src/tar.c:513 src/tar.c:615 src/tar.c:747
+#: tests/genfile.c:136 tests/genfile.c:185 tests/genfile.c:189
+#: tests/genfile.c:192 tests/genfile.c:198
+msgid "FILE"
+msgstr "檔案"
+
+#: rmt/rmt.c:699
+msgid "set debug output file name"
+msgstr "設定除錯輸出檔案名稱"
+
+#: rmt/rmt.c:715 rmt/rmt.c:783
+#, c-format
+msgid "cannot open %s"
+msgstr "無法開啟 %s"
+
+#: rmt/rmt.c:780 tests/genfile.c:977 tests/genfile.c:994
+#, c-format
+msgid "too many arguments"
+msgstr "太多引數"
+
+#: rmt/rmt.c:822
+msgid "Garbage command"
+msgstr "無用的命令"
+
+#: src/buffer.c:474 src/buffer.c:479 src/buffer.c:773 src/buffer.c:1415
+#: src/buffer.c:1452 src/buffer.c:1464 src/buffer.c:1493 src/delete.c:211
+#: src/list.c:275 src/update.c:188
+msgid "This does not look like a tar archive"
+msgstr "這個看起來不像 tar 封存"
+
+#: src/buffer.c:590
+msgid "Total bytes read"
+msgstr "已讀取位元組總數"
+
+#: src/buffer.c:592
+msgid "Total bytes written"
+msgstr "已寫入位元組總數"
+
+#: src/buffer.c:593
+msgid "Total bytes deleted"
+msgstr "已刪除位元組總數"
+
+#: src/buffer.c:672
+msgid "(pipe)"
+msgstr "(管線)"
+
+#: src/buffer.c:696
+msgid "Refusing to read archive contents from terminal (missing -f option?)"
+msgstr "拒絕從終端機讀取封存內容 (缺少 -f 選項？)"
+
+#: src/buffer.c:698
+msgid "Refusing to write archive contents to terminal (missing -f option?)"
+msgstr "拒絕寫入封存內容到終端機 (缺少 -f 選項？)"
+
+#: src/buffer.c:711
+msgid "Invalid value for record_size"
+msgstr "無效的記錄大小"
+
+#: src/buffer.c:714
+msgid "No archive name given"
+msgstr "沒有指定封存名稱"
+
+#: src/buffer.c:757
+msgid "Cannot verify stdin/stdout archive"
+msgstr "無法檢驗標準輸出入封存"
+
+#: src/buffer.c:770
+#, c-format
+msgid "Archive is compressed. Use %s option"
+msgstr "封存被壓縮過。使用 %s 選項"
+
+#: src/buffer.c:828 src/tar.c:2455
+msgid "Cannot update compressed archives"
+msgstr "無法更新壓縮的封存"
+
+#: src/buffer.c:928
+msgid "At beginning of tape, quitting now"
+msgstr "位於磁帶起始部分，立刻退出"
+
+#: src/buffer.c:934
+msgid "Too many errors, quitting"
+msgstr "太多錯誤，離開中"
+
+#: src/buffer.c:967
+#, c-format
+msgid "Record size = %lu block"
+msgid_plural "Record size = %lu blocks"
+msgstr[0] "記錄大小 = %lu 區塊"
+
+#: src/buffer.c:988
+#, c-format
+msgid "Unaligned block (%lu byte) in archive"
+msgid_plural "Unaligned block (%lu bytes) in archive"
+msgstr[0] "封存中未排列的區塊 (%lu 位元組)"
+
+#: src/buffer.c:1075
+msgid "Cannot backspace archive file; it may be unreadable without -i"
+msgstr "無法倒退封存檔案；沒有 -i 也許會無法讀取"
+
+#: src/buffer.c:1107
+msgid "rmtlseek not stopped at a record boundary"
+msgstr "rmtlseek 無法在記錄分界處停止"
+
+#: src/buffer.c:1168
+#, c-format
+msgid "%s: contains invalid volume number"
+msgstr "%s：包含無效的卷冊號碼"
+
+#: src/buffer.c:1203
+msgid "Volume number overflow"
+msgstr "卷冊號碼已滿"
+
+#: src/buffer.c:1218
+#, c-format
+msgid "Prepare volume #%d for %s and hit return: "
+msgstr "準備好卷冊 #%d 以完成 %s 並按下 return: "
+
+#: src/buffer.c:1224
+msgid "EOF where user reply was expected"
+msgstr "到達期待使用者回答的檔案末端"
+
+#: src/buffer.c:1229 src/buffer.c:1261
+msgid "WARNING: Archive is incomplete"
+msgstr "警告：封存不完整"
+
+#: src/buffer.c:1243
+#, c-format
+msgid ""
+" n name        Give a new file name for the next (and subsequent) volume(s)\n"
+" q             Abort tar\n"
+" y or newline  Continue operation\n"
+msgstr ""
+" n 名稱        賦予下一個 (以及後續的) 卷冊一個新檔名\n"
+" q             放棄打包\n"
+" y 或 newline  繼續作業\n"
+
+#: src/buffer.c:1248
+#, c-format
+msgid " !             Spawn a subshell\n"
+msgstr " !             衍生一個子命令殼\n"
+
+#: src/buffer.c:1249
+#, c-format
+msgid " ?             Print this list\n"
+msgstr " ?             列印這個清單\n"
+
+#: src/buffer.c:1256
+msgid "No new volume; exiting.\n"
+msgstr "沒有新卷冊；離開。\n"
+
+#: src/buffer.c:1289
+msgid "File name not specified. Try again.\n"
+msgstr "檔案名稱尚未指定。再次嘗試。\n"
+
+#: src/buffer.c:1301
+#, c-format
+msgid "Invalid input. Type ? for help.\n"
+msgstr "無效的輸入。按下 ? 以獲得說明。\n"
+
+#: src/buffer.c:1352
+#, c-format
+msgid "%s command failed"
+msgstr "%s 命令失敗"
+
+#: src/buffer.c:1529 src/buffer.c:1545
+#, c-format
+msgid "%s is not continued on this volume"
+msgstr "%s 在本卷冊中並不連續"
+
+#: src/buffer.c:1541
+#, c-format
+msgid "%s is possibly continued on this volume: header contains truncated name"
+msgstr "%s 在本卷冊中可能連續：標頭含有截斷的名稱"
+
+#: src/buffer.c:1559
+#, c-format
+msgid "%s is the wrong size (%s != %s + %s)"
+msgstr "%s 的大小有錯 (%s != %s + %s)"
+
+#: src/buffer.c:1574
+#, c-format
+msgid "This volume is out of sequence (%s - %s != %s)"
+msgstr "本卷冊已超出序列 (%s - %s !=%s)"
+
+#: src/buffer.c:1652 src/buffer.c:1678
+#, c-format
+msgid "Archive not labeled to match %s"
+msgstr "封存未標誌為符合 %s"
+
+#: src/buffer.c:1682
+#, c-format
+msgid "Volume %s does not match %s"
+msgstr "卷冊 %s 不符合 %s"
+
+#: src/buffer.c:1774
+#, c-format
+msgid "%s: file name too long to be stored in a GNU multivolume header, truncated"
+msgstr "%s：檔名太長，無法儲存於 GNU 多重卷冊標頭之中，已截斷"
+
+#: src/buffer.c:1965
+msgid "write did not end on a block boundary"
+msgstr "並未於區段界限結束寫入"
+
+#: src/compare.c:98
+#, c-format
+msgid "Could only read %lu of %lu byte"
+msgid_plural "Could only read %lu of %lu bytes"
+msgstr[0] "只能讀取 %2$lu 位元組中的 %1$lu 個"
+
+#: src/compare.c:108 src/compare.c:398
+msgid "Contents differ"
+msgstr "內容不同"
+
+#: src/compare.c:134 src/extract.c:1204 src/incremen.c:1508 src/list.c:488
+#: src/list.c:1404 src/xheader.c:847
+msgid "Unexpected EOF in archive"
+msgstr "未預期的封存結尾"
+
+#: src/compare.c:182 src/compare.c:198 src/compare.c:317 src/compare.c:422
+msgid "File type differs"
+msgstr "檔案類型不同"
+
+#: src/compare.c:185 src/compare.c:205 src/compare.c:331
+msgid "Mode differs"
+msgstr "模式不同"
+
+#: src/compare.c:208
+msgid "Uid differs"
+msgstr "Uid 號碼不同"
+
+#: src/compare.c:210
+msgid "Gid differs"
+msgstr "Gid 號碼不同"
+
+#: src/compare.c:214
+msgid "Mod time differs"
+msgstr "修改時間不同"
+
+#: src/compare.c:218 src/compare.c:432
+msgid "Size differs"
+msgstr "大小不同"
+
+#: src/compare.c:267
+#, c-format
+msgid "Not linked to %s"
+msgstr "並未鏈結至 %s"
+
+#: src/compare.c:293
+msgid "Symlink differs"
+msgstr "符號連結不同"
+
+#: src/compare.c:325
+msgid "Device number differs"
+msgstr "裝置編號不同"
+
+#: src/compare.c:473
+#, c-format
+msgid "Verify "
+msgstr "驗證 "
+
+#: src/compare.c:480
+#, c-format
+msgid "%s: Unknown file type '%c', diffed as normal file"
+msgstr "%s：不明檔案類型 %c，會以普通檔案的方式作比較"
+
+#: src/compare.c:535
+msgid "Archive contains file names with leading prefixes removed."
+msgstr "封存包含前置文字被移除的檔案名稱。"
+
+#: src/compare.c:541
+msgid "Archive contains transformed file names."
+msgstr "封存含有變換過的檔案名稱。"
+
+#: src/compare.c:546
+msgid "Verification may fail to locate original files."
+msgstr "查核動作可能無法找到原始檔案"
+
+#: src/compare.c:620
+#, c-format
+msgid "VERIFY FAILURE: %d invalid header detected"
+msgid_plural "VERIFY FAILURE: %d invalid headers detected"
+msgstr[0] "驗證失敗：%d 偵測到無效的標頭"
+
+#: src/compare.c:638 src/list.c:252
+#, c-format
+msgid "A lone zero block at %s"
+msgstr "位於 %s 的孤立零值區塊"
+
+#: src/create.c:74
+#, c-format
+msgid "%s: contains a cache directory tag %s; %s"
+msgstr "%s：包含一個快取目錄標記 %s; %s"
+
+#: src/create.c:263
+#, c-format
+msgid "value %s out of %s range %s..%s; substituting %s"
+msgstr "數值 %s 已超出 %s 的範圍 %s..%s；以 %s 替代中"
+
+#: src/create.c:269
+#, c-format
+msgid "value %s out of %s range %s..%s"
+msgstr "數值 %s 已超出 %s 的範圍 %s..%s"
+
+#: src/create.c:329
+msgid "Generating negative octal headers"
+msgstr "正在產生負數的八進位標頭"
+
+#: src/create.c:606 src/create.c:669
+#, c-format
+msgid "%s: file name is too long (max %d); not dumped"
+msgstr "%s：檔名太長 (最大 %d)；未傾印"
+
+#: src/create.c:616
+#, c-format
+msgid "%s: file name is too long (cannot be split); not dumped"
+msgstr "%s：檔名太長 (無法分割)；未傾印"
+
+#: src/create.c:643
+#, c-format
+msgid "%s: link name is too long; not dumped"
+msgstr "%s：鏈結名稱太長；未傾印"
+
+#: src/create.c:1106
+#, c-format
+msgid "%s: File shrank by %s byte; padding with zeros"
+msgid_plural "%s: File shrank by %s bytes; padding with zeros"
+msgstr[0] "%s：檔案縮小了 %s 位元組；以零值填補"
+
+#: src/create.c:1204
+#, c-format
+msgid "%s: file is on a different filesystem; not dumped"
+msgstr "%s：檔案位於不同的檔案系統；未傾印"
+
+#: src/create.c:1247 src/create.c:1258 src/incremen.c:610 src/incremen.c:617
+msgid "contents not dumped"
+msgstr "內容無法傾印"
+
+#: src/create.c:1464
+#, c-format
+msgid "%s: Unknown file type; file ignored"
+msgstr "%s：不明檔案類型；忽略該檔案"
+
+#: src/create.c:1576
+#, c-format
+msgid "Missing links to %s."
+msgstr "缺少連結到 %s。"
+
+#: src/create.c:1737
+#, c-format
+msgid "%s: file is unchanged; not dumped"
+msgstr "%s：檔案沒有變更；未傾印"
+
+#: src/create.c:1746
+#, c-format
+msgid "%s: file is the archive; not dumped"
+msgstr "%s：檔案是封存；未傾印"
+
+#: src/create.c:1774 src/incremen.c:603
+msgid "directory not dumped"
+msgstr "目錄未傾印"
+
+#: src/create.c:1846
+#, c-format
+msgid "%s: file changed as we read it"
+msgstr "%s：檔案在讀取時已變更"
+
+#: src/create.c:1922
+#, c-format
+msgid "%s: socket ignored"
+msgstr "%s：忽略通訊端"
+
+#: src/create.c:1928
+#, c-format
+msgid "%s: door ignored"
+msgstr "%s：忽略匣門"
+
+#: src/delete.c:216 src/list.c:288 src/update.c:192
+msgid "Skipping to next header"
+msgstr "跳至下一個標頭"
+
+#: src/delete.c:281
+msgid "Deleting non-header from archive"
+msgstr "從封存中刪除無標頭者"
+
+#: src/extract.c:302
+#, c-format
+msgid "%s: implausibly old time stamp %s"
+msgstr "%s：難以確信的舊時間戳記 %s"
+
+#: src/extract.c:320
+#, c-format
+msgid "%s: time stamp %s is %s s in the future"
+msgstr "%s：時間戳記 %s 代表未來的 %s 秒"
+
+#: src/extract.c:553
+#, c-format
+msgid "%s: Unexpected inconsistency when making directory"
+msgstr "%s：產生目錄時有未預期的不一致"
+
+#: src/extract.c:771
+#, c-format
+msgid "%s: skipping existing file"
+msgstr "%s：跳過既有的檔案"
+
+#: src/extract.c:901
+#, c-format
+msgid "%s: Directory renamed before its status could be extracted"
+msgstr "%s：解開目錄狀態之前已更改了名稱"
+
+#: src/extract.c:1086
+msgid "Extracting contiguous files as regular files"
+msgstr "正在解開連續檔案為正常檔案"
+
+#: src/extract.c:1433
+msgid "Attempting extraction of symbolic links as hard links"
+msgstr "嘗試解開符號連結為硬式連結"
+
+#: src/extract.c:1596
+#, c-format
+msgid "%s: Cannot extract -- file is continued from another volume"
+msgstr "%s：無法解開 -- 檔案延續自其他卷冊"
+
+#: src/extract.c:1603 src/list.c:1167
+msgid "Unexpected long name header"
+msgstr "未預期的長名稱標頭"
+
+#: src/extract.c:1610
+#, c-format
+msgid "%s: Unknown file type '%c', extracted as normal file"
+msgstr "%s：不明檔案類型 %c，會以普通檔案的方式解開資料"
+
+#: src/extract.c:1636
+#, c-format
+msgid "Current %s is newer or same age"
+msgstr "目前的 %s 較新或相同"
+
+#: src/extract.c:1664
+#, c-format
+msgid "%s: Member name contains '..'"
+msgstr "%s：會員名稱包含了「..」"
+
+#: src/extract.c:1696
+#, c-format
+msgid "%s: Was unable to backup this file"
+msgstr "%s：之前無法備份這個檔案"
+
+#: src/extract.c:1845
+#, c-format
+msgid "Cannot rename %s to %s"
+msgstr "無法將 %s 重新命名為 %s"
+
+#: src/incremen.c:494 src/incremen.c:536
+#, c-format
+msgid "%s: Directory has been renamed from %s"
+msgstr "%s：目錄已從 %s 重新命名"
+
+#: src/incremen.c:549
+#, c-format
+msgid "%s: Directory is new"
+msgstr "%s：目錄是新的"
+
+#: src/incremen.c:566
+#, c-format
+msgid "%s: directory is on a different filesystem; not dumped"
+msgstr "%s：目錄位於不同的檔案系統；未傾印"
+
+#: src/incremen.c:587
+#, c-format
+msgid "%s: Directory has been renamed"
+msgstr "%s：目錄已被重新命名"
+
+#: src/incremen.c:1003 src/incremen.c:1018
+msgid "Invalid time stamp"
+msgstr "無效的時間戳記"
+
+#: src/incremen.c:1047
+msgid "Invalid modification time"
+msgstr "無效的修改時間"
+
+#: src/incremen.c:1057
+msgid "Invalid modification time (nanoseconds)"
+msgstr "無效的修改時間 (奈秒)"
+
+#: src/incremen.c:1073
+msgid "Invalid device number"
+msgstr "無效的裝置號碼"
+
+#: src/incremen.c:1081
+msgid "Invalid inode number"
+msgstr "無效的 inode 號碼"
+
+#: src/incremen.c:1137
+#, c-format
+msgid "%s: byte %s: %s %.*s... too long"
+msgstr "%s：位元 %s：%s %.*s... 太長"
+
+#: src/incremen.c:1153 src/incremen.c:1211 src/incremen.c:1273
+msgid "Unexpected EOF in snapshot file"
+msgstr "未預期的快照檔結尾"
+
+#: src/incremen.c:1161
+#, c-format
+msgid "%s: byte %s: %s %s followed by invalid byte 0x%02x"
+msgstr "%s：位元 %s：%s %s 有無效的位元 0x%02x 跟隨著"
+
+#: src/incremen.c:1174
+#, c-format
+msgid ""
+"%s: byte %s: (valid range %s..%s)\n"
+"\t%s %s"
+msgstr ""
+"%s: 位元 %s：(有效範圍 %s..%s)\n"
+"\t%s %s"
+
+#: src/incremen.c:1181
+#, c-format
+msgid "%s: byte %s: %s %s"
+msgstr "%s：位元 %s：%s %s"
+
+#: src/incremen.c:1262
+#, c-format
+msgid "%s: byte %s: %s"
+msgstr "%s：位元 %s：%s"
+
+#: src/incremen.c:1265
+msgid "Missing record terminator"
+msgstr "缺少記錄終止符號"
+
+#: src/incremen.c:1371 src/incremen.c:1374
+msgid "Bad incremental file format"
+msgstr "不當的遞增檔案格式"
+
+#: src/incremen.c:1393
+#, c-format
+msgid "Unsupported incremental format version: %<PRIuMAX>"
+msgstr "不受支援的遞增格式版本：%<PRIuMAX>"
+
+#: src/incremen.c:1549
+#, c-format
+msgid "Malformed dumpdir: expected '%c' but found %#3o"
+msgstr "異常的傾印目錄：預期 %c 但是找到 %#3o"
+
+#: src/incremen.c:1559
+msgid "Malformed dumpdir: 'X' duplicated"
+msgstr "異常的傾印目錄：X 重製"
+
+#: src/incremen.c:1572
+msgid "Malformed dumpdir: empty name in 'R'"
+msgstr "異常的傾印目錄：在 R 中有空的名稱"
+
+#: src/incremen.c:1585
+msgid "Malformed dumpdir: 'T' not preceded by 'R'"
+msgstr "異常的傾印目錄：R 未在 T 之前"
+
+#: src/incremen.c:1591
+msgid "Malformed dumpdir: empty name in 'T'"
+msgstr "異常的傾印目錄：在 T 中有空的名稱"
+
+#: src/incremen.c:1611
+#, c-format
+msgid "Malformed dumpdir: expected '%c' but found end of data"
+msgstr "異常的傾印目錄：預期 %c 但是發現資料的結束"
+
+#: src/incremen.c:1618
+msgid "Malformed dumpdir: 'X' never used"
+msgstr "異常的傾印目錄：X 永不使用"
+
+#: src/incremen.c:1662
+#, c-format
+msgid "Cannot create temporary directory using template %s"
+msgstr "無法使用模板 %s 建立暫存目錄"
+
+#: src/incremen.c:1723
+#, c-format
+msgid "%s: Not purging directory: unable to stat"
+msgstr "%s：未能清空目錄；無法顯示狀態"
+
+#: src/incremen.c:1736
+#, c-format
+msgid "%s: directory is on a different device: not purging"
+msgstr "%s：目錄位於不同的裝置；無法清空"
+
+#: src/incremen.c:1744
+#, c-format
+msgid "%s: Deleting %s\n"
+msgstr "%s：正在刪除 %s\n"
+
+#: src/incremen.c:1749
+#, c-format
+msgid "%s: Cannot remove"
+msgstr "%s：無法移除"
+
+#: src/list.c:219
+#, c-format
+msgid "%s: Omitting"
+msgstr "%s：省略中"
+
+#: src/list.c:237
+#, c-format
+msgid "block %s: ** Block of NULs **\n"
+msgstr "區塊 %s：** 空值區塊 **\n"
+
+#: src/list.c:263
+#, c-format
+msgid "block %s: ** End of File **\n"
+msgstr "區塊 %s：** 檔案結尾 **\n"
+
+#: src/list.c:285 src/list.c:1136 src/list.c:1372
+#, c-format
+msgid "block %s: "
+msgstr "區塊 %s："
+
+#. TRANSLATORS: %s is type of the value (gid_t, uid_t,
+#. etc.)
+#: src/list.c:751
+#, c-format
+msgid "Blanks in header where numeric %s value expected"
+msgstr "空白出現在標頭中預期為數值 %s 的地方"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:806
+#, c-format
+msgid "Archive octal value %.*s is out of %s range; assuming two's complement"
+msgstr "封存八進位數值 %.*s 超出 %s 範圍；假定為二的補數"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:817
+#, c-format
+msgid "Archive octal value %.*s is out of %s range"
+msgstr "封存八進位數值 %.*s 超出 %s 範圍"
+
+#: src/list.c:838
+msgid "Archive contains obsolescent base-64 headers"
+msgstr "封存含有過時的 base-64 標頭"
+
+#: src/list.c:852
+#, c-format
+msgid "Archive signed base-64 string %s is out of %s range"
+msgstr "封存有號 base-64 字串 %s 超出 %s 範圍"
+
+#: src/list.c:883
+#, c-format
+msgid "Archive base-256 value is out of %s range"
+msgstr "封存 base-256 值超出 %s 範圍"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:912
+#, c-format
+msgid "Archive contains %.*s where numeric %s value expected"
+msgstr "封存包含 %.*s 於預期為數值 %s 的地方"
+
+#. TRANSLATORS: Second %s is type name (gid_t,uid_t,etc.)
+#: src/list.c:934
+#, c-format
+msgid "Archive value %s is out of %s range %s..%s"
+msgstr "封存值 %s 已超出 %s 的範圍 %s..%s"
+
+#: src/list.c:1272
+#, c-format
+msgid " link to %s\n"
+msgstr " 連結到 %s\n"
+
+#: src/list.c:1280
+#, c-format
+msgid " unknown file type %s\n"
+msgstr " 不明檔案類型 %s\n"
+
+#: src/list.c:1298
+#, c-format
+msgid "--Long Link--\n"
+msgstr "--長 連 結--\n"
+
+#: src/list.c:1302
+#, c-format
+msgid "--Long Name--\n"
+msgstr "--長 名 稱--\n"
+
+#: src/list.c:1306
+#, c-format
+msgid "--Volume Header--\n"
+msgstr "--卷 冊 標 頭--\n"
+
+#: src/list.c:1314
+#, c-format
+msgid "--Continued at byte %s--\n"
+msgstr "--於第 %s 位元組繼續--\n"
+
+#: src/list.c:1377
+msgid "Creating directory:"
+msgstr "正在建立目錄："
+
+#: src/misc.c:738
+#, c-format
+msgid "Renaming %s to %s\n"
+msgstr "正在將 %s 重新命名為 %s\n"
+
+#: src/misc.c:747 src/misc.c:766
+#, c-format
+msgid "%s: Cannot rename to %s"
+msgstr "%s：無法重新命名為 %s"
+
+#: src/misc.c:771
+#, c-format
+msgid "Renaming %s back to %s\n"
+msgstr "將 %s 的名稱還原為 %s\n"
+
+#: src/misc.c:1134
+#, c-format
+msgid "%s: File removed before we read it"
+msgstr "%s：讀取檔案之前已被移除"
+
+#: src/misc.c:1148
+msgid "child process"
+msgstr "子行程"
+
+#: src/misc.c:1157
+msgid "interprocess channel"
+msgstr "行程間通道"
+
+#: src/names.c:69
+msgid "Local file name selection:"
+msgstr "本機檔案名稱選擇:"
+
+#: src/names.c:72
+msgid "add given FILE to the archive (useful if its name starts with a dash)"
+msgstr "將給定的 FILE 加入封存 (如果它的名稱以減號開始時就很有用)"
+
+#: src/names.c:73 src/tar.c:484
+msgid "DIR"
+msgstr "目錄"
+
+#: src/names.c:74
+msgid "change to directory DIR"
+msgstr "更改至目錄 DIR"
+
+#: src/names.c:76
+msgid "get names to extract or create from FILE"
+msgstr "從 FILE 中取得要解開或建立的名稱"
+
+#: src/names.c:78
+msgid "-T reads null-terminated names; implies --verbatim-files-from"
+msgstr "-T 讀取零值終結的名稱，隱含 --verbatim-files-from"
+
+#: src/names.c:81
+msgid "disable the effect of the previous --null option"
+msgstr "停用先前 --null 選項的效果"
+
+#: src/names.c:83
+msgid "unquote input file or member names (default)"
+msgstr "去除輸入檔案或成員名稱的引號 (預設)"
+
+#: src/names.c:85
+msgid "do not unquote input file or member names"
+msgstr "不去除輸入檔案或成員名稱的引號"
+
+#: src/names.c:87
+msgid "-T reads file names verbatim (no escape or option handling)"
+msgstr "-T 會逐字地讀取檔案名稱 (無跳出或選項處理)"
+
+#: src/names.c:89
+msgid "-T treats file names starting with dash as options (default)"
+msgstr "-T 會將以減號起始的檔案名稱視為選項 (預設)"
+
+#: src/names.c:91 tests/genfile.c:140
+msgid "PATTERN"
+msgstr "胚騰"
+
+#: src/names.c:92
+msgid "exclude files, given as a PATTERN"
+msgstr "排除給定胚騰的檔案"
+
+#: src/names.c:94
+msgid "exclude patterns listed in FILE"
+msgstr "排除 FILE 中所列出的胚騰"
+
+#: src/names.c:96
+msgid "exclude contents of directories containing CACHEDIR.TAG, except for the tag file itself"
+msgstr "排除包含 CACHEDIR.TAG 的目錄內容，除了該標記檔案本身"
+
+#: src/names.c:99
+msgid "exclude everything under directories containing CACHEDIR.TAG"
+msgstr "排除包含 CACHEDIR.TAG 的目錄之下所有東西"
+
+#: src/names.c:102
+msgid "exclude directories containing CACHEDIR.TAG"
+msgstr "排除包含 CACHEDIR.TAG 的目錄"
+
+#: src/names.c:104
+msgid "exclude contents of directories containing FILE, except for FILE itself"
+msgstr "排除包含 FILE 的目錄內容，除了該檔案本身"
+
+#: src/names.c:107
+msgid "read exclude patterns for each directory from FILE, if it exists"
+msgstr "讀取時排除來自 FILE 的每一個目錄胚騰，如果有的話"
+
+#: src/names.c:110
+msgid "read exclude patterns for each directory and its subdirectories from FILE, if it exists"
+msgstr "讀取時排除來自 FILE 的每一個目錄及其子目錄的胚騰，如果有的話"
+
+#: src/names.c:113
+msgid "exclude everything under directories containing FILE"
+msgstr "排除包含 FILE 的目錄之下所有東西"
+
+#: src/names.c:115
+msgid "exclude directories containing FILE"
+msgstr "排除包含 FILE 的目錄"
+
+#: src/names.c:117
+msgid "exclude version control system directories"
+msgstr "排除版本控制系統目錄"
+
+#: src/names.c:119
+msgid "read exclude patterns from the VCS ignore files"
+msgstr "讀取時排除來自版本控制系統忽略檔案的胚騰"
+
+#: src/names.c:121
+msgid "exclude backup and lock files"
+msgstr "排除備份和鎖定檔案"
+
+#: src/names.c:123
+msgid "recurse into directories (default)"
+msgstr "遞迴進入目錄 (預設)"
+
+#: src/names.c:125
+msgid "avoid descending automatically in directories"
+msgstr "避免自動在目錄中遞降"
+
+#: src/names.c:130
+msgid "File name matching options (affect both exclude and include patterns):"
+msgstr "檔案名稱吻合選項 (同時影響排除和包含胚騰同者)："
+
+#: src/names.c:133
+msgid "patterns match file name start"
+msgstr "胚騰會吻合檔案名稱開頭"
+
+#: src/names.c:135
+msgid "patterns match after any '/' (default for exclusion)"
+msgstr "胚騰會吻合任何 / 之後的名稱 (預設排除)"
+
+#: src/names.c:137
+msgid "ignore case"
+msgstr "忽略大小寫"
+
+#: src/names.c:139
+msgid "case sensitive matching (default)"
+msgstr "大小寫需相符的吻合 (預設)"
+
+#: src/names.c:141
+msgid "use wildcards (default for exclusion)"
+msgstr "使用萬用字元 (預設排除)"
+
+#: src/names.c:143
+msgid "verbatim string matching"
+msgstr "逐字進行吻合"
+
+#: src/names.c:145
+msgid "wildcards match '/' (default for exclusion)"
+msgstr "萬用字元會吻合 / (預設排除)"
+
+#: src/names.c:147
+msgid "wildcards do not match '/'"
+msgstr "萬用字元不會吻合 /"
+
+#: src/names.c:733
+msgid "The following options were used after any non-optional arguments in archive create or update mode.  These options are positional and affect only arguments that follow them.  Please, rearrange them properly."
+msgstr "以下的選項使用於建立與更新模式中的任何非選用參數。這些選項的位置，並且只影響跟隨他們的參數。請正確的重新擺放它們。"
+
+#: src/names.c:744
+#, c-format
+msgid "-C %s has no effect"
+msgstr "-C %s 沒有任何效果"
+
+#: src/names.c:749
+#, c-format
+msgid "--%s %s has no effect"
+msgstr "--%s %s 沒有任何效果"
+
+#: src/names.c:753
+#, c-format
+msgid "--%s has no effect"
+msgstr "--%s 沒有任何效果"
+
+#: src/names.c:879
+msgid "command line"
+msgstr "命令列"
+
+#: src/names.c:897
+#, c-format
+msgid "%s: file list requested from %s already read from %s"
+msgstr "%s：%s 要求的檔案清單已經由 %s 所讀取"
+
+#: src/names.c:978 src/checkpoint.c:274
+#, c-format
+msgid "cannot split string '%s': %s"
+msgstr "無法分割字串 %s：%s"
+
+#: src/names.c:1025
+#, c-format
+msgid "%s: file name read contains nul character"
+msgstr "%s：所讀檔案名稱含有空值字元"
+
+#: src/names.c:1358
+msgid "Pattern matching characters used in file names"
+msgstr "用於檔案名稱的胚騰匹配字元"
+
+#: src/names.c:1360
+msgid "Use --wildcards to enable pattern matching, or --no-wildcards to suppress this warning"
+msgstr "使用 --wildcards 以啟用胚騰匹配，或 --no-wildcards 以抑制這個警告"
+
+#: src/names.c:1378 src/names.c:1394
+#, c-format
+msgid "%s: Not found in archive"
+msgstr "%s：在封存中找不到"
+
+#: src/names.c:1379
+#, c-format
+msgid "%s: Required occurrence not found in archive"
+msgstr "%s：要求項目在封存中找不到"
+
+#: src/names.c:1413
+#, c-format
+msgid "Archive label mismatch"
+msgstr "封存標貼不匹配"
+
+#: src/names.c:1717
+msgid "Using -C option inside file list is not allowed with --listed-incremental"
+msgstr "於檔案清單內部使用 -C 選項是不允許與 --listed-incremental 共用"
+
+#: src/names.c:1723
+msgid "Only one -C option is allowed with --listed-incremental"
+msgstr "只有一個 -C 選項是允許與 --listed-incremental 共用"
+
+#: src/tar.c:88
+#, c-format
+msgid "Options '%s' and '%s' both want standard input"
+msgstr "選項 %s 和 %s 兩者都需要標準輸入"
+
+#: src/tar.c:165
+#, c-format
+msgid "%s: Invalid archive format"
+msgstr "%s：無效的封存格式"
+
+#: src/tar.c:197
+msgid "GNU features wanted on incompatible archive format"
+msgstr "不能在不兼容的封存格式中使用 GNU 功能"
+
+#: src/tar.c:265
+#, c-format
+msgid "Unknown quoting style '%s'. Try '%s --quoting-style=help' to get a list."
+msgstr "不明引號樣式 %s 。嘗試 %s --quoting-style=help 以取得清單。"
+
+#: src/tar.c:354
+msgid ""
+"GNU 'tar' saves many files together into a single tape or disk archive, and can restore individual files from the archive.\n"
+"\n"
+"Examples:\n"
+"  tar -cf archive.tar foo bar  # Create archive.tar from files foo and bar.\n"
+"  tar -tvf archive.tar         # List all files in archive.tar verbosely.\n"
+"  tar -xf archive.tar          # Extract all files from archive.tar.\n"
+msgstr ""
+"GNU tar 將許多檔案一起儲存進單一磁帶或磁碟封存，而且可以從封存還原個別檔案。\n"
+"\n"
+"範例：\n"
+"  tar -cf archive.tar foo bar  # 建立包括 foo 及 bar 檔案的 archive.tar。\n"
+"  tar -tvf archive.tar         # 詳細列出 archive.tar 中的所有檔案。\n"
+"  tar -xf archive.tar          # 解開 archive.tar 中的所有檔案。\n"
+
+#: src/tar.c:363
+msgid ""
+"The backup suffix is '~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n"
+"The version control may be set with --backup or VERSION_CONTROL, values are:\n"
+"\n"
+"  none, off       never make backups\n"
+"  t, numbered     make numbered backups\n"
+"  nil, existing   numbered if numbered backups exist, simple otherwise\n"
+"  never, simple   always make simple backups\n"
+msgstr ""
+"備份檔的後置字串為‘~’，除非以 --suffix 選項或是 SIMPLE_BACKUP_SUFFIX\n"
+"環境變數指定。版本控制的方式可透過 --backup 選項或 VERSION_CONTROL 環境\n"
+"變數來選擇。可用的變數值為：\n"
+"\n"
+"  none, off       永不製作備份  t, numbered     備份檔會加上數字\n"
+"  nil, existing   若有數字的備份檔已經存在則使用數字，否則使用普通方式備份\n"
+"  never, simple   永遠使用普通方式備份\n"
+
+#: src/tar.c:393
+msgid "Main operation mode:"
+msgstr "主要操作模式:"
+
+#: src/tar.c:396
+msgid "list the contents of an archive"
+msgstr "列出封存的內容"
+
+#: src/tar.c:398
+msgid "extract files from an archive"
+msgstr "從封存中解開檔案"
+
+#: src/tar.c:401
+msgid "create a new archive"
+msgstr "建立新的封存"
+
+#: src/tar.c:403
+msgid "find differences between archive and file system"
+msgstr "在封存與檔案系統之間找出差異"
+
+#: src/tar.c:406
+msgid "append files to the end of an archive"
+msgstr "加入檔案到封存末端"
+
+#: src/tar.c:408
+msgid "only append files newer than copy in archive"
+msgstr "只加入比封存中複本還新的檔案"
+
+#: src/tar.c:410
+msgid "append tar files to an archive"
+msgstr "加入 tar 檔案到封存中"
+
+#: src/tar.c:413
+msgid "delete from the archive (not on mag tapes!)"
+msgstr "從封存中刪除 (並非在磁帶上！)"
+
+#: src/tar.c:415
+msgid "test the archive volume label and exit"
+msgstr "測試封存卷冊標籤然後離開"
+
+#: src/tar.c:420
+msgid "Operation modifiers:"
+msgstr "運算變更項:"
+
+#: src/tar.c:423
+msgid "handle sparse files efficiently"
+msgstr "有效率地處理稀疏檔案"
+
+#: src/tar.c:424
+msgid "TYPE"
+msgstr "類型"
+
+#: src/tar.c:425
+msgid "technique to detect holes"
+msgstr "偵測漏洞的技術"
+
+#: src/tar.c:426
+msgid "MAJOR[.MINOR]"
+msgstr "主要[.次要]"
+
+#: src/tar.c:427
+msgid "set version of the sparse format to use (implies --sparse)"
+msgstr "設定稀疏格式版本以使用 (意味著 --sparse)"
+
+#: src/tar.c:429
+msgid "handle old GNU-format incremental backup"
+msgstr "處理舊型 GNU-格式之遞增備份"
+
+#: src/tar.c:431
+msgid "handle new GNU-format incremental backup"
+msgstr "處理新型 GNU-格式之遞增備份"
+
+#: src/tar.c:433
+msgid "dump level for created listed-incremental archive"
+msgstr "用於建立 listed-incremental 封存的傾印等級"
+
+#: src/tar.c:435
+msgid "do not exit with nonzero on unreadable files"
+msgstr "離開無法讀取的檔案時不要回傳非零的值"
+
+#: src/tar.c:437
+msgid "process only the NUMBERth occurrence of each file in the archive; this option is valid only in conjunction with one of the subcommands --delete, --diff, --extract or --list and when a list of files is given either on the command line or via the -T option; NUMBER defaults to 1"
+msgstr "只有對於每一個在封存中第 NUM 個出現的檔案才會處理。此選項只有與 --delete、--diff、--extract 或 --list 等次命令之一合併使用時才有效，而且要經由命令列或是 -T 選項來提供一個檔案序列。預設的數目是 1。"
+
+#: src/tar.c:443
+msgid "archive is seekable"
+msgstr "封存是可尋求的"
+
+#: src/tar.c:445
+msgid "archive is not seekable"
+msgstr "封存不是可尋求的"
+
+#: src/tar.c:447
+msgid "do not check device numbers when creating incremental archives"
+msgstr "不檢查裝置數量時建立遞增檔案"
+
+#: src/tar.c:450
+msgid "check device numbers when creating incremental archives (default)"
+msgstr "檢查裝置數量時建立遞增檔案 (預設)"
+
+#: src/tar.c:456
+msgid "Overwrite control:"
+msgstr "覆寫控制："
+
+#: src/tar.c:459
+msgid "attempt to verify the archive after writing it"
+msgstr "嘗試在寫入之後驗證封存"
+
+#: src/tar.c:461
+msgid "remove files after adding them to the archive"
+msgstr "在加入檔案至封存之後移除它們"
+
+#: src/tar.c:463
+msgid "don't replace existing files when extracting, treat them as errors"
+msgstr "解開時不要替換既有的檔案，將它們視為錯誤"
+
+#: src/tar.c:466
+msgid "don't replace existing files when extracting, silently skip over them"
+msgstr "解開時不要替換既有的檔案，靜默地跳過它們"
+
+#: src/tar.c:469
+msgid "don't replace existing files that are newer than their archive copies"
+msgstr "不要替換既有且比它們在封存中複本還新的檔案"
+
+#: src/tar.c:471
+msgid "overwrite existing files when extracting"
+msgstr "解開時覆寫既有檔案"
+
+#: src/tar.c:473
+msgid "remove each file prior to extracting over it"
+msgstr "在解開並覆寫檔案之前先移除它"
+
+#: src/tar.c:475
+msgid "empty hierarchies prior to extracting directory"
+msgstr "在解開目錄之前先清空階層結構"
+
+#: src/tar.c:477
+msgid "preserve metadata of existing directories"
+msgstr "保留既有目錄的後設資料"
+
+#: src/tar.c:479
+msgid "overwrite metadata of existing directories when extracting (default)"
+msgstr "解開時覆寫既有目錄的後設資料 (預設)"
+
+#: src/tar.c:482
+msgid "preserve existing symlinks to directories when extracting"
+msgstr "解開時保留既有的符號鏈結目錄"
+
+#: src/tar.c:485
+msgid "create a subdirectory to avoid having loose files extracted"
+msgstr "建立子目錄以避免解開缺失的檔案"
+
+#: src/tar.c:491
+msgid "Select output stream:"
+msgstr "選取輸出串流："
+
+#: src/tar.c:494
+msgid "extract files to standard output"
+msgstr "解開檔案到標準輸出"
+
+#: src/tar.c:495 src/tar.c:588 src/tar.c:590 tests/genfile.c:195
+msgid "COMMAND"
+msgstr "命令"
+
+#: src/tar.c:496
+msgid "pipe extracted files to another program"
+msgstr "將解開的檔案管線引導到另外的程式"
+
+#: src/tar.c:498
+msgid "ignore exit codes of children"
+msgstr "忽略子行程的離開代碼"
+
+#: src/tar.c:500
+msgid "treat non-zero exit codes of children as error"
+msgstr "將子行程的非零離開代碼視為錯誤"
+
+#: src/tar.c:505
+msgid "Handling of file attributes:"
+msgstr "檔案屬性的處理:"
+
+#: src/tar.c:508
+msgid "force NAME as owner for added files"
+msgstr "強制以 NAME 做為加入檔案的擁有者"
+
+#: src/tar.c:510
+msgid "force NAME as group for added files"
+msgstr "強制以 NAME 做為加入檔案的群組"
+
+#: src/tar.c:512
+msgid "use FILE to map file owner UIDs and names"
+msgstr "利用 FILE 來映射檔案擁有者 UID 和名稱"
+
+#: src/tar.c:514
+msgid "use FILE to map file owner GIDs and names"
+msgstr "利用 FILE 來映射檔案擁有者 GID 和名稱"
+
+#: src/tar.c:515 src/tar.c:700
+msgid "DATE-OR-FILE"
+msgstr "檔案的日期"
+
+#: src/tar.c:516
+msgid "set mtime for added files from DATE-OR-FILE"
+msgstr "將加入檔案的 mtime 設定為 DATE-OR-FILE"
+
+#: src/tar.c:518
+msgid "only set time when the file is more recent than what was given with --mtime"
+msgstr "只有當檔案比 --mtime 所給定的還新時才設定時間"
+
+#: src/tar.c:519
+msgid "CHANGES"
+msgstr "變更"
+
+#: src/tar.c:520
+msgid "force (symbolic) mode CHANGES for added files"
+msgstr "強制將 (符號) 模式 CHANGES 用於已加入檔案"
+
+#: src/tar.c:522
+msgid "METHOD"
+msgstr "方法"
+
+#: src/tar.c:523
+msgid "preserve access times on dumped files, either by restoring the times after reading (METHOD='replace'; default) or by not setting the times in the first place (METHOD='system')"
+msgstr "保留傾印檔案的存取時間，若非由讀取之後的回復時間(方法='replace'；預設)，就是藉由原本不設定時間 (方法='system')"
+
+#: src/tar.c:527
+msgid "don't extract file modified time"
+msgstr "不要解開檔案的修改時間"
+
+#: src/tar.c:529
+msgid "try extracting files with the same ownership as exists in the archive (default for superuser)"
+msgstr "嘗試以與存在於封存中的相同擁有屬性來抽出檔案 (預設用於系統管理者)"
+
+#: src/tar.c:531
+msgid "extract files as yourself (default for ordinary users)"
+msgstr "以您自己擁有的屬性來抽出檔案 (預設用於一般使用者)"
+
+#: src/tar.c:533
+msgid "always use numbers for user/group names"
+msgstr "總是使用數字做為使用者/群組名稱"
+
+#: src/tar.c:535
+msgid "extract information about file permissions (default for superuser)"
+msgstr "解開檔案權限相關資訊 (預設用於超級使用者)"
+
+#: src/tar.c:539
+msgid "apply the user's umask when extracting permissions from the archive (default for ordinary users)"
+msgstr "從封存解開權限時套用使用者 umask (預設用於一般使用者)"
+
+#: src/tar.c:541
+msgid "member arguments are listed in the same order as the files in the archive"
+msgstr "成員引數是以和封存中檔案相同的順序列出"
+
+#: src/tar.c:545
+msgid "delay setting modification times and permissions of extracted directories until the end of extraction"
+msgstr "延遲設定解開目錄的修改時間和權限，直到解開結束"
+
+#: src/tar.c:548
+msgid "cancel the effect of --delay-directory-restore option"
+msgstr "取消 --delay-directory-restore 選項的效果"
+
+#: src/tar.c:549
+msgid "ORDER"
+msgstr "依據"
+
+#: src/tar.c:551
+msgid "directory sorting order: none (default), name or inode"
+msgstr "目錄排序依據：無 (預設)、名稱或 inode"
+
+#: src/tar.c:553
+msgid "directory sorting order: none (default) or name"
+msgstr "目錄排序依據：無 (預設) 或名稱"
+
+#: src/tar.c:560
+msgid "Handling of extended file attributes:"
+msgstr "進階檔案屬性的處理:"
+
+#: src/tar.c:563
+msgid "Enable extended attributes support"
+msgstr "啟用進階檔案屬性的支援"
+
+#: src/tar.c:565
+msgid "Disable extended attributes support"
+msgstr "停用進階檔案屬性的支援"
+
+#: src/tar.c:566 src/tar.c:568
+msgid "MASK"
+msgstr "遮罩"
+
+#: src/tar.c:567
+msgid "specify the include pattern for xattr keys"
+msgstr "指定包含的進階屬性鍵值胚騰"
+
+#: src/tar.c:569
+msgid "specify the exclude pattern for xattr keys"
+msgstr "指定排除的進階屬性鍵值胚騰"
+
+#: src/tar.c:571
+msgid "Enable the SELinux context support"
+msgstr "啟用 SELinux 情境的支援"
+
+#: src/tar.c:573
+msgid "Disable the SELinux context support"
+msgstr "停用 SELinux 情境的支援"
+
+#: src/tar.c:575
+msgid "Enable the POSIX ACLs support"
+msgstr "啟用 POSIX ACLs 的支援"
+
+#: src/tar.c:577
+msgid "Disable the POSIX ACLs support"
+msgstr "停用 POSIX ACLs 的支援"
+
+#: src/tar.c:582
+msgid "Device selection and switching:"
+msgstr "裝置選擇與切換："
+
+#: src/tar.c:584
+msgid "ARCHIVE"
+msgstr "封存"
+
+#: src/tar.c:585
+msgid "use archive file or device ARCHIVE"
+msgstr "使用 ARCHIVE 檔案或 ARCHIVE 裝置"
+
+#: src/tar.c:587
+msgid "archive file is local even if it has a colon"
+msgstr "即使具有冒號，封存檔案仍位於本地端"
+
+#: src/tar.c:589
+msgid "use given rmt COMMAND instead of rmt"
+msgstr "使用給定的 rmt COMMAND 以代替 rmt"
+
+#: src/tar.c:591
+msgid "use remote COMMAND instead of rsh"
+msgstr "使用遠端 COMMAND 以代替 rsh"
+
+#: src/tar.c:595
+msgid "specify drive and density"
+msgstr "指定磁碟機與記錄密度"
+
+#: src/tar.c:609
+msgid "create/list/extract multi-volume archive"
+msgstr "建立/列表/解開 多重卷冊的封存"
+
+#: src/tar.c:611
+msgid "change tape after writing NUMBER x 1024 bytes"
+msgstr "在寫入 NUMBER x 1024 位元組之後更換磁帶"
+
+#: src/tar.c:613
+msgid "run script at end of each tape (implies -M)"
+msgstr "在每卷磁帶末端執行命令稿 (意指 -M)"
+
+#: src/tar.c:616
+msgid "use/update the volume number in FILE"
+msgstr "使用/更新 FILE 中的卷冊號碼"
+
+#: src/tar.c:621
+msgid "Device blocking:"
+msgstr "裝置分區:"
+
+#: src/tar.c:623
+msgid "BLOCKS"
+msgstr "區塊"
+
+#: src/tar.c:624
+msgid "BLOCKS x 512 bytes per record"
+msgstr "每筆記錄含有 BLOCKS x 512 位元組"
+
+#: src/tar.c:626
+msgid "NUMBER of bytes per record, multiple of 512"
+msgstr "每筆記錄 SIZE 位元組，為 512 的倍數"
+
+#: src/tar.c:628
+msgid "ignore zeroed blocks in archive (means EOF)"
+msgstr "忽略封存中零值的區塊 (意指 EOF)"
+
+#: src/tar.c:630
+msgid "reblock as we read (for 4.2BSD pipes)"
+msgstr "讀取時重新分區 (用於 4.2BSD 管線)"
+
+#: src/tar.c:635
+msgid "Archive format selection:"
+msgstr "封存格式選擇："
+
+#: src/tar.c:637 tests/genfile.c:158
+msgid "FORMAT"
+msgstr "格式"
+
+#: src/tar.c:638
+msgid "create archive of the given format"
+msgstr "以給定格式建立封存"
+
+#: src/tar.c:640
+msgid "FORMAT is one of the following:"
+msgstr "符合下列任一 FORMAT："
+
+#: src/tar.c:641
+msgid "old V7 tar format"
+msgstr "舊式 V7 tar 格式"
+
+#: src/tar.c:644
+msgid "GNU format as per tar <= 1.12"
+msgstr "tar <= 1.12 之 GNU 格式"
+
+#: src/tar.c:646
+msgid "GNU tar 1.13.x format"
+msgstr "GNU tar 1.13.x 格式"
+
+#: src/tar.c:648
+msgid "POSIX 1003.1-1988 (ustar) format"
+msgstr "POSIX 1003.1-1988 (ustar) 格式"
+
+#: src/tar.c:650
+msgid "POSIX 1003.1-2001 (pax) format"
+msgstr "POSIX 1003.1-2001 (pax) 格式"
+
+#: src/tar.c:651
+msgid "same as pax"
+msgstr "等同 pax"
+
+#: src/tar.c:654
+msgid "same as --format=v7"
+msgstr "等同 --format=v7"
+
+#: src/tar.c:657
+msgid "same as --format=posix"
+msgstr "等同 --format=posix"
+
+#: src/tar.c:658
+msgid "keyword[[:]=value][,keyword[[:]=value]]..."
+msgstr "關鍵字[[:]=值][,關鍵字[[:]=值]…]"
+
+#: src/tar.c:659
+msgid "control pax keywords"
+msgstr "控制 pax 的關鍵字"
+
+#: src/tar.c:660
+msgid "TEXT"
+msgstr "文字"
+
+#: src/tar.c:661
+msgid "create archive with volume name TEXT; at list/extract time, use TEXT as a globbing pattern for volume name"
+msgstr "以卷冊名稱 NAME 來建立封存。在列表/解開時，使用 TEXT 做為卷冊名稱的萬用比對胚騰"
+
+#: src/tar.c:666
+msgid "Compression options:"
+msgstr "壓縮選項："
+
+#: src/tar.c:668
+msgid "use archive suffix to determine the compression program"
+msgstr "利用封存字尾決定壓縮程式"
+
+#: src/tar.c:670
+msgid "do not use archive suffix to determine the compression program"
+msgstr "不利用封存字尾決定壓縮程式"
+
+#: src/tar.c:672
+msgid "PROG"
+msgstr "程式"
+
+#: src/tar.c:673
+msgid "filter through PROG (must accept -d)"
+msgstr "以 PROG 過濾處理 (必須接受 -d)"
+
+#: src/tar.c:689
+msgid "Local file selection:"
+msgstr "本機檔案選擇:"
+
+#: src/tar.c:691
+msgid "stay in local file system when creating archive"
+msgstr "建立封存時保持在本地檔案系統中"
+
+#: src/tar.c:693
+msgid "don't strip leading '/'s from file names"
+msgstr "不要從檔案名稱中截去前導的 '/'"
+
+#: src/tar.c:695
+msgid "follow symlinks; archive and dump the files they point to"
+msgstr "跟隨符號連結；封存和傾印它們所指涉的檔案"
+
+#: src/tar.c:697
+msgid "follow hard links; archive and dump the files they refer to"
+msgstr "跟隨硬式連結；封存和傾印它們所參考的檔案"
+
+#: src/tar.c:698
+msgid "MEMBER-NAME"
+msgstr "成員-名稱"
+
+#: src/tar.c:699
+msgid "begin at member MEMBER-NAME when reading the archive"
+msgstr "讀取封存時從名為 MEMBER-NAME 的成員開始"
+
+#: src/tar.c:701
+msgid "only store files newer than DATE-OR-FILE"
+msgstr "只儲存比 DATE-OF-FILE 還新的檔案"
+
+#: src/tar.c:703
+msgid "DATE"
+msgstr "日期"
+
+#: src/tar.c:704
+msgid "compare date and time when data changed only"
+msgstr "只有當資料變更時才比較日期和時間"
+
+#: src/tar.c:705
+msgid "CONTROL"
+msgstr "控制"
+
+#: src/tar.c:706
+msgid "backup before removal, choose version CONTROL"
+msgstr "移除之前先備份，選擇版本 CONTROL"
+
+#: src/tar.c:707 src/tar.c:766 src/tar.c:768 tests/genfile.c:174
+msgid "STRING"
+msgstr "字串"
+
+#: src/tar.c:708
+msgid "backup before removal, override usual suffix ('~' unless overridden by environment variable SIMPLE_BACKUP_SUFFIX)"
+msgstr "移除之前先備份並覆寫常用後置文字 ( ~ 除非被環境變數 SIMPLE_BACKUP_SUFFIX 所蓋過)"
+
+#: src/tar.c:713
+msgid "File name transformations:"
+msgstr "檔案名稱變換："
+
+#: src/tar.c:715
+msgid "strip NUMBER leading components from file names on extraction"
+msgstr "從檔案名稱中截去以 NUMBER 為首的成分"
+
+#: src/tar.c:717
+msgid "EXPRESSION"
+msgstr "表示式"
+
+#: src/tar.c:718
+msgid "use sed replace EXPRESSION to transform file names"
+msgstr "利用 sed 將 EXPRESSION 替代為變換檔案名稱"
+
+#: src/tar.c:724
+msgid "Informative output:"
+msgstr "富含資訊的輸出:"
+
+#: src/tar.c:727
+msgid "verbosely list files processed"
+msgstr "詳細列出處理過的檔案"
+
+#: src/tar.c:728
+msgid "KEYWORD"
+msgstr "關鍵字"
+
+#: src/tar.c:729
+msgid "warning control"
+msgstr "警告控制"
+
+#: src/tar.c:731
+msgid "display progress messages every NUMBERth record (default 10)"
+msgstr "每幾項記錄顯示一次進度訊息 (預設 10)"
+
+#: src/tar.c:733
+msgid "ACTION"
+msgstr "動作"
+
+#: src/tar.c:734
+msgid "execute ACTION on each checkpoint"
+msgstr "於每個查核點執行 ACTION"
+
+#: src/tar.c:737
+msgid "print a message if not all links are dumped"
+msgstr "如果並非所有連結都被傾印則印出訊息"
+
+#: src/tar.c:738
+msgid "SIGNAL"
+msgstr "信號"
+
+#: src/tar.c:739
+msgid "print total bytes after processing the archive; with an argument - print total bytes when this SIGNAL is delivered; Allowed signals are: SIGHUP, SIGQUIT, SIGINT, SIGUSR1 and SIGUSR2; the names without SIG prefix are also accepted"
+msgstr "處理封存之後列印位元組總計；當此信號被投遞時，利用引數 - 列印位元組總計；允許的信號是：SIGHUP、SIGQUIT、SIGINT、SIGUSR1 和 SIGUSR2；不具 SIG 前綴的名稱也是可接受的"
+
+#: src/tar.c:744
+msgid "print file modification times in UTC"
+msgstr "以 UTC 印出檔案修改時間"
+
+#: src/tar.c:746
+msgid "print file time to its full resolution"
+msgstr "以完整精度印出檔案時間"
+
+#: src/tar.c:748
+msgid "send verbose output to FILE"
+msgstr "將詳細輸出送至 FILE"
+
+#: src/tar.c:750
+msgid "show block number within archive with each message"
+msgstr "每則訊息附帶顯示在封存中的區塊號碼"
+
+#: src/tar.c:752
+msgid "ask for confirmation for every action"
+msgstr "任何動作都要求確認"
+
+#: src/tar.c:755
+msgid "show tar defaults"
+msgstr "顯示 tar 預設值"
+
+#: src/tar.c:757
+msgid "show valid ranges for snapshot-file fields"
+msgstr "顯示快照檔案欄位的有效範圍"
+
+#: src/tar.c:759
+msgid "when listing or extracting, list each directory that does not match search criteria"
+msgstr "當表列或解開時，列出每一個不符合搜尋條件的目錄"
+
+#: src/tar.c:761
+msgid "show file or archive names after transformation"
+msgstr "顯示變換之後的檔案或封存名稱"
+
+#: src/tar.c:764
+msgid "STYLE"
+msgstr "樣式"
+
+#: src/tar.c:765
+msgid "set name quoting style; see below for valid STYLE values"
+msgstr "設定名稱引號樣式；參看下列的有效樣式值"
+
+#: src/tar.c:767
+msgid "additionally quote characters from STRING"
+msgstr "來自 STRING 的額外引號字元"
+
+#: src/tar.c:769
+msgid "disable quoting for characters from STRING"
+msgstr "停用來自字串的引號字元"
+
+#: src/tar.c:774
+msgid "Compatibility options:"
+msgstr "相容選項："
+
+#: src/tar.c:777
+msgid "when creating, same as --old-archive; when extracting, same as --no-same-owner"
+msgstr "當建立時，等同於 --old-archive。當解開時，等同於 --no-same-owner"
+
+#: src/tar.c:782
+msgid "Other options:"
+msgstr "其他選項："
+
+#: src/tar.c:785
+msgid "disable use of some potentially harmful options"
+msgstr "停用某些潛在有害的選項"
+
+#. TRANSLATORS: Both %s in this statement are replaced with
+#. option names.
+#: src/tar.c:845
+#, c-format
+msgid "'%s' cannot be used with '%s'"
+msgstr "%s：無法與 %s 一同使用"
+
+#: src/tar.c:933
+msgid "You may not specify more than one '-Acdtrux', '--delete' or  '--test-label' option"
+msgstr "您不可以指定超過一個 -Acdtrux, --delete 或 --test-label 選項"
+
+#: src/tar.c:945
+msgid "Conflicting compression options"
+msgstr "互相抵觸的壓縮選項"
+
+#: src/tar.c:1004
+#, c-format
+msgid "Unknown signal name: %s"
+msgstr "不明的信號名稱：%s"
+
+#: src/tar.c:1028
+msgid "Date sample file not found"
+msgstr "找不到日期範例檔案"
+
+#: src/tar.c:1036
+#, c-format
+msgid "Substituting %s for unknown date format %s"
+msgstr "以 %s 代替不明的日期格式 %s"
+
+#: src/tar.c:1065
+#, c-format
+msgid "Option %s: Treating date '%s' as %s"
+msgstr "選項 %1$s: 以 %3$s 格式來處理日期 %2$s"
+
+#: src/tar.c:1105 src/tar.c:1109 src/tar.c:1113 src/tar.c:1117 src/tar.c:1121
+#: src/tar.c:1125 src/tar.c:1129
+#, c-format
+msgid "filter the archive through %s"
+msgstr "將封存透過 %s 篩選"
+
+#: src/tar.c:1137
+msgid "Valid arguments for the --quoting-style option are:"
+msgstr "用於 --quoting-style 的有效引數選項是："
+
+#: src/tar.c:1141
+msgid ""
+"\n"
+"*This* tar defaults to:\n"
+msgstr ""
+"\n"
+"*這個* tar 預設為:\n"
+
+#: src/tar.c:1253
+msgid "Invalid owner or group ID"
+msgstr "無效的擁有者或群組識別號"
+
+#: src/tar.c:1347
+msgid "Invalid blocking factor"
+msgstr "無效的分區因子"
+
+#: src/tar.c:1467
+msgid "Invalid tape length"
+msgstr "無效的磁帶長度"
+
+#: src/tar.c:1481
+msgid "Invalid incremental level value"
+msgstr "無效的遞增等級值"
+
+#: src/tar.c:1527
+msgid "More than one threshold date"
+msgstr "一個以上的限定日期"
+
+#: src/tar.c:1594 src/tar.c:1597
+msgid "Invalid sparse version value"
+msgstr "無效的稀疏版本值"
+
+#: src/tar.c:1661
+msgid "--atime-preserve='system' is not supported on this platform"
+msgstr "--atime-preserve='system' 於這個平臺未被支援"
+
+#: src/tar.c:1686
+msgid "--checkpoint value is not an integer"
+msgstr "--checkpoint 值不是整數"
+
+#: src/tar.c:1764
+msgid "Invalid mode given on option"
+msgstr "選項中的模式無效"
+
+#: src/tar.c:1797
+msgid "Invalid number"
+msgstr "無效的號碼"
+
+#: src/tar.c:1861
+msgid "Invalid record size"
+msgstr "無效的記錄大小"
+
+#: src/tar.c:1864
+#, c-format
+msgid "Record size must be a multiple of %d."
+msgstr "記錄大小必須是 %d 的倍數。"
+
+#: src/tar.c:1910
+msgid "Invalid number of elements"
+msgstr "無效的元素號碼"
+
+#: src/tar.c:1935
+msgid "Only one --to-command option allowed"
+msgstr "只允許一個 --to-command 選項"
+
+#: src/tar.c:2023
+#, c-format
+msgid "Malformed density argument: %s"
+msgstr "異常的密度引數：%s"
+
+#: src/tar.c:2049
+#, c-format
+msgid "Unknown density: '%c'"
+msgstr "不明的密度：%c"
+
+#: src/tar.c:2066
+#, c-format
+msgid "Options '-[0-7][lmh]' not supported by *this* tar"
+msgstr "這個版本的 tar 不支援 -[0-7][lmh] 選項"
+
+#: src/tar.c:2073
+#, c-format
+msgid "%s:%lu: location of the error"
+msgstr "%s:%lu：錯誤的位置"
+
+#: src/tar.c:2076
+#, c-format
+msgid "error parsing %s"
+msgstr "剖析 %s 時發生錯誤"
+
+#: src/tar.c:2090
+msgid "[FILE]..."
+msgstr "[FILE]…"
+
+#: src/tar.c:2181
+#, c-format
+msgid "non-option arguments in %s"
+msgstr "%s 中出現非選項的引數"
+
+#: src/tar.c:2196
+#, c-format
+msgid "cannot split TAR_OPTIONS: %s"
+msgstr "無法分割 TAR_OPTIONS：%s"
+
+#: src/tar.c:2291
+#, c-format
+msgid "Old option '%c' requires an argument."
+msgstr "舊的選項 %c 需要一個引數。"
+
+#: src/tar.c:2364
+msgid "--occurrence is meaningless without a file list"
+msgstr "若無檔案列表，--occurrence 便不具意義"
+
+#: src/tar.c:2390
+msgid "Multiple archive files require '-M' option"
+msgstr "指定多個封存時需要 -M 選項"
+
+#: src/tar.c:2407
+msgid "--level is meaningless without --listed-incremental"
+msgstr "--level 不與 --listed-incremental 共用是無意義的"
+
+#: src/tar.c:2424
+#, c-format
+msgid "%s: Volume label is too long (limit is %lu byte)"
+msgid_plural "%s: Volume label is too long (limit is %lu bytes)"
+msgstr[0] "%s：卷冊標籤太長 (限制為 %lu 位元組)"
+
+#: src/tar.c:2437
+msgid "Cannot verify multi-volume archives"
+msgstr "無法驗證多重卷冊的封存"
+
+#: src/tar.c:2439
+msgid "Cannot verify compressed archives"
+msgstr "無法驗證壓縮過的封存"
+
+#: src/tar.c:2453
+msgid "Cannot use multi-volume compressed archives"
+msgstr "無法使用多重卷冊的壓縮封存"
+
+#: src/tar.c:2457
+msgid "Cannot concatenate compressed archives"
+msgstr "無法串接壓縮過的檔案"
+
+#: src/tar.c:2464
+msgid "--clamp-mtime needs a date specified using --mtime"
+msgstr "--clamp-mtime 需要一個以 --mtime 指定的日期"
+
+#: src/tar.c:2474
+msgid "--pax-option can be used only on POSIX archives"
+msgstr "--pax-option 只能用於 POSIX 封存"
+
+#: src/tar.c:2481
+msgid "--acls can be used only on POSIX archives"
+msgstr "--acls 只能用於 POSIX 封存"
+
+#: src/tar.c:2486
+msgid "--selinux can be used only on POSIX archives"
+msgstr "--selinux 只能用於 POSIX 封存"
+
+#: src/tar.c:2491
+msgid "--xattrs can be used only on POSIX archives"
+msgstr "--xattrs 只能用於 POSIX 封存"
+
+#: src/tar.c:2540
+msgid "Cannot deduce top-level directory name; please set it explicitly with --one-top-level=DIR"
+msgstr "無法推論頂層目錄名稱；請以 --one-top-level=DIR 來明確地設定它"
+
+#: src/tar.c:2573
+msgid "Volume length cannot be less than record size"
+msgstr "卷冊長度無法少於記錄大小"
+
+#: src/tar.c:2597
+msgid "Cowardly refusing to create an empty archive"
+msgstr "斗膽拒絕建立空的封存"
+
+#: src/tar.c:2623
+msgid "Options '-Aru' are incompatible with '-f -'"
+msgstr " -Aru 與 -f - 選項不相容"
+
+#: src/tar.c:2711
+msgid "You must specify one of the '-Acdtrux', '--delete' or '--test-label' options"
+msgstr "您必須指定 -Acdtrux, --delete 或 --test-label 選項之一"
+
+#: src/tar.c:2768
+#, c-format
+msgid "Exiting with failure status due to previous errors"
+msgstr "由於先前錯誤而以失敗狀態離開"
+
+#: src/update.c:87
+#, c-format
+msgid "%s: File shrank by %s byte"
+msgid_plural "%s: File shrank by %s bytes"
+msgstr[0] "%s：檔案縮減了 %s 位元組"
+
+#: src/xheader.c:165
+#, c-format
+msgid "Keyword %s is unknown or not yet implemented"
+msgstr "關鍵字 %s 為未知或尚未實作"
+
+#: src/xheader.c:174
+msgid "Time stamp is out of allowed range"
+msgstr "時間戳記超出了允許範圍"
+
+#: src/xheader.c:205
+#, c-format
+msgid "Pattern %s cannot be used"
+msgstr "胚騰 %s 無法使用"
+
+#: src/xheader.c:219
+#, c-format
+msgid "Keyword %s cannot be overridden"
+msgstr "關鍵字 %s 無法被蓋過"
+
+#: src/xheader.c:668
+msgid "Malformed extended header: missing length"
+msgstr "異常的擴充標頭：長度缺少"
+
+#: src/xheader.c:677
+#, c-format
+msgid "Extended header length %*s is out of range"
+msgstr "擴充標頭長度 %*s 超出範圍"
+
+#: src/xheader.c:689
+msgid "Malformed extended header: missing blank after length"
+msgstr "異常的擴充標頭：在長度之後缺少空白"
+
+#: src/xheader.c:697
+msgid "Malformed extended header: missing equal sign"
+msgstr "異常的擴充標頭：缺少等號"
+
+#: src/xheader.c:703
+msgid "Malformed extended header: missing newline"
+msgstr "異常的擴充標頭：缺少新列"
+
+#: src/xheader.c:741
+#, c-format
+msgid "Ignoring unknown extended header keyword '%s'"
+msgstr "忽略不明擴充標頭關鍵字 %s"
+
+#: src/xheader.c:1023
+#, c-format
+msgid "Generated keyword/value pair is too long (keyword=%s, length=%s)"
+msgstr "產生的關鍵字/值對太長 (關鍵字=%s，長度=%s)"
+
+#. TRANSLATORS: The first %s is the pax extended header keyword
+#. (atime, gid, etc.).
+#: src/xheader.c:1053
+#, c-format
+msgid "Extended header %s=%s is out of range %s..%s"
+msgstr "擴充標頭 %s=%s 超出範圍 %s..%s"
+
+#: src/xheader.c:1104 src/xheader.c:1137 src/xheader.c:1487
+#, c-format
+msgid "Malformed extended header: invalid %s=%s"
+msgstr "異常的擴充標頭：無效的 %s=%s"
+
+#: src/xheader.c:1440 src/xheader.c:1465 src/xheader.c:1520
+#, c-format
+msgid "Malformed extended header: excess %s=%s"
+msgstr "異常的擴充標頭：過剩的 %s=%s"
+
+#: src/xheader.c:1533
+#, c-format
+msgid "Malformed extended header: invalid %s: unexpected delimiter %c"
+msgstr "異常的擴充標頭：無效的 %s：未預期的分隔符號 %c"
+
+#: src/xheader.c:1543
+#, c-format
+msgid "Malformed extended header: invalid %s: odd number of values"
+msgstr "異常的擴充標頭：無效的 %s：奇怪的數值數量"
+
+#: src/checkpoint.c:114
+#, c-format
+msgid "%s: not a valid timeout"
+msgstr "%s：不是有效的時間限制"
+
+#: src/checkpoint.c:121
+#, c-format
+msgid "%s: unknown checkpoint action"
+msgstr "%s：不明查核點動作"
+
+#: src/checkpoint.c:202
+msgid "write"
+msgstr "寫入"
+
+#: src/checkpoint.c:202
+msgid "read"
+msgstr "讀取"
+
+#. TRANSLATORS: This is a "checkpoint of write operation",
+#. *not* "Writing a checkpoint".
+#. E.g. in Spanish "Punto de comprobaci@'on de escritura",
+#. *not* "Escribiendo un punto de comprobaci@'on"
+#: src/checkpoint.c:218
+#, c-format
+msgid "Write checkpoint %u"
+msgstr "寫入的查核點 %u"
+
+#. TRANSLATORS: This is a "checkpoint of read operation",
+#. *not* "Reading a checkpoint".
+#. E.g. in Spanish "Punto de comprobaci@'on de lectura",
+#. *not* "Leyendo un punto de comprobaci@'on"
+#: src/checkpoint.c:224
+#, c-format
+msgid "Read checkpoint %u"
+msgstr "讀取的查核點 %u"
+
+#: tests/genfile.c:115
+msgid ""
+"genfile manipulates data files for GNU paxutils test suite.\n"
+"OPTIONS are:\n"
+msgstr ""
+"genfile 在 GNU paxutils 測試套件中用於操控資料檔案。\n"
+"選項：\n"
+
+#: tests/genfile.c:131
+msgid "File creation options:"
+msgstr "檔案建立選項："
+
+#: tests/genfile.c:132 tests/genfile.c:143
+msgid "SIZE"
+msgstr "大小"
+
+#: tests/genfile.c:133
+msgid "Create file of the given SIZE"
+msgstr "以給定 SIZE 建立檔案。"
+
+#: tests/genfile.c:135
+msgid "Write to file NAME, instead of standard output"
+msgstr "寫入檔案 NAME，以代替標準輸出"
+
+#: tests/genfile.c:137
+msgid "Read file names from FILE"
+msgstr "從 FILE 讀取檔案名稱"
+
+#: tests/genfile.c:139
+msgid "-T reads null-terminated names"
+msgstr "-T 讀取零值終結的名稱"
+
+#: tests/genfile.c:141
+msgid "Fill the file with the given PATTERN. PATTERN is 'default' or 'zeros'"
+msgstr "以給定 PATTERN 填充檔案。PATTERN 是 default 或 zeros"
+
+#: tests/genfile.c:144
+msgid "Size of a block for sparse file"
+msgstr "用於稀疏檔案的區塊大小"
+
+#: tests/genfile.c:146
+msgid "Generate sparse file. Rest of the command line gives the file map."
+msgstr "產生稀疏檔案。命令列的其餘部分給出檔案對映。"
+
+#: tests/genfile.c:148
+msgid "OFFSET"
+msgstr "偏移值"
+
+#: tests/genfile.c:149
+msgid "Seek to the given offset before writing data"
+msgstr "寫入資料之前尋求給定的偏移值"
+
+#: tests/genfile.c:152
+msgid "Suppress non-fatal diagnostic messages"
+msgstr "抑制非嚴重的診斷訊息"
+
+#: tests/genfile.c:156
+msgid "File statistics options:"
+msgstr "檔案統計選項："
+
+#: tests/genfile.c:159
+msgid "Print contents of struct stat for each given file. Default FORMAT is: "
+msgstr "列印每個給定檔案的結構狀態內容。預設 FORMAT 為："
+
+#: tests/genfile.c:166
+msgid "Synchronous execution options:"
+msgstr "同步的執行選項："
+
+#: tests/genfile.c:168
+msgid "OPTION"
+msgstr "選項"
+
+#: tests/genfile.c:169
+msgid "Execute ARGS. Useful with --checkpoint and one of --cut, --append, --touch, --unlink"
+msgstr "執行引數。適合與 --checkpoint 以及 --cut, --append, --touch, --unlink 之一共用"
+
+#: tests/genfile.c:172
+msgid "Perform given action (see below) upon reaching checkpoint NUMBER"
+msgstr "當達到查核點 NUMBER 時實行給定動作 (參看以下)"
+
+#: tests/genfile.c:175
+msgid "Set date for next --touch option"
+msgstr "設定後續 --touch 選項所需的日期"
+
+#: tests/genfile.c:178
+msgid "Display executed checkpoints and exit status of COMMAND"
+msgstr "顯示已執行的查核點以及 COMMAND 的離開狀態"
+
+#: tests/genfile.c:183
+msgid "Synchronous execution actions. These are executed when checkpoint number given by --checkpoint option is reached."
+msgstr "同步的執行動作。當到達由 --checkpoint 選項所給定的查核點編號時，這些動作會被執行。"
+
+#: tests/genfile.c:186
+msgid "Truncate FILE to the size specified by previous --length option (or 0, if it is not given)"
+msgstr "依先前 --length 選項指定的大小來截斷檔案 (如果它未被給定就是 0)"
+
+#: tests/genfile.c:190
+msgid "Append SIZE bytes to FILE. SIZE is given by previous --length option."
+msgstr "附加 SIZE 位元組到 FILE。SIZE 是由先前 --length 選項所給定。"
+
+#: tests/genfile.c:193
+msgid "Update the access and modification times of FILE"
+msgstr "更新檔案的存取和修改時間"
+
+#: tests/genfile.c:196
+msgid "Execute COMMAND"
+msgstr "執行 COMMAND"
+
+#: tests/genfile.c:199
+msgid "Delete FILE"
+msgstr "移除檔案"
+
+#: tests/genfile.c:250
+#, c-format
+msgid "Invalid size: %s"
+msgstr "無效的大小：%s"
+
+#: tests/genfile.c:255
+#, c-format
+msgid "Number out of allowed range: %s"
+msgstr "號碼超出允許的範圍：%s"
+
+#: tests/genfile.c:258
+#, c-format
+msgid "Negative size: %s"
+msgstr "負值大小：%s"
+
+#: tests/genfile.c:271 tests/genfile.c:642
+#, c-format
+msgid "stat(%s) failed"
+msgstr "狀態(%s) 失敗"
+
+#: tests/genfile.c:274
+#, c-format
+msgid "requested file length %lu, actual %lu"
+msgstr "要求檔案長度 %lu，實際則是 %lu"
+
+#: tests/genfile.c:278
+#, c-format
+msgid "created file is not sparse"
+msgstr "建立的不是稀疏檔案"
+
+#: tests/genfile.c:375
+#, c-format
+msgid "Error parsing number near `%s'"
+msgstr "剖析數字接近 %s 時發生錯誤"
+
+#: tests/genfile.c:381
+#, c-format
+msgid "Unknown date format"
+msgstr "不明的日期格式"
+
+#: tests/genfile.c:405
+msgid "[ARGS...]"
+msgstr "[引數…]"
+
+#: tests/genfile.c:442 tests/genfile.c:482 tests/genfile.c:583
+#: tests/genfile.c:746 tests/genfile.c:760
+#, c-format
+msgid "cannot open `%s'"
+msgstr "無法開啟 %s"
+
+#: tests/genfile.c:448
+msgid "cannot seek"
+msgstr "無法尋求"
+
+#: tests/genfile.c:465
+#, c-format
+msgid "file name contains null character"
+msgstr "檔案名稱含有空字元"
+
+#: tests/genfile.c:578
+#, c-format
+msgid "cannot generate sparse files on standard output, use --file option"
+msgstr "無法於標準輸出產生稀疏檔案，使用 --file 選項"
+
+#: tests/genfile.c:669
+#, c-format
+msgid "incorrect mask (near `%s')"
+msgstr "不正確遮罩 (接近 %s)"
+
+#: tests/genfile.c:675 tests/genfile.c:708
+#, c-format
+msgid "Unknown field `%s'"
+msgstr "不明的欄位 %s"
+
+#: tests/genfile.c:735
+#, c-format
+msgid "cannot set time on `%s'"
+msgstr "無法設定時間為 %s"
+
+#: tests/genfile.c:765
+#, c-format
+msgid "cannot truncate `%s'"
+msgstr "無法截斷 %s"
+
+#: tests/genfile.c:774
+#, c-format
+msgid "command failed: %s"
+msgstr "命令失敗：%s"
+
+#: tests/genfile.c:781
+#, c-format
+msgid "cannot stat `%s'"
+msgstr "無法統計「%s」"
+
+#: tests/genfile.c:785
+#, c-format
+msgid "cannot remove directory `%s'"
+msgstr "無法移除目錄「%s」"
+
+#: tests/genfile.c:788
+#, c-format
+msgid "cannot unlink `%s'"
+msgstr "無法取消連結 %s"
+
+#: tests/genfile.c:918
+#, c-format
+msgid "Command exited successfully\n"
+msgstr "成功離開命令\n"
+
+#: tests/genfile.c:920
+#, c-format
+msgid "Command failed with status %d\n"
+msgstr "命令以狀態 %d 失敗\n"
+
+#: tests/genfile.c:924
+#, c-format
+msgid "Command terminated on signal %d\n"
+msgstr "命令於信號 %d 終止\n"
+
+#: tests/genfile.c:926
+#, c-format
+msgid "Command stopped on signal %d\n"
+msgstr "命令於信號 %d 停止\n"
+
+#: tests/genfile.c:929
+#, c-format
+msgid "Command dumped core\n"
+msgstr "命令傾印核心\n"
+
+#: tests/genfile.c:932
+#, c-format
+msgid "Command terminated\n"
+msgstr "命令終止\n"
+
+#: tests/genfile.c:964
+#, c-format
+msgid "--stat requires file names"
+msgstr "--stat 需要檔案名稱"
+
+#~ msgid "%.*s: ARGP_HELP_FMT parameter must be positive"
+#~ msgstr "%.*s: ARGP_HELP_FMT 參數必須是正值"
+
+#~ msgid "%s: option '--%s' doesn't allow an argument\n"
+#~ msgstr "%s：選項 --%s 不允許引數\n"
+
+#~ msgid "%s: unrecognized option '--%s'\n"
+#~ msgstr "%s：無法辨識的選項 --%s\n"
+
+#~ msgid "%s: option '-W %s' is ambiguous\n"
+#~ msgstr "%s：選項 -W %s 是模稜兩可的\n"
+
+#~ msgid "%s: option '-W %s' doesn't allow an argument\n"
+#~ msgstr "%s：選項 -W %s 不允許有引數\n"
+
+#~ msgid "%s: option '-W %s' requires an argument\n"
+#~ msgstr "%s：選項 -W %s 需要一個引數\n"
+
+#~ msgid "Unlink FILE"
+#~ msgstr "取消連結檔案"
+
+#~ msgid "Field too long while reading snapshot file"
+#~ msgstr "讀取快照檔時欄位太長"
+
+#~ msgid "Read error in snapshot file"
+#~ msgstr "讀取快照檔時發生錯誤"
+
+#~ msgid "Unexpected field value in snapshot file"
+#~ msgstr "未預期的快照檔欄位值"
+
+#~ msgid "Cannot get working directory"
+#~ msgstr "無法提取工作目錄"
+
+#~ msgid "sort names to extract to match archive"
+#~ msgstr "解開時依名稱排序以符合封存"
+
+#~ msgid "same as both -p and -s"
+#~ msgstr "等同於指定 -p 與 -s"
+
+#~ msgid "Invalid group"
+#~ msgstr "無效的群組"
+
+#~ msgid "The --preserve option is deprecated, use --preserve-permissions --preserve-order instead"
+#~ msgstr "--preserve 選項不宜再用，請以 --preserve-permissions --preserve-order 做為替代"
+
+#~ msgid "--occurrence cannot be used in the requested operation mode"
+#~ msgstr "--occurrence 無法於要求的作業模式中使用"
+
+#~ msgid "Cannot combine --listed-incremental with --newer"
+#~ msgstr "無法同時使用 --listed-incremental 及 --newer"
+
+#~ msgid "--preserve-order is not compatible with --listed-incremental"
+#~ msgstr "--preserve-order 與 --listed-incremental 不相容"
+
+#~ msgid "Extended header length is out of allowed range"
+#~ msgstr "擴充標頭長度超出允許範圍"

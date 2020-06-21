@@ -1,0 +1,89 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: Test the functionality of the --test-label option.
+# In versions up to 1.23 it did not match the documentation. This
+# test case follows the examples from "9.7 Including a Label in the Archive".
+# References: <15929_1268069389_4B95340D_15929_35_1_D621E31C29598A43AF7B4BBD30CCDDFD0838294A@fr0-mailmb04.res.airbus.corp>
+#
+
+AT_SETUP([test-label option])
+AT_KEYWORDS([label label03 test-label])
+
+AT_TAR_CHECK([
+exec <&-
+genfile --file file
+tar -c --label='iamalabel' --file iamanarchive file
+tar -c --file unlabeled.tar file
+decho "# Display label"
+tar --test-label --file=iamanarchive; echo $?
+decho "# Display label: unlabeled"
+tar --test-label --file=unlabeled.tar; echo $?
+decho "# Test label: success"
+tar --test-label --file=iamanarchive 'iamalabel'; echo $?
+decho "# Test label: failure"
+tar --test-label --file=iamanarchive 'amalabel'; echo $?
+decho "# Test label: unlabeled"
+tar --test-label --file=unlabeled.tar 'amalabel'; echo $?
+decho "# Test label, verbose: success"
+tar --test-label --verbose --file=iamanarchive 'iamalabel'; echo $?
+decho "# Test label, verbose: failure"
+tar --test-label --verbose --file=iamanarchive 'amalabel'; echo $?
+decho "# Test label: multiple arguments"
+tar --test-label --file=iamanarchive a iamalabel b; echo $?
+decho "# Test label: wildcards"
+tar --test-label --file=iamanarchive --wildcards '*label'; echo $?
+],
+[0],
+[# Display label
+iamalabel
+0
+# Display label: unlabeled
+0
+# Test label: success
+0
+# Test label: failure
+1
+# Test label: unlabeled
+1
+# Test label, verbose: success
+iamalabel
+0
+# Test label, verbose: failure
+iamalabel
+1
+# Test label: multiple arguments
+0
+# Test label: wildcards
+0
+],
+[# Display label
+# Display label: unlabeled
+# Test label: success
+# Test label: failure
+# Test label: unlabeled
+# Test label, verbose: success
+# Test label, verbose: failure
+tar: Archive label mismatch
+# Test label: multiple arguments
+# Test label: wildcards
+],[],[],[gnu,oldgnu,posix])
+
+AT_CLEANUP

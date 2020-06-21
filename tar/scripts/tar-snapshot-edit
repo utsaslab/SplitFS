@@ -1,0 +1,637 @@
+#! /usr/bin/perl -w
+# Display and edit the 'dev' field in tar's snapshots
+# Copyright 2007, 2011, 2013-2014, 2016-2018 Free Software Foundation,
+# Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
+# tar-snapshot-edit
+#
+# This script is capable of replacing values in the 'dev' field of an
+# incremental backup 'snapshot' file.  This is useful when the device
+# used to store files in a tar archive changes, without the files
+# themselves changing.  This may happen when, for example, a device
+# driver changes major or minor numbers.
+#
+# It can also run a check on all the field values found in the
+# snapshot file, printing out a detailed message when it finds values
+# that would cause an "Unexpected field value in snapshot file",
+# "Numerical result out of range", or "Invalid argument" error
+# if tar were run using that snapshot file as input.  (See the
+# comments included in the definition of the check_field_values
+# routine for more detailed information regarding these checks.)
+#
+#
+#
+# Author: Dustin J. Mitchell <dustin@zmanda.com>
+#
+# Modified Aug 25, 2011 by Nathan Stratton Treadway <nathanst AT ontko.com>:
+#   * update Perl syntax to work correctly with more recent versions of
+#     Perl.  (The original code worked with in the v5.8 timeframe but
+#     not with Perl v5.10.1 and later.)
+#   * added a "-c" option to check the snapshot file for invalid field values.
+#   * handle NFS indicator character ("+") in version 0 and 1 files
+#   * preserve the original header/version line when editing version 1
+#     or 2 files.
+#   * tweak output formatting
+#
+# Modified March 13, 2013 by Nathan Stratton Treadway <nathanst AT ontko.com>:
+#   * configure field ranges used for -c option based on the system
+#     architecture (in response to the December 2012 update to GNU tar
+#     enabling support for systems with signed dev_t values).
+#   * when printing the list of device ids found in the snapshot file
+#     (when run in the default mode), print the raw device id values
+#     instead of the hex-string version in those cases where they
+#     can't be converted successfully.  
+
+use Getopt::Std;
+use Config;
+
+my %snapshot_field_ranges;               # used in check_field_values function
+
+## reading
+
+sub read_incr_db ($) {
+    my $filename = shift;
+    open(my $file, "<$filename") || die "Could not open '$filename' for reading";
+
+    my $header_str = <$file>;
+    my $file_version;
+    if ($header_str =~ /^GNU tar-[^-]*-([0-9]+)\n$/) {
+	$file_version = $1+0;
+    } else {
+	$file_version = 0;
+    }
+
+    print "\nFile: $filename\n";
+    print "  Detected snapshot file version: $file_version\n\n";
+
+    if ($file_version == 0) {
+	return read_incr_db_0($file, $header_str);
+    } elsif ($file_version == 1) {
+	return read_incr_db_1($file, $header_str);
+    } elsif ($file_version == 2) {
+	return read_incr_db_2($file, $header_str);
+    } else {
+	die "Unrecognized snapshot version in header '$header_str'";
+    }
+}
+
+sub read_incr_db_0 ($$) {
+    my $file = shift;
+    my $header_str = shift;
+
+    my $hdr_timestamp_sec = $header_str;
+    chop $hdr_timestamp_sec;
+    my $hdr_timestamp_nsec = ''; # not present in file format 0
+
+    my $nfs;
+    my @dirs;
+
+    while (<$file>) {
+	/^(\+?)([0-9]*) ([0-9]*) (.*)\n$/ || die("Bad snapshot line $_");
+
+	if ( $1 eq "+" ) {
+	  $nfs="1";
+	} else {
+	  $nfs="0";
+	}
+	push @dirs, { nfs=>$nfs,
+		      dev=>$2,
+		      ino=>$3,
+		      name=>$4 };
+    }
+
+    close($file);
+
+    # file version, timestamp, timestamp, dir list, file header line
+    return [ 0, $hdr_timestamp_sec, $hdr_timestamp_nsec, \@dirs, ""];
+}
+
+sub read_incr_db_1 ($$) {
+    my $file = shift;
+    my $header_str = shift;
+
+
+    my $timestamp = <$file>; # "sec nsec"
+    my ($hdr_timestamp_sec, $hdr_timestamp_nsec) = ($timestamp =~ /([0-9]*) ([0-9]*)/);
+
+    my $nfs;
+    my @dirs;
+
+    while (<$file>) {
+	/^(\+?)([0-9]*) ([0-9]*) ([0-9]*) ([0-9]*) (.*)\n$/ || die("Bad snapshot line $_");
+
+	if ( $1 eq "+" ) {
+	  $nfs="1";
+	} else {
+	  $nfs="0";
+	}
+
+	push @dirs, { nfs=>$nfs,
+		      timestamp_sec=>$2,
+		      timestamp_nsec=>$3,
+		      dev=>$4,
+		      ino=>$5,
+		      name=>$6 };
+    }
+
+    close($file);
+
+    # file version, timestamp, timestamp, dir list, file header line
+    return [ 1, $hdr_timestamp_sec, $hdr_timestamp_nsec, \@dirs, $header_str ];
+}
+
+sub read_incr_db_2 ($$) {
+    my $file = shift;
+    my $header_str = shift;
+
+    $/="\0"; # $INPUT_RECORD_SEPARATOR
+    my $hdr_timestamp_sec = <$file>;
+    chop $hdr_timestamp_sec;
+    my $hdr_timestamp_nsec = <$file>;
+    chop $hdr_timestamp_nsec;
+    my @dirs;
+
+    while (1) {
+	last if eof($file);
+
+	my $nfs = <$file>;
+	my $timestamp_sec = <$file>;
+	my $timestamp_nsec = <$file>;
+	my $dev = <$file>;
+	my $ino = <$file>;
+	my $name = <$file>;
+
+	# get rid of trailing NULs
+	chop $nfs;
+	chop $timestamp_sec;
+	chop $timestamp_nsec;
+	chop $dev;
+	chop $ino;
+	chop $name;
+
+	my @dirents;
+	while (my $dirent = <$file>) {
+	    chop $dirent;
+	    push @dirents, $dirent;
+	    last if ($dirent eq "");
+	}
+	die "missing terminator" unless (<$file> eq "\0");
+
+	push @dirs, { nfs=>$nfs,
+		      timestamp_sec=>$timestamp_sec,
+		      timestamp_nsec=>$timestamp_nsec,
+		      dev=>$dev,
+		      ino=>$ino,
+		      name=>$name,
+		      dirents=>\@dirents };
+    }
+
+    close($file);
+    $/ = "\n"; # reset to normal
+
+    # file version, timestamp, timestamp, dir list, file header line
+    return [ 2, $hdr_timestamp_sec, $hdr_timestamp_nsec, \@dirs,  $header_str];
+}
+
+## display
+
+sub show_device_counts ($) {
+    my $info = shift;
+    my %devices;
+    foreach my $dir (@{$info->[3]}) {
+	my $dev = $dir->{'dev'};
+	$devices{$dev}++;
+    }
+
+    my $devstr;
+    foreach $dev (sort {$a <=> $b} keys %devices) {
+	$devstr = sprintf ("0x%04x", $dev);
+	if ( $dev > 0xffffffff or $dev < 0 or hex($devstr) != $dev ) {
+	  # sprintf "%x" will not return a useful value for device ids
+	  # that are negative or which overflow the integer size on this
+	  # instance of Perl, so we convert the hex string back to a
+	  # number, and if it doesn't (numerically) equal the original
+	  # device id value, we know the hex conversion hasn't worked.
+	  #
+	  # Unfortunately, since we're running in "-w" mode, Perl will
+	  # also print a warning message if the hex() routine is called
+	  # on anything larger than "0xffffffff", even in 64-bit Perl
+	  # where such values are actually supported... so we have to
+	  # avoid calling hex() at all if the device id is too large or
+	  # negative.  (If it's negative, the conversion to an unsigned
+	  # integer for the "%x" specifier will mean the result will
+	  # always trigger hex()'s warning on a 64-bit machine.)
+	  # 
+	  # These situations don't seem to occur very often, so for now
+	  # when they do occur, we simply print the original text value
+	  # that was read from the snapshot file; it will look a bit
+	  # funny next to the values that do print in hex, but that's
+	  # preferable to printing values that aren't actually correct.
+	  $devstr = $dev; 
+	}
+	printf "  Device %s occurs $devices{$dev} times.\n", $devstr;
+    }
+}
+
+## check field values
+
+# initializes the global %snapshot_field_ranges hash, based on the "-a"
+# command-line option if given, otherwise based on the "archname" of
+# the current system.
+#
+# Each value in the hash is a two-element array containing the minimum
+# and maximum allowed values, respectively, for that field in the snapshot
+# file.  GNU tar's allowed values for each architecture are determined
+# in the incremen.c source file, where the TYPE_MIN and TYPE_MAX
+# pre-processor expressions are used to determine the range that can be
+# expressed by the C data type used for each field; the values in the
+# array defined below should match those calculations.  (For tar v1.27
+# and later, the valid ranges for a particular tar binary can easily
+# be determined using the "tar --show-snapshot-field-ranges" command.)
+ 
+sub choose_architecture ($) {
+    my $opt_a = shift;
+
+    my $arch = $opt_a ? $opt_a : $Config{'archname'};
+
+    # These ranges apply to Linux 2.4/2.6 on iX86 systems, but are used
+    # by default on unrecognized/unsupported systems, too.
+    %iX86_linux_field_ranges = (
+      timestamp_sec      => [ -2147483648, 2147483647 ],   # min/max of time_t
+      timestamp_nsec     => [ 0, 999999999 ],              # 0 to BILLION-1
+      nfs                => [ 0, 1 ],
+      dev                => [ 0, 18446744073709551615 ],   # min/max of dev_t
+      ino                => [ 0, 4294967295 ],             # min/max of ino_t
+    );
+
+
+    if ( $arch =~ m/^i[\dxX]86-linux/i ) {
+	%snapshot_field_ranges = %iX86_linux_field_ranges;
+	print "Checking snapshot field values using \"iX86-linux\" ranges.\n\n";
+    } elsif ( $arch =~ m/^x86_64-linux/i ) {
+	%snapshot_field_ranges = (
+	  timestamp_sec      => [ -9223372036854775808, 9223372036854775807 ],
+	  timestamp_nsec     => [ 0, 999999999 ],
+	  nfs                => [ 0, 1 ],
+	  dev                => [ 0, 18446744073709551615 ],
+	  ino                => [ 0, 18446744073709551615 ],
+	);
+	print "Checking snapshot field values using \"x86_64-linux\" ranges.\n\n";
+    } elsif ( $arch =~ m/^IA64.ARCHREV_0/i ) {
+	# HP/UX running on Itanium/ia64 architecture
+	%snapshot_field_ranges = (
+	  timestamp_sec      => [ -2147483648, 2147483647 ],
+	  timestamp_nsec     => [ 0, 999999999 ],
+	  nfs                => [ 0, 1 ],
+	  dev                => [ -2147483648, 2147483647 ],
+	  ino                => [ 0, 4294967295 ],
+	);
+	print "Checking snapshot field values using \"IA64.ARCHREV_0\" (HP/UX) ranges.\n\n";
+    } else {
+	%snapshot_field_ranges = %iX86_linux_field_ranges;
+	print "Unrecognized architecture \"$arch\"; defaulting to \"iX86-linux\".\n";
+	print "(Use -a option to override.)\n" unless $opt_a;
+	print "\n";
+    } 
+
+    if ( ref(1) ne "" ) {
+	print "(\"bignum\" mode is in effect; skipping 64-bit-integer check.)\n\n"
+    } else {
+	# find the largest max value in the current set of ranges
+	my $maxmax = 0;
+	for $v (values %snapshot_field_ranges ) {
+	  $maxmax = $v->[1] if ($v->[1] > $maxmax);
+	}
+       
+	# "~0" translates into a platform-native integer with all bits turned
+	# on -- that is, the largest value that can be represented as
+	# an integer.  We print a warning if our $maxmax value is greater 
+	# than that largest integer, since in that case Perl will switch
+	# to using floats for those large max values.  The wording of
+	# the message assumes that the only way this situation can exist
+	# is that the platform uses 32-bit integers but some of the
+	# snapshot-file fields have 64-bit values.
+	if ( ~0 < $maxmax ) {
+	    print <<EOF
+Note: this version of Perl uses 32-bit integers, which means that it
+  will switch to using floating-point numbers when checking the ranges
+  for 64-bit snapshot-file fields.  This normally will work fine, but
+  might fail to detect cases where the value in the input field value is
+  only slightly out of range.  (For example, a "9223372036854775808"
+  might not be recognized as being larger than  9223372036854775807.)
+  If you suspect you are experiencing this problem, you can try running
+  the program using the "-Mbignum" option, as in
+    \$ perl $0 -Mbignum -c [FILES]
+  (but doing so will make the program run *much* slower).
+
+EOF
+	}
+    }
+    
+
+}
+
+# returns a warning message if $field_value isn't a valid string 
+# representation of an integer, or if the resulting integer is out of range
+# defined by the two-element array retrieved using up the $field_name key in
+# the global %snapshot_field_ranges hash.
+sub validate_integer_field ($$) {
+    my $field_value = shift;
+    my $field_name = shift;
+
+    my ($min, $max) = @{$snapshot_field_ranges{$field_name}};
+
+    my $msg = "";
+
+    if ( not $field_value =~ /^-?\d+$/ ) {
+	$msg = "      $field_name value contains invalid characters: \"$field_value\"\n";
+    } else {
+	if ( $field_value < $min ) {
+	    $msg = "      $field_name value too low: \"$field_value\" < $min \n";
+	} elsif ( $field_value > $max ) {
+	    $msg = "      $field_name value too high: \"$field_value\" > $max \n";
+	}
+    }
+    return $msg;
+}
+
+
+# This routine loops through each directory entry in the $info data
+# structure and prints a warning message if tar would abort with an
+# "Unexpected field value in snapshot file", "Numerical result out of
+# range", or "Invalid argument" error upon reading this snapshot file.
+#
+# (Note that the "Unexpected field value in snapshot file" error message
+# was introduced along with the change to snapshot file format "2",
+# starting with tar v1.16 [or, more precisely, v1.15.91], while the
+# other two were introduced in v1.27.)
+#
+# The checks here are intended to match those found in the incremen.c
+# source file.  See the choose_architecture() function (above) for more 
+# information on how to configure the range of values considered valid 
+# by this script.
+#
+# (Note: the checks here are taken from the code that processes
+# version 2 snapshot files, but to keep things simple we apply those
+# same checks to files having earlier versions -- but only for
+# the fields that actually exist in those input files.)
+
+sub check_field_values ($) {
+    my $info = shift;
+
+    my $msg;
+    my $error_found = 0;
+
+    print "  Checking field values in snapshot file...\n";
+
+    $snapver = $info->[0];
+
+    $msg = "";
+    $msg .= validate_integer_field($info->[1], 'timestamp_sec');
+    if ($snapver >= 1) {
+      $msg .= validate_integer_field($info->[2], 'timestamp_nsec');
+    }
+    if ( $msg ne "" ) {
+	$error_found = 1;
+	print "\n    snapshot file header:\n";
+	print $msg;
+    }
+
+
+    foreach my $dir (@{$info->[3]}) {
+
+	$msg = "";
+
+	$msg .= validate_integer_field($dir->{'nfs'}, 'nfs');
+	if ($snapver >= 1) {
+	  $msg .= validate_integer_field($dir->{'timestamp_sec'}, 'timestamp_sec');
+	  $msg .= validate_integer_field($dir->{'timestamp_nsec'}, 'timestamp_nsec');
+	}
+	$msg .= validate_integer_field($dir->{'dev'}, 'dev');
+	$msg .= validate_integer_field($dir->{'ino'}, 'ino');
+
+	if ( $msg ne "" ) {
+	  $error_found = 1;
+	  print "\n    directory: $dir->{'name'}\n";
+	  print $msg;
+	}
+    }
+
+    print "\n  Snapshot field value check complete" ,
+	   $error_found ?  "" : ", no errors found" ,
+	   ".\n";
+}
+
+## editing
+
+sub replace_device_number ($@) {
+    my $info = shift(@_);
+    my @repl = @_;
+
+    my $count = 0;
+
+    foreach my $dir (@{$info->[3]}) {
+	foreach $x (@repl) {
+	    if ($dir->{'dev'} eq $$x[0]) {
+		$dir->{'dev'} = $$x[1];
+		$count++;
+		last;
+	    }
+	}
+    }
+    print "  Updated $count records.\n"
+}
+
+## writing
+
+sub write_incr_db ($$) {
+    my $info = shift;
+    my $filename = shift;
+    my $file_version = $$info[0];
+
+    open($file, ">$filename") || die "Could not open '$filename' for writing";
+
+    if ($file_version == 0) {
+	write_incr_db_0($info, $file);
+    } elsif ($file_version == 1) {
+	write_incr_db_1($info, $file);
+    } elsif ($file_version == 2) {
+	write_incr_db_2($info, $file);
+    } else {
+	die "Unknown file version $file_version.";
+    }
+
+    close($file);
+}
+
+sub write_incr_db_0 ($$) {
+    my $info = shift;
+    my $file = shift;
+
+    my $timestamp_sec = $info->[1];
+    print $file "$timestamp_sec\n";
+
+    foreach my $dir (@{$info->[3]}) {
+	if ($dir->{'nfs'}) {
+	  print $file '+'
+	}
+	print $file "$dir->{'dev'} ";
+	print $file "$dir->{'ino'} ";
+	print $file "$dir->{'name'}\n";
+    }
+}
+
+
+sub write_incr_db_1 ($$) {
+    my $info = shift;
+    my $file = shift;
+
+    print $file $info->[4];
+
+    my $timestamp_sec = $info->[1];
+    my $timestamp_nsec = $info->[2];
+    print $file "$timestamp_sec $timestamp_nsec\n";
+
+    foreach my $dir (@{$info->[3]}) {
+	if ($dir->{'nfs'}) {
+	  print $file '+'
+	}
+	print $file "$dir->{'timestamp_sec'} ";
+	print $file "$dir->{'timestamp_nsec'} ";
+	print $file "$dir->{'dev'} ";
+	print $file "$dir->{'ino'} ";
+	print $file "$dir->{'name'}\n";
+    }
+}
+
+
+sub write_incr_db_2 ($$) {
+    my $info = shift;
+    my $file = shift;
+
+    print $file $info->[4];
+
+    my $timestamp_sec = $info->[1];
+    my $timestamp_nsec = $info->[2];
+    print $file $timestamp_sec . "\0";
+    print $file $timestamp_nsec . "\0";
+
+    foreach my $dir (@{$info->[3]}) {
+	print $file $dir->{'nfs'} . "\0";
+	print $file $dir->{'timestamp_sec'} . "\0";
+	print $file $dir->{'timestamp_nsec'} . "\0";
+	print $file $dir->{'dev'} . "\0";
+	print $file $dir->{'ino'} . "\0";
+	print $file $dir->{'name'} . "\0";
+	foreach my $dirent (@{$dir->{'dirents'}}) {
+	    print $file $dirent . "\0";
+	}
+	print $file "\0";
+    }
+}
+
+## main
+
+sub main {
+    our ($opt_b, $opt_r, $opt_h, $opt_c, $opt_a);
+    getopts('br:hca:');
+    HELP_MESSAGE() if ($opt_h || $#ARGV == -1 || ($opt_b && !$opt_r) ||
+		       ($opt_a && !$opt_c) || ($opt_r && $opt_c) );
+
+    my @repl;
+    if ($opt_r) {
+	foreach my $spec (split(/,/, $opt_r)) {
+	    ($spec =~ /^([^-]+)-([^-]+)/) || die "Invalid replacement specification '$opt_r'";
+	    push @repl, [interpret_dev($1), interpret_dev($2)];
+	}
+    }
+
+    choose_architecture($opt_a) if ($opt_c);
+
+    foreach my $snapfile (@ARGV) {
+	my $info = read_incr_db($snapfile);
+	if ($opt_r) {
+	    if ($opt_b) {
+		rename($snapfile, $snapfile . "~") || die "Could not rename '$snapfile' to backup";
+	    }
+
+	    replace_device_number($info, @repl);
+	    write_incr_db($info, $snapfile);
+	} elsif ($opt_c) {
+	    check_field_values($info);
+	} else {
+	    show_device_counts($info);
+	}
+    }
+}
+
+sub HELP_MESSAGE {
+    print <<EOF;
+
+Usage:
+  tar-snapshot-edit SNAPFILE [SNAPFILE [...]]
+  tar-snapshot-edit -r 'DEV1-DEV2[,DEV3-DEV4...]' [-b] SNAPFILE [SNAPFILE [...]]
+  tar-snapshot-edit -c [-aARCH] SNAPFILE [SNAPFILE [...]]
+
+     With no options specified: print a summary of the 'device' values
+     found in each SNAPFILE.
+
+     With -r: replace occurrences of DEV1 with DEV2 in each SNAPFILE.
+     DEV1 and DEV2 may be specified in hex (e.g., 0xfe01), decimal (e.g.,
+     65025), or MAJ:MIN (e.g., 254:1).  To replace multiple occurrences,
+     separate them with commas.  If -b is also specified, backup files
+     (ending with '~') will be created.
+
+     With -c: Check the field values in each SNAPFILE and print warning
+     messages if any invalid values are found.  (An invalid value is one
+     that would cause \"tar\" to abort with an error message such as
+       Unexpected field value in snapshot file
+       Numerical result out of range
+     or 
+       Invalid argument
+     as it processed the snapshot file.)
+
+     Normally the program automatically chooses the valid ranges for 
+     the fields based on the current system's architecture, but the 
+     -a option can be used to override the selection, e.g. in order 
+     to validate a snapshot file generated on a some other system.
+     (Currently only three architectures are supported, "iX86-linux",
+     "x86_64-linux", and "IA64.ARCHREV_0" [HP/UX running on Itanium/ia64], 
+     and if the current system isn't recognized, then the iX86-linux
+     values are used by default.)
+
+EOF
+    exit 1;
+}
+
+sub interpret_dev ($) {
+    my $dev = shift;
+
+    if ($dev =~ /^([0-9]+):([0-9]+)$/) {
+	return $1 * 256 + $2;
+    } elsif ($dev =~ /^0x[0-9a-fA-F]+$/) {
+	return oct $dev;
+    } elsif ($dev =~ /^[0-9]+$/) {
+	return $dev+0;
+    } else {
+	die "Invalid device specification '$dev'";
+    }
+}
+
+main

@@ -1,0 +1,98 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2012-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Test description:
+#
+# This is basic test for selinux support (store & restore).
+
+AT_SETUP([selinux: basic store/restore])
+AT_KEYWORDS([xattrs selinux selnx01])
+
+AT_TAR_CHECK([
+AT_XATTRS_UTILS_PREREQ
+AT_SELINUX_PREREQ
+
+mkdir dir
+genfile --file dir/file
+ln -s file dir/link
+
+getfattr -h -d -msecurity.selinux dir dir/file dir/link > start
+
+restorecon -R dir
+chcon -h --user=system_u     dir
+chcon -h --user=unconfined_u dir/file
+chcon -h --user=system_u     dir/link
+
+# archive whole directory including selinux contexts
+tar --selinux -cf archive.tar dir
+
+# clear the directory
+rm -rf dir
+
+# ================================================
+# check if selinux contexts are correctly restored
+
+tar --selinux -xf archive.tar
+
+# archive for later debugging
+cp archive.tar archive_origin.tar
+
+# check if selinux contexts were restored
+getfattr -h -d dir dir/file dir/link -msecurity.selinux | \
+    grep -v -e '^#' -e ^$ | cut -d: -f1
+
+# ===========================================================================
+# check if selinux contexts are not restored when --selinux option is missing
+
+getfattr -h -d -msecurity.selinux dir dir/file dir/link > with_selinux
+rm -rf dir
+tar -xf archive.tar
+getfattr -h -d -msecurity.selinux dir dir/file dir/link > without_selinux
+
+diff with_selinux without_selinux > diff_with_without
+if test "$?" -eq "0"; then
+    echo "selinux contexts probably restored while --selinux is off"
+fi
+
+# =================================================================
+# check if selinux is not archived when --selinux option is missing
+
+tar -cf archive.tar dir
+
+# clear the directory
+rm -rf dir
+
+# restore (with --selinux)
+tar --selinux -xf archive.tar dir
+
+getfattr -h -d -msecurity.selinux dir dir/file dir/link > final
+diff start final > final_diff
+if test "$?" -ne "0"; then
+    echo "bad result"
+fi
+
+],
+[0],
+[security.selinux="system_u
+security.selinux="unconfined_u
+security.selinux="system_u
+])
+
+AT_CLEANUP

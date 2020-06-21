@@ -44,6 +44,7 @@ We evaluate and benchmark on SplitFS using different application benchmarks like
 4. SQLite: `cd scripts/tpcc; ./compile_sqlite.sh; cd ../..` -- This will compile SQLite3
 5. TPCC: `cd scripts/tpcc; ./compile_tpcc.sh; cd ../..` -- This will compile TPCC workload
 6. rsync: `cd scripts/rsync; ./compile_rsync.sh; cd ../..` -- This will compile rsync
+7. tar: `cd scripts/tar; ./compile_tar.sh; cd ../..` -- This will compile tar
 
 Note: The <num_threads> argument in the compilation scripts performs the compilation with the number of threads given as input to the script, to improve the speed of compilation. 
 
@@ -54,6 +55,7 @@ Note: The <num_threads> argument in the compilation scripts performs the compila
 1. YCSB: `cd scripts/ycsb; ./gen_workloads.sh; cd ../..` -- This will generate the YCSB workload files to be run with LevelDB, because YCSB does not natively support LevelDB, and has been added to the benchmarks of LevelDB
 2. TPCC: `cd scripts/tpcc; ./gen_workload.sh; cd ../..` -- This will create an initial database on SQLite on which to run the TPCC workload
 3. rsync: `cd scripts/rsync/; sudo ./rsync_gen_workload.sh; cd ../..` -- This will create the rsync workload according to the backup data distribution as mentioned in the Paper
+4. tar: `cd scripts/tar/; sudo ./gen_workload.sh; cd ../..` -- This will create the tar workload as mentioned in the paper
 
 ---
 
@@ -62,6 +64,7 @@ Note: The <num_threads> argument in the compilation scripts performs the compila
 1. YCSB: `cd scripts/ycsb; ./run_ycsb.sh; cd ../..` -- This will run all the YCSB workloads on LevelDB (Load A, Run A-F, Load E, Run E) with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS, SplitFS-strict` 
 2. TPCC: `cd scripts/tpcc; ./run_tpcc.sh; cd ../..` -- This will run the TPCC workload on SQLite3 with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS, SplitFS-POSIX`
 3. rsync: `cd scripts/rsync; ./run_rsync.sh; cd ../..` -- This will run the rsync workload with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS, SplitFS-sync`
+4. tar: `cd scripts/tar; ./run_tar.sh; cd ../..` -- This will run the tar workload with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS, SplitFS-POSIX, SplitFS-sync, SplitFS-strict`
 
 ---
 

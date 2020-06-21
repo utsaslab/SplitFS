@@ -1,0 +1,102 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2009, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: when a file in a deep directory disappeared during creation
+# of incremental dump, tar v. <1.23 would exit with TAREXIT_FAILURE (2).
+# However, such events are quite common and don't necessarily constitute
+# an error.  Exiting with code 2 in such cases makes it impossible to
+# distinguish serious errors from benign ones.
+#
+# Starting from tar 1.22.90, tar exits with TAREXIT_DIFFERS (1)
+# instead.
+#
+# Reported by: Solar Designer <solar@openwall.com>
+#
+# References: <20090228235820.GA13362@openwall.com>
+#             http://lists.gnu.org/archive/html/bug-tar/2009-03/msg00000.html
+#
+
+AT_SETUP([file removed as we read it (ca. 22 seconds)])
+AT_KEYWORDS([create incremental listed filechange filerem filerem01])
+
+AT_TAR_CHECK([
+mkdir dir
+mkdir dir/sub
+genfile --file dir/file1
+genfile --file dir/sub/file2
+
+genfile --run --checkpoint=3 --unlink dir/file1 -- \
+       tar --blocking-factor=1 --checkpoint=1 --checkpoint-action='sleep=1' \
+       --checkpoint-action='echo' -c -f archive.tar \
+       --listed-incremental db -v dir >/dev/null
+],
+[1],
+[ignore],
+[tar: dir: Directory is new
+tar: dir/sub: Directory is new
+tar: dir/file1: File removed before we read it
+],[],[],[gnu, posix])
+
+# Timing information:
+#
+# For -Hgnu the above command line takes about 8 seconds to execute and
+# produces:
+#
+# tar: dir: Directory is new
+# tar: dir/sub: Directory is new
+# dir/
+# tar: Write checkpoint 1
+# tar: Write checkpoint 2
+# dir/sub/
+# tar: Write checkpoint 3
+# tar: Write checkpoint 4
+# dir/file1
+# tar: Write checkpoint 5
+# dir/sub/file2
+# tar: Write checkpoint 6
+# tar: Write checkpoint 7
+# tar: Write checkpoint 8
+#
+# For -Hposix the above command line takes about 14 seconds to execute and
+# produces:
+#
+# ./tar: dir: Directory is new
+# ./tar: dir/sub: Directory is new
+# dir/
+# ./tar: Write checkpoint 1
+# ./tar: Write checkpoint 2
+# ./tar: Write checkpoint 3
+# dir/sub/
+# ./tar: Write checkpoint 4
+# ./tar: Write checkpoint 5
+# ./tar: Write checkpoint 6
+# dir/file1
+# ./tar: Write checkpoint 7
+# ./tar: Write checkpoint 8
+# ./tar: Write checkpoint 9
+# dir/sub/file2
+# ./tar: Write checkpoint 10
+# ./tar: Write checkpoint 11
+# ./tar: Write checkpoint 12
+# ./tar: Write checkpoint 13
+# ./tar: Write checkpoint 14
+
+
+AT_CLEANUP

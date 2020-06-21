@@ -1,0 +1,32 @@
+Description:
+getpass() function: read a password from /dev/tty.
+
+Files:
+lib/getpass.h
+lib/getpass.c
+m4/getpass.m4
+
+Depends-on:
+extensions
+fseeko
+getline
+stdbool
+strdup-posix
+
+configure.ac:
+gl_FUNC_GETPASS
+if test $HAVE_GETPASS = 0; then
+  AC_LIBOBJ([getpass])
+  gl_PREREQ_GETPASS
+fi
+
+Makefile.am:
+
+Include:
+"getpass.h"
+
+License:
+LGPLv2+
+
+Maintainer:
+Jim Meyering, glibc

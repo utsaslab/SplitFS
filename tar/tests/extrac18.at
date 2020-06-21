@@ -1,0 +1,62 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2011, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: Check the functionality of the --keep-old-files option.
+# It should report an error and cause tar to exit with status 2.
+#
+# There was a regression in versions 1.23 to 1.26 inclusive, where
+# this option silently skipped such files.
+# Reported by: Doug McLaren <dougmc@frenzied.us>,
+#              Gary Partis <gary@partis.co.uk>,
+#              Jim Meyering <jim@meyering.net>
+#              
+# References: <20111117045433.GA8245@algol.frenzied.us>,
+#             <4F3D824717847C4487F77228F83329A3514CBB@server.Partis.local>,
+#             <87wrar6zzz.fsf@rho.meyering.net>
+
+AT_SETUP([keep-old-files])
+AT_KEYWORDS([extract extrac18 old-files keep-old-files])
+
+AT_TAR_CHECK([
+mkdir dir
+cd dir
+echo 'Old file a' > a
+echo 'Old file b' > b
+
+tar cf ../archive .
+
+rm b
+echo 'File a' > a
+
+tar -x -k -f ../archive
+echo status=$?
+
+cat a
+],
+[0],
+[status=2
+File a
+],
+[tar: ./a: Cannot open: File exists
+tar: Exiting with failure status due to previous errors
+])
+
+AT_CLEANUP
+

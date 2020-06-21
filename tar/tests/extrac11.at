@@ -1,0 +1,86 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# written by Paul Eggert
+
+# Check that 'tar' works even in a file-descriptor-limited environment.
+
+AT_SETUP([scarce file descriptors])
+AT_KEYWORDS([extract extrac11 chdir])
+
+AT_TAR_CHECK([
+exec </dev/null
+dirs='a
+      a/b
+      a/b/c
+      a/b/c/d
+      a/b/c/d/e
+      a/b/c/d/e/f
+      a/b/c/d/e/f/g
+      a/b/c/d/e/f/g/h
+      a/b/c/d/e/f/g/h/i
+      a/b/c/d/e/f/g/h/i/j
+      a/b/c/d/e/f/g/h/i/j/k
+'
+files=
+mkdir $dirs dest1 dest2 dest3 || exit
+for dir in $dirs; do
+  for file in X Y Z; do
+    echo $file >$dir/$file || exit
+    files="$files $file"
+  done
+done
+
+# Check that "ulimit" itself works.  Close file descriptors before
+# invoking ulimit, to work around a bug (or a "feature") in some shells,
+# where they squirrel away dups of file descriptors into FD 10 and up
+# before closing the originals.
+( (exec 3<&- 4<&- 5<&- 6<&- 7<&- 8<&- 9<&- &&
+   ulimit -n 100 &&
+   tar -cf archive1.tar a &&
+   tar -xf archive1.tar -C dest1 a
+  ) &&
+  diff -r a dest1/a
+) >/dev/null 2>&1 ||
+   AT_SKIP_TEST
+
+# Another test that "ulimit" itself works:
+# tar should fail when completely starved of file descriptors.
+( (exec 3<&- 4<&- 5<&- 6<&- 7<&- 8<&- 9<&- &&
+   ulimit -n 4 &&
+   tar -cf archive2.tar a &&
+   tar -xf archive2.tar -C dest2 a
+  ) &&
+  diff -r a dest2/a
+) >/dev/null 2>&1 &&
+   AT_SKIP_TEST
+
+# Tar should work when there are few, but enough, file descriptors.
+( (exec 3<&- 4<&- 5<&- 6<&- 7<&- 8<&- 9<&- &&
+   ulimit -n 10 &&
+   tar -cf archive3.tar a &&
+   tar -xf archive3.tar -C dest3 a
+  ) &&
+  diff -r a dest3/a >/dev/null 2>&1
+) || { diff -r a dest3/a; exit 1; }
+],
+[0],[],[],[],[],[gnu])
+
+AT_CLEANUP

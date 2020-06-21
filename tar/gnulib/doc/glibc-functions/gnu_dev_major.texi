@@ -1,0 +1,21 @@
+@node gnu_dev_major
+@subsection @code{gnu_dev_major}
+@findex gnu_dev_major
+
+Gnulib module: ---
+
+Portability problems fixed by Gnulib:
+@itemize
+@item
+The @code{AC_HEADER_MAJOR} macro in Autoconf 2.69 and earlier fails to
+set @code{MAJOR_IN_SYSMACROS} when it detects namespace pollution in
+@file{sys/types.h}; which in turn provokes deprecation warnings in
+glibc 2.25.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+This function is missing on all non-glibc platforms:
+Mac OS X 10.5, FreeBSD 6.0, NetBSD 5.0, OpenBSD 3.8, Minix 3.1.8, AIX 5.1, HP-UX 11, IRIX 6.5, OSF/1 5.1, Solaris 11.3, Cygwin, mingw, MSVC 14, Interix 3.5, BeOS, Android 9.0.
+@end itemize

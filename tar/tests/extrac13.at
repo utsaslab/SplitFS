@@ -1,0 +1,55 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# written by Paul Eggert
+
+# Check that 'tar' normally does follow symbolic links when extracting,
+# unless --dereference is specified.
+
+AT_SETUP([extract over symlinks])
+AT_KEYWORDS([extract extrac13 chdir])
+
+AT_TAR_CHECK([
+mkdir src dst1 dst2 dst3
+echo file1 >src/file1
+ln -s target1 dst1/file1
+echo target1 >dst1/target1
+echo target1 >target1
+
+tar -cf archive.tar -C src . &&
+tar -xf archive.tar -C dst1 --warning=no-timestamp &&
+diff src/file1 dst1/file1 &&
+diff target1 dst1/target1
+
+ln -s target1 dst2/file1
+echo target1 >dst2/target1
+tar --overwrite -xf archive.tar -C dst2 --warning=no-timestamp &&
+diff src/file1 dst2/file1 &&
+diff target1 dst2/target1
+
+ln -s target1 dst3/file1
+echo target1 >dst3/target1
+tar --overwrite -xhf archive.tar -C dst3 --warning=no-timestamp &&
+diff src/file1 dst3/file1 &&
+diff src/file1 dst3/target1
+],
+[0],[],[],[],[],[gnu])
+
+AT_CLEANUP

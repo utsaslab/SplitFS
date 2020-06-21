@@ -1,0 +1,3147 @@
+# Mensajes en español para GNU tar.
+# Copyright (C) 1997, 1998, 1999, 2000, 2017 Free Software Foundation, Inc.
+# This file is distributed under the same license as the tar package.
+# Federico Rivas <frivas@arrakis.es>, 1997.
+# Enrique Melero <melero@iprolink.ch>, 1997.
+# Santiago Vila Doncel <sanvila@unex.es>, 1998, 1999, 2000, 2001, 2002, 2004, 2014.
+# Antonio Ceballos <aceballos@gmail.com>, 2015, 2016, 2017
+#
+#: src/create.c:1599
+msgid ""
+msgstr ""
+"Project-Id-Version: GNU tar 1.30\n"
+"Report-Msgid-Bugs-To: bug-tar@gnu.org\n"
+"POT-Creation-Date: 2017-12-17 12:31+0200\n"
+"PO-Revision-Date: 2017-12-30 10:29+0100\n"
+"Last-Translator: Antonio Ceballos <aceballos@gmail.com>\n"
+"Language-Team: Spanish <es@tp.org.es>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: gnu/argmatch.c:134
+#, c-format
+msgid "invalid argument %s for %s"
+msgstr "argumento %s inválido para %s"
+
+#: gnu/argmatch.c:135
+#, c-format
+msgid "ambiguous argument %s for %s"
+msgstr "argumento %s ambiguo para %s"
+
+#: gnu/argmatch.c:154
+msgid "Valid arguments are:"
+msgstr "Los argumentos válidos son:"
+
+#: gnu/argp-help.c:148
+#, c-format
+msgid "ARGP_HELP_FMT: %s value is less than or equal to %s"
+msgstr "ARGP_HELP_FMT: el valor de %s es menor o igual que %s"
+
+#: gnu/argp-help.c:224
+#, c-format
+msgid "%.*s: ARGP_HELP_FMT parameter requires a value"
+msgstr "%.*s: El parámetro ARGP_HELP_FMT necesita un valor"
+
+#: gnu/argp-help.c:234
+#, c-format
+msgid "%.*s: Unknown ARGP_HELP_FMT parameter"
+msgstr "%.*s: Parámetro ARGP_HELP_FMT desconocido"
+
+#: gnu/argp-help.c:247
+#, c-format
+msgid "Garbage in ARGP_HELP_FMT: %s"
+msgstr "Incongruencia en ARGP_HELP_FMT: %s"
+
+#: gnu/argp-help.c:1228
+msgid "Mandatory or optional arguments to long options are also mandatory or optional for any corresponding short options."
+msgstr ""
+"Los argumentos obligatorios u opcionales para las opciones largas son también\n"
+"obligatorios u opcionales para las opciones cortas correspondientes."
+
+#: gnu/argp-help.c:1615
+msgid "Usage:"
+msgstr "Modo de empleo:"
+
+#: gnu/argp-help.c:1619
+msgid "  or: "
+msgstr " o bien: "
+
+#: gnu/argp-help.c:1631
+msgid " [OPTION...]"
+msgstr " [OPCIÓN...]"
+
+#: gnu/argp-help.c:1658
+#, c-format
+msgid "Try '%s --help' or '%s --usage' for more information.\n"
+msgstr "Pruebe '%s --help' o '%s --usage' para más información.\n"
+
+# "We could, for instance, begin with cleaning up our language by no
+# longer calling a bug a bug but by calling it an error." 
+#
+# Edsger W. Dijkstra, "On the cruelty of really teaching computing science"
+#
+# http://www.cs.utexas.edu/users/EWD/transcriptions/EWD10xx/EWD1036.html
+#: gnu/argp-help.c:1686
+#, c-format
+msgid "Report bugs to %s.\n"
+msgstr "Comunicar errores a %s.\n"
+
+#: gnu/argp-help.c:1887 gnu/error.c:195
+msgid "Unknown system error"
+msgstr "Error del sistema desconocido"
+
+#: gnu/argp-parse.c:81
+msgid "give this help list"
+msgstr "da esta lista de ayuda"
+
+#: gnu/argp-parse.c:82
+msgid "give a short usage message"
+msgstr "da un mensaje de uso corto"
+
+#: gnu/argp-parse.c:83 src/tar.c:507 src/tar.c:509 src/tar.c:612
+#: tests/genfile.c:134
+msgid "NAME"
+msgstr "NOMBRE"
+
+#: gnu/argp-parse.c:84
+msgid "set the program name"
+msgstr "establece el nombre del programa"
+
+#: gnu/argp-parse.c:85
+msgid "SECS"
+msgstr "SEGS"
+
+#: gnu/argp-parse.c:86
+msgid "hang for SECS seconds (default 3600)"
+msgstr "cuelga durante SEGS segundos (por omisión 3600)"
+
+#: gnu/argp-parse.c:143
+msgid "print program version"
+msgstr "muestra la versión del programa"
+
+#: gnu/argp-parse.c:160
+msgid "(PROGRAM ERROR) No version known!?"
+msgstr "(ERROR DEL PROGRAMA) ¿¡No se sabe cuál es la versión!?"
+
+#: gnu/argp-parse.c:613
+#, c-format
+msgid "%s: Too many arguments\n"
+msgstr "%s: Demasiados argumentos\n"
+
+#: gnu/argp-parse.c:759
+msgid "(PROGRAM ERROR) Option should have been recognized!?"
+msgstr "(ERROR DEL PROGRAMA) ¿¡No se debería haber reconocido la opción!?"
+
+#: gnu/closeout.c:122
+msgid "write error"
+msgstr "error de escritura"
+
+#: gnu/getopt.c:278
+#, c-format
+msgid "%s: option '%s%s' is ambiguous\n"
+msgstr "%s: la opción '%s%s' es ambigua\n"
+
+#: gnu/getopt.c:284
+#, c-format
+msgid "%s: option '%s%s' is ambiguous; possibilities:"
+msgstr "%s: la opción '%s%s' es ambigua; posibilidades:"
+
+#: gnu/getopt.c:319
+#, c-format
+msgid "%s: unrecognized option '%s%s'\n"
+msgstr "%s: opción no reconocida '%s%s'\n"
+
+#: gnu/getopt.c:345
+#, c-format
+msgid "%s: option '%s%s' doesn't allow an argument\n"
+msgstr "%s: la opción '%s%s' no admite ningún argumento\n"
+
+#: gnu/getopt.c:360
+#, c-format
+msgid "%s: option '%s%s' requires an argument\n"
+msgstr "%s: la opción '%s%s' requiere un argumento\n"
+
+#: gnu/getopt.c:621
+#, c-format
+msgid "%s: invalid option -- '%c'\n"
+msgstr "%s: opción inválida -- '%c'\n"
+
+#: gnu/getopt.c:636 gnu/getopt.c:682
+#, c-format
+msgid "%s: option requires an argument -- '%c'\n"
+msgstr "%s: la opción requiere un argumento -- '%c'\n"
+
+#: gnu/obstack.c:338 gnu/obstack.c:340 gnu/xalloc-die.c:34
+msgid "memory exhausted"
+msgstr "memoria agotada"
+
+#: gnu/openat-die.c:38
+#, c-format
+msgid "unable to record current working directory"
+msgstr "no se puede obtener el directorio de trabajo actual"
+
+#: gnu/openat-die.c:57
+#, c-format
+msgid "failed to return to initial working directory"
+msgstr "fallo al volver al directorio de trabajo inicial"
+
+#. TRANSLATORS:
+#. Get translations for open and closing quotation marks.
+#. The message catalog should translate "`" to a left
+#. quotation mark suitable for the locale, and similarly for
+#. "'".  For example, a French Unicode local should translate
+#. these to U+00AB (LEFT-POINTING DOUBLE ANGLE
+#. QUOTATION MARK), and U+00BB (RIGHT-POINTING DOUBLE ANGLE
+#. QUOTATION MARK), respectively.
+#.
+#. If the catalog has no translation, we will try to
+#. use Unicode U+2018 (LEFT SINGLE QUOTATION MARK) and
+#. Unicode U+2019 (RIGHT SINGLE QUOTATION MARK).  If the
+#. current locale is not Unicode, locale_quoting_style
+#. will quote 'like this', and clocale_quoting_style will
+#. quote "like this".  You should always include translations
+#. for "`" and "'" even if U+2018 and U+2019 are appropriate
+#. for your locale.
+#.
+#. If you don't know what to put here, please see
+#. <https://en.wikipedia.org/wiki/Quotation_marks_in_other_languages>
+#. and use glyphs suitable for your language.
+#: gnu/quotearg.c:362
+msgid "`"
+msgstr "«"
+
+#: gnu/quotearg.c:363
+msgid "'"
+msgstr "»"
+
+#. TRANSLATORS: A regular expression testing for an affirmative answer
+#. (english: "yes").  Testing the first character may be sufficient.
+#. Take care to consider upper and lower case.
+#. To enquire the regular expression that your system uses for this
+#. purpose, you can use the command
+#. locale -k LC_MESSAGES | grep '^yesexpr='
+#: gnu/rpmatch.c:150
+msgid "^[yY]"
+msgstr "^[sSyY]"
+
+#. TRANSLATORS: A regular expression testing for a negative answer
+#. (english: "no").  Testing the first character may be sufficient.
+#. Take care to consider upper and lower case.
+#. To enquire the regular expression that your system uses for this
+#. purpose, you can use the command
+#. locale -k LC_MESSAGES | grep '^noexpr='
+#: gnu/rpmatch.c:163
+msgid "^[nN]"
+msgstr "^[nN]"
+
+#: gnu/version-etc.c:74
+#, c-format
+msgid "Packaged by %s (%s)\n"
+msgstr "Empaquetado por %s (%s)\n"
+
+#: gnu/version-etc.c:77
+#, c-format
+msgid "Packaged by %s\n"
+msgstr "Empaquetado por %s\n"
+
+#. TRANSLATORS: Translate "(C)" to the copyright symbol
+#. (C-in-a-circle), if this symbol is available in the user's
+#. locale.  Otherwise, do not translate "(C)"; leave it as-is.
+#: gnu/version-etc.c:84
+msgid "(C)"
+msgstr "©"
+
+#: gnu/version-etc.c:86
+msgid ""
+"\n"
+"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
+"\n"
+msgstr ""
+"\n"
+"License GPLv3+: GPL de GNU versión 3 o posterior <https://gnu.org/licenses/gpl.html>\n"
+"Esto es software libre: usted es libre de cambiarlo y redistribuirlo.\n"
+"No hay NINGUNA GARANTÍA, hasta donde permite la ley.\n"
+"\n"
+
+#. TRANSLATORS: %s denotes an author name.
+#: gnu/version-etc.c:102
+#, c-format
+msgid "Written by %s.\n"
+msgstr "Escrito por %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: gnu/version-etc.c:106
+#, c-format
+msgid "Written by %s and %s.\n"
+msgstr "Escrito por %s y %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: gnu/version-etc.c:110
+#, c-format
+msgid "Written by %s, %s, and %s.\n"
+msgstr "Escrito por %s, %s y %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:117
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+"Escrito por %s, %s, %s,\n"
+"y %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:124
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+"Escrito por %s, %s, %s,\n"
+"%s, y %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:131
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, and %s.\n"
+msgstr ""
+"Escrito por %s, %s, %s,\n"
+"%s, %s, y %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:139
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, and %s.\n"
+msgstr ""
+"Escrito por %s, %s, %s,\n"
+"%s, %s, %s, y %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:147
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+"Escrito por %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"y %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:156
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+"Escrito por %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, y %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:167
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, %s, and others.\n"
+msgstr ""
+"Escrito por %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, %s, y otros.\n"
+
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: gnu/version-etc.c:245
+#, c-format
+msgid ""
+"\n"
+"Report bugs to: %s\n"
+msgstr ""
+"\n"
+"Comunicar errores a: %s\n"
+
+#: gnu/version-etc.c:247
+#, c-format
+msgid "Report %s bugs to: %s\n"
+msgstr "Comunicar errores en %s a: %s\n"
+
+#: gnu/version-etc.c:251
+#, c-format
+msgid "%s home page: <%s>\n"
+msgstr "Página de %s: <%s>\n"
+
+#: gnu/version-etc.c:253
+#, c-format
+msgid "%s home page: <https://www.gnu.org/software/%s/>\n"
+msgstr "Página de %s: <https://www.gnu.org/software/%s/>\n"
+
+#: gnu/version-etc.c:256
+msgid "General help using GNU software: <https://www.gnu.org/gethelp/>\n"
+msgstr "Ayuda general sobre el uso de software de GNU: <https://www.gnu.org/gethelp/>\n"
+
+# FIXME: Intraducible.
+#. TRANSLATORS: %s after `Cannot' is a function name, e.g. `Cannot open'.
+#. Directly translating this to another language will not work, first because
+#. %s itself is not translated.
+#. Translate it as `%s: Function %s failed'.
+#: lib/paxerror.c:60 lib/paxerror.c:73
+#, c-format
+msgid "%s: Cannot %s"
+msgstr "%s: No se puede efectuar %s"
+
+#. TRANSLATORS: %s after `Cannot' is a function name, e.g. `Cannot open'.
+#. Directly translating this to another language will not work, first because
+#. %s itself is not translated.
+#. Translate it as `%s: Function %s failed'.
+#: lib/paxerror.c:86
+#, c-format
+msgid "%s: Warning: Cannot %s"
+msgstr "%s: Atención: No se puede efectuar %s"
+
+#: lib/paxerror.c:95
+#, c-format
+msgid "%s: Cannot change mode to %s"
+msgstr "%s: No se puede cambiar el modo a %s"
+
+#: lib/paxerror.c:103
+#, c-format
+msgid "%s: Cannot change ownership to uid %lu, gid %lu"
+msgstr "%s: No se puede cambiar el propietario a uid %lu, gid %lu"
+
+#: lib/paxerror.c:129
+#, c-format
+msgid "%s: Cannot hard link to %s"
+msgstr "%s: No se puede crear un enlace duro a %s"
+
+#: lib/paxerror.c:181 lib/paxerror.c:213
+#, c-format
+msgid "%s: Read error at byte %s, while reading %lu byte"
+msgid_plural "%s: Read error at byte %s, while reading %lu bytes"
+msgstr[0] "%s: Error de lectura en el byte %s, al leer %lu byte"
+msgstr[1] "%s: Error de lectura en el byte %s, al leer %lu bytes"
+
+#: lib/paxerror.c:194
+#, c-format
+msgid "%s: Warning: Read error at byte %s, while reading %lu byte"
+msgid_plural "%s: Warning: Read error at byte %s, while reading %lu bytes"
+msgstr[0] "%s: Atención: Error de lectura en el byte %s, al leer %lu byte"
+msgstr[1] "%s: Atención: Error de lectura en el byte %s, al leer %lu bytes"
+
+#: lib/paxerror.c:261
+#, c-format
+msgid "%s: Cannot seek to %s"
+msgstr "%s: No se puede desplazar a %s"
+
+#: lib/paxerror.c:277
+#, c-format
+msgid "%s: Warning: Cannot seek to %s"
+msgstr "%s: Atención: No se puede desplazar a %s"
+
+#: lib/paxerror.c:286
+#, c-format
+msgid "%s: Cannot create symlink to %s"
+msgstr "%s: No se puede crear el enlace simbólico a %s"
+
+#: lib/paxerror.c:351
+#, c-format
+msgid "%s: Wrote only %lu of %lu byte"
+msgid_plural "%s: Wrote only %lu of %lu bytes"
+msgstr[0] "%s: Sólo se escribieron %lu de %lu byte"
+msgstr[1] "%s: Sólo se escribieron %lu de %lu bytes"
+
+# FIXME. This might not always work. Is `%.*s' male or female? sv
+#: lib/paxnames.c:140
+#, c-format
+msgid "Removing leading `%s' from member names"
+msgstr "Eliminando la `%s' inicial de los nombres"
+
+#: lib/paxnames.c:141
+#, c-format
+msgid "Removing leading `%s' from hard link targets"
+msgstr "Eliminando la `%s' inicial de los objetivos de los enlaces"
+
+# FIXME. This might not always work. Is `%.*s' male or female? sv
+#: lib/paxnames.c:154
+msgid "Substituting `.' for empty member name"
+msgstr "Se sustituye `.' por el nombre vacío"
+
+#: lib/paxnames.c:155
+msgid "Substituting `.' for empty hard link target"
+msgstr "Se sustituye `.' por un objetivo vacío de enlace duro"
+
+#: lib/rtapelib.c:299
+#, c-format
+msgid "exec/tcp: Service not available"
+msgstr "exec/tcp: Servicio no disponible"
+
+#: lib/rtapelib.c:303
+#, c-format
+msgid "stdin"
+msgstr "entrada estándar (stdin)"
+
+#: lib/rtapelib.c:306
+#, c-format
+msgid "stdout"
+msgstr "salida estándar (stdout)"
+
+# Lo mismo que con stat() em+
+# seek() es otra función. seek = "hacer seek()" ¡Estos
+# angloparlantes!
+#: lib/rtapelib.c:429
+#, c-format
+msgid "Cannot connect to %s: resolve failed"
+msgstr "No se puede conectar a %s: falló la resolución"
+
+#: lib/rtapelib.c:502
+#, c-format
+msgid "Cannot redirect files for remote shell"
+msgstr "No se pueden redireccionar los ficheros para un shell remoto"
+
+#: lib/rtapelib.c:516
+#, c-format
+msgid "Cannot execute remote shell"
+msgstr "No se puede ejecutar un shell remoto"
+
+#: rmt/rmt.c:432
+msgid "Seek direction out of range"
+msgstr "Dirección de desplazamiento fuera de rango"
+
+#: rmt/rmt.c:438
+msgid "Invalid seek direction"
+msgstr "Orden de desplazamiento inválida"
+
+#: rmt/rmt.c:446
+msgid "Invalid seek offset"
+msgstr "Desplazamiento inválido"
+
+#: rmt/rmt.c:452
+msgid "Seek offset out of range"
+msgstr "Desplazamiento fuera de rango"
+
+#: rmt/rmt.c:493 rmt/rmt.c:544 rmt/rmt.c:608
+msgid "Invalid byte count"
+msgstr "Número de bytes inválido"
+
+#: rmt/rmt.c:499 rmt/rmt.c:550 rmt/rmt.c:614 rmt/rmt.c:625
+msgid "Byte count out of range"
+msgstr "Número de bytes fuera de rango"
+
+# FIXME. Este es el único eof en minúsculas.
+#: rmt/rmt.c:558
+msgid "Premature eof"
+msgstr "Fin de fichero prematuro"
+
+#: rmt/rmt.c:601
+msgid "Invalid operation code"
+msgstr "Código de operación inválido"
+
+#: rmt/rmt.c:636 rmt/rmt.c:680
+msgid "Operation not supported"
+msgstr "Operación no soportada"
+
+# ¿No se referirá al autor a "mangled filenames"?... jmg
+# FIXME. Preguntárselo.
+#: rmt/rmt.c:664
+msgid "Unexpected arguments"
+msgstr "Argumentos inesperados"
+
+#: rmt/rmt.c:689
+msgid "Manipulate a tape drive, accepting commands from a remote process"
+msgstr "Maneja una unidad de cinta, aceptando órdenes de un proceso remoto"
+
+#: rmt/rmt.c:696 src/tar.c:432 src/tar.c:436 src/tar.c:610 src/tar.c:625
+#: src/tar.c:714 src/tar.c:730 tests/genfile.c:171
+msgid "NUMBER"
+msgstr "NÚMERO"
+
+#: rmt/rmt.c:697
+msgid "set debug level"
+msgstr "establece el nivel de depuración"
+
+#: rmt/rmt.c:698 src/names.c:71 src/names.c:75 src/names.c:93 src/names.c:103
+#: src/names.c:106 src/names.c:109 src/names.c:112 src/names.c:114
+#: src/tar.c:430 src/tar.c:511 src/tar.c:513 src/tar.c:615 src/tar.c:747
+#: tests/genfile.c:136 tests/genfile.c:185 tests/genfile.c:189
+#: tests/genfile.c:192 tests/genfile.c:198
+msgid "FILE"
+msgstr "FICHERO"
+
+#: rmt/rmt.c:699
+msgid "set debug output file name"
+msgstr "establece el nombre del fichero para la salida de depuración"
+
+#: rmt/rmt.c:715 rmt/rmt.c:783
+#, c-format
+msgid "cannot open %s"
+msgstr "No se puede abrir %s"
+
+#: rmt/rmt.c:780 tests/genfile.c:977 tests/genfile.c:994
+#, c-format
+msgid "too many arguments"
+msgstr "demasiados argumentos"
+
+#: rmt/rmt.c:822
+msgid "Garbage command"
+msgstr "Orden ininteligible"
+
+#: src/buffer.c:474 src/buffer.c:479 src/buffer.c:773 src/buffer.c:1415
+#: src/buffer.c:1452 src/buffer.c:1464 src/buffer.c:1493 src/delete.c:211
+#: src/list.c:275 src/update.c:188
+msgid "This does not look like a tar archive"
+msgstr "Esto no parece un archivo tar"
+
+#: src/buffer.c:590
+msgid "Total bytes read"
+msgstr "Bytes leídos en total"
+
+# ¿No es mejor "Total de bytes escritos: "?
+# Suena más directo y más similar al original,
+# "bytes escritos en total" suena demasiado complejo... Nicolás Lichtmaier.
+# Suena algo extraño eso de "total de bytes". "en total" me suena
+# mucho más natural. sv
+#: src/buffer.c:592
+msgid "Total bytes written"
+msgstr "Bytes escritos en total"
+
+# ¿No es mejor "Total de bytes escritos: "?
+# Suena más directo y más similar al original,
+# "bytes escritos en total" suena demasiado complejo... Nicolás Lichtmaier.
+# Suena algo extraño eso de "total de bytes". "en total" me suena
+# mucho más natural. sv
+#: src/buffer.c:593
+msgid "Total bytes deleted"
+msgstr "Bytes borrados en total"
+
+# Antes de que nadie diga nada:
+#
+# Si a alguien no le gusta la palabra tubería (que aparece en algunos
+# libros sobre MS-DOS y es la que venimos usando desde el principio) que
+# haga una propuesta seria de cambio, pero que sepa que abriríamos la caja
+# de Pandora, pues hay muchas palabras posibles para pipe: tubería,
+# conducto, cañería, canal, etc.
+#
+# En cuanto a poner (pipe) entre paréntesis, es una mala costumbre que
+# deberíamos desterrar ya. Eso se hace en los libros la primera vez, pero
+# aquí no sólo no hay primera vez, sino que el mismo mensaje puede
+# aparecer *varias* veces, y entonces sí que es una paliza.
+# Ejemplo de paliza: "tubería rota" en libc. Sale muchísimo y no es
+# cuestión de ver (pipe) cuarenta veces al día...
+#: src/buffer.c:672
+msgid "(pipe)"
+msgstr "(tubería)"
+
+#: src/buffer.c:696
+msgid "Refusing to read archive contents from terminal (missing -f option?)"
+msgstr "Declinando leer contenido de archivo desde terminal (¿falta la opción -f)?"
+
+#: src/buffer.c:698
+msgid "Refusing to write archive contents to terminal (missing -f option?)"
+msgstr "Declinando escribir contenido de archivo a terminal (¿falta la opción -f)?"
+
+# ¿No queda más bonita la 1ª comilla abierta así: `record_size'?
+# Sí. FIXME. Comunicar al autor. sv
+#: src/buffer.c:711
+msgid "Invalid value for record_size"
+msgstr "El valor de `record_size' no es válido"
+
+#: src/buffer.c:714
+msgid "No archive name given"
+msgstr "No se ha especificado ningún nombre de archivo"
+
+# FIXME: Si la entrada/salida estándar no es un archivo, ¿por qué el
+# original se refiere a ella como tal?
+#
+# En cierto sentido, sí es un archivo, o se puede emplear como tal.
+# Tar al menos la trata así, en `tar -f -' (o sin la opción -f en este
+# GNU tar)'; luego la E/S std. puede ser un archivo "real" de disco:
+# tar ... -f - > arch.tar       gerardo
+#
+# Esto corresponde a la opción --verify.
+# Ejemplos: "tar cWf - ." y "tar xWf -"
+# o sea que una traducción correcta se vería más como:
+# "No se puede verificar un archivo desde/hacia la entrada/salida estándar"
+# o algo así. Quizá "No se puede verificar un archivo tomado de la entrada
+# estándar o escrito hacia la salida estándar", pero es un poco largo.. =)
+#
+#: src/buffer.c:757
+msgid "Cannot verify stdin/stdout archive"
+msgstr "No se puede verificar la entrada/salida estándar"
+
+#: src/buffer.c:770
+#, c-format
+msgid "Archive is compressed. Use %s option"
+msgstr "El archivo está comprimido. Utilice la opción %s"
+
+#: src/buffer.c:828 src/tar.c:2455
+msgid "Cannot update compressed archives"
+msgstr "No se pueden actualizar archivos comprimidos"
+
+#: src/buffer.c:928
+msgid "At beginning of tape, quitting now"
+msgstr "Al principio de la cinta, se terminará ahora"
+
+#: src/buffer.c:934
+msgid "Too many errors, quitting"
+msgstr "Demasiados errores, abandono"
+
+#: src/buffer.c:967
+#, c-format
+msgid "Record size = %lu block"
+msgid_plural "Record size = %lu blocks"
+msgstr[0] "Tamaño del registro = %lu bloque"
+msgstr[1] "Tamaño del registro = %lu bloques"
+
+#: src/buffer.c:988
+#, c-format
+msgid "Unaligned block (%lu byte) in archive"
+msgid_plural "Unaligned block (%lu bytes) in archive"
+msgstr[0] "Bloque no alineado (%lu byte) dentro del archivo"
+msgstr[1] "Bloque no alineado (%lu bytes) dentro del archivo"
+
+#: src/buffer.c:1075
+msgid "Cannot backspace archive file; it may be unreadable without -i"
+msgstr "No se puede ir hacia atrás en el archivo; puede ser ilegible sin -i"
+
+#: src/buffer.c:1107
+msgid "rmtlseek not stopped at a record boundary"
+msgstr "rmtlseek no paró en los límites de un registro"
+
+#: src/buffer.c:1168
+#, c-format
+msgid "%s: contains invalid volume number"
+msgstr "%s: contiene un número de volumen inválido"
+
+#: src/buffer.c:1203
+msgid "Volume number overflow"
+msgstr "Desbordamiento en el número de volumen"
+
+#: src/buffer.c:1218
+#, c-format
+msgid "Prepare volume #%d for %s and hit return: "
+msgstr "Prepare el volumen #%d para %s y pulse intro: "
+
+#: src/buffer.c:1224
+msgid "EOF where user reply was expected"
+msgstr "Se encontró un final de fichero mientras se esperaba respuesta del usuario"
+
+#: src/buffer.c:1229 src/buffer.c:1261
+msgid "WARNING: Archive is incomplete"
+msgstr "ATENCIÓN: El archivo está incompleto"
+
+# Antes de que nadie diga nada:
+# shell admite muchas traducciones, caparazón, concha, envoltorio, coraza,
+# etc. pero ninguna ha prosperado. Además, algunos nombres son innombrables
+# en ciertos países, así que mejor dejarlo como está.
+# Y si no se traduce, se queda en *el* shell, es decir, *neutro*.
+#
+# Ya que volúmenes se acentúa, ¿habría que poner "volumen/volúmenes"
+# en lugar de "volumen(es)"?
+# No me gusta, ya que sólo es plural con la parte entre paréntesis "(y consecutivos)". fr
+# Creo que esta bien así Gerardo. em+
+# # Cuidadín. ¿El nombre de archivo se le da *al* volumen? Literalmente
+# # dice que da un nuevo nombre *para* el sgute. volumen, pero ¿ese
+# # nombre es el del volumen? No entiendo bien el contexto; quizá
+# # habría que mirar el código fuente o ver cuándo sale este
+# # mensaje.
+# # Otra cosa es eso de "abortar". No sé si se habrá tratado en
+# # spanglish o en es@li.org, pero suena muy feo, ¿no? Quizá "Sale
+# # inmediatamente de tar".
+#
+# "Print this list" es exactamente "Imprime esta lista" o a lo sumo "Muestra
+# esta lista". No veo que diga ayuda en ninguna parte, no creo que un
+# traductor deba ser más inteligente que el escritor original.. =) nl
+# Yo creo que a veces sí :-) sv
+# Sí, un programador no tiene por qué ser buen escritor :-) En un fortune me
+# salió una vez: "Los que no saben escribir, escriben manuales". :-)
+# A mí aquí me da igual lista que ayuda, de las dos formas se entiende. Manda
+# el traductor original. gerardo
+# ¿A alguien más le parece mal que ponga ayuda en vez de lista? sv
+#: src/buffer.c:1243
+#, c-format
+msgid ""
+" n name        Give a new file name for the next (and subsequent) volume(s)\n"
+" q             Abort tar\n"
+" y or newline  Continue operation\n"
+msgstr ""
+" n nombre      Da un nuevo nombre de archivo al siguiente\n"
+"               (y consecutivos) volumen(es)\n"
+" q             Aborta tar\n"
+" y o Intro     Sigue\n"
+
+#: src/buffer.c:1248
+#, c-format
+msgid " !             Spawn a subshell\n"
+msgstr " !             Lanza un subshell\n"
+
+#: src/buffer.c:1249
+#, c-format
+msgid " ?             Print this list\n"
+msgstr " ?             Muestra esta lista\n"
+
+# "saliendo"->"finalizando". jmg
+# Je, je, ¿no has leído, Santiago, el `dardo' de Fdo. Lázaro Carreter sobre
+# finalizar? No sé por qué quitar lo de salir, to exit es salir, no acabar.
+# Uno se sale del programa, y éste acaba. En realidad, también da igual, de
+# cualquier forma se entiende, pero mejor acabar o terminar que finalizar,
+# total, son sinónimos. gerardo
+#: src/buffer.c:1256
+msgid "No new volume; exiting.\n"
+msgstr "No hay volumen nuevo; finalizando.\n"
+
+#: src/buffer.c:1289
+msgid "File name not specified. Try again.\n"
+msgstr "No se ha especificado el nombre del fichero. Inténtelo de nuevo.\n"
+
+#: src/buffer.c:1301
+#, c-format
+msgid "Invalid input. Type ? for help.\n"
+msgstr "Entrada inválida. Teclee ? para obtener ayuda.\n"
+
+#: src/buffer.c:1352
+#, c-format
+msgid "%s command failed"
+msgstr "La orden %s falló"
+
+#: src/buffer.c:1529 src/buffer.c:1545
+#, c-format
+msgid "%s is not continued on this volume"
+msgstr "%s no continúa en este volumen"
+
+#: src/buffer.c:1541
+#, c-format
+msgid "%s is possibly continued on this volume: header contains truncated name"
+msgstr "%s posiblemente continúa en este volumen: la cabecera contiene un nombre truncado"
+
+#: src/buffer.c:1559
+#, c-format
+msgid "%s is the wrong size (%s != %s + %s)"
+msgstr "%s tiene un tamaño erróneo (%s != %s + %s)"
+
+# Sugerencia: está fuera de secuencia -> no está en orden. sv
+# Creo recordar que en el CPBackup de Central Point ponía lo de "fuera de
+# secuencia". fr
+# Buena referencia :-).
+# El comentario habrá que conservarlo en la versión final. sv
+# Bueno, la verdad es que ahora que lo pienso, me parece una mala
+# traducción... ¿opiniones? sv
+# Me parece correcta la traducción "literal", pero me gusta
+# más tu sugerencia  - gerardo
+# El problema es que un volumen individual no puede estar desordenado.
+# Lo que está ordenado o no es la sucesión entera.
+# Un volumen individual puede estar fuera de lugar, pero no desordenado
+# él solito.
+# Todavía espero una solución mágica que sea mejor que las dos
+# que tenemos hasta ahora.
+#: src/buffer.c:1574
+#, c-format
+msgid "This volume is out of sequence (%s - %s != %s)"
+msgstr "Este volumen está fuera de secuencia (%s - %s != %s)"
+
+# Ojo que esto podría referirse a "is not being labelled NOW" en vez de
+# "isn't labelled". Pero no tengo los fuentes para ver la intención
+# original. nl
+# Si no se sabe eso, se podría dejar de forma más neutra como
+# "Archivo no etiquetado para concordancia con `%s'" - gerardo (gag)
+# FIXME: Preguntar.
+#: src/buffer.c:1652 src/buffer.c:1678
+#, c-format
+msgid "Archive not labeled to match %s"
+msgstr "El archivo no está etiquetado para que coincida con %s"
+
+#: src/buffer.c:1682
+#, c-format
+msgid "Volume %s does not match %s"
+msgstr "El volumen %s no coincide con %s"
+
+#: src/buffer.c:1774
+#, c-format
+msgid "%s: file name too long to be stored in a GNU multivolume header, truncated"
+msgstr ""
+"%s: el nombre del fichero es demasiado largo para almacenarse en una cabecera\n"
+"multivolumen de GNU, se trunca"
+
+# Según gag y jmg, hay que decir: "no está en un límite de bloque", pues
+# no estamos hablando de un bloque concreto (el bloque) sino de uno cualquiera.
+# FIXME: Entonces tal vez el original debería decir "on a block boundary". sv
+#: src/buffer.c:1965
+msgid "write did not end on a block boundary"
+msgstr "la escritura no terminó en un límite de bloque"
+
+#: src/compare.c:98
+#, c-format
+msgid "Could only read %lu of %lu byte"
+msgid_plural "Could only read %lu of %lu bytes"
+msgstr[0] "Sólo se pudieron leer %lu de %lu byte"
+msgstr[1] "Sólo se pudieron leer %lu de %lu bytes"
+
+#: src/compare.c:108 src/compare.c:398
+msgid "Contents differ"
+msgstr "El contenido es distinto"
+
+#: src/compare.c:134 src/extract.c:1204 src/incremen.c:1508 src/list.c:488
+#: src/list.c:1404 src/xheader.c:847
+msgid "Unexpected EOF in archive"
+msgstr "Fin de fichero inesperado en el archivo"
+
+#: src/compare.c:182 src/compare.c:198 src/compare.c:317 src/compare.c:422
+msgid "File type differs"
+msgstr "El tipo de fichero es distinto"
+
+# El autor quería un mensaje muy conciso, y en la traducción se expande a una
+# oración completa.. ¿Por qué? Debería ser "Distinto modo".
+# Porque el idioma inglés es más corto. Si a cada frase corta le hago
+# corresponder siempre una frase corta española, el resultado sonará a indio
+# completamente (me refiero a los indios esos de las películas del oeste,
+# que solamente hablan con sustantivos, verbos y adjetivos). sv
+#: src/compare.c:185 src/compare.c:205 src/compare.c:331
+msgid "Mode differs"
+msgstr "El modo es distinto"
+
+#: src/compare.c:208
+msgid "Uid differs"
+msgstr "El uid es distinto"
+
+#: src/compare.c:210
+msgid "Gid differs"
+msgstr "El gid es distinto"
+
+#: src/compare.c:214
+msgid "Mod time differs"
+msgstr "La fecha de modificación es distinta"
+
+#: src/compare.c:218 src/compare.c:432
+msgid "Size differs"
+msgstr "El tamaño es distinto"
+
+# Creo que este enlace se efectúa al descomprimir un archivo tar.
+# No es que nos diga si está enlazado o no lo está, sino si él hace
+# el enlace o no lo hace. sv
+#: src/compare.c:267
+#, c-format
+msgid "Not linked to %s"
+msgstr "No se enlaza a %s"
+
+#: src/compare.c:293
+msgid "Symlink differs"
+msgstr "El enlace simbólico es distinto"
+
+#: src/compare.c:325
+msgid "Device number differs"
+msgstr "El número de dispositivo es distinto"
+
+# "Verifica ". Supongo que depende de si se concatena en algún
+# mensaje. jmg
+# FUZZY. Es verdad, habrá que verlo.
+#: src/compare.c:473
+#, c-format
+msgid "Verify "
+msgstr "Verificar "
+
+# # ¿Quizá diffed es el participio de diff, siendo esto un verbo tomado
+# # del nombre del programa diff? Entonces querría decir que se ha
+# # efectuado un diff como si el *fichero* hubiera sido normal. Yo sólo
+# # cambiaría "se toma" por "se ha tomado". gag
+# Es norma habitual convertir un pasado en un presente en estos casos.
+# Realmente, dice lo que hace y no lo que ha hecho. sv
+#: src/compare.c:480
+#, c-format
+msgid "%s: Unknown file type '%c', diffed as normal file"
+msgstr ""
+"%s: Tipo de fichero '%c' desconocido, se toma la diferencia\n"
+"como fichero normal"
+
+#: src/compare.c:535
+msgid "Archive contains file names with leading prefixes removed."
+msgstr "El archivo contiene nombres de fichero con los prefijos iniciales eliminados."
+
+#: src/compare.c:541
+msgid "Archive contains transformed file names."
+msgstr "El archivo contiene nombres de fichero transformados."
+
+#: src/compare.c:546
+msgid "Verification may fail to locate original files."
+msgstr "Puede que la verificación no encuentre los ficheros originales."
+
+#: src/compare.c:620
+#, c-format
+msgid "VERIFY FAILURE: %d invalid header detected"
+msgid_plural "VERIFY FAILURE: %d invalid headers detected"
+msgstr[0] "FALLO DE VERIFICACIÓN: %d cabecera inválida detectada"
+msgstr[1] "FALLO DE VERIFICACIÓN: %d cabeceras inválidas detectadas"
+
+#: src/compare.c:638 src/list.c:252
+#, c-format
+msgid "A lone zero block at %s"
+msgstr "Un bloque de ceros aislado en %s"
+
+#: src/create.c:74
+#, c-format
+msgid "%s: contains a cache directory tag %s; %s"
+msgstr "%s: contiene una marca de directorio caché %s; %s"
+
+#: src/create.c:263
+#, c-format
+msgid "value %s out of %s range %s..%s; substituting %s"
+msgstr "valor %s fuera del rango %s %s..%s; se sustituye %s"
+
+#: src/create.c:269
+#, c-format
+msgid "value %s out of %s range %s..%s"
+msgstr "valor %s fuera del rango %s %s..%s"
+
+#: src/create.c:329
+msgid "Generating negative octal headers"
+msgstr "Generando cabeceras octales negativas"
+
+#: src/create.c:606 src/create.c:669
+#, c-format
+msgid "%s: file name is too long (max %d); not dumped"
+msgstr "%s: el nombre del fichero es demasiado largo (máx %d); no se vuelca"
+
+#: src/create.c:616
+#, c-format
+msgid "%s: file name is too long (cannot be split); not dumped"
+msgstr "%s: el nombre del fichero es demasiado largo (no se puede dividir); no se vuelca"
+
+#: src/create.c:643
+#, c-format
+msgid "%s: link name is too long; not dumped"
+msgstr "%s: el nombre del enlace es demasiado largo; no se vuelca"
+
+# "se rellena" debería ser "rellenando". "se rellena" puede entenderse como
+# varias cosas, no queda claro que es lo que se esta haciendo, podría indicar
+# lo que se suele hacer.. =)   "rellenando con ceros" es perfecto y es
+# exactamente lo que está escrito en el original. sv
+#
+# Que sí, reconozco que la traducción es un poco libre.
+# Pero mi intención es que el programa diga lo que va haciendo, no lo que ya
+# ha hecho. Ni siquiera el original es consistente en los modos verbales. sv
+#: src/create.c:1106
+#, c-format
+msgid "%s: File shrank by %s byte; padding with zeros"
+msgid_plural "%s: File shrank by %s bytes; padding with zeros"
+msgstr[0] "%s: El tamaño del fichero ha disminuido en %s byte, se rellena con ceros"
+msgstr[1] "%s: El tamaño del fichero ha disminuido en %s bytes, se rellena con ceros"
+
+#: src/create.c:1204
+#, c-format
+msgid "%s: file is on a different filesystem; not dumped"
+msgstr "%s: el fichero está en un sistema de ficheros distinto; no se vuelca"
+
+# Se vuelca la *memoria* del proceso en un fichero llamado `core'.
+#: src/create.c:1247 src/create.c:1258 src/incremen.c:610 src/incremen.c:617
+msgid "contents not dumped"
+msgstr "no se vuelca el contenido"
+
+# ignore no es ignorar, es "no hacer caso"
+# se puede usar: no tener en cuenta, descartar, no tener efecto,
+# pasar por alto,
+# ignorar es "not to know". sv
+# ¿Y cuando se ignora a una persona ;-)? fr
+# Lo mismo: Está mal dicho, se dice que no le haces caso a esa persona.
+# Si no me crees busca "ignore" en algún buen diccionario.
+# O mira la lista de pifias de Ángel Álvarez directamente.
+# La tengo en ftp.unex.es.
+# Lo siento, Santiago, hemos sido derrotados; "ignorar" ya viene en los
+# diccionarios de español, y creo que hasta en el DRAE, con el significado
+# que tiene en inglés "to ignore"; aunque nosotros podemos ignorarlo ;-)
+# y seguir en la ortodoxia castellana :-) gerardo
+# Seguiremos en la ortodoxia, pero aún así, no puedo creerme que venga
+# en el DRAE. ¿Estás seguro? sv
+# No, no me compré el DRAE. Pregúntalo a spanglish (si te atreves ;-) gerardo
+#: src/create.c:1464
+#, c-format
+msgid "%s: Unknown file type; file ignored"
+msgstr "%s: Tipo de fichero desconocido; no se tendrá en cuenta"
+
+#: src/create.c:1576
+#, c-format
+msgid "Missing links to %s."
+msgstr "Faltan enlaces a %s."
+
+#: src/create.c:1737
+#, c-format
+msgid "%s: file is unchanged; not dumped"
+msgstr "%s: el fichero no ha cambiado; no se vuelca"
+
+# FIXME: Decir al autor que ponga el "itself". sv
+#: src/create.c:1746
+#, c-format
+msgid "%s: file is the archive; not dumped"
+msgstr "%s: el fichero es el propio archivo; no se vuelca"
+
+#: src/create.c:1774 src/incremen.c:603
+msgid "directory not dumped"
+msgstr "no se vuelca el directorio"
+
+#: src/create.c:1846
+#, c-format
+msgid "%s: file changed as we read it"
+msgstr "%s: el fichero cambió mientras se estaba leyendo"
+
+#: src/create.c:1922
+#, c-format
+msgid "%s: socket ignored"
+msgstr "%s: el `socket' no se tendrá en cuenta"
+
+#: src/create.c:1928
+#, c-format
+msgid "%s: door ignored"
+msgstr "%s: no se tendrá en cuenta la puerta"
+
+#: src/delete.c:216 src/list.c:288 src/update.c:192
+msgid "Skipping to next header"
+msgstr "Saltando a la siguiente cabecera"
+
+#: src/delete.c:281
+msgid "Deleting non-header from archive"
+msgstr "Borrando no-cabecera del archivo"
+
+#: src/extract.c:302
+#, c-format
+msgid "%s: implausibly old time stamp %s"
+msgstr "%s: marca de fecha sospechosamente antigua %s"
+
+#: src/extract.c:320
+#, c-format
+msgid "%s: time stamp %s is %s s in the future"
+msgstr "%s: la marca de tiempo %s está %s s en el futuro"
+
+#: src/extract.c:553
+#, c-format
+msgid "%s: Unexpected inconsistency when making directory"
+msgstr "%s: Inconsistencia inesperada al crear el directorio"
+
+#: src/extract.c:771
+#, c-format
+msgid "%s: skipping existing file"
+msgstr "%s: se salta un fichero que existe"
+
+#: src/extract.c:901
+#, c-format
+msgid "%s: Directory renamed before its status could be extracted"
+msgstr "%s: El directorio fue renombrado antes de que se pudiera extraer su estado"
+
+# Nota: En Unix, se llama fichero *regular* al que no es ni un directorio,
+# ni un dispositivo (de bloques o de caracteres) ni un fifo, etc.
+# Uno puede pensar que son los ficheros "normales", pero eso depende,
+# pues un directorio es de lo más "normal"...
+#: src/extract.c:1086
+msgid "Extracting contiguous files as regular files"
+msgstr "Extrayendo ficheros contiguos como ficheros regulares"
+
+# ¿Enlaces fuertes? Aquí los profes. de Sistemas Operativos y otros
+# dicen "enlaces duros", y creo que los libros también lo ponen así. gag
+# Es una cuestión todavía no dirimida.
+# ¿Tienes algún dato más? ¿Qué dicen los libros? sv
+# Enlaces duros. Lo acabo de mirar en un libro. gag
+#: src/extract.c:1433
+msgid "Attempting extraction of symbolic links as hard links"
+msgstr "Intentando la extracción de enlaces simbólicos como enlaces duros"
+
+#: src/extract.c:1596
+#, c-format
+msgid "%s: Cannot extract -- file is continued from another volume"
+msgstr "%s: No se puede extraer -- el fichero es continuación de otro volumen"
+
+# ¿No se referirá al autor a "mangled filenames"?... jmg
+# FIXME. Preguntárselo.
+#: src/extract.c:1603 src/list.c:1167
+msgid "Unexpected long name header"
+msgstr "Cabecera de nombres largos inesperada"
+
+#: src/extract.c:1610
+#, c-format
+msgid "%s: Unknown file type '%c', extracted as normal file"
+msgstr "%s: Tipo de fichero '%c' desconocido, se extrae como fichero normal"
+
+#: src/extract.c:1636
+#, c-format
+msgid "Current %s is newer or same age"
+msgstr "El %s actual es más reciente o de la misma fecha"
+
+#: src/extract.c:1664
+#, c-format
+msgid "%s: Member name contains '..'"
+msgstr "%s: El nombre del miembro contiene '..'"
+
+#: src/extract.c:1696
+#, c-format
+msgid "%s: Was unable to backup this file"
+msgstr "%s: No se pudo hacer copia de seguridad de este fichero"
+
+#: src/extract.c:1845
+#, c-format
+msgid "Cannot rename %s to %s"
+msgstr "No se puede renombrar %s a %s"
+
+#: src/incremen.c:494 src/incremen.c:536
+#, c-format
+msgid "%s: Directory has been renamed from %s"
+msgstr "%s: El directorio ha sido renombrado desde %s"
+
+#: src/incremen.c:549
+#, c-format
+msgid "%s: Directory is new"
+msgstr "%s: El directorio es nuevo"
+
+#: src/incremen.c:566
+#, c-format
+msgid "%s: directory is on a different filesystem; not dumped"
+msgstr "%s: el directorio está en un sistema de ficheros distinto; no se vuelca"
+
+#: src/incremen.c:587
+#, c-format
+msgid "%s: Directory has been renamed"
+msgstr "%s: El directorio ha sido renombrado"
+
+#: src/incremen.c:1003 src/incremen.c:1018
+msgid "Invalid time stamp"
+msgstr "Marca de tiempo inválida"
+
+#: src/incremen.c:1047
+msgid "Invalid modification time"
+msgstr "Fecha de modificación inválida"
+
+#: src/incremen.c:1057
+msgid "Invalid modification time (nanoseconds)"
+msgstr "Fecha de modificación inválida (nanosegundos)"
+
+#: src/incremen.c:1073
+msgid "Invalid device number"
+msgstr "Número de dispositivo inválido"
+
+#: src/incremen.c:1081
+msgid "Invalid inode number"
+msgstr "Número de nodo-i inválido"
+
+#: src/incremen.c:1137
+#, c-format
+msgid "%s: byte %s: %s %.*s... too long"
+msgstr "%s: byte %s: %s %.*s... demasiado largo"
+
+#: src/incremen.c:1153 src/incremen.c:1211 src/incremen.c:1273
+msgid "Unexpected EOF in snapshot file"
+msgstr "Fin de fichero inesperado en el archivo de instantánea"
+
+#: src/incremen.c:1161
+#, c-format
+msgid "%s: byte %s: %s %s followed by invalid byte 0x%02x"
+msgstr "%s: byte %s: %s %s seguido por el byte inválido 0x%02x"
+
+#: src/incremen.c:1174
+#, c-format
+msgid ""
+"%s: byte %s: (valid range %s..%s)\n"
+"\t%s %s"
+msgstr ""
+"%s: byte %s: (el rango válido es %s..%s)\n"
+"\t%s %s"
+
+#: src/incremen.c:1181
+#, c-format
+msgid "%s: byte %s: %s %s"
+msgstr "%s: byte %s: %s %s"
+
+#: src/incremen.c:1262
+#, c-format
+msgid "%s: byte %s: %s"
+msgstr "%s: byte %s: %s"
+
+#: src/incremen.c:1265
+msgid "Missing record terminator"
+msgstr "Falta la terminación del registro"
+
+#: src/incremen.c:1371 src/incremen.c:1374
+msgid "Bad incremental file format"
+msgstr "Formato erróneo de fichero incremental"
+
+#: src/incremen.c:1393
+#, c-format
+msgid "Unsupported incremental format version: %<PRIuMAX>"
+msgstr "Versión no soportada de formato incremental: %<PRIuMAX>"
+
+#: src/incremen.c:1549
+#, c-format
+msgid "Malformed dumpdir: expected '%c' but found %#3o"
+msgstr "Dumpdir erróneo: se esperaba '%c' pero se encontró %#3o"
+
+#: src/incremen.c:1559
+msgid "Malformed dumpdir: 'X' duplicated"
+msgstr "Dumpdir erróneo: 'X' duplicado"
+
+#: src/incremen.c:1572
+msgid "Malformed dumpdir: empty name in 'R'"
+msgstr "Dumpdir erróneo: nombre vacío en 'R'"
+
+#: src/incremen.c:1585
+msgid "Malformed dumpdir: 'T' not preceded by 'R'"
+msgstr "Dumpdir erróneo: 'T' no está precedido por 'R'"
+
+#: src/incremen.c:1591
+msgid "Malformed dumpdir: empty name in 'T'"
+msgstr "Dumpdir erróneo: nombre vacío en 'T'"
+
+#: src/incremen.c:1611
+#, c-format
+msgid "Malformed dumpdir: expected '%c' but found end of data"
+msgstr "Dumpdir erróneo: se esperaba '%c' pero se encontró el final de los datos"
+
+#: src/incremen.c:1618
+msgid "Malformed dumpdir: 'X' never used"
+msgstr "Dumpdir erróneo: no se ha utilizado nunca 'X'"
+
+#: src/incremen.c:1662
+#, c-format
+msgid "Cannot create temporary directory using template %s"
+msgstr "No se puede crear un directorio temporal usando la plantilla %s"
+
+#: src/incremen.c:1723
+#, c-format
+msgid "%s: Not purging directory: unable to stat"
+msgstr "%s: No se purga el directorio: no se puede efectuar `stat'"
+
+#: src/incremen.c:1736
+#, c-format
+msgid "%s: directory is on a different device: not purging"
+msgstr "%s: el directorio está en un dispositivo distinto: no se purga"
+
+#: src/incremen.c:1744
+#, c-format
+msgid "%s: Deleting %s\n"
+msgstr "%s: Borrando %s\n"
+
+#: src/incremen.c:1749
+#, c-format
+msgid "%s: Cannot remove"
+msgstr "%s: No se puede borrar"
+
+#: src/list.c:219
+#, c-format
+msgid "%s: Omitting"
+msgstr "%s: Se omite"
+
+#: src/list.c:237
+#, c-format
+msgid "block %s: ** Block of NULs **\n"
+msgstr "bloque %s: ** Bloque de NULos **\n"
+
+#: src/list.c:263
+#, c-format
+msgid "block %s: ** End of File **\n"
+msgstr "bloque %s: ** Fin de Fichero **\n"
+
+#: src/list.c:285 src/list.c:1136 src/list.c:1372
+#, c-format
+msgid "block %s: "
+msgstr "bloque %s: "
+
+#. TRANSLATORS: %s is type of the value (gid_t, uid_t,
+#. etc.)
+#: src/list.c:751
+#, c-format
+msgid "Blanks in header where numeric %s value expected"
+msgstr "Hay blancos en la cabecera cuando se esperaba el valor numérico %s"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:806
+#, c-format
+msgid "Archive octal value %.*s is out of %s range; assuming two's complement"
+msgstr ""
+"El valor octal %.*s del archivo está fuera del rango %s;\n"
+"se supone complemento a dos"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:817
+#, c-format
+msgid "Archive octal value %.*s is out of %s range"
+msgstr "El valor octal %.*s del archivo está fuera del rango %s"
+
+#: src/list.c:838
+msgid "Archive contains obsolescent base-64 headers"
+msgstr "El archivo contiene cabeceras base 64 obsoletas"
+
+#: src/list.c:852
+#, c-format
+msgid "Archive signed base-64 string %s is out of %s range"
+msgstr "La cadena firmada en base 64 %s del archivo está fuera del rango %s"
+
+#: src/list.c:883
+#, c-format
+msgid "Archive base-256 value is out of %s range"
+msgstr "El valor en base 256 del archivo está fuera del rango %s"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:912
+#, c-format
+msgid "Archive contains %.*s where numeric %s value expected"
+msgstr "El archivo contiene %.*s donde se esperaba el valor numérico %s"
+
+#. TRANSLATORS: Second %s is type name (gid_t,uid_t,etc.)
+#: src/list.c:934
+#, c-format
+msgid "Archive value %s is out of %s range %s..%s"
+msgstr "El valor del archivo %s está fuera del rango de %s %s..%s"
+
+#: src/list.c:1272
+#, c-format
+msgid " link to %s\n"
+msgstr " enlace a %s\n"
+
+#: src/list.c:1280
+#, c-format
+msgid " unknown file type %s\n"
+msgstr " tipo de fichero desconocido %s\n"
+
+#: src/list.c:1298
+#, c-format
+msgid "--Long Link--\n"
+msgstr "--Enlace largo--\n"
+
+#: src/list.c:1302
+#, c-format
+msgid "--Long Name--\n"
+msgstr "--Nombre largo--\n"
+
+#: src/list.c:1306
+#, c-format
+msgid "--Volume Header--\n"
+msgstr "--Cabecera de Volumen--\n"
+
+#: src/list.c:1314
+#, c-format
+msgid "--Continued at byte %s--\n"
+msgstr "--Continúa en el byte %s--\n"
+
+#: src/list.c:1377
+msgid "Creating directory:"
+msgstr "Creando el directorio:"
+
+#: src/misc.c:738
+#, c-format
+msgid "Renaming %s to %s\n"
+msgstr "Se renombra %s como %s\n"
+
+#: src/misc.c:747 src/misc.c:766
+#, c-format
+msgid "%s: Cannot rename to %s"
+msgstr "%s: No se puede renombrar a %s"
+
+#: src/misc.c:771
+#, c-format
+msgid "Renaming %s back to %s\n"
+msgstr "Se vuelve a renombrar %s como %s\n"
+
+#: src/misc.c:1134
+#, c-format
+msgid "%s: File removed before we read it"
+msgstr "%s: El fichero fue borrado antes de leerlo"
+
+#: src/misc.c:1148
+msgid "child process"
+msgstr "proceso hijo"
+
+#: src/misc.c:1157
+msgid "interprocess channel"
+msgstr "canal de interproceso"
+
+#: src/names.c:69
+msgid "Local file name selection:"
+msgstr "Selección del fichero local:"
+
+#: src/names.c:72
+msgid "add given FILE to the archive (useful if its name starts with a dash)"
+msgstr "añade el FICHERO dado al archivo (útil si su nombre comienza con un guion)"
+
+#: src/names.c:73 src/tar.c:484
+msgid "DIR"
+msgstr "DIR"
+
+#: src/names.c:74
+msgid "change to directory DIR"
+msgstr "cambia al directorio DIR"
+
+#: src/names.c:76
+msgid "get names to extract or create from FILE"
+msgstr "obtiene los nombres que se van a extraer o crear de FICHERO"
+
+#: src/names.c:78
+msgid "-T reads null-terminated names; implies --verbatim-files-from"
+msgstr "-T lee nombres terminados en nulo; implica --verbatim-files-from"
+
+#: src/names.c:81
+msgid "disable the effect of the previous --null option"
+msgstr "desactiva el efecto de la opción --null anterior"
+
+#: src/names.c:83
+msgid "unquote input file or member names (default)"
+msgstr "quita las comillas de los nombres de ficheros de entrada o de miembros (predeterminado)"
+
+#: src/names.c:85
+msgid "do not unquote input file or member names"
+msgstr "no quita las comillas de los nombres de ficheros de entrada o de miembros"
+
+#: src/names.c:87
+msgid "-T reads file names verbatim (no escape or option handling)"
+msgstr "-T lee nombres de fichero literalmente (sin manejo de escape ni de opciones)"
+
+#: src/names.c:89
+msgid "-T treats file names starting with dash as options (default)"
+msgstr "-T trata los nombres de fichero que comienzan con guión como opciones (predeterminado)"
+
+# Nota: La diferencia entre un PATRÓN y una EXPREG es que
+# el primero se refiere a un "globbing pattern", es decir, patrones
+# de expansión de nombres de ficheros, como * y ?, mientras que
+# el segundo se refiere a expresiones regulares como las de grep,
+# es decir, ^, $, ., *, etc.
+#: src/names.c:91 tests/genfile.c:140
+msgid "PATTERN"
+msgstr "PATRÓN"
+
+#: src/names.c:92
+msgid "exclude files, given as a PATTERN"
+msgstr "excluye ficheros, dados como un PATRÓN"
+
+#: src/names.c:94
+msgid "exclude patterns listed in FILE"
+msgstr "excluye los patrones listados en FICHERO"
+
+#: src/names.c:96
+msgid "exclude contents of directories containing CACHEDIR.TAG, except for the tag file itself"
+msgstr "excluye el contenido de los directorios que contienen CACHEDIR.TAG, excepto por el propio fichero CACHEDIR.TAG"
+
+#: src/names.c:99
+msgid "exclude everything under directories containing CACHEDIR.TAG"
+msgstr "excluye todo bajo los directorios que contienen CACHEDIR.TAG"
+
+#: src/names.c:102
+msgid "exclude directories containing CACHEDIR.TAG"
+msgstr "excluye los directorios que contienen CACHEDIR.TAG"
+
+#: src/names.c:104
+msgid "exclude contents of directories containing FILE, except for FILE itself"
+msgstr "excluye el contenido de los directorios que contengan FICHERO, excepto el propio FICHERO"
+
+#: src/names.c:107
+msgid "read exclude patterns for each directory from FILE, if it exists"
+msgstr "leer en FICHERO, si existe, los patrones de exclusión oara cada directorio"
+
+#: src/names.c:110
+msgid "read exclude patterns for each directory and its subdirectories from FILE, if it exists"
+msgstr "leer en FICHERO, si existe, los patrones de exclusión oara cada directorio sus subdirectorios"
+
+#: src/names.c:113
+msgid "exclude everything under directories containing FILE"
+msgstr "exclute todo bajo los directorios que contengan FICHERO"
+
+#: src/names.c:115
+msgid "exclude directories containing FILE"
+msgstr "excluye los directorios que contengan FICHERO"
+
+#: src/names.c:117
+msgid "exclude version control system directories"
+msgstr "excluye los directorios de sistemas de control de versiones"
+
+#: src/names.c:119
+msgid "read exclude patterns from the VCS ignore files"
+msgstr "lee los patrones de exclusión de los ficheros de descarte de VCS"
+
+#: src/names.c:121
+msgid "exclude backup and lock files"
+msgstr "excluye los ficheros de respaldo y de bloqueo"
+
+#: src/names.c:123
+msgid "recurse into directories (default)"
+msgstr "opera recursivamente sobre los directorios (por omisión)"
+
+#: src/names.c:125
+msgid "avoid descending automatically in directories"
+msgstr "evita descender automáticamente en los directorios"
+
+#: src/names.c:130
+msgid "File name matching options (affect both exclude and include patterns):"
+msgstr "opciones de coincidencia para nombres de fichero (afectan a los patrones de exclusión y de inclusión):"
+
+#: src/names.c:133
+msgid "patterns match file name start"
+msgstr "los patrones encajan con el comienzo del nombre del fichero"
+
+#: src/names.c:135
+msgid "patterns match after any '/' (default for exclusion)"
+msgstr "los patrones encajan después de cualquier `/' (por omisión para exclusión)"
+
+#: src/names.c:137
+msgid "ignore case"
+msgstr "no distingue mayúsculas de minúsculas"
+
+#: src/names.c:139
+msgid "case sensitive matching (default)"
+msgstr "distingue mayúsculas de minúsculas (por omisión)"
+
+#: src/names.c:141
+msgid "use wildcards (default for exclusion)"
+msgstr "utiliza comodines (predeterminado para exclusión)"
+
+#: src/names.c:143
+msgid "verbatim string matching"
+msgstr "coincidencia de cadenas verbatim"
+
+#: src/names.c:145
+msgid "wildcards match '/' (default for exclusion)"
+msgstr "los comodines encajan con `/' (por omisión para exclusión)"
+
+#: src/names.c:147
+msgid "wildcards do not match '/'"
+msgstr "los comodines no encajan con `/'"
+
+#: src/names.c:733
+msgid "The following options were used after any non-optional arguments in archive create or update mode.  These options are positional and affect only arguments that follow them.  Please, rearrange them properly."
+msgstr "Las siguientes opciones se han utilizado después de cualesquier argumentos no opcionales en modo de crear o actualizar fichero.  Estas opciones son posicionales y afectan solamente a los argumentos que vayan tras ellas.  Hay que recolocarlas adecuadamente."
+
+#: src/names.c:744
+#, c-format
+msgid "-C %s has no effect"
+msgstr "-C %s carece de efecto"
+
+#: src/names.c:749
+#, c-format
+msgid "--%s %s has no effect"
+msgstr "--%s %s carece de efecto"
+
+#: src/names.c:753
+#, c-format
+msgid "--%s has no effect"
+msgstr "--%s carece de efecto"
+
+#: src/names.c:879
+msgid "command line"
+msgstr "línea de órdenes"
+
+#: src/names.c:897
+#, c-format
+msgid "%s: file list requested from %s already read from %s"
+msgstr "%s: la lista de ficheros solicitada en %s ya se ha leído de %s"
+
+#: src/names.c:978 src/checkpoint.c:274
+#, c-format
+msgid "cannot split string '%s': %s"
+msgstr "no se puede dividir la cadena '%s': %s"
+
+#: src/names.c:1025
+#, c-format
+msgid "%s: file name read contains nul character"
+msgstr "%s: el nombre de fichero leído contiene el carácter nul"
+
+#: src/names.c:1358
+msgid "Pattern matching characters used in file names"
+msgstr "Se han utilizado caracteres de expresiones regulares en los nombres de los ficheros"
+
+#: src/names.c:1360
+msgid "Use --wildcards to enable pattern matching, or --no-wildcards to suppress this warning"
+msgstr "Utilice --wildcards para activar el encaje de patrones, o --no-wildcards para suprimir este aviso"
+
+#: src/names.c:1378 src/names.c:1394
+#, c-format
+msgid "%s: Not found in archive"
+msgstr "%s: No se encuentra en el archivo"
+
+#: src/names.c:1379
+#, c-format
+msgid "%s: Required occurrence not found in archive"
+msgstr "%s: El elemento solicitado no se encuentra en el archivo"
+
+# Ojo que esto podría referirse a "is not being labelled NOW" en vez de
+# "isn't labelled". Pero no tengo los fuentes para ver la intención
+# original. nl
+# Si no se sabe eso, se podría dejar de forma más neutra como
+# "Archivo no etiquetado para concordancia con `%s'" - gerardo (gag)
+# FIXME: Preguntar.
+#: src/names.c:1413
+#, c-format
+msgid "Archive label mismatch"
+msgstr "Discordancia en la etiqueta del archivo"
+
+#: src/names.c:1717
+msgid "Using -C option inside file list is not allowed with --listed-incremental"
+msgstr "Usar la opción -C dentro de una lista de ficheros no está permitido con --listed-incremental"
+
+#: src/names.c:1723
+msgid "Only one -C option is allowed with --listed-incremental"
+msgstr "Solamente se permite una opción -C con --listed-incremental"
+
+#: src/tar.c:88
+#, c-format
+msgid "Options '%s' and '%s' both want standard input"
+msgstr "Las opciones '%s' y '%s' requieren entrada estándar"
+
+#: src/tar.c:165
+#, c-format
+msgid "%s: Invalid archive format"
+msgstr "%s: Formato de archivo inválido"
+
+#: src/tar.c:197
+msgid "GNU features wanted on incompatible archive format"
+msgstr "Se requieren características de GNU en formato de archivo incompatible"
+
+#: src/tar.c:265
+#, c-format
+msgid "Unknown quoting style '%s'. Try '%s --quoting-style=help' to get a list."
+msgstr "Estilo de cita '%s' desconocido. Pruebe '%s --quoting-style=help' para obtener una lista."
+
+# Yo usaría "recuperar", en vez de "restablecer". Lo de repetir "archivo"
+# dos veces en la misma frase no me suena bien, así que pondría "... a
+# partir de aquél". jmg
+# El original también repite. sv
+#
+# ¡CUIDADO! sólo no debe llevar tilde en ".. juntos en un solo archivo..."
+# `Solo' sólo lleva acento cuando equivale al adverbio de modo `solamente',
+# y aun así no es obligatorio ponérselo si no hay ambigüedad (lo siento,
+# muchachos, pero saqué sobresaliente en Lingüística de COU :-D ) gerardo
+# Lo cambio, pero "no es obligatorio" no es lo mismo que "está mal". sv
+#
+# # la versión de control -> el control de versión
+# # nil: numeradas... simples... (en plural)
+# # never, simPle (falta una pe): backup -> copia de seguridad. gag
+# Estoy de acuerdo con lo de gag (más arriba usas eso mismo). jmg
+#: src/tar.c:354
+msgid ""
+"GNU 'tar' saves many files together into a single tape or disk archive, and can restore individual files from the archive.\n"
+"\n"
+"Examples:\n"
+"  tar -cf archive.tar foo bar  # Create archive.tar from files foo and bar.\n"
+"  tar -tvf archive.tar         # List all files in archive.tar verbosely.\n"
+"  tar -xf archive.tar          # Extract all files from archive.tar.\n"
+msgstr ""
+"GNU `tar' guarda varios ficheros juntos en un solo archivo en cinta o disco, y\n"
+"puede restablecer ficheros individuales a partir del archivo.\n"
+"\n"
+"Ejemplos:\n"
+"  tar -cf archivo.tar fu fa # Crea archivo.tar con los ficheros fu y fa.\n"
+"  tar -tvf archivo.tar      # Lista los ficheros de archivo.tar con detalle.\n"
+"  tar -xf archivo.tar       # Extrae todos los ficheros de archivo.tar.\n"
+
+# Yo usaría "recuperar", en vez de "restablecer". Lo de repetir "archivo"
+# dos veces en la misma frase no me suena bien, así que pondría "... a
+# partir de aquél". jmg
+# El original también repite. sv
+#
+# ¡CUIDADO! sólo no debe llevar tilde en ".. juntos en un solo archivo..."
+# `Solo' sólo lleva acento cuando equivale al adverbio de modo `solamente',
+# y aun así no es obligatorio ponérselo si no hay ambigüedad (lo siento,
+# muchachos, pero saqué sobresaliente en Lingüística de COU :-D ) gerardo
+# Lo cambio, pero "no es obligatorio" no es lo mismo que "está mal". sv
+#
+# # la versión de control -> el control de versión
+# # nil: numeradas... simples... (en plural)
+# # never, simPle (falta una pe): backup -> copia de seguridad. gag
+# Estoy de acuerdo con lo de gag (más arriba usas eso mismo). jmg
+#: src/tar.c:363
+msgid ""
+"The backup suffix is '~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n"
+"The version control may be set with --backup or VERSION_CONTROL, values are:\n"
+"\n"
+"  none, off       never make backups\n"
+"  t, numbered     make numbered backups\n"
+"  nil, existing   numbered if numbered backups exist, simple otherwise\n"
+"  never, simple   always make simple backups\n"
+msgstr ""
+"El sufijo de respaldo es '~', a menos que se especifique con --suffix\n"
+"o con SIMPLE_BACKUP_SUFFIX. El control de versiones puede establecerse\n"
+"con --backup o con VERSION_CONTROL, los valores son:\n"
+"\n"
+"  none, off       no hace copias de seguridad\n"
+"  t, numbered     hace copias de seguridad numeradas\n"
+"  nil, existing   numerada si existen copias de seguridad numeradas, simples\n"
+"                  en otro caso\n"
+"  never, simple   siempre hace copias de seguridad simples\n"
+
+#: src/tar.c:393
+msgid "Main operation mode:"
+msgstr "Modo principal de operación:"
+
+#: src/tar.c:396
+msgid "list the contents of an archive"
+msgstr "lista el contenido de un archivo"
+
+#: src/tar.c:398
+msgid "extract files from an archive"
+msgstr "extrae ficheros de un archivo"
+
+#: src/tar.c:401
+msgid "create a new archive"
+msgstr "crea un nuevo archivo"
+
+#: src/tar.c:403
+msgid "find differences between archive and file system"
+msgstr "encuentra las diferencias entre un archivo y el sistema de ficheros"
+
+#: src/tar.c:406
+msgid "append files to the end of an archive"
+msgstr "añade ficheros al final de un archivo"
+
+#: src/tar.c:408
+msgid "only append files newer than copy in archive"
+msgstr "solamente añade ficheros más recientes que la copia del archivo"
+
+#: src/tar.c:410
+msgid "append tar files to an archive"
+msgstr "añade ficheros tar a un archivo"
+
+#: src/tar.c:413
+msgid "delete from the archive (not on mag tapes!)"
+msgstr "borra del archivo (¡no en cintas magnéticas!)"
+
+#: src/tar.c:415
+msgid "test the archive volume label and exit"
+msgstr "comprueba la etiqueta de volumen del archivo y finaliza"
+
+#: src/tar.c:420
+msgid "Operation modifiers:"
+msgstr "Modificadores de operación:"
+
+#: src/tar.c:423
+msgid "handle sparse files efficiently"
+msgstr "maneja ficheros dispersos de forma eficiente"
+
+#: src/tar.c:424
+msgid "TYPE"
+msgstr "TIPO"
+
+#: src/tar.c:425
+msgid "technique to detect holes"
+msgstr "técnica para detectar huecos"
+
+#: src/tar.c:426
+msgid "MAJOR[.MINOR]"
+msgstr "PRINCIPAL[.SECUNDARIO]"
+
+#: src/tar.c:427
+msgid "set version of the sparse format to use (implies --sparse)"
+msgstr "establece la versión del formato disperso que se usará (implica --sparse)"
+
+#: src/tar.c:429
+msgid "handle old GNU-format incremental backup"
+msgstr "maneja el formato GNU antiguo de respaldo incremental"
+
+#: src/tar.c:431
+msgid "handle new GNU-format incremental backup"
+msgstr "maneja el nuevo formato GNU de respaldo incremental"
+
+#: src/tar.c:433
+msgid "dump level for created listed-incremental archive"
+msgstr "nivel de volcado para archivo creado con listado incremental"
+
+# ¿archivos nonzero? sv
+# Estupendo Gerardo, se me había pasado, como tantas cosas em+
+# # ¡Nooorl! Quiere decir que el programa tar no acaba o sale (exit())
+# # devolviendo al sistema un "status" distinto de cero cuando
+# # encuentre ficheros ilegibles. (¡Uf! Ahora a ver cómo se pone esto en
+# # media línea.) gag
+#
+#: src/tar.c:435
+msgid "do not exit with nonzero on unreadable files"
+msgstr "no sale con estado distinto de cero cuando hay ficheros ilegibles"
+
+#: src/tar.c:437
+msgid "process only the NUMBERth occurrence of each file in the archive; this option is valid only in conjunction with one of the subcommands --delete, --diff, --extract or --list and when a list of files is given either on the command line or via the -T option; NUMBER defaults to 1"
+msgstr "procesa únicamente la NÚMERO-ésima aparición de cada fichero en el archivo; esta opción solamente es válida junto con una de las subórdenes --delete, --diff, --extract o --list y cuando se da una lista de ficheros en la línea de órdenes o con la opción -T; el valor predeterminado de NUM es 1."
+
+# Mejor eso que inventarse un palabro, digo yo. sv
+#: src/tar.c:443
+msgid "archive is seekable"
+msgstr "el archivo admite `seek'"
+
+# Mejor eso que inventarse un palabro, digo yo. sv
+#: src/tar.c:445
+msgid "archive is not seekable"
+msgstr "el archivo no admite `seek'"
+
+#: src/tar.c:447
+msgid "do not check device numbers when creating incremental archives"
+msgstr "no comprueba los números de dispositivo cuando se crean archivos incrementales"
+
+#: src/tar.c:450
+msgid "check device numbers when creating incremental archives (default)"
+msgstr "comprueba los números de dispositivo cuando se crean archivos incrementales (por omisión)"
+
+#: src/tar.c:456
+msgid "Overwrite control:"
+msgstr "Control de sobreescritura:"
+
+#: src/tar.c:459
+msgid "attempt to verify the archive after writing it"
+msgstr "intenta verificar el archivo después de escribirlo"
+
+#: src/tar.c:461
+msgid "remove files after adding them to the archive"
+msgstr "borra los ficheros después de añadirlos al archivo"
+
+#: src/tar.c:463
+msgid "don't replace existing files when extracting, treat them as errors"
+msgstr "no reemplaza ficheros que existan al extraer, los trata como errores"
+
+#: src/tar.c:466
+msgid "don't replace existing files when extracting, silently skip over them"
+msgstr "no reemplaza ficheros que existan al extraer, se los salta silenciosamente"
+
+#: src/tar.c:469
+msgid "don't replace existing files that are newer than their archive copies"
+msgstr "no reemplaza los ficheros que existan que sean más recientes que sus copias en el archivo"
+
+#: src/tar.c:471
+msgid "overwrite existing files when extracting"
+msgstr "sobreescribe los ficheros que existan al extraer"
+
+#: src/tar.c:473
+msgid "remove each file prior to extracting over it"
+msgstr "borra cada fichero antes de extraer sobre él"
+
+#: src/tar.c:475
+msgid "empty hierarchies prior to extracting directory"
+msgstr "vacía jerarquías antes de extraer directorios"
+
+#: src/tar.c:477
+msgid "preserve metadata of existing directories"
+msgstr "conserva los metadatos de los directorios que existan"
+
+#: src/tar.c:479
+msgid "overwrite metadata of existing directories when extracting (default)"
+msgstr "sobreescribe los metadatos de los directorios que existan al extraer (predeterminado)"
+
+#: src/tar.c:482
+msgid "preserve existing symlinks to directories when extracting"
+msgstr "conserva los enlaces simbólicos a directorios que existan al extraer"
+
+#: src/tar.c:485
+msgid "create a subdirectory to avoid having loose files extracted"
+msgstr "crea un subdirectorio para no tener ficheros sueltos al hacer la extracción"
+
+#: src/tar.c:491
+msgid "Select output stream:"
+msgstr "Selección del flujo de salida:"
+
+#: src/tar.c:494
+msgid "extract files to standard output"
+msgstr "extrae los ficheros a la salida estándar"
+
+#: src/tar.c:495 src/tar.c:588 src/tar.c:590 tests/genfile.c:195
+msgid "COMMAND"
+msgstr "ORDEN"
+
+#: src/tar.c:496
+msgid "pipe extracted files to another program"
+msgstr "extrae los ficheros a otro programa"
+
+#: src/tar.c:498
+msgid "ignore exit codes of children"
+msgstr "descarta los códigos de salida de los procesos hijos"
+
+#: src/tar.c:500
+msgid "treat non-zero exit codes of children as error"
+msgstr "trata los estados de salida distintos de cero de los hijos como errores"
+
+#: src/tar.c:505
+msgid "Handling of file attributes:"
+msgstr "Manejo de los atributos del fichero:"
+
+#: src/tar.c:508
+msgid "force NAME as owner for added files"
+msgstr "fuerza NOMBRE como propietario de los ficheros que se añaden"
+
+#: src/tar.c:510
+msgid "force NAME as group for added files"
+msgstr "fuerza NOMBRE como grupo para los ficheros que se añaden"
+
+#: src/tar.c:512
+msgid "use FILE to map file owner UIDs and names"
+msgstr "utiliza FICHERO para asociar UIDs de propietarios y nombres de ficheros"
+
+#: src/tar.c:514
+msgid "use FILE to map file owner GIDs and names"
+msgstr "utiliza FICHERO para asociar GIDs de propietarios y nombres de ficheros"
+
+#: src/tar.c:515 src/tar.c:700
+msgid "DATE-OR-FILE"
+msgstr "FECHA-O-FICHERO"
+
+#: src/tar.c:516
+msgid "set mtime for added files from DATE-OR-FILE"
+msgstr "establece la fecha de modificación para los ficheros que se añaden a partir de FECHA-O-FICHERO"
+
+#: src/tar.c:518
+msgid "only set time when the file is more recent than what was given with --mtime"
+msgstr "solo pone la hora cuando el fichero es más reciente que lo que se indicó con -mtime"
+
+#: src/tar.c:519
+msgid "CHANGES"
+msgstr "CAMBIOS"
+
+#: src/tar.c:520
+msgid "force (symbolic) mode CHANGES for added files"
+msgstr "fuerza CAMBIOS (simbólicos) de modo para los ficheros que se añaden"
+
+#: src/tar.c:522
+msgid "METHOD"
+msgstr "MÉTODO"
+
+#: src/tar.c:523
+msgid "preserve access times on dumped files, either by restoring the times after reading (METHOD='replace'; default) or by not setting the times in the first place (METHOD='system')"
+msgstr "conserva las horas de acceso en los ficheros volcados, bien restaurando las horas después de leer (MÉTOOD='replace'; predeterminado), bien no poniendo las horas en primer lugar (MÉTODO='system')"
+
+#: src/tar.c:527
+msgid "don't extract file modified time"
+msgstr "no extrae la fecha de modificación del fichero"
+
+#: src/tar.c:529
+msgid "try extracting files with the same ownership as exists in the archive (default for superuser)"
+msgstr "intenta extraer los ficheros con el mismo propietario que existe en el archivo (predeterminado para el superusuario)"
+
+#: src/tar.c:531
+msgid "extract files as yourself (default for ordinary users)"
+msgstr "extrae los ficheros como usted mismo (predeterminado para usuarios normales)"
+
+#: src/tar.c:533
+msgid "always use numbers for user/group names"
+msgstr "utiliza siempre números para los nombres de usuarios/grupos"
+
+#: src/tar.c:535
+msgid "extract information about file permissions (default for superuser)"
+msgstr "extrae la información de los permisos de los ficheros (por omisión para el superusuario)"
+
+#: src/tar.c:539
+msgid "apply the user's umask when extracting permissions from the archive (default for ordinary users)"
+msgstr "aplica el umask del usuario cuando se extraen permisos del archivo (predeterminado para usuarios normales)"
+
+#: src/tar.c:541
+msgid "member arguments are listed in the same order as the files in the archive"
+msgstr "se listan los miembros en el mismo orden que los ficheros del archivo"
+
+#: src/tar.c:545
+msgid "delay setting modification times and permissions of extracted directories until the end of extraction"
+msgstr "demora el establecimiento de las fechas de modificación y los permisos de los directorios que se extraen hasta el final de la extracción"
+
+#: src/tar.c:548
+msgid "cancel the effect of --delay-directory-restore option"
+msgstr "cancela el efecto de la opción --delay-directory-restore"
+
+#: src/tar.c:549
+msgid "ORDER"
+msgstr "ORDEN"
+
+#: src/tar.c:551
+msgid "directory sorting order: none (default), name or inode"
+msgstr "orden de ordenación del directorio: ninguno (predeterminado), nombre o nodo-i"
+
+#: src/tar.c:553
+msgid "directory sorting order: none (default) or name"
+msgstr "orden de ordenación del directorio: ninguno (predeterminado) o nombre"
+
+#: src/tar.c:560
+msgid "Handling of extended file attributes:"
+msgstr "Manejo de los atributos extendidos del fichero:"
+
+#: src/tar.c:563
+msgid "Enable extended attributes support"
+msgstr "Activa el soporte de los atributos extendidos"
+
+#: src/tar.c:565
+msgid "Disable extended attributes support"
+msgstr "Desactiva el soporte de atributos extendidos"
+
+#: src/tar.c:566 src/tar.c:568
+msgid "MASK"
+msgstr "MÁSCARA"
+
+#: src/tar.c:567
+msgid "specify the include pattern for xattr keys"
+msgstr "especifica el patrón de inclusión para las claves xattr"
+
+#: src/tar.c:569
+msgid "specify the exclude pattern for xattr keys"
+msgstr "especifica el patrón de exclusión para las claves xattr"
+
+#: src/tar.c:571
+msgid "Enable the SELinux context support"
+msgstr "Activa el soporte de contextos SELinux"
+
+#: src/tar.c:573
+msgid "Disable the SELinux context support"
+msgstr "Desactiva el soporte de contextos SELinux"
+
+#: src/tar.c:575
+msgid "Enable the POSIX ACLs support"
+msgstr "Activa el soporte de ACLs de POSIX"
+
+#: src/tar.c:577
+msgid "Disable the POSIX ACLs support"
+msgstr "Desactiva el soporte de ACLs de POSIX"
+
+#: src/tar.c:582
+msgid "Device selection and switching:"
+msgstr "Selección de dispositivo y opciones:"
+
+#: src/tar.c:584
+msgid "ARCHIVE"
+msgstr "ARCHIVO"
+
+#: src/tar.c:585
+msgid "use archive file or device ARCHIVE"
+msgstr "utiliza un archivo o el dispositivo ARCHIVO"
+
+#: src/tar.c:587
+msgid "archive file is local even if it has a colon"
+msgstr "el archivo es local incluso si tiene dos puntos"
+
+#: src/tar.c:589
+msgid "use given rmt COMMAND instead of rmt"
+msgstr "utiliza la ORDEN rmt dada en vez de rmt"
+
+#: src/tar.c:591
+msgid "use remote COMMAND instead of rsh"
+msgstr "utiliza la ORDEN remota en vez de rsh"
+
+#: src/tar.c:595
+msgid "specify drive and density"
+msgstr "especifica la unidad y la densidad"
+
+#: src/tar.c:609
+msgid "create/list/extract multi-volume archive"
+msgstr "crea/lista/extrae un archivo multivolumen"
+
+# Una chorradita, si se me permite; estamos usando ISO-8859-1,
+# ¿verdad? Y en ISO-Latin1 existe un carácter que representa la
+# multiplicación, ¿verdad? Ya saben , el aspa: '×' ('\327'). Pues
+# ¿por qué no usarlo (está bien, "utilizarlo" ;-) en vez de la equis
+# en NUM x 1024 -> NUM × 1024?
+# En otra parte dices que pones (C) en vez de © porque © no se ve bien en
+# la consola. Pues no dirás eso del aspa, que se ve mejor aún que la equis:
+# x × - gerardo
+# Efectivamente, pero no es transportable, el que use tar bajo DJGPP
+# le saldría un churro pues el aspa no existe en la tabla 850. sv
+#: src/tar.c:611
+msgid "change tape after writing NUMBER x 1024 bytes"
+msgstr "cambia la cinta después de escribir NÚMERO x 1024 bytes"
+
+#: src/tar.c:613
+msgid "run script at end of each tape (implies -M)"
+msgstr "ejecuta un script al final de cada cinta (implica -M)"
+
+#: src/tar.c:616
+msgid "use/update the volume number in FILE"
+msgstr "usa/actualiza el número de volumen en FICHERO"
+
+#: src/tar.c:621
+msgid "Device blocking:"
+msgstr "Bloques en los dispositivos:"
+
+#: src/tar.c:623
+msgid "BLOCKS"
+msgstr "BLOQUES"
+
+# Sigo en mis 13 y en esto no hay quien me baje del burro: BLOQUES x 512 bytes
+# debe ser BLOQUES × 512 bytes. gerardo
+#: src/tar.c:624
+msgid "BLOCKS x 512 bytes per record"
+msgstr "BLOQUES x 512 bytes por registro"
+
+#: src/tar.c:626
+msgid "NUMBER of bytes per record, multiple of 512"
+msgstr "NÚMERO de bytes por registro, múltiplo de 512"
+
+#: src/tar.c:628
+msgid "ignore zeroed blocks in archive (means EOF)"
+msgstr "no tiene en cuenta los bloques convertidos en ceros dentro de un archivo (significa fin de fichero)"
+
+# ¿rebloquea? ¿existe esa palabra? sv
+# Que opine el pueblo, no lo sé. fr
+# # ¿Existe bloquear? Pues si es así, también existe rebloquear =
+# # volver a bloquear. Y requetebloquear, etc. En un artículo de Martin
+# # Gardner se preguntaba cuál era la palabra española más larga, y la
+# # respuesta era que cualquiera que pudiera ir precedida por
+# # requetequetequete... (longitud infinita). Pelín ssagerao, ¿no? gag
+#
+# Bueno, al final he puesto lo que se ve, un poco menos raro que rebloquear. sv
+#: src/tar.c:630
+msgid "reblock as we read (for 4.2BSD pipes)"
+msgstr "rehace los bloques conforme se lee (para tuberías de 4.2BSD)"
+
+# ¿Qué será esto? ¿Quizás un fallo en el mensaje original? Porque "to"
+# no es "desde", sino "hacia", que yo sepa. Pero `archivo hacia la
+# salida estándar' no pega mucho. Está en otros mensajes, como el
+# siguiente; no lo entiendo. - gerardo
+# FIXME. Tienes razón. Es muy raro.
+#: src/tar.c:635
+msgid "Archive format selection:"
+msgstr "Selección del formato de archivo:"
+
+#: src/tar.c:637 tests/genfile.c:158
+msgid "FORMAT"
+msgstr "FORMATO"
+
+#: src/tar.c:638
+msgid "create archive of the given format"
+msgstr "crea un archivo en el formato dado"
+
+#: src/tar.c:640
+msgid "FORMAT is one of the following:"
+msgstr "FORMATO es uno de los siguientes:"
+
+#: src/tar.c:641
+msgid "old V7 tar format"
+msgstr "formato tar V7 antiguo"
+
+#: src/tar.c:644
+msgid "GNU format as per tar <= 1.12"
+msgstr "formato GNU de tar <= 1.12"
+
+#: src/tar.c:646
+msgid "GNU tar 1.13.x format"
+msgstr "formato GNU tar 1.13.x"
+
+#: src/tar.c:648
+msgid "POSIX 1003.1-1988 (ustar) format"
+msgstr "formato POSIX 1003.1-1988 (ustar)"
+
+#: src/tar.c:650
+msgid "POSIX 1003.1-2001 (pax) format"
+msgstr "formato POSIX 1003.1-2001 (pax)"
+
+#: src/tar.c:651
+msgid "same as pax"
+msgstr "lo mismo que pax"
+
+#: src/tar.c:654
+msgid "same as --format=v7"
+msgstr "lo mismo que --format=v7"
+
+#: src/tar.c:657
+msgid "same as --format=posix"
+msgstr "lo mismo que --format=posix"
+
+#: src/tar.c:658
+msgid "keyword[[:]=value][,keyword[[:]=value]]..."
+msgstr "palabra[[:]=valor][,palabra[[:]=valor]]..."
+
+#: src/tar.c:659
+msgid "control pax keywords"
+msgstr "palabras clave de control de pax"
+
+#: src/tar.c:660
+msgid "TEXT"
+msgstr "TEXTO"
+
+#: src/tar.c:661
+msgid "create archive with volume name TEXT; at list/extract time, use TEXT as a globbing pattern for volume name"
+msgstr "crea un archivo con nombre de volumen TEXTO; en el momento de listar/extraer, utiliza TEXTO como patrón expandible para el nombre del volumen"
+
+#: src/tar.c:666
+msgid "Compression options:"
+msgstr "Opciones de compresión:"
+
+#: src/tar.c:668
+msgid "use archive suffix to determine the compression program"
+msgstr "utiliza el sufijo del archivo para determinar el programa de compresión"
+
+#: src/tar.c:670
+msgid "do not use archive suffix to determine the compression program"
+msgstr "no utiliza el sufijo del archivo para determinar el programa de compresión"
+
+#: src/tar.c:672
+msgid "PROG"
+msgstr "PROG"
+
+#: src/tar.c:673
+msgid "filter through PROG (must accept -d)"
+msgstr "filtra a través de PROG (debe aceptar -d)"
+
+#: src/tar.c:689
+msgid "Local file selection:"
+msgstr "Selección del fichero local:"
+
+#: src/tar.c:691
+msgid "stay in local file system when creating archive"
+msgstr "permanece en el sistema de ficheros locales al crear el archivo"
+
+#: src/tar.c:693
+msgid "don't strip leading '/'s from file names"
+msgstr "no elimina las '/'s iniciales de los nombres de ficheros"
+
+#: src/tar.c:695
+msgid "follow symlinks; archive and dump the files they point to"
+msgstr "sigue los enlaces simbólicos; archiva y vuelca los ficheros a los que apuntan"
+
+#: src/tar.c:697
+msgid "follow hard links; archive and dump the files they refer to"
+msgstr "sigue los enlaces duros; archiva y vuelca los ficheros a los que se refieren"
+
+#: src/tar.c:698
+msgid "MEMBER-NAME"
+msgstr "NOMBRE-DE-MIEMBRO"
+
+#: src/tar.c:699
+msgid "begin at member MEMBER-NAME when reading the archive"
+msgstr "comienza por el miembro NOMBRE-DE-MIEMBRO al leer el archivo"
+
+#: src/tar.c:701
+msgid "only store files newer than DATE-OR-FILE"
+msgstr "almacena solamente ficheros más recientes que FECHA-O-FICHERO"
+
+#: src/tar.c:703
+msgid "DATE"
+msgstr "FECHA"
+
+#: src/tar.c:704
+msgid "compare date and time when data changed only"
+msgstr "compara la fecha y hora solamente cuando cambian los datos"
+
+#: src/tar.c:705
+msgid "CONTROL"
+msgstr "CONTROL"
+
+#: src/tar.c:706
+msgid "backup before removal, choose version CONTROL"
+msgstr "se hace un respaldo antes de borrar, escoja el CONTROL de versión"
+
+#: src/tar.c:707 src/tar.c:766 src/tar.c:768 tests/genfile.c:174
+msgid "STRING"
+msgstr "CADENA"
+
+#: src/tar.c:708
+msgid "backup before removal, override usual suffix ('~' unless overridden by environment variable SIMPLE_BACKUP_SUFFIX)"
+msgstr ""
+"se hace un respaldo antes de borrar, cambiando el sufijo usual ('~' a menos que se\n"
+"cambie con la variable de entorno SIMPLE_BACKUP_SUFFIX)"
+
+#: src/tar.c:713
+msgid "File name transformations:"
+msgstr "Transformaciones de los nombres de ficheros:"
+
+#: src/tar.c:715
+msgid "strip NUMBER leading components from file names on extraction"
+msgstr "elimina NÚMERO componentes iniciales de los nombres de ficheros al extraer"
+
+#: src/tar.c:717
+msgid "EXPRESSION"
+msgstr "EXPRESIÓN"
+
+#: src/tar.c:718
+msgid "use sed replace EXPRESSION to transform file names"
+msgstr "utiliza la EXPRESIÓN de reemplazo sed para transformar los nombres de ficheros"
+
+#: src/tar.c:724
+msgid "Informative output:"
+msgstr "Salida informativa:"
+
+#: src/tar.c:727
+msgid "verbosely list files processed"
+msgstr "lista los ficheros procesados detalladamente"
+
+#: src/tar.c:728
+msgid "KEYWORD"
+msgstr "PALABRACLAVE"
+
+#: src/tar.c:729
+msgid "warning control"
+msgstr "control de advertencia"
+
+#: src/tar.c:731
+msgid "display progress messages every NUMBERth record (default 10)"
+msgstr "muestra mensajes de progreso cada NÚMERO-ésimo registro (por omisión 10)"
+
+#: src/tar.c:733
+msgid "ACTION"
+msgstr "ACCIÓN"
+
+#: src/tar.c:734
+msgid "execute ACTION on each checkpoint"
+msgstr "ejecuta ACCIÓN en cada punto de comprobación"
+
+#: src/tar.c:737
+msgid "print a message if not all links are dumped"
+msgstr "muestra un mensaje si no se vuelcan todos los enlaces"
+
+#: src/tar.c:738
+msgid "SIGNAL"
+msgstr "SEÑAL"
+
+#: src/tar.c:739
+msgid "print total bytes after processing the archive; with an argument - print total bytes when this SIGNAL is delivered; Allowed signals are: SIGHUP, SIGQUIT, SIGINT, SIGUSR1 and SIGUSR2; the names without SIG prefix are also accepted"
+msgstr "muestra los bytes totales después de procesar el archivo; con un argumento - muestra los bytes totales cuando se entrega esta SEÑAL; señales permitidas: SIGHUP, SIGQUIT, SIGINT, SIGUSR1 y SIGUSR2; también se aceptan los nombres sin el prefijo SIG"
+
+#: src/tar.c:744
+msgid "print file modification times in UTC"
+msgstr "muestra las fechas/horas de modificación de los ficheros en UTC"
+
+#: src/tar.c:746
+msgid "print file time to its full resolution"
+msgstr "muestra la fecha del fichero con la máxima resolución"
+
+#: src/tar.c:748
+msgid "send verbose output to FILE"
+msgstr "envía la salida detallada a FICHERO"
+
+#: src/tar.c:750
+msgid "show block number within archive with each message"
+msgstr "muestra el número de bloque dentro del archivo con cada mensaje"
+
+#: src/tar.c:752
+msgid "ask for confirmation for every action"
+msgstr "pide confirmación para cada acción"
+
+#: src/tar.c:755
+msgid "show tar defaults"
+msgstr "muestra los valores predeterminados de tar"
+
+#: src/tar.c:757
+msgid "show valid ranges for snapshot-file fields"
+msgstr "muestra los rangos válidos para los campos de fichero de instantánea"
+
+#: src/tar.c:759
+msgid "when listing or extracting, list each directory that does not match search criteria"
+msgstr "cuando se lista o extrae, lista cada directorio que no coincida con el criterio de búsqueda"
+
+#: src/tar.c:761
+msgid "show file or archive names after transformation"
+msgstr "muestra los nombres de los ficheros o los archivos después de la transformación"
+
+#: src/tar.c:764
+msgid "STYLE"
+msgstr "ESTILO"
+
+#: src/tar.c:765
+msgid "set name quoting style; see below for valid STYLE values"
+msgstr "establece el estilo de cita de los nombres; véanse más abajo los valores ESTILO válidos"
+
+#: src/tar.c:767
+msgid "additionally quote characters from STRING"
+msgstr "también entrecomilla los caracteres de CADENA"
+
+#: src/tar.c:769
+msgid "disable quoting for characters from STRING"
+msgstr "no entrecomilla los caracteres de CADENA"
+
+#: src/tar.c:774
+msgid "Compatibility options:"
+msgstr "Opciones de compatibilidad:"
+
+#: src/tar.c:777
+msgid "when creating, same as --old-archive; when extracting, same as --no-same-owner"
+msgstr "al crear, lo mismo que --old-archive; al extraer, lo mismo que --no-same-owner"
+
+#: src/tar.c:782
+msgid "Other options:"
+msgstr "Otras opciones:"
+
+#: src/tar.c:785
+msgid "disable use of some potentially harmful options"
+msgstr "desactivo el uso de algunas opciones potencialmente peligrosas"
+
+#. TRANSLATORS: Both %s in this statement are replaced with
+#. option names.
+#: src/tar.c:845
+#, c-format
+msgid "'%s' cannot be used with '%s'"
+msgstr "la opción '%s' no se puede usar con '%s'"
+
+#: src/tar.c:933
+msgid "You may not specify more than one '-Acdtrux', '--delete' or  '--test-label' option"
+msgstr "No se puede especificar más de una opción `-Acdtrux', '--delete' o '--test-label'"
+
+#: src/tar.c:945
+msgid "Conflicting compression options"
+msgstr "Opciones de compresión en conflicto"
+
+#: src/tar.c:1004
+#, c-format
+msgid "Unknown signal name: %s"
+msgstr "Nombre de señal desconocido: %s"
+
+#: src/tar.c:1028
+msgid "Date sample file not found"
+msgstr "No se encontró el fichero de fechas de muestra"
+
+#: src/tar.c:1036
+#, c-format
+msgid "Substituting %s for unknown date format %s"
+msgstr "Sustituyendo %s por el formato de fecha desconocido %s"
+
+#: src/tar.c:1065
+#, c-format
+msgid "Option %s: Treating date '%s' as %s"
+msgstr "Opción %s: Se trata la fecha '%s' como %s"
+
+#: src/tar.c:1105 src/tar.c:1109 src/tar.c:1113 src/tar.c:1117 src/tar.c:1121
+#: src/tar.c:1125 src/tar.c:1129
+#, c-format
+msgid "filter the archive through %s"
+msgstr "filtra el archivo a través de %s"
+
+#: src/tar.c:1137
+msgid "Valid arguments for the --quoting-style option are:"
+msgstr "Los argumentos válidos para la opción --quoting-style son:"
+
+#: src/tar.c:1141
+msgid ""
+"\n"
+"*This* tar defaults to:\n"
+msgstr ""
+"\n"
+"Las opciones predeterminadas de *esta* versión de tar son:\n"
+
+#: src/tar.c:1253
+msgid "Invalid owner or group ID"
+msgstr "ID de propietario o de grupo inválido"
+
+#: src/tar.c:1347
+msgid "Invalid blocking factor"
+msgstr "Factor de bloqueo inválido"
+
+#: src/tar.c:1467
+msgid "Invalid tape length"
+msgstr "Longitud de cinta inválida"
+
+#: src/tar.c:1481
+msgid "Invalid incremental level value"
+msgstr "Valor de nivel incremental inválido"
+
+# No sé cómo traducir threshold. fr
+# Yo tampoco (los diccionarios los tengo en casa...). sv
+# Lo buscaré en un diccionario "güeno". fr
+# Es "umbral", pero no sé qué c$%&# es la fecha umbral. :-( gag
+# A ver si te vale así. sv
+# ¿Qué tal os suena "fecha límite"?. jmg
+#: src/tar.c:1527
+msgid "More than one threshold date"
+msgstr "Se ha especificado más de una fecha tope"
+
+#: src/tar.c:1594 src/tar.c:1597
+msgid "Invalid sparse version value"
+msgstr "Valor de versión dispersa inválido"
+
+#: src/tar.c:1661
+msgid "--atime-preserve='system' is not supported on this platform"
+msgstr "--atime-preserve='system' no se admite en esta plataforma"
+
+#: src/tar.c:1686
+msgid "--checkpoint value is not an integer"
+msgstr "El valor de --checkpoint no es un número entero"
+
+#: src/tar.c:1764
+msgid "Invalid mode given on option"
+msgstr "Se ha especificado un modo no válido en la opción"
+
+#: src/tar.c:1797
+msgid "Invalid number"
+msgstr "Número inválido"
+
+#: src/tar.c:1861
+msgid "Invalid record size"
+msgstr "El tamaño del registro es inválido"
+
+#: src/tar.c:1864
+#, c-format
+msgid "Record size must be a multiple of %d."
+msgstr "El tamaño del registro debe ser múltiplo de %d."
+
+#: src/tar.c:1910
+msgid "Invalid number of elements"
+msgstr "Número inválido de elementos"
+
+#: src/tar.c:1935
+msgid "Only one --to-command option allowed"
+msgstr "Solamente se permite una opción --to-command"
+
+#: src/tar.c:2023
+#, c-format
+msgid "Malformed density argument: %s"
+msgstr "Argumento de densidad mal formado: %s"
+
+#: src/tar.c:2049
+#, c-format
+msgid "Unknown density: '%c'"
+msgstr "Densidad desconocida: '%c'"
+
+#: src/tar.c:2066
+#, c-format
+msgid "Options '-[0-7][lmh]' not supported by *this* tar"
+msgstr "*Esta* versión de tar no admite las opciones '-[0-7][lmh]'"
+
+#: src/tar.c:2073
+#, c-format
+msgid "%s:%lu: location of the error"
+msgstr "%s:%lu: localización del error"
+
+#: src/tar.c:2076
+#, c-format
+msgid "error parsing %s"
+msgstr "error al analizar %s"
+
+#: src/tar.c:2090
+msgid "[FILE]..."
+msgstr "[FICHERO]..."
+
+#: src/tar.c:2181
+#, c-format
+msgid "non-option arguments in %s"
+msgstr "argumentos que no son opciones en %s"
+
+#: src/tar.c:2196
+#, c-format
+msgid "cannot split TAR_OPTIONS: %s"
+msgstr "no se puede dividir TAR_OPTIONS: %s"
+
+#: src/tar.c:2291
+#, c-format
+msgid "Old option '%c' requires an argument."
+msgstr "La opción antigua '%c' requiere un argumento"
+
+#: src/tar.c:2364
+msgid "--occurrence is meaningless without a file list"
+msgstr "--occurrence no tiene sentido sin una lista de ficheros"
+
+# requieren -> necesitan. gerardo
+#: src/tar.c:2390
+msgid "Multiple archive files require '-M' option"
+msgstr "Los archivos múltiples requieren la opción '-M'"
+
+#: src/tar.c:2407
+msgid "--level is meaningless without --listed-incremental"
+msgstr "--level no tiene sentido sin --listed-incremental"
+
+#: src/tar.c:2424
+#, c-format
+msgid "%s: Volume label is too long (limit is %lu byte)"
+msgid_plural "%s: Volume label is too long (limit is %lu bytes)"
+msgstr[0] "%s: La etiqueta de volumen es demasiado larga (el límite es %lu byte)"
+msgstr[1] "%s: La etiqueta de volumen es demasiado larga (el límite es %lu bytes)"
+
+#: src/tar.c:2437
+msgid "Cannot verify multi-volume archives"
+msgstr "No se pueden verificar archivos multivolumen"
+
+#: src/tar.c:2439
+msgid "Cannot verify compressed archives"
+msgstr "No se pueden verificar archivos comprimidos"
+
+#: src/tar.c:2453
+msgid "Cannot use multi-volume compressed archives"
+msgstr "No se pueden utilizar archivos multivolumen comprimidos"
+
+#: src/tar.c:2457
+msgid "Cannot concatenate compressed archives"
+msgstr "No se pueden concatenar archivos comprimidos"
+
+#: src/tar.c:2464
+msgid "--clamp-mtime needs a date specified using --mtime"
+msgstr "--clamp-mtime necesita una fecha especificada mediante --mtime"
+
+#: src/tar.c:2474
+msgid "--pax-option can be used only on POSIX archives"
+msgstr "--pax-option solamente se puede usar en archivos POSIX"
+
+#: src/tar.c:2481
+msgid "--acls can be used only on POSIX archives"
+msgstr "--acls solamente se puede usar en archivos POSIX"
+
+#: src/tar.c:2486
+msgid "--selinux can be used only on POSIX archives"
+msgstr "--selinux solamente se puede usar en archivos POSIX"
+
+#: src/tar.c:2491
+msgid "--xattrs can be used only on POSIX archives"
+msgstr "--xattrs solamente se puede usar en archivos POSIX"
+
+#: src/tar.c:2540
+msgid "Cannot deduce top-level directory name; please set it explicitly with --one-top-level=DIR"
+msgstr "No se puede deducir el nombre del directorio del nivel superior; indíquelo explícitamente con --one-top-level=DIR"
+
+#: src/tar.c:2573
+msgid "Volume length cannot be less than record size"
+msgstr "La longitud del volumen no puede ser menor que el tamaño de registro"
+
+# Me gusta más al verrés: cobarde rechazo [de la pradera] a... gerardo
+#: src/tar.c:2597
+msgid "Cowardly refusing to create an empty archive"
+msgstr "Rechazo cobarde a crear un archivo vacío"
+
+#: src/tar.c:2623
+msgid "Options '-Aru' are incompatible with '-f -'"
+msgstr "Las opciones '-Aru' son incompatibles con '-f -'"
+
+#: src/tar.c:2711
+msgid "You must specify one of the '-Acdtrux', '--delete' or '--test-label' options"
+msgstr "Debe especificar una de las opciones `-Acdtrux', '--delete' o '--test-label'"
+
+#: src/tar.c:2768
+#, c-format
+msgid "Exiting with failure status due to previous errors"
+msgstr "Se sale con estado de fallo debido a errores anteriores"
+
+# Eso de ¡vaya tela! ¿es una interjección que se entiende en todo el mundo
+# hispanoparlante? No vaya a ser específico de Andalucía/Extremadura y...
+# ¡oye, déjalo, así expandimos nuestra lengua! gerardo
+# Inaceptable, alguien fuera de España no tiene idea de que diablos quiere
+# decir ¡vaya tela!. Habrá que buscar alguna interhección de asco/sorpresa
+# que sea más `portable'. nl
+# Tenéis razón. Habrá que preguntar.
+# ¡Ya lo tengo! "¡Carajo!" X-D Eso se utiliza en Colombia, México y otros
+# sitios de por ahí a troche y moche, y creo que ni siquiera se entiende como
+# "miembro viril masculino". Y en España creo que también se emplea, ¿no?
+# (Vaale, vaaale, ¿y qué tal su eufemismo `caramba' o `caray', más neutros
+# y cursis, para que no se enfade nadie? Aunque para cursis: `cáspita',
+# `caracoles', `cónchales'; no diréis que no os doy opciones.) Por cierto,
+# creo que la coma sobra (incluso en el original). gerardo
+#: src/update.c:87
+#, c-format
+msgid "%s: File shrank by %s byte"
+msgid_plural "%s: File shrank by %s bytes"
+msgstr[0] "%s: El tamaño del fichero ha disminuido en %s byte"
+msgstr[1] "%s: El tamaño del fichero ha disminuido en %s bytes"
+
+#: src/xheader.c:165
+#, c-format
+msgid "Keyword %s is unknown or not yet implemented"
+msgstr "La palabra clave %s es desconocida o no está implementada todavía"
+
+#: src/xheader.c:174
+msgid "Time stamp is out of allowed range"
+msgstr "La marca de tiempo está fuera del rango permitido"
+
+#: src/xheader.c:205
+#, c-format
+msgid "Pattern %s cannot be used"
+msgstr "No se puede usar el patrón %s"
+
+#: src/xheader.c:219
+#, c-format
+msgid "Keyword %s cannot be overridden"
+msgstr "La palabra clave %s no se puede sustituir"
+
+#: src/xheader.c:668
+msgid "Malformed extended header: missing length"
+msgstr "Cabecera extendida errónea: falta la longitud"
+
+#: src/xheader.c:677
+#, c-format
+msgid "Extended header length %*s is out of range"
+msgstr "La longitud de cabecera extendida %*s está fuera de rango"
+
+#: src/xheader.c:689
+msgid "Malformed extended header: missing blank after length"
+msgstr "Cabecera extendida errónea: falta espacio después de la longitud"
+
+#: src/xheader.c:697
+msgid "Malformed extended header: missing equal sign"
+msgstr "Cabecera extendida errónea: falta un signo igual"
+
+#: src/xheader.c:703
+msgid "Malformed extended header: missing newline"
+msgstr "Cabecera extendida errónea: falta una nueva línea"
+
+#: src/xheader.c:741
+#, c-format
+msgid "Ignoring unknown extended header keyword '%s'"
+msgstr "Se desestima la palabra clave de la cabecera extendida desconocida '%s'"
+
+#: src/xheader.c:1023
+#, c-format
+msgid "Generated keyword/value pair is too long (keyword=%s, length=%s)"
+msgstr "El par palabra clave/valor generado es demasiado largo (palabra clave=%s, longitud=%s)"
+
+#. TRANSLATORS: The first %s is the pax extended header keyword
+#. (atime, gid, etc.).
+#: src/xheader.c:1053
+#, c-format
+msgid "Extended header %s=%s is out of range %s..%s"
+msgstr "La cabecera extendida %s=%s está fuera del rango %s..%s"
+
+#: src/xheader.c:1104 src/xheader.c:1137 src/xheader.c:1487
+#, c-format
+msgid "Malformed extended header: invalid %s=%s"
+msgstr "Cabecera extendida errónea: %s=%s inválido"
+
+#: src/xheader.c:1440 src/xheader.c:1465 src/xheader.c:1520
+#, c-format
+msgid "Malformed extended header: excess %s=%s"
+msgstr "Cabecera extendida errónea: sobra %s=%s"
+
+#: src/xheader.c:1533
+#, c-format
+msgid "Malformed extended header: invalid %s: unexpected delimiter %c"
+msgstr "Cabecera extendida errónea: %s inválido: delimitador %c inesperado"
+
+#: src/xheader.c:1543
+#, c-format
+msgid "Malformed extended header: invalid %s: odd number of values"
+msgstr "Cabecera extendida errónea: %s inválido: número impar de valores"
+
+#: src/checkpoint.c:114
+#, c-format
+msgid "%s: not a valid timeout"
+msgstr "%s: no es un tiempo de expiración válido"
+
+#: src/checkpoint.c:121
+#, c-format
+msgid "%s: unknown checkpoint action"
+msgstr "%s: acción de punto de comprobación desconocida"
+
+#: src/checkpoint.c:202
+msgid "write"
+msgstr "escritura"
+
+#: src/checkpoint.c:202
+msgid "read"
+msgstr "lectura"
+
+#. TRANSLATORS: This is a "checkpoint of write operation",
+#. *not* "Writing a checkpoint".
+#. E.g. in Spanish "Punto de comprobaci@'on de escritura",
+#. *not* "Escribiendo un punto de comprobaci@'on"
+#: src/checkpoint.c:218
+#, c-format
+msgid "Write checkpoint %u"
+msgstr "Punto de comprobación de escritura %u"
+
+#. TRANSLATORS: This is a "checkpoint of read operation",
+#. *not* "Reading a checkpoint".
+#. E.g. in Spanish "Punto de comprobaci@'on de lectura",
+#. *not* "Leyendo un punto de comprobaci@'on"
+#: src/checkpoint.c:224
+#, c-format
+msgid "Read checkpoint %u"
+msgstr "Punto de comprobación de lectura %u"
+
+# Acepto sugerencias para el `test suite'. sv
+# "test suite"="paquete/conjunto de pruebas/análisis", en cualquier
+# combinación. jmg
+#: tests/genfile.c:115
+msgid ""
+"genfile manipulates data files for GNU paxutils test suite.\n"
+"OPTIONS are:\n"
+msgstr ""
+"genfile manipula ficheros de datos para la «suite» de pruebas GNU paxutils.\n"
+"OPCIONES:\n"
+
+#: tests/genfile.c:131
+msgid "File creation options:"
+msgstr "Opciones de creación de ficheros:"
+
+#: tests/genfile.c:132 tests/genfile.c:143
+msgid "SIZE"
+msgstr "TAMAÑO"
+
+#: tests/genfile.c:133
+msgid "Create file of the given SIZE"
+msgstr "Crea un fichero del TAMAÑO dado"
+
+#: tests/genfile.c:135
+msgid "Write to file NAME, instead of standard output"
+msgstr "Escribe al fichero NOMBRE; en lugar de a la salida estándar"
+
+#: tests/genfile.c:137
+msgid "Read file names from FILE"
+msgstr "Lee los nombres de los ficheros de FICHERO"
+
+#: tests/genfile.c:139
+msgid "-T reads null-terminated names"
+msgstr "-T lee nombres terminados en nulo"
+
+#: tests/genfile.c:141
+msgid "Fill the file with the given PATTERN. PATTERN is 'default' or 'zeros'"
+msgstr "Rellena el fichero con el PATRÓN dado, PATRÓN es 'default' o 'zeros'"
+
+#: tests/genfile.c:144
+msgid "Size of a block for sparse file"
+msgstr "Tamaño de un bloque para un fichero disperso"
+
+#: tests/genfile.c:146
+msgid "Generate sparse file. Rest of the command line gives the file map."
+msgstr "Genera un fichero disperso. El resto de la línea de órdenes da el mapa del fichero."
+
+#: tests/genfile.c:148
+msgid "OFFSET"
+msgstr "DESPLAZAMIENTO"
+
+#: tests/genfile.c:149
+msgid "Seek to the given offset before writing data"
+msgstr "Busca en el desplazamiento indicado antes de escribir los datos"
+
+#: tests/genfile.c:152
+msgid "Suppress non-fatal diagnostic messages"
+msgstr "Suprime mensajes de diagnóstico no fatales"
+
+#: tests/genfile.c:156
+msgid "File statistics options:"
+msgstr "Opciones de estadísticas de ficheros:"
+
+#: tests/genfile.c:159
+msgid "Print contents of struct stat for each given file. Default FORMAT is: "
+msgstr "Imprime los contenidos de la estructura de estadísticas para cada fichero indicado. FORMATO predeterminado: "
+
+#: tests/genfile.c:166
+msgid "Synchronous execution options:"
+msgstr "Opciones de ejecución síncrona:"
+
+#: tests/genfile.c:168
+msgid "OPTION"
+msgstr "OPCIÓN"
+
+#: tests/genfile.c:169
+msgid "Execute ARGS. Useful with --checkpoint and one of --cut, --append, --touch, --unlink"
+msgstr "Ejecuta ARGS. Es útil con --checkpoint y una de entre --cut, --append, --touch y --unlink"
+
+#: tests/genfile.c:172
+msgid "Perform given action (see below) upon reaching checkpoint NUMBER"
+msgstr "Realiza la acción indicada (véase más abajo) al llegar al punto de comprobación NÚMERO"
+
+#: tests/genfile.c:175
+msgid "Set date for next --touch option"
+msgstr "Establece la fecha para la siguiente opción --touch"
+
+#: tests/genfile.c:178
+msgid "Display executed checkpoints and exit status of COMMAND"
+msgstr "Muestra los puntos de comprobación ejecutados y el estado de la salida de ORDEN"
+
+#: tests/genfile.c:183
+msgid "Synchronous execution actions. These are executed when checkpoint number given by --checkpoint option is reached."
+msgstr "Acciones de ejecución síncrona. Se ejecutan cuando se llega al punto de comprobación indicado por la opción --checkpoint"
+
+#: tests/genfile.c:186
+msgid "Truncate FILE to the size specified by previous --length option (or 0, if it is not given)"
+msgstr "Trunca FICHERO al tamaño especificado previamente en una opción --length (o 0, si no se ha indicado esta)"
+
+#: tests/genfile.c:190
+msgid "Append SIZE bytes to FILE. SIZE is given by previous --length option."
+msgstr "Añade TAMAÑO btyes a FICHERO. TAMAÑO es el indicado previamente en una opción --length"
+
+#: tests/genfile.c:193
+msgid "Update the access and modification times of FILE"
+msgstr "Actualiza las fechas de acceso y modificación de FICHERO"
+
+#: tests/genfile.c:196
+msgid "Execute COMMAND"
+msgstr "Ejecuta ORDEN"
+
+#: tests/genfile.c:199
+msgid "Delete FILE"
+msgstr "Borra FICHERO"
+
+#: tests/genfile.c:250
+#, c-format
+msgid "Invalid size: %s"
+msgstr "Tamaño inválido: %s"
+
+#: tests/genfile.c:255
+#, c-format
+msgid "Number out of allowed range: %s"
+msgstr "Número fuera del rango permitido: %s"
+
+#: tests/genfile.c:258
+#, c-format
+msgid "Negative size: %s"
+msgstr "Tamaño negativo: %s"
+
+#: tests/genfile.c:271 tests/genfile.c:642
+#, c-format
+msgid "stat(%s) failed"
+msgstr "stat(%s) ha fallado"
+
+#: tests/genfile.c:274
+#, c-format
+msgid "requested file length %lu, actual %lu"
+msgstr "longitud de fichero solicitada %lu, efectiva %lu"
+
+#: tests/genfile.c:278
+#, c-format
+msgid "created file is not sparse"
+msgstr "el fichero creado no es disperso"
+
+#: tests/genfile.c:375
+#, c-format
+msgid "Error parsing number near `%s'"
+msgstr "Error al analizar número cerca de `%s'"
+
+#: tests/genfile.c:381
+#, c-format
+msgid "Unknown date format"
+msgstr "Formato de fecha desconocido"
+
+#: tests/genfile.c:405
+msgid "[ARGS...]"
+msgstr "[ARGUMENTOS...]"
+
+#: tests/genfile.c:442 tests/genfile.c:482 tests/genfile.c:583
+#: tests/genfile.c:746 tests/genfile.c:760
+#, c-format
+msgid "cannot open `%s'"
+msgstr "No se puede abrir `%s'"
+
+#: tests/genfile.c:448
+msgid "cannot seek"
+msgstr "no se puede efectuar `seek'"
+
+#: tests/genfile.c:465
+#, c-format
+msgid "file name contains null character"
+msgstr "el nombre del fichero contiene el carácter nulo"
+
+#: tests/genfile.c:578
+#, c-format
+msgid "cannot generate sparse files on standard output, use --file option"
+msgstr "no se pueden generar ficheros dispersos en la salida estándar; utilice la opción --file"
+
+#: tests/genfile.c:669
+#, c-format
+msgid "incorrect mask (near `%s')"
+msgstr "máscara incorrecta (cerca de `%s')"
+
+#: tests/genfile.c:675 tests/genfile.c:708
+#, c-format
+msgid "Unknown field `%s'"
+msgstr "Campo desconocido `%s'"
+
+# Uff, a lo mejor se asusta el usuario si ponemos 'no se pudo leer con stat()
+# el estado del fichero em+
+# stat() es una primitiva Unix que acaba de fallar; también podría
+# ser: "No se puede hacer stat() del fichero %s", o "stat() ha fallado..."
+# Aunque tal como está es más descriptivo para el neófito, desde
+# luego. gag
+#: tests/genfile.c:735
+#, c-format
+msgid "cannot set time on `%s'"
+msgstr "no se puede establecer la fecha sobre `%s'"
+
+#: tests/genfile.c:765
+#, c-format
+msgid "cannot truncate `%s'"
+msgstr "no se puede truncar `%s'"
+
+#: tests/genfile.c:774
+#, c-format
+msgid "command failed: %s"
+msgstr "la orden falló: %s"
+
+#: tests/genfile.c:781
+#, c-format
+msgid "cannot stat `%s'"
+msgstr "no se pueden sacar estadísticas de `%s'"
+
+# Uff, a lo mejor se asusta el usuario si ponemos 'no se pudo leer con stat()
+# el estado del fichero em+
+# stat() es una primitiva Unix que acaba de fallar; también podría
+# ser: "No se puede hacer stat() del fichero %s", o "stat() ha fallado..."
+# Aunque tal como está es más descriptivo para el neófito, desde
+# luego. gag
+#: tests/genfile.c:785
+#, c-format
+msgid "cannot remove directory `%s'"
+msgstr "no se puede borrar el directorio `%s'"
+
+#: tests/genfile.c:788
+#, c-format
+msgid "cannot unlink `%s'"
+msgstr "no se puede desenlazar `%s'"
+
+#: tests/genfile.c:918
+#, c-format
+msgid "Command exited successfully\n"
+msgstr "La orden terminó con éxito\n"
+
+#: tests/genfile.c:920
+#, c-format
+msgid "Command failed with status %d\n"
+msgstr "La orden falló con el estado %d\n"
+
+#: tests/genfile.c:924
+#, c-format
+msgid "Command terminated on signal %d\n"
+msgstr "La orden terminó con la señal %d\n"
+
+#: tests/genfile.c:926
+#, c-format
+msgid "Command stopped on signal %d\n"
+msgstr "La orden se detuvo con la señal %d\n"
+
+#: tests/genfile.c:929
+#, c-format
+msgid "Command dumped core\n"
+msgstr "La orden volcó un core\n"
+
+#: tests/genfile.c:932
+#, c-format
+msgid "Command terminated\n"
+msgstr "La orden terminó\n"
+
+#: tests/genfile.c:964
+#, c-format
+msgid "--stat requires file names"
+msgstr "--stat necesita nombres de ficheros"
+
+#~ msgid "%.*s: ARGP_HELP_FMT parameter must be positive"
+#~ msgstr "%.*s: El parámetro ARGP_HELP_FMT debe ser positivo"
+
+#~ msgid "%s: option '--%s' doesn't allow an argument\n"
+#~ msgstr "%s: la opción '--%s' no admite ningún argumento\n"
+
+#~ msgid "%s: unrecognized option '--%s'\n"
+#~ msgstr "%s: opción no reconocida '--%s'\n"
+
+#~ msgid "%s: option '-W %s' is ambiguous\n"
+#~ msgstr "%s: la opción '-W %s' es ambigua\n"
+
+#~ msgid "%s: option '-W %s' doesn't allow an argument\n"
+#~ msgstr "%s: la opción '-W %s' no admite ningún argumento\n"
+
+#~ msgid "%s: option '-W %s' requires an argument\n"
+#~ msgstr "%s: la opción '-W %s' requiere un argumento\n"
+
+#~ msgid "Unlink FILE"
+#~ msgstr "Desenlaza FICHERO"
+
+#~ msgid "same as both -p and -s"
+#~ msgstr "lo mismo que -p y -s"
+
+#~ msgid "The --preserve option is deprecated, use --preserve-permissions --preserve-order instead"
+#~ msgstr "La opción --preserve está obsoleta, utilice --preserve-permissions --preserve-order en su lugar"
+
+#~ msgid "--occurrence cannot be used with %s"
+#~ msgstr "no se puede usar --occurrence con %s"
+
+#~ msgid "Cannot combine --listed-incremental with --newer"
+#~ msgstr "No se puede combinar --listed-incremental con --newer"
+
+#~ msgid "--verify cannot be used with %s"
+#~ msgstr "--verify no se puede usar con %s"
+
+#~ msgid "--preserve-order is not compatible with --listed-incremental"
+#~ msgstr "--preserve-order no es compatible con --listed-incremental"

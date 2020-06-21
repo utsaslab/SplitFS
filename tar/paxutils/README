@@ -1,0 +1,66 @@
+README for GNU paxutils
+See the end of file for copying conditions.
+
+* Introduction
+
+GNU paxutils aims to provide:
+
+  1. tar implementation, replacing current GNU tar,
+  2. cpio implementation, replacing current GNU cpio,
+  3. pax implementation, conforming to POSIX standard.
+
+All three implementations will be built around a common (presumably
+shared) library. 
+
+See files HISTORY and TODO for the information about background of GNU
+paxutils and its future plans.
+
+* Interaction with GNU tar and cpio
+
+Development of GNU paxutils evolves in sync with that of GNU tar
+and cpio. New features of both projects are being moved to paxutils,
+so that the project also serves as a code base repository for both tar
+and cpio.
+
+Each subdirectory in the repository that contains files required by
+any of these projects, contains a file named DISTFILES that lists the
+files to be exported from this subdirectory. Such file consists of a
+list of filenames, each on a separate line. Empty lines and comments
+(beginning with #) are allowed. Comments must occupy a separate line.
+
+* Interaction with gnulib
+
+File gnulib.modules contains a list of gnulib modules needed by
+exportable paxutils files. The build system of both projects uses this
+file to create a list of necessary gnulib modules.
+
+A similar file, build-aux/gnulib.modules, contains a list of gnulib
+modules needed by paxutils itself. It is used by build-aux/bootstrap
+to bootstrap the package.
+
+* Current status
+
+Currently paxutils provides initial version of pax library, containing
+internal buffering support. The 'paxtest' utility is provided for
+testing the library. 
+
+
+* Copying
+
+Copyright (C) 2005 Free Software Foundation, Inc.
+
+   Permission is granted to anyone to make or distribute verbatim copies
+   of this document as received, in any medium, provided that the
+   copyright notice and this permission notice are preserved,
+   thus giving the recipient permission to redistribute in turn.
+
+   Permission is granted to distribute modified versions
+   of this document, or of portions of it,
+   under the above conditions, provided also that they
+   carry prominent notices stating who last changed them.
+
+Local Variables:
+mode: outline
+paragraph-separate: "[	]*$"
+version-control: never
+End:

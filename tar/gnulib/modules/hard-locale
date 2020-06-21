@@ -1,0 +1,24 @@
+Description:
+Determine whether the current locale is different from the "C" locale.
+
+Files:
+lib/hard-locale.h
+lib/hard-locale.c
+
+Depends-on:
+stdbool
+strdup
+
+configure.ac:
+
+Makefile.am:
+lib_SOURCES += hard-locale.c
+
+Include:
+"hard-locale.h"
+
+License:
+LGPLv2+
+
+Maintainer:
+Paul Eggert

@@ -1,0 +1,66 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2011, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Test description:
+#
+# This is basic test for support of extended attributes.
+
+AT_SETUP([acls/selinux: special files & fifos])
+AT_KEYWORDS([xattrs selinux acls selacls01])
+
+AT_TAR_CHECK([
+AT_PRIVILEGED_PREREQ
+AT_XATTRS_UTILS_PREREQ
+AT_SELINUX_PREREQ
+AT_ACLS_PREREQ
+
+mkdir dir
+mkfifo dir/fifo
+MAJOR=$( stat /dev/urandom --printf="%t" )
+MINOR=$( stat /dev/urandom --printf="%T" )
+mknod dir/chartype c $MAJOR $MINOR
+
+# setup attributes
+restorecon -R dir
+chcon -h --user=system_u dir/fifo
+chcon -h --user=system_u dir/chartype
+setfacl -m u:$UID:--- dir/fifo
+setfacl -m u:$UID:rwx dir/chartype
+
+getfacl dir/fifo >> before
+getfattr -msecurity.selinux dir/chartype >> before
+
+tar --xattrs --selinux --acls -cf archive.tar dir
+
+mv dir olddir
+
+tar --xattrs --selinux --acls -xf archive.tar
+
+getfacl dir/fifo >> after
+getfattr -msecurity.selinux dir/chartype >> after
+
+diff before after
+echo separator
+],
+[0],
+[separator
+])
+
+AT_CLEANUP

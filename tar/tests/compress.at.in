@@ -1,0 +1,67 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2018 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# tar can create/decompress @tool@-compressed tarballs
+
+AT_SETUP([compress: @tool@])
+AT_KEYWORDS([compression @tool@])
+
+unset TAR_OPTIONS
+
+AT_CHECK([
+AT_GZIP_PREREQ([@tool@])
+
+touch empty
+# Create with --@tool@:
+tar --@tool@ -cf - empty 2>err > k.tar.@suff@ || exit 1
+test -s err && exit 1
+tar tf k.tar.@suff@ 2>err > out || exit 1
+test "$(cat out)" = empty || exit 1
+test -s err && exit 1
+
+# Ensure -ac works with an -f-specified .@suff@-suffixed name.
+tar -acf k2.tar.@suff@ empty 2>err > out || exit 1
+cmp k2.tar.@suff@ k.tar.@suff@ || exit 1
+test -s err && exit 1
+
+# Extraction: ensure the .@suff@ suffix is recognized.
+rm -f empty || exit 1
+tar xf k.tar.@suff@ 2>err > out || exit 1
+test -s err && exit 1
+test -f empty || exit 1
+
+if test -n '@suff2@'; then
+  # Extraction: ensure the .@suff2@ suffix is also recognized.
+  mv k.tar.@suff@ k.@suff2@ || exit 1
+  rm -f empty
+  tar xf k.@suff2@ 2>err > out || exit 1
+  test -s err && exit 1
+  test -f empty || exit 1
+else
+  :
+fi
+
+],
+[0],
+[],
+[],
+[],[])
+
+AT_CLEANUP

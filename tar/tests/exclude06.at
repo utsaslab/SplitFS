@@ -1,0 +1,50 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Tar 1.23 would fail to exclude names longer that 100 characters from
+# pax format archives.
+#
+# Reported-by: Matthew Peterson <mrpeterson2@gmail.com>
+# References: <AANLkTin0teb1dcl0HCNquHxvN4HQnJmP6aK7CJCqy0sd@mail.gmail.com>
+#             http://lists.gnu.org/archive/html/help-tar/2010-06/msg00000.html
+
+AT_SETUP([exclude: long files in pax archives])
+AT_KEYWORDS([exclude exclude06 chdir])
+
+m4_pushdef([test_base_dir],[one/two/three/four/five/six/seven/eight/nine/ten/eleven/twelve/thirteen/fourteen/fifteen/sixteen/seventeen])
+
+AT_TAR_CHECK([
+AT_TAR_MKHIER(test_base_dir)
+genfile --length 20 -f test_base_dir[/1.txt]
+genfile --length 20 -f test_base_dir[/1.c]
+
+tar cf archive.tar test_base_dir
+mkdir out
+tar -C out -xf archive.tar --exclude='*.txt' --warning=no-timestamp
+find out -type f
+],
+[0],
+[[out/]test_base_dir[/1.c]
+],
+[],
+[],
+[],
+[pax])
+
+m4_popdef([test_base_dir])
+AT_CLEANUP

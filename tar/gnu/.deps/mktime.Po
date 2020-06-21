@@ -1,0 +1,79 @@
+mktime.o: mktime.c /usr/include/stdc-predef.h ../config.h time.h \
+ /usr/include/time.h /usr/include/features.h \
+ /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-linux-gnu/6/include/stddef.h \
+ /usr/include/x86_64-linux-gnu/bits/time.h \
+ /usr/include/x86_64-linux-gnu/bits/types.h \
+ /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+ /usr/include/x86_64-linux-gnu/bits/timex.h /usr/include/xlocale.h \
+ limits.h /usr/lib/gcc/x86_64-linux-gnu/6/include-fixed/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/6/include-fixed/syslimits.h \
+ /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+ /usr/include/linux/limits.h \
+ /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
+ /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+ /usr/lib/gcc/x86_64-linux-gnu/6/include/stdbool.h intprops.h verify.h \
+ mktime-internal.h
+
+/usr/include/stdc-predef.h:
+
+../config.h:
+
+time.h:
+
+/usr/include/time.h:
+
+/usr/include/features.h:
+
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/6/include/stddef.h:
+
+/usr/include/x86_64-linux-gnu/bits/time.h:
+
+/usr/include/x86_64-linux-gnu/bits/types.h:
+
+/usr/include/x86_64-linux-gnu/bits/typesizes.h:
+
+/usr/include/x86_64-linux-gnu/bits/timex.h:
+
+/usr/include/xlocale.h:
+
+limits.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed/limits.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix1_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+/usr/include/x86_64-linux-gnu/bits/posix2_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/xopen_lim.h:
+
+/usr/include/x86_64-linux-gnu/bits/stdio_lim.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/6/include/stdbool.h:
+
+intprops.h:
+
+verify.h:
+
+mktime-internal.h:

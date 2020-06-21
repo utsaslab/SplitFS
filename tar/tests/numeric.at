@@ -1,0 +1,74 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Test suite for GNU tar.
+# Copyright 2015-2017 Free Software Foundation, Inc.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_SETUP([--numeric-owner basic tests])
+AT_KEYWORDS([options numeric numeric-owner])
+
+m4_pushdef([TESTOP],[
+decho $1
+tar $1 -vvf a dir --numeric-owner |dnl
+ awk '@S|@2=="'"$MYUID/$MYGID"'" {print "OK"; next} {print}'
+tar $1 -vvf a dir |dnl
+ awk '@S|@2=="'"$MYUSR/$MYGRP"'" {print "OK"; next} {print}'
+])
+
+AT_TAR_CHECK([
+mkdir dir
+genfile --file dir/file
+
+MYUID=$(id -u) || AT_SKIP_TEST
+MYGID=$(id -g) || AT_SKIP_TEST
+MYUSR=$(id -un) || AT_SKIP_TEST
+MYGRP=$(id -gn) || AT_SKIP_TEST
+
+TESTOP([--create])
+TESTOP([--list])
+TESTOP([--diff])
+TESTOP([--extract])
+],
+[0],
+[--create
+OK
+OK
+OK
+OK
+--list
+OK
+OK
+OK
+OK
+--diff
+OK
+OK
+OK
+OK
+--extract
+OK
+OK
+OK
+OK
+],
+[--create
+--list
+--diff
+--extract
+],[],[],[posix,gnu,ustar,oldgnu])
+
+AT_CLEANUP
+
+m4_popdef([TESTOP])
+

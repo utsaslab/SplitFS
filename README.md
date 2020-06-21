@@ -88,6 +88,7 @@ $ rm -rf /mnt/pmem_emul/*
 8. `sqlite3-trace/` contains SQLite3 source code
 9. `tpcc-sqlite/` contains TPCC source code
 10. `ycsb/` contains YCSB source code
+11. `tar/` contains tar source code
 
 The [Experiments
 page](https://github.com/utsaslab/SplitFS/blob/master/experiments.md)

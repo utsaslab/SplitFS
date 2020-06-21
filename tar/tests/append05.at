@@ -1,0 +1,96 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2016-2017 Free Software Foundation, Inc.
+#
+# This file is part of GNU tar.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Adding files to an archive with a blocking factor different from the one
+# used when creating it would produce a malformed archive.
+#
+# Last-Affected-Version: 1.28.90 (da7845c6563e7337bf3e8364046a7989091f190e)
+# Reported-by: Initial report by Renate Pyhel <rpyhel@google.com>.  Explained
+#   in detail by Tim Kientzle.  This test case is based on his posting.
+# References: <CALyyU7QJRQEQWMqZ=J=ppu-nwOH6R58Ci2ZkV32+CeZKsWsz7Q@mail.gmail.com>,
+#   <50202013-27F2-4EFF-98C8-2DD112C5B956@kientzle.com>,
+#   http://lists.gnu.org/archive/html/bug-tar/2016-03/msg00002.html,
+#   http://lists.gnu.org/archive/html/bug-tar/2016-03/msg00004.html
+
+AT_SETUP([append after changed blocking])
+AT_KEYWORDS([append append05 blocking])
+
+AT_TAR_CHECK([
+for f in a b c d e f g h i
+do
+  echo $f > $f
+done
+
+decho 'creating archive'
+tar -cf archive -b1 a b c
+
+tar tf archive
+
+decho 'adding d e f'
+tar -vrf archive -b3 d e f
+echo ==
+tar tf archive
+
+decho 'adding g h i'
+tar -vrf archive -b5 g h i
+
+decho 'resulting archive'
+tar tf archive
+],
+[0],
+[creating archive
+a
+b
+c
+adding d e f
+d
+e
+f
+==
+a
+b
+c
+d
+e
+f
+adding g h i
+g
+h
+i
+resulting archive
+a
+b
+c
+d
+e
+f
+g
+h
+i
+],
+[creating archive
+adding d e f
+adding g h i
+resulting archive
+])
+
+AT_CLEANUP
+
+

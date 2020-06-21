@@ -1,0 +1,3394 @@
+# Czech translations for GNU tar
+# Copyright (C) 1997 Free Software Foundation, Inc.
+# This file is distributed under the same license as the tar package.
+# Vladimir Michl <Vladimir.Michl@seznam.cz>, 1997.
+# Petr Pisar <petr.pisar@atlas.cz>, 2009, 2010, 2011, 2013, 2014, 2016, 2017.
+#
+# Pozor: program sám zalamuje dlouhé řádky, ale místo (širokých) znaků počítá
+# bajty. Proto je nutné dodržovat nezlomitelné mezery, které program rovněž
+# respektuje.
+#
+# extract → rozbalit (celý archiv), vybalit (některé soubory z archivu)
+# member → prvek
+# tape → páska (rod ženský, vzor žena; ne pásek)
+# seek offset → pozice posunu (pásky)
+#
+#: src/create.c:1599
+msgid ""
+msgstr ""
+"Project-Id-Version: tar 1.30\n"
+"Report-Msgid-Bugs-To: bug-tar@gnu.org\n"
+"POT-Creation-Date: 2017-12-17 12:31+0200\n"
+"PO-Revision-Date: 2017-12-18 21:48+01:00\n"
+"Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
+"Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+
+#: gnu/argmatch.c:134
+#, c-format
+msgid "invalid argument %s for %s"
+msgstr "argument %s je pro %s neplatný"
+
+#: gnu/argmatch.c:135
+#, c-format
+msgid "ambiguous argument %s for %s"
+msgstr "argument %s není pro %s jednoznačný"
+
+#: gnu/argmatch.c:154
+msgid "Valid arguments are:"
+msgstr "Platné argumenty jsou:"
+
+#: gnu/argp-help.c:148
+#, c-format
+msgid "ARGP_HELP_FMT: %s value is less than or equal to %s"
+msgstr "ARGP_HELP_FMT: hodnota %s je menší nebo rovna %s"
+
+#: gnu/argp-help.c:224
+#, c-format
+msgid "%.*s: ARGP_HELP_FMT parameter requires a value"
+msgstr "%.*s: parametr ARGP_HELP_FMT vyžaduje hodnotu"
+
+#: gnu/argp-help.c:234
+#, c-format
+msgid "%.*s: Unknown ARGP_HELP_FMT parameter"
+msgstr "%.*s: Neznámý parametr ARGP_HELP_FMT"
+
+#: gnu/argp-help.c:247
+#, c-format
+msgid "Garbage in ARGP_HELP_FMT: %s"
+msgstr "Nepořádek v ARGP_HELP_FMT: %s"
+
+#: gnu/argp-help.c:1228
+msgid "Mandatory or optional arguments to long options are also mandatory or optional for any corresponding short options."
+msgstr ""
+"Povinné nebo volitelné argumenty dlouhých přepínačů jsou rovněž povinné\n"
+"nebo volitelné u odpovídajících krátkých přepínačů."
+
+#: gnu/argp-help.c:1615
+msgid "Usage:"
+msgstr "Použití:"
+
+#: gnu/argp-help.c:1619
+msgid "  or: "
+msgstr "nebo: "
+
+#: gnu/argp-help.c:1631
+msgid " [OPTION...]"
+msgstr " [PŘEPÍNAČ…]"
+
+#: gnu/argp-help.c:1658
+#, c-format
+msgid "Try '%s --help' or '%s --usage' for more information.\n"
+msgstr "Více informací získáte pomocí „%s --help“ nebo „%s --usage“.\n"
+
+#: gnu/argp-help.c:1686
+#, c-format
+msgid "Report bugs to %s.\n"
+msgstr "Chyby v programu oznamujte na adrese %s (anglicky), připomínky k překladu na adrese <translation-team-cs@lists.sourceforge.net> (česky).\n"
+
+#: gnu/argp-help.c:1887 gnu/error.c:195
+msgid "Unknown system error"
+msgstr "Neznámá systémová chyba"
+
+#: gnu/argp-parse.c:81
+msgid "give this help list"
+msgstr "vypíše tuto nápovědu"
+
+#: gnu/argp-parse.c:82
+msgid "give a short usage message"
+msgstr "vypíše stručný návod na použití"
+
+# JMÉNO jako v příslušné položce nápovědy
+#: gnu/argp-parse.c:83 src/tar.c:507 src/tar.c:509 src/tar.c:612
+#: tests/genfile.c:134
+msgid "NAME"
+msgstr "JMÉNO"
+
+#: gnu/argp-parse.c:84
+msgid "set the program name"
+msgstr "nastaví název programu"
+
+#: gnu/argp-parse.c:85
+msgid "SECS"
+msgstr "SEKUNDY"
+
+#: gnu/argp-parse.c:86
+msgid "hang for SECS seconds (default 3600)"
+msgstr "zastaví se na SEKUNDY sekund (implicitně 3600)"
+
+#: gnu/argp-parse.c:143
+msgid "print program version"
+msgstr "vypíše verzi programu"
+
+#: gnu/argp-parse.c:160
+msgid "(PROGRAM ERROR) No version known!?"
+msgstr "(CHYBA PROGRAMU) Verze není známa!?"
+
+#: gnu/argp-parse.c:613
+#, c-format
+msgid "%s: Too many arguments\n"
+msgstr "%s: Příliš mnoho argumentů\n"
+
+#: gnu/argp-parse.c:759
+msgid "(PROGRAM ERROR) Option should have been recognized!?"
+msgstr "(CHYBA PROGRAMU) Přepínač by měl být znám!?"
+
+#: gnu/closeout.c:122
+msgid "write error"
+msgstr "chyba zápisu"
+
+#: gnu/getopt.c:278
+#, c-format
+msgid "%s: option '%s%s' is ambiguous\n"
+msgstr "%s: přepínač „%s%s“ není jednoznačný\n"
+
+#: gnu/getopt.c:284
+#, c-format
+msgid "%s: option '%s%s' is ambiguous; possibilities:"
+msgstr "%s: přepínač „%s%s“ není jednoznačný; možnosti:"
+
+#: gnu/getopt.c:319
+#, c-format
+msgid "%s: unrecognized option '%s%s'\n"
+msgstr "%s: nerozpoznaný přepínač „%s%s“\n"
+
+#: gnu/getopt.c:345
+#, c-format
+msgid "%s: option '%s%s' doesn't allow an argument\n"
+msgstr "%s: přepínač „%s%s“ musí být zadán bez argumentu\n"
+
+#: gnu/getopt.c:360
+#, c-format
+msgid "%s: option '%s%s' requires an argument\n"
+msgstr "%s: přepínač „%s%s“ vyžaduje argument\n"
+
+#: gnu/getopt.c:621
+#, c-format
+msgid "%s: invalid option -- '%c'\n"
+msgstr "%s: neplatný přepínač -- „%c“\n"
+
+#: gnu/getopt.c:636 gnu/getopt.c:682
+#, c-format
+msgid "%s: option requires an argument -- '%c'\n"
+msgstr "%s: přepínač vyžaduje argument -- %c\n"
+
+#: gnu/obstack.c:338 gnu/obstack.c:340 gnu/xalloc-die.c:34
+msgid "memory exhausted"
+msgstr "paměť vyčerpána"
+
+#: gnu/openat-die.c:38
+#, c-format
+msgid "unable to record current working directory"
+msgstr "pracovní adresář nelze si nelze zapamatovat"
+
+#: gnu/openat-die.c:57
+#, c-format
+msgid "failed to return to initial working directory"
+msgstr "do původního pracovního adresáře se nelze vrátit"
+
+#. TRANSLATORS:
+#. Get translations for open and closing quotation marks.
+#. The message catalog should translate "`" to a left
+#. quotation mark suitable for the locale, and similarly for
+#. "'".  For example, a French Unicode local should translate
+#. these to U+00AB (LEFT-POINTING DOUBLE ANGLE
+#. QUOTATION MARK), and U+00BB (RIGHT-POINTING DOUBLE ANGLE
+#. QUOTATION MARK), respectively.
+#.
+#. If the catalog has no translation, we will try to
+#. use Unicode U+2018 (LEFT SINGLE QUOTATION MARK) and
+#. Unicode U+2019 (RIGHT SINGLE QUOTATION MARK).  If the
+#. current locale is not Unicode, locale_quoting_style
+#. will quote 'like this', and clocale_quoting_style will
+#. quote "like this".  You should always include translations
+#. for "`" and "'" even if U+2018 and U+2019 are appropriate
+#. for your locale.
+#.
+#. If you don't know what to put here, please see
+#. <https://en.wikipedia.org/wiki/Quotation_marks_in_other_languages>
+#. and use glyphs suitable for your language.
+#: gnu/quotearg.c:362
+msgid "`"
+msgstr "„"
+
+#: gnu/quotearg.c:363
+msgid "'"
+msgstr "“"
+
+#. TRANSLATORS: A regular expression testing for an affirmative answer
+#. (english: "yes").  Testing the first character may be sufficient.
+#. Take care to consider upper and lower case.
+#. To enquire the regular expression that your system uses for this
+#. purpose, you can use the command
+#. locale -k LC_MESSAGES | grep '^yesexpr='
+#: gnu/rpmatch.c:150
+msgid "^[yY]"
+msgstr "^[aAyY].*"
+
+#. TRANSLATORS: A regular expression testing for a negative answer
+#. (english: "no").  Testing the first character may be sufficient.
+#. Take care to consider upper and lower case.
+#. To enquire the regular expression that your system uses for this
+#. purpose, you can use the command
+#. locale -k LC_MESSAGES | grep '^noexpr='
+#: gnu/rpmatch.c:163
+msgid "^[nN]"
+msgstr "^[nN].*"
+
+#: gnu/version-etc.c:74
+#, c-format
+msgid "Packaged by %s (%s)\n"
+msgstr "Zabaleno kým: %s (%s)\n"
+
+#: gnu/version-etc.c:77
+#, c-format
+msgid "Packaged by %s\n"
+msgstr "Zabaleno kým: %s\n"
+
+#. TRANSLATORS: Translate "(C)" to the copyright symbol
+#. (C-in-a-circle), if this symbol is available in the user's
+#. locale.  Otherwise, do not translate "(C)"; leave it as-is.
+#: gnu/version-etc.c:84
+msgid "(C)"
+msgstr "©"
+
+#: gnu/version-etc.c:86
+msgid ""
+"\n"
+"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
+"\n"
+msgstr ""
+"\n"
+"Licence GPLv3+: GNU GPL verze 3 nebo novější\n"
+"<https://gnu.org/licenses/gpl.html>. Toto je svobodné programové vybavení:\n"
+"máte právo jej měnit a dále šířit. Není poskytována ŽÁDNÁ ZÁRUKA, jak jen\n"
+"zákon dovoluje.\n"
+"\n"
+
+#. TRANSLATORS: %s denotes an author name.
+#: gnu/version-etc.c:102
+#, c-format
+msgid "Written by %s.\n"
+msgstr "Napsal(a) %s.\n"
+
+# Vzhledem k tomu, že je nepravděpodobné, že by všemi autory byly ženy, tak
+# si uchýlíme k šovinisticky zjednodušenému „napsali“.
+#. TRANSLATORS: Each %s denotes an author name.
+#: gnu/version-etc.c:106
+#, c-format
+msgid "Written by %s and %s.\n"
+msgstr "Napsali %s a %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: gnu/version-etc.c:110
+#, c-format
+msgid "Written by %s, %s, and %s.\n"
+msgstr "Napsali %s, %s a %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:117
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+"Napsali %s, %s, %s\n"
+"a %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:124
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+"Napsali %s, %s, %s,\n"
+"%s a %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:131
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, and %s.\n"
+msgstr ""
+"Napsali %s, %s, %s,\n"
+"%s, %s a %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:139
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, and %s.\n"
+msgstr ""
+"Napsali %s, %s, %s,\n"
+"%s, %s, %s a %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:147
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+"Napsali %s, %s, %s,\n"
+"%s, %s, %s, %s\n"
+"a %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:156
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+"Napsali %s, %s, %s,\n"
+"%s, %s, %s, %s\n"
+"%s a %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:167
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, %s, and others.\n"
+msgstr ""
+"Napsali %s, %s, %s,\n"
+"%s, %s, %s, %s\n"
+"%s, %s a další.\n"
+
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: gnu/version-etc.c:245
+#, c-format
+msgid ""
+"\n"
+"Report bugs to: %s\n"
+msgstr ""
+"\n"
+"Chyby v programu oznamujte na adrese %s (anglicky),\n"
+"připomínky k překladu na adrese <translation-team-cs@lists.sourceforge.net>\n"
+"(česky).\n"
+
+#: gnu/version-etc.c:247
+#, c-format
+msgid "Report %s bugs to: %s\n"
+msgstr ""
+"Chyby v programu %s oznamujte (anglicky) na: %s\n"
+"Připomínky k překladu (česky) na: <translation-team-cs@lists.sourceforge.net>\n"
+
+#: gnu/version-etc.c:251
+#, c-format
+msgid "%s home page: <%s>\n"
+msgstr "Domovská stránka %s: <%s>\n"
+
+#: gnu/version-etc.c:253
+#, c-format
+msgid "%s home page: <https://www.gnu.org/software/%s/>\n"
+msgstr "Domovská stránka programu %s: <https://www.gnu.org/software/%s/>\n"
+
+#: gnu/version-etc.c:256
+msgid "General help using GNU software: <https://www.gnu.org/gethelp/>\n"
+msgstr "Obecná pomoc při používání softwaru GNU: <https://www.gnu.org/gethelp/>\n"
+
+#. TRANSLATORS: %s after `Cannot' is a function name, e.g. `Cannot open'.
+#. Directly translating this to another language will not work, first because
+#. %s itself is not translated.
+#. Translate it as `%s: Function %s failed'.
+#: lib/paxerror.c:60 lib/paxerror.c:73
+#, c-format
+msgid "%s: Cannot %s"
+msgstr "%s: Funkce %s selhala"
+
+#. TRANSLATORS: %s after `Cannot' is a function name, e.g. `Cannot open'.
+#. Directly translating this to another language will not work, first because
+#. %s itself is not translated.
+#. Translate it as `%s: Function %s failed'.
+#: lib/paxerror.c:86
+#, c-format
+msgid "%s: Warning: Cannot %s"
+msgstr "%s: Varování: Funkce %s selhala"
+
+#: lib/paxerror.c:95
+#, c-format
+msgid "%s: Cannot change mode to %s"
+msgstr "%s: Práva nelze změnit na %s"
+
+#: lib/paxerror.c:103
+#, c-format
+msgid "%s: Cannot change ownership to uid %lu, gid %lu"
+msgstr "%s: Vlastnictví nelze změnit na UID %lu, GID %lu"
+
+#: lib/paxerror.c:129
+#, c-format
+msgid "%s: Cannot hard link to %s"
+msgstr "%s: Pevný odkaz na %s nelze vytvořit"
+
+#: lib/paxerror.c:181 lib/paxerror.c:213
+#, c-format
+msgid "%s: Read error at byte %s, while reading %lu byte"
+msgid_plural "%s: Read error at byte %s, while reading %lu bytes"
+msgstr[0] "%s: Chyba při čtení na bajtu %s během čtení %lu bajtu"
+msgstr[1] "%s: Chyba při čtení na bajtu %s během čtení %lu bajtů"
+msgstr[2] "%s: Chyba při čtení na bajtu %s během čtení %lu bajtů"
+
+#: lib/paxerror.c:194
+#, c-format
+msgid "%s: Warning: Read error at byte %s, while reading %lu byte"
+msgid_plural "%s: Warning: Read error at byte %s, while reading %lu bytes"
+msgstr[0] "%s: Varování: Chyba při čtení na bajtu %s během čtení %lu bajtu"
+msgstr[1] "%s: Varování: Chyba při čtení na bajtu %s během čtení %lu bajtů"
+msgstr[2] "%s: Varování: Chyba při čtení na bajtu %s během čtení %lu bajtů"
+
+#: lib/paxerror.c:261
+#, c-format
+msgid "%s: Cannot seek to %s"
+msgstr "%s: Nelze změnit pozici v souboru na %s"
+
+#: lib/paxerror.c:277
+#, c-format
+msgid "%s: Warning: Cannot seek to %s"
+msgstr "%s: Varování: Ukazatel v souboru nelze přemístit na %s"
+
+#: lib/paxerror.c:286
+#, c-format
+msgid "%s: Cannot create symlink to %s"
+msgstr "%s: Symbolický odkaz na „%s“ nelze vytvořit"
+
+#: lib/paxerror.c:351
+#, c-format
+msgid "%s: Wrote only %lu of %lu byte"
+msgid_plural "%s: Wrote only %lu of %lu bytes"
+msgstr[0] "%s: Zapsáno pouze %lu z %lu bajtu"
+msgstr[1] "%s: Zapsáno pouze %lu z %lu bajtů"
+msgstr[2] "%s: Zapsáno pouze %lu z %lu bajtů"
+
+# member names jsou názvy souborů v archivu
+#: lib/paxnames.c:140
+#, c-format
+msgid "Removing leading `%s' from member names"
+msgstr "Odstraňuje se úvodní „%s“ z názvů prvků"
+
+#: lib/paxnames.c:141
+#, c-format
+msgid "Removing leading `%s' from hard link targets"
+msgstr "Odstraňuje se úvodní „%s“ z cílů pevného odkazu"
+
+# member name je název souboru v archivu
+#: lib/paxnames.c:154
+msgid "Substituting `.' for empty member name"
+msgstr "Prázdný název prvku se nahradí „.“"
+
+#: lib/paxnames.c:155
+msgid "Substituting `.' for empty hard link target"
+msgstr "Prázdný cíl pevného odkazu se nahradí „.“"
+
+#: lib/rtapelib.c:299
+#, c-format
+msgid "exec/tcp: Service not available"
+msgstr "exec/tcp: Služba není k dispozici"
+
+#: lib/rtapelib.c:303
+#, c-format
+msgid "stdin"
+msgstr "stdin"
+
+#: lib/rtapelib.c:306
+#, c-format
+msgid "stdout"
+msgstr "stdout"
+
+#: lib/rtapelib.c:429
+#, c-format
+msgid "Cannot connect to %s: resolve failed"
+msgstr "K %s se nelze připojit: selhal překlad"
+
+#: lib/rtapelib.c:502
+#, c-format
+msgid "Cannot redirect files for remote shell"
+msgstr "Soubory nelze přesměrovat ke vzdálenému shellu"
+
+#: lib/rtapelib.c:516
+#, c-format
+msgid "Cannot execute remote shell"
+msgstr "Vzdálený shell není možné spustit"
+
+#: rmt/rmt.c:432
+msgid "Seek direction out of range"
+msgstr "Směr posunu je mimo rozsah"
+
+#: rmt/rmt.c:438
+msgid "Invalid seek direction"
+msgstr "Chybný směr posunu"
+
+#: rmt/rmt.c:446
+msgid "Invalid seek offset"
+msgstr "Neplatná pozice posunu"
+
+#: rmt/rmt.c:452
+msgid "Seek offset out of range"
+msgstr "Pozice posunu je je mimo rozsah"
+
+#: rmt/rmt.c:493 rmt/rmt.c:544 rmt/rmt.c:608
+msgid "Invalid byte count"
+msgstr "Neplatný počet bajtů"
+
+#: rmt/rmt.c:499 rmt/rmt.c:550 rmt/rmt.c:614 rmt/rmt.c:625
+msgid "Byte count out of range"
+msgstr "Počet bajtů je mimo rozsah"
+
+#: rmt/rmt.c:558
+msgid "Premature eof"
+msgstr "Předčasný konec souboru"
+
+#: rmt/rmt.c:601
+msgid "Invalid operation code"
+msgstr "Neplatní kód operace"
+
+#: rmt/rmt.c:636 rmt/rmt.c:680
+msgid "Operation not supported"
+msgstr "Operace není podporována"
+
+#: rmt/rmt.c:664
+msgid "Unexpected arguments"
+msgstr "Neočekávané argumenty"
+
+#: rmt/rmt.c:689
+msgid "Manipulate a tape drive, accepting commands from a remote process"
+msgstr "Ovládá páskovou jednotku přijímaje příkazy ze vzdáleného procesu"
+
+#: rmt/rmt.c:696 src/tar.c:432 src/tar.c:436 src/tar.c:610 src/tar.c:625
+#: src/tar.c:714 src/tar.c:730 tests/genfile.c:171
+msgid "NUMBER"
+msgstr "ČÍSLO"
+
+#: rmt/rmt.c:697
+msgid "set debug level"
+msgstr "nastaví úroveň ladění"
+
+#: rmt/rmt.c:698 src/names.c:71 src/names.c:75 src/names.c:93 src/names.c:103
+#: src/names.c:106 src/names.c:109 src/names.c:112 src/names.c:114
+#: src/tar.c:430 src/tar.c:511 src/tar.c:513 src/tar.c:615 src/tar.c:747
+#: tests/genfile.c:136 tests/genfile.c:185 tests/genfile.c:189
+#: tests/genfile.c:192 tests/genfile.c:198
+msgid "FILE"
+msgstr "SOUBOR"
+
+#: rmt/rmt.c:699
+msgid "set debug output file name"
+msgstr "nastaví název souboru pro výstup ladění"
+
+#: rmt/rmt.c:715 rmt/rmt.c:783
+#, c-format
+msgid "cannot open %s"
+msgstr "„%s“ nelze otevřít"
+
+#: rmt/rmt.c:780 tests/genfile.c:977 tests/genfile.c:994
+#, c-format
+msgid "too many arguments"
+msgstr "příliš mnoho argumentů"
+
+#: rmt/rmt.c:822
+msgid "Garbage command"
+msgstr "Neznámý příkaz"
+
+#: src/buffer.c:474 src/buffer.c:479 src/buffer.c:773 src/buffer.c:1415
+#: src/buffer.c:1452 src/buffer.c:1464 src/buffer.c:1493 src/delete.c:211
+#: src/list.c:275 src/update.c:188
+msgid "This does not look like a tar archive"
+msgstr "Toto pravděpodobně není tar archiv"
+
+#: src/buffer.c:590
+msgid "Total bytes read"
+msgstr "Celkem přečteno bajtů"
+
+#: src/buffer.c:592
+msgid "Total bytes written"
+msgstr "Celkem zapsáno bajtů"
+
+#: src/buffer.c:593
+msgid "Total bytes deleted"
+msgstr "Celkem smazáno bajtů"
+
+#: src/buffer.c:672
+msgid "(pipe)"
+msgstr "(roura)"
+
+#: src/buffer.c:696
+msgid "Refusing to read archive contents from terminal (missing -f option?)"
+msgstr "Čtení obsahu archivu z terminálu se zamítá (nechybí přepínač -f?)"
+
+#: src/buffer.c:698
+msgid "Refusing to write archive contents to terminal (missing -f option?)"
+msgstr "Zápis obsahu archivu do terminálu se zamítá (nechybí přepínač -f?)"
+
+#: src/buffer.c:711
+msgid "Invalid value for record_size"
+msgstr "Chybná hodnota pro velikost záznamu"
+
+#: src/buffer.c:714
+msgid "No archive name given"
+msgstr "Název archivu nebyl zadán"
+
+#: src/buffer.c:757
+msgid "Cannot verify stdin/stdout archive"
+msgstr "Stdin/Stdout archiv nelze ověřit"
+
+#: src/buffer.c:770
+#, c-format
+msgid "Archive is compressed. Use %s option"
+msgstr "Archiv je komprimován. Použijte přepínač %s"
+
+#: src/buffer.c:828 src/tar.c:2455
+msgid "Cannot update compressed archives"
+msgstr "Komprimovaný archiv nelze aktualizovat"
+
+#: src/buffer.c:928
+msgid "At beginning of tape, quitting now"
+msgstr "Páska na začátku, končím"
+
+#: src/buffer.c:934
+msgid "Too many errors, quitting"
+msgstr "Příliš mnoho chyb, končím"
+
+#: src/buffer.c:967
+#, c-format
+msgid "Record size = %lu block"
+msgid_plural "Record size = %lu blocks"
+msgstr[0] "Velikost záznamu = %'lu blok"
+msgstr[1] "Velikost záznamu = %'lu bloky"
+msgstr[2] "Velikost záznamu = %'lu bloků"
+
+#: src/buffer.c:988
+#, c-format
+msgid "Unaligned block (%lu byte) in archive"
+msgid_plural "Unaligned block (%lu bytes) in archive"
+msgstr[0] "Nezarovnaný blok (%'lu bajt) v archivu"
+msgstr[1] "Nezarovnaný blok (%'lu bajty) v archivu"
+msgstr[2] "Nezarovnaný blok (%'lu bajtů) v archivu"
+
+#: src/buffer.c:1075
+msgid "Cannot backspace archive file; it may be unreadable without -i"
+msgstr "V archivu se nelze vrátit, bez -i může být nečitelný"
+
+#: src/buffer.c:1107
+msgid "rmtlseek not stopped at a record boundary"
+msgstr "rmtlseek se nezastavil na hranici záznamu"
+
+#: src/buffer.c:1168
+#, c-format
+msgid "%s: contains invalid volume number"
+msgstr "%s: obsahuje neplatné číslo svazku"
+
+#: src/buffer.c:1203
+msgid "Volume number overflow"
+msgstr "U čísla svazku nastalo přetečení"
+
+#: src/buffer.c:1218
+#, c-format
+msgid "Prepare volume #%d for %s and hit return: "
+msgstr "Připravte svazek #%d pro archiv %s a stiskněte return:"
+
+#: src/buffer.c:1224
+msgid "EOF where user reply was expected"
+msgstr "Místo uživatelské odpovědi byl zadán konec souboru"
+
+#: src/buffer.c:1229 src/buffer.c:1261
+msgid "WARNING: Archive is incomplete"
+msgstr "VAROVÁNÍ: Archiv je nekompletní"
+
+#: src/buffer.c:1243
+#, c-format
+msgid ""
+" n name        Give a new file name for the next (and subsequent) volume(s)\n"
+" q             Abort tar\n"
+" y or newline  Continue operation\n"
+msgstr ""
+" n [název]           Zadat nový název pro další (a následující) svazek(ky)\n"
+" q                   Ukončit program tar\n"
+" y nebo odřádkování  Pokračovat v operaci\n"
+
+#: src/buffer.c:1248
+#, c-format
+msgid " !             Spawn a subshell\n"
+msgstr " !                   Vytvořit podshell\n"
+
+#: src/buffer.c:1249
+#, c-format
+msgid " ?             Print this list\n"
+msgstr " ?                   Vypsat tuto nápovědu\n"
+
+#: src/buffer.c:1256
+msgid "No new volume; exiting.\n"
+msgstr "Není nový svazek; končím.\n"
+
+#: src/buffer.c:1289
+msgid "File name not specified. Try again.\n"
+msgstr "Název souboru nebyl zadán. Zkuste to znovu.\n"
+
+#: src/buffer.c:1301
+#, c-format
+msgid "Invalid input. Type ? for help.\n"
+msgstr "Neplatný vstup. Nápovědu obdržíte napsáním „?“ (otazníku).\n"
+
+#: src/buffer.c:1352
+#, c-format
+msgid "%s command failed"
+msgstr "příkaz %s selhal"
+
+#: src/buffer.c:1529 src/buffer.c:1545
+#, c-format
+msgid "%s is not continued on this volume"
+msgstr "%s nepokračuje na tomto svazku"
+
+#: src/buffer.c:1541
+#, c-format
+msgid "%s is possibly continued on this volume: header contains truncated name"
+msgstr "%s možná pokračuje na tomto svazku: hlavička obsahuje zkrácený název"
+
+#: src/buffer.c:1559
+#, c-format
+msgid "%s is the wrong size (%s != %s + %s)"
+msgstr "%s je špatné délky (%s != %s + %s)"
+
+#: src/buffer.c:1574
+#, c-format
+msgid "This volume is out of sequence (%s - %s != %s)"
+msgstr "Tento svazek není je mimo pořadí (%s − %s != %s)"
+
+#: src/buffer.c:1652 src/buffer.c:1678
+#, c-format
+msgid "Archive not labeled to match %s"
+msgstr "Pro vyhodnocení vzorku %s musí být archiv pojmenován"
+
+#: src/buffer.c:1682
+#, c-format
+msgid "Volume %s does not match %s"
+msgstr "Svazek %s neodpovídá vzorku %s"
+
+#: src/buffer.c:1774
+#, c-format
+msgid "%s: file name too long to be stored in a GNU multivolume header, truncated"
+msgstr "%s: název souboru je příliš dlouhý, aby byl uložen do vícesvazkové hlavičky GNU, bude zkrácen"
+
+#: src/buffer.c:1965
+msgid "write did not end on a block boundary"
+msgstr "zápis neskončil na konci hranice bloku"
+
+#: src/compare.c:98
+#, c-format
+msgid "Could only read %lu of %lu byte"
+msgid_plural "Could only read %lu of %lu bytes"
+msgstr[0] "Bylo možné načíst pouze %'lu z %'lu bajtu"
+msgstr[1] "Bylo možné načíst pouze %'lu z %'lu bajtů"
+msgstr[2] "Bylo možné načíst pouze %'lu z %'lu bajtů"
+
+#: src/compare.c:108 src/compare.c:398
+msgid "Contents differ"
+msgstr "Obsahy se liší"
+
+#: src/compare.c:134 src/extract.c:1204 src/incremen.c:1508 src/list.c:488
+#: src/list.c:1404 src/xheader.c:847
+msgid "Unexpected EOF in archive"
+msgstr "Neočekávaný konec archivu"
+
+#: src/compare.c:182 src/compare.c:198 src/compare.c:317 src/compare.c:422
+msgid "File type differs"
+msgstr "Typ souboru se liší"
+
+#: src/compare.c:185 src/compare.c:205 src/compare.c:331
+msgid "Mode differs"
+msgstr "Práva se liší"
+
+#: src/compare.c:208
+msgid "Uid differs"
+msgstr "UID se liší"
+
+#: src/compare.c:210
+msgid "Gid differs"
+msgstr "GID se liší"
+
+#: src/compare.c:214
+msgid "Mod time differs"
+msgstr "Čas poslední modifikace se liší"
+
+#: src/compare.c:218 src/compare.c:432
+msgid "Size differs"
+msgstr "Velikost se liší"
+
+#: src/compare.c:267
+#, c-format
+msgid "Not linked to %s"
+msgstr "Není odkazem na %s"
+
+#: src/compare.c:293
+msgid "Symlink differs"
+msgstr "Symbolický odkaz se liší"
+
+#: src/compare.c:325
+msgid "Device number differs"
+msgstr "Číslo zařízení se liší"
+
+#: src/compare.c:473
+#, c-format
+msgid "Verify "
+msgstr "Ověřuji "
+
+#: src/compare.c:480
+#, c-format
+msgid "%s: Unknown file type '%c', diffed as normal file"
+msgstr "%s: Neznámý typ souboru „%c“, porovnáván jako normální soubor"
+
+#: src/compare.c:535
+msgid "Archive contains file names with leading prefixes removed."
+msgstr "Archiv obsahuje názvy souborů, kterým byly odstraněny předpony."
+
+#: src/compare.c:541
+msgid "Archive contains transformed file names."
+msgstr "Archiv obsahuje transformované názvy souborů."
+
+#: src/compare.c:546
+msgid "Verification may fail to locate original files."
+msgstr "Při kontrole může selhat nalezení původních souborů."
+
+#: src/compare.c:620
+#, c-format
+msgid "VERIFY FAILURE: %d invalid header detected"
+msgid_plural "VERIFY FAILURE: %d invalid headers detected"
+msgstr[0] "SELHÁNÍ KONTROLY: zjištěna %d chybná hlavička"
+msgstr[1] "SELHÁNÍ KONTROLY: zjištěny %d chybné hlavičky"
+msgstr[2] "SELHÁNÍ KONTROLY: zjištěno %d chybných hlaviček"
+
+#: src/compare.c:638 src/list.c:252
+#, c-format
+msgid "A lone zero block at %s"
+msgstr "Osiřelý nulový blok na pozici %s"
+
+#: src/create.c:74
+#, c-format
+msgid "%s: contains a cache directory tag %s; %s"
+msgstr "%s: obsahuje značku keše adresáře %s; %s"
+
+#: src/create.c:263
+#, c-format
+msgid "value %s out of %s range %s..%s; substituting %s"
+msgstr "hodnota %s typu %s je mimo rozsah %s..%s; nahrazuji za %s"
+
+#: src/create.c:269
+#, c-format
+msgid "value %s out of %s range %s..%s"
+msgstr "hodnota %s typu %s je mimo rozsah %s..%s"
+
+#: src/create.c:329
+msgid "Generating negative octal headers"
+msgstr "Generuji záporné osmičkové hlavičky"
+
+#: src/create.c:606 src/create.c:669
+#, c-format
+msgid "%s: file name is too long (max %d); not dumped"
+msgstr "%s: název souboru je příliš dlouhý (max. %d); nezpracován"
+
+#: src/create.c:616
+#, c-format
+msgid "%s: file name is too long (cannot be split); not dumped"
+msgstr "%s: název souboru je příliš dlouhý (nelze jej rozdělit); nezpracován"
+
+#: src/create.c:643
+#, c-format
+msgid "%s: link name is too long; not dumped"
+msgstr "%s: název odkazu je příliš dlouhý; nezpracován"
+
+#: src/create.c:1106
+#, c-format
+msgid "%s: File shrank by %s byte; padding with zeros"
+msgid_plural "%s: File shrank by %s bytes; padding with zeros"
+msgstr[0] "%s: Soubor je kratší o %s bajt; Doplňuji nulami."
+msgstr[1] "%s: Soubor je kratší o %s bajty; Doplňuji nulami."
+msgstr[2] "%s: Soubor je kratší o %s bajtů; Doplňuji nulami."
+
+#: src/create.c:1204
+#, c-format
+msgid "%s: file is on a different filesystem; not dumped"
+msgstr "%s: soubor je na jiném souborovém systému; nearchivován"
+
+#: src/create.c:1247 src/create.c:1258 src/incremen.c:610 src/incremen.c:617
+msgid "contents not dumped"
+msgstr "obsah nezpracován"
+
+#: src/create.c:1464
+#, c-format
+msgid "%s: Unknown file type; file ignored"
+msgstr "%s: Neznámý typ souboru; soubor ignorován"
+
+#: src/create.c:1576
+#, c-format
+msgid "Missing links to %s."
+msgstr "Chybí odkazy na %s."
+
+#: src/create.c:1737
+#, c-format
+msgid "%s: file is unchanged; not dumped"
+msgstr "%s: soubor není změněn; neaktualizován"
+
+#: src/create.c:1746
+#, c-format
+msgid "%s: file is the archive; not dumped"
+msgstr "%s: soubor je archiv; nearchivován"
+
+#: src/create.c:1774 src/incremen.c:603
+msgid "directory not dumped"
+msgstr "adresář nezpracován"
+
+#: src/create.c:1846
+#, c-format
+msgid "%s: file changed as we read it"
+msgstr "%s: soubor byl během čtení změněn"
+
+#: src/create.c:1922
+#, c-format
+msgid "%s: socket ignored"
+msgstr "%s: soket ignorován"
+
+#: src/create.c:1928
+#, c-format
+msgid "%s: door ignored"
+msgstr "%s: dveře ignorovány"
+
+#: src/delete.c:216 src/list.c:288 src/update.c:192
+msgid "Skipping to next header"
+msgstr "Přeskakuji na další hlavičku"
+
+#: src/delete.c:281
+msgid "Deleting non-header from archive"
+msgstr "Z archivu je mazáno to, co není hlavička"
+
+#: src/extract.c:302
+#, c-format
+msgid "%s: implausibly old time stamp %s"
+msgstr "%s: nemožně stará časová značka %s"
+
+#: src/extract.c:320
+#, c-format
+msgid "%s: time stamp %s is %s s in the future"
+msgstr "%s: časová značka %s je %s s v budoucnosti"
+
+#: src/extract.c:553
+#, c-format
+msgid "%s: Unexpected inconsistency when making directory"
+msgstr "%s: Neočekávaná inkonzistence, při vytváření adresáře"
+
+#: src/extract.c:771
+#, c-format
+msgid "%s: skipping existing file"
+msgstr "%s: existující soubor se přeskakuje"
+
+#: src/extract.c:901
+#, c-format
+msgid "%s: Directory renamed before its status could be extracted"
+msgstr "%s: Adresář byl přejmenován dříve, než bylo možné získat jeho stav"
+
+#: src/extract.c:1086
+msgid "Extracting contiguous files as regular files"
+msgstr "Souvisle uložené soubory rozbaluji jako obyčejné soubory"
+
+#: src/extract.c:1433
+msgid "Attempting extraction of symbolic links as hard links"
+msgstr "Zkouším rozbalit symbolické odkazy jako pevné odkazy"
+
+#: src/extract.c:1596
+#, c-format
+msgid "%s: Cannot extract -- file is continued from another volume"
+msgstr "%s: Nelze rozbalit – soubor je pokračováním jiného svazku"
+
+#: src/extract.c:1603 src/list.c:1167
+msgid "Unexpected long name header"
+msgstr "Neočekávaná hlavička dlouhého názvu"
+
+#: src/extract.c:1610
+#, c-format
+msgid "%s: Unknown file type '%c', extracted as normal file"
+msgstr "%s: Neznámý typ souboru „%c“, rozbalen jako normální soubor"
+
+#: src/extract.c:1636
+#, c-format
+msgid "Current %s is newer or same age"
+msgstr "Současný soubor %s je novější nebo stejně starý"
+
+#: src/extract.c:1664
+#, c-format
+msgid "%s: Member name contains '..'"
+msgstr "%s: Název souboru obsahuje „..“"
+
+#: src/extract.c:1696
+#, c-format
+msgid "%s: Was unable to backup this file"
+msgstr "%s: Tento soubor nebylo možné zálohovat"
+
+#: src/extract.c:1845
+#, c-format
+msgid "Cannot rename %s to %s"
+msgstr "%s nelze přejmenovat na %s"
+
+#: src/incremen.c:494 src/incremen.c:536
+#, c-format
+msgid "%s: Directory has been renamed from %s"
+msgstr "%s: Adresář byl přejmenován z %s"
+
+#: src/incremen.c:549
+#, c-format
+msgid "%s: Directory is new"
+msgstr "%s: Adresář je nový"
+
+#: src/incremen.c:566
+#, c-format
+msgid "%s: directory is on a different filesystem; not dumped"
+msgstr "%s: adresář je na jiném souborovém systému; nearchivován"
+
+#: src/incremen.c:587
+#, c-format
+msgid "%s: Directory has been renamed"
+msgstr "%s: Adresář byl přejmenován"
+
+#: src/incremen.c:1003 src/incremen.c:1018
+msgid "Invalid time stamp"
+msgstr "Neplatný čas souboru"
+
+#: src/incremen.c:1047
+msgid "Invalid modification time"
+msgstr "Neplatný čas změny obsahu souboru"
+
+#: src/incremen.c:1057
+msgid "Invalid modification time (nanoseconds)"
+msgstr "Neplatný čas změny obsahu souboru (nanosekundy)"
+
+#: src/incremen.c:1073
+msgid "Invalid device number"
+msgstr "Neplatné číslo zařízení"
+
+#: src/incremen.c:1081
+msgid "Invalid inode number"
+msgstr "Neplatné číslo i-uzlu"
+
+#: src/incremen.c:1137
+#, c-format
+msgid "%s: byte %s: %s %.*s... too long"
+msgstr "%s: bajt %s: %s %.*s… je příliš dlouhý"
+
+#: src/incremen.c:1153 src/incremen.c:1211 src/incremen.c:1273
+msgid "Unexpected EOF in snapshot file"
+msgstr "Neočekávaný konec souboru snímku"
+
+#: src/incremen.c:1161
+#, c-format
+msgid "%s: byte %s: %s %s followed by invalid byte 0x%02x"
+msgstr "%s: bajt %s: %s %s je následován neplatným bajtem 0x%02x"
+
+#: src/incremen.c:1174
+#, c-format
+msgid ""
+"%s: byte %s: (valid range %s..%s)\n"
+"\t%s %s"
+msgstr ""
+"%s: bajt %s: (platný rozsah %s–%s)\n"
+"\t%s %s"
+
+#: src/incremen.c:1181
+#, c-format
+msgid "%s: byte %s: %s %s"
+msgstr "%s: bajt %s: %s %s"
+
+#: src/incremen.c:1262
+#, c-format
+msgid "%s: byte %s: %s"
+msgstr "%s: bajt %s: %s"
+
+#: src/incremen.c:1265
+msgid "Missing record terminator"
+msgstr "Chybí uzávěr záznamu"
+
+#: src/incremen.c:1371 src/incremen.c:1374
+msgid "Bad incremental file format"
+msgstr "Chybný formát přírůstkového souboru"
+
+#: src/incremen.c:1393
+#, c-format
+msgid "Unsupported incremental format version: %<PRIuMAX>"
+msgstr "Nepodporovaná verze přírůstkového formátu: %<PRIuMAX>"
+
+#: src/incremen.c:1549
+#, c-format
+msgid "Malformed dumpdir: expected '%c' but found %#3o"
+msgstr "Poškozený dumpdir: očekáváno „%c“, ale nalezeno %#3o"
+
+#: src/incremen.c:1559
+msgid "Malformed dumpdir: 'X' duplicated"
+msgstr "Poškozený dumpdir: „X“ duplikováno"
+
+#: src/incremen.c:1572
+msgid "Malformed dumpdir: empty name in 'R'"
+msgstr "Poškozený dumpdir: prázdný název v „R“"
+
+#: src/incremen.c:1585
+msgid "Malformed dumpdir: 'T' not preceded by 'R'"
+msgstr "Poškozený dumpdir: „R“ není před „T“"
+
+#: src/incremen.c:1591
+msgid "Malformed dumpdir: empty name in 'T'"
+msgstr "Poškozený dumpdir: prázdný název v „T“"
+
+#: src/incremen.c:1611
+#, c-format
+msgid "Malformed dumpdir: expected '%c' but found end of data"
+msgstr "Poškozený dumpdir: očekáváno „%c“, ale zjištěn konec dat"
+
+#: src/incremen.c:1618
+msgid "Malformed dumpdir: 'X' never used"
+msgstr "Poškozený dumpdir: „X“ nebylo nikdy použito"
+
+#: src/incremen.c:1662
+#, c-format
+msgid "Cannot create temporary directory using template %s"
+msgstr "Podle šablony %s nelze vytvořit dočasný adresář"
+
+#: src/incremen.c:1723
+#, c-format
+msgid "%s: Not purging directory: unable to stat"
+msgstr "%s: Adresář nebude vyčištěn: nelze provést stat()"
+
+#: src/incremen.c:1736
+#, c-format
+msgid "%s: directory is on a different device: not purging"
+msgstr "%s: adresář je na jiném zařízení: nebude vyčištěn"
+
+#: src/incremen.c:1744
+#, c-format
+msgid "%s: Deleting %s\n"
+msgstr "%s: Mažu %s\n"
+
+#: src/incremen.c:1749
+#, c-format
+msgid "%s: Cannot remove"
+msgstr "%s: Nelze smazat"
+
+#: src/list.c:219
+#, c-format
+msgid "%s: Omitting"
+msgstr "%s: Vynechávám"
+
+#: src/list.c:237
+#, c-format
+msgid "block %s: ** Block of NULs **\n"
+msgstr "blok %s: ** Blok NUL **\n"
+
+#: src/list.c:263
+#, c-format
+msgid "block %s: ** End of File **\n"
+msgstr "blok %s: ** Konec souboru **\n"
+
+#: src/list.c:285 src/list.c:1136 src/list.c:1372
+#, c-format
+msgid "block %s: "
+msgstr "blok %s: "
+
+#. TRANSLATORS: %s is type of the value (gid_t, uid_t,
+#. etc.)
+#: src/list.c:751
+#, c-format
+msgid "Blanks in header where numeric %s value expected"
+msgstr "Mezery v hlavičce na místě, kde je očekávána číselná hodnota typu %s"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:806
+#, c-format
+msgid "Archive octal value %.*s is out of %s range; assuming two's complement"
+msgstr "Osmičková hodnota %.*s typu %s je mimo rozsah; přiřazuji dvojkový complement"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:817
+#, c-format
+msgid "Archive octal value %.*s is out of %s range"
+msgstr "Osmičková hodnota %.*s typu %s je mimo rozsah"
+
+#: src/list.c:838
+msgid "Archive contains obsolescent base-64 headers"
+msgstr "Archiv obsahuje zastaralé base-64 hlavičky"
+
+#: src/list.c:852
+#, c-format
+msgid "Archive signed base-64 string %s is out of %s range"
+msgstr "Base-64 řetězec %s je mimo rozsah typu %s"
+
+#: src/list.c:883
+#, c-format
+msgid "Archive base-256 value is out of %s range"
+msgstr "Hodnota base-256 je mimo rozsah typu %s"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:912
+#, c-format
+msgid "Archive contains %.*s where numeric %s value expected"
+msgstr "Archiv obsahuje %.*s tam, kde je očekávána číselná hodnota typu %s"
+
+#. TRANSLATORS: Second %s is type name (gid_t,uid_t,etc.)
+#: src/list.c:934
+#, c-format
+msgid "Archive value %s is out of %s range %s..%s"
+msgstr "Hodnota %s typu %s je mimo rozsah %s..%s"
+
+#: src/list.c:1272
+#, c-format
+msgid " link to %s\n"
+msgstr " odkaz na %s\n"
+
+#: src/list.c:1280
+#, c-format
+msgid " unknown file type %s\n"
+msgstr " neznámý souborový typ %s\n"
+
+#: src/list.c:1298
+#, c-format
+msgid "--Long Link--\n"
+msgstr "--Dlouhý odkaz--\n"
+
+#: src/list.c:1302
+#, c-format
+msgid "--Long Name--\n"
+msgstr "--Dlouhý název--\n"
+
+#: src/list.c:1306
+#, c-format
+msgid "--Volume Header--\n"
+msgstr "--Hlavička svazku--\n"
+
+#: src/list.c:1314
+#, c-format
+msgid "--Continued at byte %s--\n"
+msgstr "--Pokračováno od %s bajtu--\n"
+
+#: src/list.c:1377
+msgid "Creating directory:"
+msgstr "Vytvářím adresář:"
+
+#: src/misc.c:738
+#, c-format
+msgid "Renaming %s to %s\n"
+msgstr "Přejmenovávám %s na %s\n"
+
+#: src/misc.c:747 src/misc.c:766
+#, c-format
+msgid "%s: Cannot rename to %s"
+msgstr "%s: nelze přejmenovat na %s"
+
+#: src/misc.c:771
+#, c-format
+msgid "Renaming %s back to %s\n"
+msgstr "Přejmenovávám %s zpět na %s\n"
+
+#: src/misc.c:1134
+#, c-format
+msgid "%s: File removed before we read it"
+msgstr "%s: Soubor smazán dříve než mohl být přečten"
+
+#: src/misc.c:1148
+msgid "child process"
+msgstr "potomek"
+
+#: src/misc.c:1157
+msgid "interprocess channel"
+msgstr "meziprocesový kanál"
+
+#: src/names.c:69
+msgid "Local file name selection:"
+msgstr "Výběr názvu místního souboru:"
+
+#: src/names.c:72
+msgid "add given FILE to the archive (useful if its name starts with a dash)"
+msgstr "zadaný SOUBOR přidá do archivu (užitečné, začíná-li jeho název spojovníkem)"
+
+#: src/names.c:73 src/tar.c:484
+msgid "DIR"
+msgstr "ADRESÁŘ"
+
+#: src/names.c:74
+msgid "change to directory DIR"
+msgstr "změní adresář na ADRESÁŘ"
+
+#: src/names.c:76
+msgid "get names to extract or create from FILE"
+msgstr "seznam jmen souborů na rozbalení nebo zabalení získá ze SOUBORU"
+
+#: src/names.c:78
+msgid "-T reads null-terminated names; implies --verbatim-files-from"
+msgstr "-T čte názvy zakončené nulovým znakem, zapne --verbatim-files-from"
+
+#: src/names.c:81
+msgid "disable the effect of the previous --null option"
+msgstr "zruší účinek předchozího přepínače --null"
+
+#: src/names.c:83
+msgid "unquote input file or member names (default)"
+msgstr "odčiní citování (escapování) názvů vstupních souborů nebo prvků (implicitní)"
+
+#: src/names.c:85
+msgid "do not unquote input file or member names"
+msgstr "neodčiní citování (escapování) názvů vstupních souborů nebo prvků"
+
+#: src/names.c:87
+msgid "-T reads file names verbatim (no escape or option handling)"
+msgstr "-T čte názvy souborů doslovně (přepínače ani escape sekvence se nezpracovávají)"
+
+#: src/names.c:89
+msgid "-T treats file names starting with dash as options (default)"
+msgstr "-T považuje názvy souborů začínající pomlčkou za přepínače (výchozí)"
+
+#: src/names.c:91 tests/genfile.c:140
+msgid "PATTERN"
+msgstr "VZOR"
+
+#: src/names.c:92
+msgid "exclude files, given as a PATTERN"
+msgstr "vynechá soubory, které odpovídají VZORU"
+
+#: src/names.c:94
+msgid "exclude patterns listed in FILE"
+msgstr "vynechá vzorky vyjmenované v SOUBORU"
+
+#: src/names.c:96
+msgid "exclude contents of directories containing CACHEDIR.TAG, except for the tag file itself"
+msgstr "vynechá obsah adresářů obsahujících CACHEADR.ZNAČKA, kromě souboru značky samotného"
+
+#: src/names.c:99
+msgid "exclude everything under directories containing CACHEDIR.TAG"
+msgstr "vynechá vše pod adresáři obsahujícími CACHEADR.ZNAČKA"
+
+#: src/names.c:102
+msgid "exclude directories containing CACHEDIR.TAG"
+msgstr "vynechá adresáře obsahující CACHEADR.ZNAČKA"
+
+#: src/names.c:104
+msgid "exclude contents of directories containing FILE, except for FILE itself"
+msgstr "vynechá obsah adresářů obsahujících SOUBOR, vyjma SOUBORU samotného"
+
+#: src/names.c:107
+msgid "read exclude patterns for each directory from FILE, if it exists"
+msgstr "čte vzorky na vynechání pro každý adresář ze SOUBORU, pokud existuje"
+
+#: src/names.c:110
+msgid "read exclude patterns for each directory and its subdirectories from FILE, if it exists"
+msgstr "čte vzorky na vynechání pro každý adresář a jeho podadresáře ze SOUBORU, pokud existuje"
+
+#: src/names.c:113
+msgid "exclude everything under directories containing FILE"
+msgstr "vynechá vše pod adresáři obsahujícími SOUBOR"
+
+#: src/names.c:115
+msgid "exclude directories containing FILE"
+msgstr "vynechá adresáře obsahující SOUBOR"
+
+#: src/names.c:117
+msgid "exclude version control system directories"
+msgstr "vynechá adresáře systému správy verzí"
+
+#: src/names.c:119
+msgid "read exclude patterns from the VCS ignore files"
+msgstr "čte vzorky na vynechání ze souboru ignorací verzovacího systému"
+
+#: src/names.c:121
+msgid "exclude backup and lock files"
+msgstr "vynechá soubory záloh a zámků"
+
+#: src/names.c:123
+msgid "recurse into directories (default)"
+msgstr "sestupuje rekurzivně do adresářů (implicitní)"
+
+#: src/names.c:125
+msgid "avoid descending automatically in directories"
+msgstr "zabrání automatickému sestupu do adresářů"
+
+#: src/names.c:130
+msgid "File name matching options (affect both exclude and include patterns):"
+msgstr "Přepínače řídicí výběr souborů podle názvu (ovlivňuje vzory jak pro vyloučení, tak pro zahrnutí)"
+
+#: src/names.c:133
+msgid "patterns match file name start"
+msgstr "vzory se testují název souboru od začátku"
+
+#: src/names.c:135
+msgid "patterns match after any '/' (default for exclusion)"
+msgstr "vzory se testují po každém „/“ (implicitní u vyloučení)"
+
+#: src/names.c:137
+msgid "ignore case"
+msgstr "ignoruje velikost písmen"
+
+#: src/names.c:139
+msgid "case sensitive matching (default)"
+msgstr "testování je citlivé na velikost (implicitní)"
+
+#: src/names.c:141
+msgid "use wildcards (default for exclusion)"
+msgstr "použije žolíkové znaky (implicitní u vyloučení)"
+
+#: src/names.c:143
+msgid "verbatim string matching"
+msgstr "testuje se přesný řetězec"
+
+#: src/names.c:145
+msgid "wildcards match '/' (default for exclusion)"
+msgstr "žolíkové znaky zahrnují „/“ (implicitní u vyloučení)"
+
+#: src/names.c:147
+msgid "wildcards do not match '/'"
+msgstr "žolíkové znaky nezahrnují „/“"
+
+#: src/names.c:733
+msgid "The following options were used after any non-optional arguments in archive create or update mode.  These options are positional and affect only arguments that follow them.  Please, rearrange them properly."
+msgstr "Následující přepínače byly použity po nepřepínačových argumentech při vytváření archivu nebo jeho aktualizaci. Tyto přepínače jsou poziční a ovlivňují pouze argumenty, které je následují. Prosím, řádně je přeuspořádejte."
+
+#: src/names.c:744
+#, c-format
+msgid "-C %s has no effect"
+msgstr "-C %s nemá žádný vliv"
+
+#: src/names.c:749
+#, c-format
+msgid "--%s %s has no effect"
+msgstr "--%s %s nemá žádný vliv"
+
+#: src/names.c:753
+#, c-format
+msgid "--%s has no effect"
+msgstr "--%s nemá žádný vliv"
+
+#: src/names.c:879
+msgid "command line"
+msgstr "příkazový řádek"
+
+#: src/names.c:897
+#, c-format
+msgid "%s: file list requested from %s already read from %s"
+msgstr "%s: seznam souborů požadovaný z %s již načten z %s"
+
+#: src/names.c:978 src/checkpoint.c:274
+#, c-format
+msgid "cannot split string '%s': %s"
+msgstr "řetězec „%s“ nelze rozdělit: %s"
+
+#: src/names.c:1025
+#, c-format
+msgid "%s: file name read contains nul character"
+msgstr "%s: načtený název souboru obsahuje nulový znak"
+
+#: src/names.c:1358
+msgid "Pattern matching characters used in file names"
+msgstr "V názvech souborů se nachází žolíkové znaky"
+
+#: src/names.c:1360
+msgid "Use --wildcards to enable pattern matching, or --no-wildcards to suppress this warning"
+msgstr "Porovnávání proti žolíkových znaků zapněte pomocí --wildcards, nebo varování potlačte prostřednictvím --no-wildcards"
+
+#: src/names.c:1378 src/names.c:1394
+#, c-format
+msgid "%s: Not found in archive"
+msgstr "%s: V archivu nenalezen"
+
+#: src/names.c:1379
+#, c-format
+msgid "%s: Required occurrence not found in archive"
+msgstr "%s: Požadovaný výskyt nebyl v archivu nalezen"
+
+#: src/names.c:1413
+#, c-format
+msgid "Archive label mismatch"
+msgstr "Název archivu se neodpovídá"
+
+#: src/names.c:1717
+msgid "Using -C option inside file list is not allowed with --listed-incremental"
+msgstr "Použití přepínače -C uvnitř seznamu souborů není spolu s --listed-incremental dovoleno"
+
+#: src/names.c:1723
+msgid "Only one -C option is allowed with --listed-incremental"
+msgstr "S --listed-incremental je dovolen pouze jediný přepínač -C"
+
+#: src/tar.c:88
+#, c-format
+msgid "Options '%s' and '%s' both want standard input"
+msgstr "Oba dva přepínače „%s“ a „%s“ chtějí standardní vstup"
+
+#: src/tar.c:165
+#, c-format
+msgid "%s: Invalid archive format"
+msgstr "%s: Neplatný formát archivu"
+
+#: src/tar.c:197
+msgid "GNU features wanted on incompatible archive format"
+msgstr "GNU rozšíření požadovány na nekompatibilním formátu archivu"
+
+#: src/tar.c:265
+#, c-format
+msgid "Unknown quoting style '%s'. Try '%s --quoting-style=help' to get a list."
+msgstr "Neznámý styl citování „%s“. Seznam stylů lze získat příkazem „%s --quoting-style=help“."
+
+#: src/tar.c:354
+msgid ""
+"GNU 'tar' saves many files together into a single tape or disk archive, and can restore individual files from the archive.\n"
+"\n"
+"Examples:\n"
+"  tar -cf archive.tar foo bar  # Create archive.tar from files foo and bar.\n"
+"  tar -tvf archive.tar         # List all files in archive.tar verbosely.\n"
+"  tar -xf archive.tar          # Extract all files from archive.tar.\n"
+msgstr ""
+"GNU „tar“ uloží pohromadě více souborů do jediného archivu na disku nebo pásce a umí z tohoto archivu jednotlivé soubory získat zpět.\n"
+"\n"
+"Příklady:\n"
+"  tar -cf archiv.tar foo bar   # Vytvoří archiv.tar ze souborů foo a bar.\n"
+"  tar -tvf archiv.tar          # Podrobně vypíše všechny soubory v archiv.tar.\n"
+"  tar -xf archiv.tar           # Rozbalí všechny soubory z archiv.tar.\n"
+
+#: src/tar.c:363
+msgid ""
+"The backup suffix is '~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n"
+"The version control may be set with --backup or VERSION_CONTROL, values are:\n"
+"\n"
+"  none, off       never make backups\n"
+"  t, numbered     make numbered backups\n"
+"  nil, existing   numbered if numbered backups exist, simple otherwise\n"
+"  never, simple   always make simple backups\n"
+msgstr ""
+"Přípona záložních souborů bude „~“, pokud není nastavena pomocí --suffix nebo proměnné SIMPLE_BACKUP_SUFFIX.\n"
+"Verzování lze řídit pomocí přepínače --backup nebo proměnné VERSION_CONTROL. Hodnoty mohou být:\n"
+"\n"
+"  none, off       záložní kopie se nevytváří nikdy\n"
+"  t, numbered     tvoří číslované záložní kopie\n"
+"  nil, existing   číslované, jestliže již číslované záložní kopie\n"
+"                  existují, jinak tvoří jednoduché\n"
+"  never, simple   tvoří vždy jednoduché záložní kopie souborů\n"
+
+#: src/tar.c:393
+msgid "Main operation mode:"
+msgstr "Hlavní operační režim:"
+
+#: src/tar.c:396
+msgid "list the contents of an archive"
+msgstr "vypíše obsah archivu"
+
+#: src/tar.c:398
+msgid "extract files from an archive"
+msgstr "vybalí soubory z archivu"
+
+#: src/tar.c:401
+msgid "create a new archive"
+msgstr "vytvoří nový archiv"
+
+#: src/tar.c:403
+msgid "find differences between archive and file system"
+msgstr "hledá rozdíly mezi archivem a systémem souborů"
+
+#: src/tar.c:406
+msgid "append files to the end of an archive"
+msgstr "připojí soubory na konec archivu"
+
+#: src/tar.c:408
+msgid "only append files newer than copy in archive"
+msgstr "připojí jen takové soubory, které jsou novější nežli kopie v archivu"
+
+#: src/tar.c:410
+msgid "append tar files to an archive"
+msgstr "připojí k archivu tarové soubory"
+
+#: src/tar.c:413
+msgid "delete from the archive (not on mag tapes!)"
+msgstr "smaže z archivu (ne na magnetických páskách!)"
+
+#: src/tar.c:415
+msgid "test the archive volume label and exit"
+msgstr "otestuje jmenovku archivního svazku a skončí"
+
+#: src/tar.c:420
+msgid "Operation modifiers:"
+msgstr "Operační modifikátory:"
+
+#: src/tar.c:423
+msgid "handle sparse files efficiently"
+msgstr "zachází s řídkými soubory efektivně"
+
+#: src/tar.c:424
+msgid "TYPE"
+msgstr "TYP"
+
+#: src/tar.c:425
+msgid "technique to detect holes"
+msgstr "technika rozpoznávání děr"
+
+#: src/tar.c:426
+msgid "MAJOR[.MINOR]"
+msgstr "HLAVNÍ[.VEDLEJŠÍ]"
+
+#: src/tar.c:427
+msgid "set version of the sparse format to use (implies --sparse)"
+msgstr "nastaví verzi řídkého formátu (implikuje --sparse)"
+
+#: src/tar.c:429
+msgid "handle old GNU-format incremental backup"
+msgstr "zpracuje přírůstkové zálohy starého formátu GNU"
+
+#: src/tar.c:431
+msgid "handle new GNU-format incremental backup"
+msgstr "zpracuje přírůstkové zálohy nového formátu GNU"
+
+#: src/tar.c:433
+msgid "dump level for created listed-incremental archive"
+msgstr "úroveň výpisu pro vytvářený archiv s přírůstkovým seznamem"
+
+#: src/tar.c:435
+msgid "do not exit with nonzero on unreadable files"
+msgstr "neskoční nenulovým kódem při nečitelných souborech"
+
+#: src/tar.c:437
+msgid "process only the NUMBERth occurrence of each file in the archive; this option is valid only in conjunction with one of the subcommands --delete, --diff, --extract or --list and when a list of files is given either on the command line or via the -T option; NUMBER defaults to 1"
+msgstr "zpracuje pouze ČÍSLO. výskyt každého souboru z archivu; tento přepínač je platný jen ve spojení s jedním z podpříkazů --delete, --diff, --extract nebo --list a jen když je zadán seznam souborů na příkazovém řádku nebo přes přepínač -T; implicitní ČÍSLO je 1"
+
+#: src/tar.c:443
+msgid "archive is seekable"
+msgstr "v archivu se lze posunovat"
+
+#: src/tar.c:445
+msgid "archive is not seekable"
+msgstr "v archivu se lze posunovat"
+
+#: src/tar.c:447
+msgid "do not check device numbers when creating incremental archives"
+msgstr "při vytváření přírůstkových archivů se nekontrolují čísla zařízení"
+
+#: src/tar.c:450
+msgid "check device numbers when creating incremental archives (default)"
+msgstr "při vytváření přírůstkových archivů se kontrolují čísla zařízení (implicitní)"
+
+#: src/tar.c:456
+msgid "Overwrite control:"
+msgstr "Ovládání přepisování:"
+
+#: src/tar.c:459
+msgid "attempt to verify the archive after writing it"
+msgstr "pokusí se zkontrolovat archiv po té, co bude zapsán"
+
+#: src/tar.c:461
+msgid "remove files after adding them to the archive"
+msgstr "odstraní soubory po té, co budou přidány do archivu"
+
+#: src/tar.c:463
+msgid "don't replace existing files when extracting, treat them as errors"
+msgstr "při rozbalovaní nenahrazuje existující soubory, považuje je za chyby"
+
+#: src/tar.c:466
+msgid "don't replace existing files when extracting, silently skip over them"
+msgstr "při rozbalovaní nenahrazuje existující soubory, potichu je přeskočí"
+
+#: src/tar.c:469
+msgid "don't replace existing files that are newer than their archive copies"
+msgstr "nenahrazuje existující soubory, které jsou novější než jejich archivní kopie"
+
+#: src/tar.c:471
+msgid "overwrite existing files when extracting"
+msgstr "při rozbalování existující soubory přepisuje"
+
+#: src/tar.c:473
+msgid "remove each file prior to extracting over it"
+msgstr "před vybalením každého souboru jej odstraní"
+
+#: src/tar.c:475
+msgid "empty hierarchies prior to extracting directory"
+msgstr "před vybalením adresáře vytvoří prázdnou hierarchii"
+
+#: src/tar.c:477
+msgid "preserve metadata of existing directories"
+msgstr "zachovává metadata existujících adresářů"
+
+#: src/tar.c:479
+msgid "overwrite metadata of existing directories when extracting (default)"
+msgstr "při rozbalování přepisuje metadata existujících adresářů (implicitní)"
+
+#: src/tar.c:482
+msgid "preserve existing symlinks to directories when extracting"
+msgstr "při rozbalování zachovává existující symbolické odkazy na adresáře"
+
+#: src/tar.c:485
+msgid "create a subdirectory to avoid having loose files extracted"
+msgstr "vytvoří podadresář, aby zabránil vzniku volných souborů"
+
+#: src/tar.c:491
+msgid "Select output stream:"
+msgstr "Výběr výstupního proudu:"
+
+#: src/tar.c:494
+msgid "extract files to standard output"
+msgstr "soubory vybaluje na standardní výstup"
+
+#: src/tar.c:495 src/tar.c:588 src/tar.c:590 tests/genfile.c:195
+msgid "COMMAND"
+msgstr "PŘÍKAZ"
+
+#: src/tar.c:496
+msgid "pipe extracted files to another program"
+msgstr "vybalené soubory pošle rourou jinému programu"
+
+#: src/tar.c:498
+msgid "ignore exit codes of children"
+msgstr "ignoruje návratový kód potomků"
+
+#: src/tar.c:500
+msgid "treat non-zero exit codes of children as error"
+msgstr "nenulový návratový kód potomků považuje za chybu"
+
+#: src/tar.c:505
+msgid "Handling of file attributes:"
+msgstr "Zacházení s atributy souborů:"
+
+#: src/tar.c:508
+msgid "force NAME as owner for added files"
+msgstr "vynutí JMÉNO jako vlastníka vkládaných souborů"
+
+#: src/tar.c:510
+msgid "force NAME as group for added files"
+msgstr "vynutí JMÉNO jako skupinu vkládaných souborů"
+
+#: src/tar.c:512
+msgid "use FILE to map file owner UIDs and names"
+msgstr "použije SOUBOR k převodu UID a jmen vlastníků souborů"
+
+#: src/tar.c:514
+msgid "use FILE to map file owner GIDs and names"
+msgstr "použije SOUBOR k převodu GID a jmen vlastníků souborů"
+
+#: src/tar.c:515 src/tar.c:700
+msgid "DATE-OR-FILE"
+msgstr "DATUM_NEBO_SOUBOR"
+
+#: src/tar.c:516
+msgid "set mtime for added files from DATE-OR-FILE"
+msgstr "nastaví čas změny obsahu vkládaných souborů podle DATA_NEBO_SOUBORU"
+
+#: src/tar.c:518
+msgid "only set time when the file is more recent than what was given with --mtime"
+msgstr "nastaví čas pouze tehdy, když je soubor novější, než bylo zadáno pomocí --mtime"
+
+#: src/tar.c:519
+msgid "CHANGES"
+msgstr "ZMĚNY"
+
+#: src/tar.c:520
+msgid "force (symbolic) mode CHANGES for added files"
+msgstr "vynutí (symbolický) mód ZMĚN (přístupová práva) vkládaným souborům"
+
+#: src/tar.c:522
+msgid "METHOD"
+msgstr "METODA"
+
+#: src/tar.c:523
+msgid "preserve access times on dumped files, either by restoring the times after reading (METHOD='replace'; default) or by not setting the times in the first place (METHOD='system')"
+msgstr "zachová časy přístupu prohlížených souborů a to buď obnovením časů po čtení (METODA=„REPLACE“; implicitní), nebo nenastavením časů v prvním pořadí (METODA=„system“)"
+
+#: src/tar.c:527
+msgid "don't extract file modified time"
+msgstr "nevybaluje čas změny obsahu souboru"
+
+#: src/tar.c:529
+msgid "try extracting files with the same ownership as exists in the archive (default for superuser)"
+msgstr "pokusí se vybalit soubory se stejným vlastníkem jako je uveden v archivu (výchozí pro superuživatele)"
+
+#: src/tar.c:531
+msgid "extract files as yourself (default for ordinary users)"
+msgstr "rozbaluje soubory pod vaší identitou (výchozí pro běžného uživatele)"
+
+#: src/tar.c:533
+msgid "always use numbers for user/group names"
+msgstr "pro jména uživatel/skupin vždy použije čísla"
+
+#: src/tar.c:535
+msgid "extract information about file permissions (default for superuser)"
+msgstr "vybaluje informace o právech souborů (implicitní pro superuživatele)"
+
+#: src/tar.c:539
+msgid "apply the user's umask when extracting permissions from the archive (default for ordinary users)"
+msgstr "při vybalování práv z archivu použije uživatelovu umask (implicitní pro běžné uživatele)"
+
+#: src/tar.c:541
+msgid "member arguments are listed in the same order as the files in the archive"
+msgstr "argumenty prvku se vypisují ve stejném pořadí jako soubory v archivu"
+
+#: src/tar.c:545
+msgid "delay setting modification times and permissions of extracted directories until the end of extraction"
+msgstr "pozdrží nastavení časů modifikace a práv rozbalovaných adresářů až do dokončení rozbalování"
+
+#: src/tar.c:548
+msgid "cancel the effect of --delay-directory-restore option"
+msgstr "zruší účinek přepínače --delay-directory-restore"
+
+#: src/tar.c:549
+msgid "ORDER"
+msgstr "POŘADÍ"
+
+#: src/tar.c:551
+msgid "directory sorting order: none (default), name or inode"
+msgstr "pořadí řazení adresářů: none (žádné, výchozí), name (název) nebo inode (iuzel)"
+
+#: src/tar.c:553
+msgid "directory sorting order: none (default) or name"
+msgstr "pořadí řazení adresářů: none (žádné, výchozí) nebo name (název)"
+
+#: src/tar.c:560
+msgid "Handling of extended file attributes:"
+msgstr "Zacházení s rozšířenými atributy souborů:"
+
+#: src/tar.c:563
+msgid "Enable extended attributes support"
+msgstr "Zapne podporu rozšířených atributů"
+
+#: src/tar.c:565
+msgid "Disable extended attributes support"
+msgstr "Vypne podporu rozšířených atributů"
+
+#: src/tar.c:566 src/tar.c:568
+msgid "MASK"
+msgstr "MASKA"
+
+#: src/tar.c:567
+msgid "specify the include pattern for xattr keys"
+msgstr "určuje vzor klíčů rozšířených atributů k zahrnutí"
+
+#: src/tar.c:569
+msgid "specify the exclude pattern for xattr keys"
+msgstr "určuje vzor klíčů rozšířených atributů k vyloučení"
+
+#: src/tar.c:571
+msgid "Enable the SELinux context support"
+msgstr "Zapne podporu pro kontext SELinuxu"
+
+#: src/tar.c:573
+msgid "Disable the SELinux context support"
+msgstr "Vypne podporu pro kontext SELinuxu"
+
+#: src/tar.c:575
+msgid "Enable the POSIX ACLs support"
+msgstr "Zapne podporu pro posixové ACL"
+
+#: src/tar.c:577
+msgid "Disable the POSIX ACLs support"
+msgstr "Vypne podporu pro posixové ACL"
+
+#: src/tar.c:582
+msgid "Device selection and switching:"
+msgstr "Výběr a přepínání zařízení:"
+
+#: src/tar.c:584
+msgid "ARCHIVE"
+msgstr "ARCHIV"
+
+#: src/tar.c:585
+msgid "use archive file or device ARCHIVE"
+msgstr "pro archiv požije soubor zařízení ARCHIV"
+
+#: src/tar.c:587
+msgid "archive file is local even if it has a colon"
+msgstr "soubor archivu je místní, i když obsahuje dvojtečku"
+
+#: src/tar.c:589
+msgid "use given rmt COMMAND instead of rmt"
+msgstr "namísto příkazu rmt použije PŘÍKAZ"
+
+#: src/tar.c:591
+msgid "use remote COMMAND instead of rsh"
+msgstr "namísto rsh použije PŘÍKAZ"
+
+#: src/tar.c:595
+msgid "specify drive and density"
+msgstr "určuje mechaniku a hustotu"
+
+#: src/tar.c:609
+msgid "create/list/extract multi-volume archive"
+msgstr "vytvoří/vypíše/rozbalí vícesvazkový archiv"
+
+#: src/tar.c:611
+msgid "change tape after writing NUMBER x 1024 bytes"
+msgstr "po zapsaní ČÍSLO × 1024 bajtů vymění pásku"
+
+#: src/tar.c:613
+msgid "run script at end of each tape (implies -M)"
+msgstr "na konci každé pásky spustí skript (implikuje -M)"
+
+#: src/tar.c:616
+msgid "use/update the volume number in FILE"
+msgstr "použije/aktualizuje číslo svazku v SOUBORU"
+
+#: src/tar.c:621
+msgid "Device blocking:"
+msgstr "Bloky zařízení:"
+
+#: src/tar.c:623
+msgid "BLOCKS"
+msgstr "BLOKY"
+
+#: src/tar.c:624
+msgid "BLOCKS x 512 bytes per record"
+msgstr "BLOKŮ × 512 bajtů na záznam"
+
+#: src/tar.c:626
+msgid "NUMBER of bytes per record, multiple of 512"
+msgstr "ČÍSLO bajtů na záznam, násobek 512"
+
+#: src/tar.c:628
+msgid "ignore zeroed blocks in archive (means EOF)"
+msgstr "v archivu ignoruje vynulované bloky (znamená EOF)"
+
+#: src/tar.c:630
+msgid "reblock as we read (for 4.2BSD pipes)"
+msgstr "předělat bloky v průběhu čtení (pro roury na BSD 4.2)"
+
+#: src/tar.c:635
+msgid "Archive format selection:"
+msgstr "Výběr formátu archivu:"
+
+#: src/tar.c:637 tests/genfile.c:158
+msgid "FORMAT"
+msgstr "FORMÁT"
+
+#: src/tar.c:638
+msgid "create archive of the given format"
+msgstr "vytvoří archiv daného formátu"
+
+#: src/tar.c:640
+msgid "FORMAT is one of the following:"
+msgstr "FORMÁT je jeden z následujících:"
+
+#: src/tar.c:641
+msgid "old V7 tar format"
+msgstr "starý formát taru V7"
+
+#: src/tar.c:644
+msgid "GNU format as per tar <= 1.12"
+msgstr "formát taru GNU <= 1.12"
+
+#: src/tar.c:646
+msgid "GNU tar 1.13.x format"
+msgstr "formát taru GNU 1.13.x"
+
+#: src/tar.c:648
+msgid "POSIX 1003.1-1988 (ustar) format"
+msgstr "formát POSIX 1003.1-1988 (ustar)"
+
+#: src/tar.c:650
+msgid "POSIX 1003.1-2001 (pax) format"
+msgstr "formát POSIX 1003.1-2001 (pax)"
+
+#: src/tar.c:651
+msgid "same as pax"
+msgstr "stejné jako pax"
+
+#: src/tar.c:654
+msgid "same as --format=v7"
+msgstr "stejné jako --format=v7"
+
+#: src/tar.c:657
+msgid "same as --format=posix"
+msgstr "stejné jako --format=posix"
+
+#: src/tar.c:658
+msgid "keyword[[:]=value][,keyword[[:]=value]]..."
+msgstr "klíčové_slovo[[:]=hodnota][,klíčové_slovo[[:]=hodnota]]…"
+
+#: src/tar.c:659
+msgid "control pax keywords"
+msgstr "řídicí klíčová slova paxu"
+
+#: src/tar.c:660
+msgid "TEXT"
+msgstr "TEXT"
+
+#: src/tar.c:661
+msgid "create archive with volume name TEXT; at list/extract time, use TEXT as a globbing pattern for volume name"
+msgstr "vytvoří archiv s názvem svazku TEXT; při výpisu/rozbalení použije TEXT jako vzor se zástupnými symboly pro název svazku"
+
+#: src/tar.c:666
+msgid "Compression options:"
+msgstr "Přepínače komprese:"
+
+#: src/tar.c:668
+msgid "use archive suffix to determine the compression program"
+msgstr "kompresní program určí podle přípony archivu"
+
+#: src/tar.c:670
+msgid "do not use archive suffix to determine the compression program"
+msgstr "kompresní program neurčí podle přípony archivu"
+
+#: src/tar.c:672
+msgid "PROG"
+msgstr "PROGRAM"
+
+#: src/tar.c:673
+msgid "filter through PROG (must accept -d)"
+msgstr "archiv protáhne PROGRAMEM (musí znát -d)"
+
+#: src/tar.c:689
+msgid "Local file selection:"
+msgstr "Výběr místního souboru:"
+
+#: src/tar.c:691
+msgid "stay in local file system when creating archive"
+msgstr "při tvorbě archivu se zdrží v místním systému souborů"
+
+#: src/tar.c:693
+msgid "don't strip leading '/'s from file names"
+msgstr "neodstraní z názvů souborů úvodní „/“"
+
+#: src/tar.c:695
+msgid "follow symlinks; archive and dump the files they point to"
+msgstr "následuje symbolické odkazy; archivuje a vybaluje soubory, na které je odkazováno"
+
+#: src/tar.c:697
+msgid "follow hard links; archive and dump the files they refer to"
+msgstr "následuje pevné odkazy; archivuje a vybaluje soubory, na které je odkazováno"
+
+# část cesty (adresář)
+#: src/tar.c:698
+msgid "MEMBER-NAME"
+msgstr "SLOŽKA_NÁZVU"
+
+#: src/tar.c:699
+msgid "begin at member MEMBER-NAME when reading the archive"
+msgstr "čtení archivu začne na složce SLOŽKA_NÁZVU"
+
+#: src/tar.c:701
+msgid "only store files newer than DATE-OR-FILE"
+msgstr "ukládá jen soubory novější než DATUM_NEBO_SOUBOR"
+
+#: src/tar.c:703
+msgid "DATE"
+msgstr "DATUM"
+
+#: src/tar.c:704
+msgid "compare date and time when data changed only"
+msgstr "při změně dat porovná datum i čas"
+
+#: src/tar.c:705
+msgid "CONTROL"
+msgstr "STRATEGIE"
+
+#: src/tar.c:706
+msgid "backup before removal, choose version CONTROL"
+msgstr "před odstraněním vytvoří záložní kopii za použití STRATEGIE"
+
+#: src/tar.c:707 src/tar.c:766 src/tar.c:768 tests/genfile.c:174
+msgid "STRING"
+msgstr "ŘETĚZEC"
+
+#: src/tar.c:708
+msgid "backup before removal, override usual suffix ('~' unless overridden by environment variable SIMPLE_BACKUP_SUFFIX)"
+msgstr "před odstraněním vytvoří záložní kopii, potlačí obvyklou příponu („~“, není-li uvedeno jinak v proměnné prostředí SIMPLE_BACKUP_SUFFIX)"
+
+#: src/tar.c:713
+msgid "File name transformations:"
+msgstr "Transformace názvů souborů:"
+
+#: src/tar.c:715
+msgid "strip NUMBER leading components from file names on extraction"
+msgstr "při rozbalování odřízne ČÍSLO úvodních složek z názvů souborů"
+
+#: src/tar.c:717
+msgid "EXPRESSION"
+msgstr "VÝRAZ"
+
+#: src/tar.c:718
+msgid "use sed replace EXPRESSION to transform file names"
+msgstr "názvy souborů transformuje pomocí nahrazovacího VÝRAZU sedu"
+
+#: src/tar.c:724
+msgid "Informative output:"
+msgstr "Informativní výstup:"
+
+#: src/tar.c:727
+msgid "verbosely list files processed"
+msgstr "vypisuje zpracovávané soubory"
+
+#: src/tar.c:728
+msgid "KEYWORD"
+msgstr "KLÍČOVÉ_SLOVO"
+
+#: src/tar.c:729
+msgid "warning control"
+msgstr "řídí varování"
+
+#: src/tar.c:731
+msgid "display progress messages every NUMBERth record (default 10)"
+msgstr "zobrazuje zprávy o postupu každých ČÍSLO. záznam (implicitně 10)"
+
+#: src/tar.c:733
+msgid "ACTION"
+msgstr "AKCE"
+
+#: src/tar.c:734
+msgid "execute ACTION on each checkpoint"
+msgstr "v každém kontrolním bodu vykoná AKCI"
+
+#: src/tar.c:737
+msgid "print a message if not all links are dumped"
+msgstr "hlásí, že nebyly zpracovány všechny odkazy"
+
+#: src/tar.c:738
+msgid "SIGNAL"
+msgstr "SIGNÁL"
+
+#: src/tar.c:739
+msgid "print total bytes after processing the archive; with an argument - print total bytes when this SIGNAL is delivered; Allowed signals are: SIGHUP, SIGQUIT, SIGINT, SIGUSR1 and SIGUSR2; the names without SIG prefix are also accepted"
+msgstr "po zpracování archivu ohlásí celkový počet bajtů; je-li zadán argument, podá hlášení, až bude doručen SIGNÁL; Povolené signály jsou SIGHUP, SIGQUIT, SIGINT, SIGUSR1 a SIGUSR2; názvy bez předpony SIG jsou rovněž přípustné"
+
+#: src/tar.c:744
+msgid "print file modification times in UTC"
+msgstr "časy změn obsahu souborů vypisuje v UTC"
+
+#: src/tar.c:746
+msgid "print file time to its full resolution"
+msgstr "časy souborů vypisuje v plném znění"
+
+#: src/tar.c:748
+msgid "send verbose output to FILE"
+msgstr "informativní výstup pošle do SOUBORU"
+
+#: src/tar.c:750
+msgid "show block number within archive with each message"
+msgstr "každou zprávu opatří číslem bloku uvnitř archivu"
+
+#: src/tar.c:752
+msgid "ask for confirmation for every action"
+msgstr "na každou akcí žádá potvrzení"
+
+#: src/tar.c:755
+msgid "show tar defaults"
+msgstr "zobrazí implicitní argumenty taru"
+
+#: src/tar.c:757
+msgid "show valid ranges for snapshot-file fields"
+msgstr "zobrazí platné rozsahy pro položky souborů snímků"
+
+#: src/tar.c:759
+msgid "when listing or extracting, list each directory that does not match search criteria"
+msgstr "při vypisování nebo rozbalování zobrazí každý adresář, který neodpovídá vyhledávacím podmínkám"
+
+#: src/tar.c:761
+msgid "show file or archive names after transformation"
+msgstr "zobrazuje názvy souborů a archivů po transformaci"
+
+#: src/tar.c:764
+msgid "STYLE"
+msgstr "STYL"
+
+#: src/tar.c:765
+msgid "set name quoting style; see below for valid STYLE values"
+msgstr "nastaví styl citování názvů; platné hodnoty STYLŮ nalezte níže"
+
+#: src/tar.c:767
+msgid "additionally quote characters from STRING"
+msgstr "cituje navíc znaky z ŘETĚZCE"
+
+#: src/tar.c:769
+msgid "disable quoting for characters from STRING"
+msgstr "zakáže citování znaků z ŘETĚZCE"
+
+#: src/tar.c:774
+msgid "Compatibility options:"
+msgstr "Přepínače pro kompatibilitu"
+
+#: src/tar.c:777
+msgid "when creating, same as --old-archive; when extracting, same as --no-same-owner"
+msgstr "při vytváření archivu má stejný význam jako --old-archive, při rozbalování jako --no-same-owner"
+
+#: src/tar.c:782
+msgid "Other options:"
+msgstr "Další přepínače:"
+
+#: src/tar.c:785
+msgid "disable use of some potentially harmful options"
+msgstr "zakáže použití některých potenciálně nebezpečných přepínačů"
+
+#. TRANSLATORS: Both %s in this statement are replaced with
+#. option names.
+#: src/tar.c:845
+#, c-format
+msgid "'%s' cannot be used with '%s'"
+msgstr "Přepínač „%s“ nelze použít s „%s“"
+
+#: src/tar.c:933
+msgid "You may not specify more than one '-Acdtrux', '--delete' or  '--test-label' option"
+msgstr "Nemůže být zadán více jak jeden přepínač z „-Acdtrux“, „--delete“ nebo „--test-label“"
+
+#: src/tar.c:945
+msgid "Conflicting compression options"
+msgstr "Odporující si kompresní přepínače"
+
+#: src/tar.c:1004
+#, c-format
+msgid "Unknown signal name: %s"
+msgstr "Neznámý název signálu: %s"
+
+#: src/tar.c:1028
+msgid "Date sample file not found"
+msgstr "Soubor, ze kterého se má vzít datum a čas, nebyl nalezen"
+
+#: src/tar.c:1036
+#, c-format
+msgid "Substituting %s for unknown date format %s"
+msgstr "Datum neznámého formátu %2$s nahrazuji %1$s"
+
+#: src/tar.c:1065
+#, c-format
+msgid "Option %s: Treating date '%s' as %s"
+msgstr "Přepínač %s: S datem „%s“ bude zacházeno jako s %s"
+
+#: src/tar.c:1105 src/tar.c:1109 src/tar.c:1113 src/tar.c:1117 src/tar.c:1121
+#: src/tar.c:1125 src/tar.c:1129
+#, c-format
+msgid "filter the archive through %s"
+msgstr "archiv protáhne skrze filtr %s"
+
+#: src/tar.c:1137
+msgid "Valid arguments for the --quoting-style option are:"
+msgstr "Pro přepínač --quoting-style jsou platné argumenty:"
+
+#: src/tar.c:1141
+msgid ""
+"\n"
+"*This* tar defaults to:\n"
+msgstr ""
+"\n"
+"Implicitní přepínače *tohoto* taru:\n"
+
+#: src/tar.c:1253
+msgid "Invalid owner or group ID"
+msgstr "Neplatné ID vlastníka nebo skupiny"
+
+#: src/tar.c:1347
+msgid "Invalid blocking factor"
+msgstr "Neplatný počet bajtů na záznam"
+
+#: src/tar.c:1467
+msgid "Invalid tape length"
+msgstr "Neplatná délka pásky"
+
+#: src/tar.c:1481
+msgid "Invalid incremental level value"
+msgstr "Chybná hodnota úrovně přírůstku"
+
+#: src/tar.c:1527
+msgid "More than one threshold date"
+msgstr "Více než jedeno počáteční datum"
+
+#: src/tar.c:1594 src/tar.c:1597
+msgid "Invalid sparse version value"
+msgstr "Neplatná hodnota verze řídkého formátu"
+
+#: src/tar.c:1661
+msgid "--atime-preserve='system' is not supported on this platform"
+msgstr "--atime-preserve='system' není na této platformě podporován"
+
+#: src/tar.c:1686
+msgid "--checkpoint value is not an integer"
+msgstr "hodnota --checkpoint není celé číslo"
+
+#: src/tar.c:1764
+msgid "Invalid mode given on option"
+msgstr "Zadána chybná práva"
+
+#: src/tar.c:1797
+msgid "Invalid number"
+msgstr "Neplatné číslo"
+
+#: src/tar.c:1861
+msgid "Invalid record size"
+msgstr "Chybná velikost záznamu"
+
+#: src/tar.c:1864
+#, c-format
+msgid "Record size must be a multiple of %d."
+msgstr "Velikost záznamu musí být násobek %d."
+
+#: src/tar.c:1910
+msgid "Invalid number of elements"
+msgstr "Neplatný počet prvků"
+
+#: src/tar.c:1935
+msgid "Only one --to-command option allowed"
+msgstr "Povolen je jen jeden přepínač --to-command"
+
+#: src/tar.c:2023
+#, c-format
+msgid "Malformed density argument: %s"
+msgstr "Neplatný argument hustoty: %s"
+
+#: src/tar.c:2049
+#, c-format
+msgid "Unknown density: '%c'"
+msgstr "Neznámá hustota: „%c“"
+
+#: src/tar.c:2066
+#, c-format
+msgid "Options '-[0-7][lmh]' not supported by *this* tar"
+msgstr "Přepínače „-[0-7][lmh]“ nejsou *tímto* tarem podporovány"
+
+#: src/tar.c:2073
+#, c-format
+msgid "%s:%lu: location of the error"
+msgstr "%s:%lu: umístění chyby"
+
+#: src/tar.c:2076
+#, c-format
+msgid "error parsing %s"
+msgstr "Chyba při rozebírání %s"
+
+#: src/tar.c:2090
+msgid "[FILE]..."
+msgstr "[SOUBOR]…"
+
+#: src/tar.c:2181
+#, c-format
+msgid "non-option arguments in %s"
+msgstr "nepřepínačový argument v %s"
+
+#: src/tar.c:2196
+#, c-format
+msgid "cannot split TAR_OPTIONS: %s"
+msgstr "TAR_OPTIONS nelze rozdělit: %s"
+
+#: src/tar.c:2291
+#, c-format
+msgid "Old option '%c' requires an argument."
+msgstr "Starý přepínač „%c“ vyžaduje argument."
+
+#: src/tar.c:2364
+msgid "--occurrence is meaningless without a file list"
+msgstr "bez seznamu souborů nemá --occurrence smysl"
+
+#: src/tar.c:2390
+msgid "Multiple archive files require '-M' option"
+msgstr "Více archivačních souborů vyžaduje přepínač „-M“"
+
+#: src/tar.c:2407
+msgid "--level is meaningless without --listed-incremental"
+msgstr "--level bez --listed-incremental postrádá smysl"
+
+#: src/tar.c:2424
+#, c-format
+msgid "%s: Volume label is too long (limit is %lu byte)"
+msgid_plural "%s: Volume label is too long (limit is %lu bytes)"
+msgstr[0] "%s: Název svazku je příliš dlouhý (limit je %'lu bajt)"
+msgstr[1] "%s: Název svazku je příliš dlouhý (limit je %'lu bajty)"
+msgstr[2] "%s: Název svazku je příliš dlouhý (limit je %'lu bajtů)"
+
+#: src/tar.c:2437
+msgid "Cannot verify multi-volume archives"
+msgstr "Vícesvazkový archiv není možné ověřit"
+
+#: src/tar.c:2439
+msgid "Cannot verify compressed archives"
+msgstr "Komprimovaný archiv nelze ověřit"
+
+#: src/tar.c:2453
+msgid "Cannot use multi-volume compressed archives"
+msgstr "Vícesvazkový komprimovaný archiv nelze vytvořit"
+
+#: src/tar.c:2457
+msgid "Cannot concatenate compressed archives"
+msgstr "Komprimované archivy nelze zřetězit"
+
+#: src/tar.c:2464
+msgid "--clamp-mtime needs a date specified using --mtime"
+msgstr "--clamp-mtime potřebuje datum určené pomocí --mtime"
+
+#: src/tar.c:2474
+msgid "--pax-option can be used only on POSIX archives"
+msgstr "Přepínač --pax-option lze použít jen na posixových archivech"
+
+#: src/tar.c:2481
+msgid "--acls can be used only on POSIX archives"
+msgstr "Přepínač --acls lze použít jen na posixových archivech"
+
+#: src/tar.c:2486
+msgid "--selinux can be used only on POSIX archives"
+msgstr "Přepínač --selinux lze použít jen na posixových archivech"
+
+#: src/tar.c:2491
+msgid "--xattrs can be used only on POSIX archives"
+msgstr "Přepínač --xattrs lze použít jen na posixových archivech"
+
+#: src/tar.c:2540
+msgid "Cannot deduce top-level directory name; please set it explicitly with --one-top-level=DIR"
+msgstr "Název vrcholového adresáře nelze odvodit; prosím, zadejte jej explicitně pomocí --one-top-level=ADRESÁŘ"
+
+#: src/tar.c:2573
+msgid "Volume length cannot be less than record size"
+msgstr "Délka svazku nemůže být kratší než délka záznamu"
+
+#: src/tar.c:2597
+msgid "Cowardly refusing to create an empty archive"
+msgstr "Vytvoření prázdného archivu odmítnuto."
+
+#: src/tar.c:2623
+msgid "Options '-Aru' are incompatible with '-f -'"
+msgstr "Přepínače „-Aru“ jsou neslučitelné s přepínačem „-f -“"
+
+#: src/tar.c:2711
+msgid "You must specify one of the '-Acdtrux', '--delete' or '--test-label' options"
+msgstr "Musíte zadat jeden z přepínačů „-Acdtrux“, „--delete“ nebo „--test-label“"
+
+#: src/tar.c:2768
+#, c-format
+msgid "Exiting with failure status due to previous errors"
+msgstr "Končí se chybovým kódem, protože byly zaznamenány chyby"
+
+#: src/update.c:87
+#, c-format
+msgid "%s: File shrank by %s byte"
+msgid_plural "%s: File shrank by %s bytes"
+msgstr[0] "%s: Soubor zkrácen o %s bajt"
+msgstr[1] "%s: Soubor zkrácen o %s bajty"
+msgstr[2] "%s: Soubor zkrácen o %s bajtů"
+
+#: src/xheader.c:165
+#, c-format
+msgid "Keyword %s is unknown or not yet implemented"
+msgstr "Klíčové slovo %s není známo nebo ještě nebylo implementováno"
+
+#: src/xheader.c:174
+msgid "Time stamp is out of allowed range"
+msgstr "Časový údaj je mimo povolený rozsah"
+
+#: src/xheader.c:205
+#, c-format
+msgid "Pattern %s cannot be used"
+msgstr "Vzor %s nelze použít"
+
+#: src/xheader.c:219
+#, c-format
+msgid "Keyword %s cannot be overridden"
+msgstr "Klíčové slovo %s nelze přebít"
+
+#: src/xheader.c:668
+msgid "Malformed extended header: missing length"
+msgstr "Chybná rozšířená hlavička: chybí délka"
+
+#: src/xheader.c:677
+#, c-format
+msgid "Extended header length %*s is out of range"
+msgstr "Délka rozšířené hlavičky %*s je mimo rozsah"
+
+#: src/xheader.c:689
+msgid "Malformed extended header: missing blank after length"
+msgstr "Chybná rozšířená hlavička: po délce chybí bílé místo"
+
+#: src/xheader.c:697
+msgid "Malformed extended header: missing equal sign"
+msgstr "Chybná rozšířená hlavička: chybí znak rovná se"
+
+#: src/xheader.c:703
+msgid "Malformed extended header: missing newline"
+msgstr "Chybná rozšířená hlavička: chybí odřádkování"
+
+#: src/xheader.c:741
+#, c-format
+msgid "Ignoring unknown extended header keyword '%s'"
+msgstr "Ignoruje se neznámé klíčové slovo „%s“ rozšířené hlavičky"
+
+#: src/xheader.c:1023
+#, c-format
+msgid "Generated keyword/value pair is too long (keyword=%s, length=%s)"
+msgstr "Utvořená dvojice klíčové slovo / hodnota je příliš dlouhá (klíčové slovo = %s, délka %s)"
+
+#. TRANSLATORS: The first %s is the pax extended header keyword
+#. (atime, gid, etc.).
+#: src/xheader.c:1053
+#, c-format
+msgid "Extended header %s=%s is out of range %s..%s"
+msgstr "%s=%s v rozšířené hlavičce je mimo rozsah %s–%s"
+
+#: src/xheader.c:1104 src/xheader.c:1137 src/xheader.c:1487
+#, c-format
+msgid "Malformed extended header: invalid %s=%s"
+msgstr "Chybná rozšířená hlavička: %s=%s není platné"
+
+#: src/xheader.c:1440 src/xheader.c:1465 src/xheader.c:1520
+#, c-format
+msgid "Malformed extended header: excess %s=%s"
+msgstr "Chybná rozšířená hlavička: nadbytečná %s=%s"
+
+#: src/xheader.c:1533
+#, c-format
+msgid "Malformed extended header: invalid %s: unexpected delimiter %c"
+msgstr "Chybná rozšířená hlavička: neplatný %s: neočekávaný oddělovač %c"
+
+#: src/xheader.c:1543
+#, c-format
+msgid "Malformed extended header: invalid %s: odd number of values"
+msgstr "Chybná rozšířená hlavička: neplatný %s: lichý počet hodnot"
+
+#: src/checkpoint.c:114
+#, c-format
+msgid "%s: not a valid timeout"
+msgstr "%s: neplatný časový limit"
+
+#: src/checkpoint.c:121
+#, c-format
+msgid "%s: unknown checkpoint action"
+msgstr "%s: neznámá akce kontrolního bodu"
+
+#: src/checkpoint.c:202
+msgid "write"
+msgstr "zápis"
+
+#: src/checkpoint.c:202
+msgid "read"
+msgstr "čtení"
+
+#. TRANSLATORS: This is a "checkpoint of write operation",
+#. *not* "Writing a checkpoint".
+#. E.g. in Spanish "Punto de comprobaci@'on de escritura",
+#. *not* "Escribiendo un punto de comprobaci@'on"
+#: src/checkpoint.c:218
+#, c-format
+msgid "Write checkpoint %u"
+msgstr "Kontrolní bod zápisu %u"
+
+#. TRANSLATORS: This is a "checkpoint of read operation",
+#. *not* "Reading a checkpoint".
+#. E.g. in Spanish "Punto de comprobaci@'on de lectura",
+#. *not* "Leyendo un punto de comprobaci@'on"
+#: src/checkpoint.c:224
+#, c-format
+msgid "Read checkpoint %u"
+msgstr "Kontrolní bod čtení %u"
+
+#: tests/genfile.c:115
+msgid ""
+"genfile manipulates data files for GNU paxutils test suite.\n"
+"OPTIONS are:\n"
+msgstr ""
+"genfile pracuje s datovými soubory testovacího balíku GNU paxutils.\n"
+"PŘEPÍNAČE jsou:\n"
+
+#: tests/genfile.c:131
+msgid "File creation options:"
+msgstr "Přepínače tvorby souboru:"
+
+#: tests/genfile.c:132 tests/genfile.c:143
+msgid "SIZE"
+msgstr "VELIKOST"
+
+#: tests/genfile.c:133
+msgid "Create file of the given SIZE"
+msgstr "Vytvoří soubor zadané VELIKOSTI"
+
+#: tests/genfile.c:135
+msgid "Write to file NAME, instead of standard output"
+msgstr "Místo na standardní výstup píše do souboru JMÉNO"
+
+#: tests/genfile.c:137
+msgid "Read file names from FILE"
+msgstr "Názvy souborů čte ze SOUBORU"
+
+#: tests/genfile.c:139
+msgid "-T reads null-terminated names"
+msgstr "-T čte názvy zakončené nulovými znaky"
+
+#: tests/genfile.c:141
+msgid "Fill the file with the given PATTERN. PATTERN is 'default' or 'zeros'"
+msgstr "Vyplní soubor zadaným VZOREM. VZOR je „default“ (výchozí) nebo „zeros“ (nuly)"
+
+#: tests/genfile.c:144
+msgid "Size of a block for sparse file"
+msgstr "Velikost bloku pro řídké soubory"
+
+#: tests/genfile.c:146
+msgid "Generate sparse file. Rest of the command line gives the file map."
+msgstr "Vytvoří řídký soubor. Zbytek příkazové řádku definuje mapu souboru."
+
+#: tests/genfile.c:148
+msgid "OFFSET"
+msgstr "POZICE"
+
+#: tests/genfile.c:149
+msgid "Seek to the given offset before writing data"
+msgstr "Před zápisem dat se přesune na zadanou POZICI"
+
+#: tests/genfile.c:152
+msgid "Suppress non-fatal diagnostic messages"
+msgstr "Potlačí diagnostické hlášky, které nevedou k přerušení programu"
+
+#: tests/genfile.c:156
+msgid "File statistics options:"
+msgstr "Přepínače statistiky souboru:"
+
+#: tests/genfile.c:159
+msgid "Print contents of struct stat for each given file. Default FORMAT is: "
+msgstr "U každého zadaného souboru vypíše obsah struktury stat. Implicitní FORMÁT je:"
+
+#: tests/genfile.c:166
+msgid "Synchronous execution options:"
+msgstr "Přepínače synchronního vykonávání:"
+
+#: tests/genfile.c:168
+msgid "OPTION"
+msgstr "PŘEPÍNAČ"
+
+#: tests/genfile.c:169
+msgid "Execute ARGS. Useful with --checkpoint and one of --cut, --append, --touch, --unlink"
+msgstr "Provede ARGUMENTY. Užitečné s --checkpoint a jedním z --cut, --append, --touch, --unlink"
+
+#: tests/genfile.c:172
+msgid "Perform given action (see below) upon reaching checkpoint NUMBER"
+msgstr "Provede zadanou akci (vizte níže) při dosažení kontrolního bodu ČÍSLO"
+
+#: tests/genfile.c:175
+msgid "Set date for next --touch option"
+msgstr "Nastaví datum pro následující přepínač --touch"
+
+#: tests/genfile.c:178
+msgid "Display executed checkpoints and exit status of COMMAND"
+msgstr "Zobrazuje prováděné kontrolní body a návratové kódy PŘÍKAZU"
+
+#: tests/genfile.c:183
+msgid "Synchronous execution actions. These are executed when checkpoint number given by --checkpoint option is reached."
+msgstr "Synchronní vykonávání akcí. Tyto budou provedeny, když bude dosaženo číslo kontrolního bodu zadaného přepínačem --checkpoint."
+
+#: tests/genfile.c:186
+msgid "Truncate FILE to the size specified by previous --length option (or 0, if it is not given)"
+msgstr "Zkrátí SOUBOR na velikost zadanou předchozím přepínačem --length (nebo na 0, není-li uveden)"
+
+#: tests/genfile.c:190
+msgid "Append SIZE bytes to FILE. SIZE is given by previous --length option."
+msgstr "K SOUBORU připojí VELIKOST bajtů. VELIKOST se zadává předcházejícím přepínačem --length."
+
+#: tests/genfile.c:193
+msgid "Update the access and modification times of FILE"
+msgstr "Aktualizuje časy přístupu a změny obsahu SOUBORU"
+
+#: tests/genfile.c:196
+msgid "Execute COMMAND"
+msgstr "Vykoná PŘÍKAZ"
+
+#: tests/genfile.c:199
+msgid "Delete FILE"
+msgstr "Smaže SOUBOR"
+
+#: tests/genfile.c:250
+#, c-format
+msgid "Invalid size: %s"
+msgstr "Neplatná velikost: %s"
+
+#: tests/genfile.c:255
+#, c-format
+msgid "Number out of allowed range: %s"
+msgstr "Číslo je mimo povolený rozsah: %s"
+
+#: tests/genfile.c:258
+#, c-format
+msgid "Negative size: %s"
+msgstr "Záporná velikost: %s"
+
+#: tests/genfile.c:271 tests/genfile.c:642
+#, c-format
+msgid "stat(%s) failed"
+msgstr "stat(%s) selhalo"
+
+#: tests/genfile.c:274
+#, c-format
+msgid "requested file length %lu, actual %lu"
+msgstr "požadovaná délka souboru %'lu, aktuální %'lu"
+
+#: tests/genfile.c:278
+#, c-format
+msgid "created file is not sparse"
+msgstr "vytvořený soubor není řídký"
+
+#: tests/genfile.c:375
+#, c-format
+msgid "Error parsing number near `%s'"
+msgstr "Chyba při rozebírání čísla poblíž „%s“"
+
+#: tests/genfile.c:381
+#, c-format
+msgid "Unknown date format"
+msgstr "Neznámý formát data"
+
+#: tests/genfile.c:405
+msgid "[ARGS...]"
+msgstr "[ARGUMENT…]"
+
+#: tests/genfile.c:442 tests/genfile.c:482 tests/genfile.c:583
+#: tests/genfile.c:746 tests/genfile.c:760
+#, c-format
+msgid "cannot open `%s'"
+msgstr "„%s“ nelze otevřít"
+
+#: tests/genfile.c:448
+msgid "cannot seek"
+msgstr "v souboru se nelze pohybovat"
+
+#: tests/genfile.c:465
+#, c-format
+msgid "file name contains null character"
+msgstr "název souboru obsahuje nulový znak"
+
+#: tests/genfile.c:578
+#, c-format
+msgid "cannot generate sparse files on standard output, use --file option"
+msgstr "na standardní výstup nelze generovat řídké soubory, použijte přepínač --file"
+
+#: tests/genfile.c:669
+#, c-format
+msgid "incorrect mask (near `%s')"
+msgstr "nesprávná maska (poblíž „%s“)"
+
+#: tests/genfile.c:675 tests/genfile.c:708
+#, c-format
+msgid "Unknown field `%s'"
+msgstr "Neznámá položka „%s“"
+
+#: tests/genfile.c:735
+#, c-format
+msgid "cannot set time on `%s'"
+msgstr "Souboru „%s“ nelze nastavit čas"
+
+#: tests/genfile.c:765
+#, c-format
+msgid "cannot truncate `%s'"
+msgstr "„%s“ nelze zkrátit"
+
+#: tests/genfile.c:774
+#, c-format
+msgid "command failed: %s"
+msgstr "příkaz selhal: %s"
+
+#: tests/genfile.c:781
+#, c-format
+msgid "cannot stat `%s'"
+msgstr "nelze získat údaje o „%s“"
+
+#: tests/genfile.c:785
+#, c-format
+msgid "cannot remove directory `%s'"
+msgstr "adresář „%s“ nelze odstranit"
+
+#: tests/genfile.c:788
+#, c-format
+msgid "cannot unlink `%s'"
+msgstr "„%s“ nelze odstranit (unlink)"
+
+#: tests/genfile.c:918
+#, c-format
+msgid "Command exited successfully\n"
+msgstr "Příkaz skončil úspěšně\n"
+
+#: tests/genfile.c:920
+#, c-format
+msgid "Command failed with status %d\n"
+msgstr "Příkaz selhal s kódem %d\n"
+
+#: tests/genfile.c:924
+#, c-format
+msgid "Command terminated on signal %d\n"
+msgstr "Příkaz skončil signálem %d\n"
+
+#: tests/genfile.c:926
+#, c-format
+msgid "Command stopped on signal %d\n"
+msgstr "Příkaz pozastaven signálem %d\n"
+
+#: tests/genfile.c:929
+#, c-format
+msgid "Command dumped core\n"
+msgstr "Příkaz skončil výpisem obrazu paměti\n"
+
+#: tests/genfile.c:932
+#, c-format
+msgid "Command terminated\n"
+msgstr "Příkaz ukončen\n"
+
+#: tests/genfile.c:964
+#, c-format
+msgid "--stat requires file names"
+msgstr "--stat potřebuje název souboru"
+
+#~ msgid "%.*s: ARGP_HELP_FMT parameter must be positive"
+#~ msgstr "%.*s: parametr ARGP_HELP_FMT musí být kladný"
+
+#~ msgid "%s: option '--%s' doesn't allow an argument\n"
+#~ msgstr "%s: přepínač „--%s“ musí být zadán bez argumentu\n"
+
+#~ msgid "%s: unrecognized option '--%s'\n"
+#~ msgstr "%s: nerozpoznaný přepínač „--%s“\n"
+
+#~ msgid "%s: option '-W %s' is ambiguous\n"
+#~ msgstr "%s: přepínač „-W %s“ není jednoznačný\n"
+
+#~ msgid "%s: option '-W %s' doesn't allow an argument\n"
+#~ msgstr "%s: přepínač „-W %s“ musí být zadán bez argumentu\n"
+
+#~ msgid "%s: option '-W %s' requires an argument\n"
+#~ msgstr "%s: přepínač „-W %s“ vyžaduje argument\n"
+
+#~ msgid "Unlink FILE"
+#~ msgstr "Smaže (unlink) SOUBOR"
+
+#~ msgid "same as both -p and -s"
+#~ msgstr "stejné jako -p -s"
+
+#~ msgid "The --preserve option is deprecated, use --preserve-permissions --preserve-order instead"
+#~ msgstr "Přepínač --preserve je zastaralý, místo něj používejte --preserve-permissions --preserve-order"
+
+#~ msgid "--occurrence cannot be used with %s"
+#~ msgstr "--occurrence nelze použít s %s"
+
+#~ msgid "Cannot combine --listed-incremental with --newer"
+#~ msgstr "--listed-incremental a --newer nelze kombinovat"
+
+#~ msgid "--verify cannot be used with %s"
+#~ msgstr "Přepínač --verify nelze použít s %s"
+
+#~ msgid "--preserve-order is not compatible with --listed-incremental"
+#~ msgstr "--preserve-order není slučitelný s --listed-incremental"
+
+#~ msgid "Field too long while reading snapshot file"
+#~ msgstr "Při čtení souboru snímku: položka je příliš dlouhá"
+
+#~ msgid "Read error in snapshot file"
+#~ msgstr "Chyba čtení uvnitř souboru snímku"
+
+#~ msgid "Unexpected field value in snapshot file"
+#~ msgstr "Neočekávaná hodnota položky v souboru snímku"
+
+#~ msgid "Cannot get working directory"
+#~ msgstr "Nelze zjistit pracovní adresář"
+
+#~ msgid "sort names to extract to match archive"
+#~ msgstr "při rozbalování seřadí názvy tak, aby odpovídaly pořadí v archivu"
+
+#~ msgid "Invalid group"
+#~ msgstr "Neplatná skupina"
+
+#~ msgid "Extended header length is out of allowed range"
+#~ msgstr "Délka rozšířené hlavičky je mimo povolený rozsah"
+
+#~ msgid "%s: Directory removed before we read it"
+#~ msgstr "%s: Adresář smazán dříve než mohl být přečten"
+
+#~ msgid "Cannot save working directory"
+#~ msgstr "Pracovní adresář nelze uchovat"
+
+#~ msgid "Cannot resolve hostname %s"
+#~ msgstr "Název počítače %s nelze přeložit"
+
+#~ msgid "suppress this warning."
+#~ msgstr "nebo tuto hlášku potlačte přepínačem --no-wildcards."
+
+#~ msgid "%s: illegal option -- %c\n"
+#~ msgstr "%s: neznámý přepínač -- %c\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Report bugs to <%s>.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Chyby v programu oznamujte na adrese <%s> (pouze anglicky),\n"
+#~ "připomínky k překladu na adresu <translation-team-cs@lists.sourceforge.net>\n"
+#~ "(česky).\n"
+
+#~ msgid "Input string too long"
+#~ msgstr "Vstupní řetězec je příliš dlouhý"
+
+#~ msgid "Number syntax error"
+#~ msgstr "Syntaktická chyba čísla"
+
+#~ msgid "rmtd: Cannot allocate buffer space\n"
+#~ msgstr "rmtd: Místo pro buffer není možné alokovat\n"
+
+#~ msgid "Cannot allocate buffer space"
+#~ msgstr "Místo pro buffer není možné alokovat"
+
+#~ msgid "Try `%s --help' for more information.\n"
+#~ msgstr "Více informací získáte příkazem „%s --help“.\n"
+
+#~ msgid ""
+#~ "Usage: %s [OPTION]\n"
+#~ "Manipulate a tape drive, accepting commands from a remote process.\n"
+#~ "\n"
+#~ "  --version  Output version info.\n"
+#~ "  --help     Output this help.\n"
+#~ msgstr ""
+#~ "Použití: %s [PŘEPÍNAČ]\n"
+#~ "Manipuluje s páskovou mechanikou přijímaje příkazy vzdáleného procesu.\n"
+#~ "\n"
+#~ "  --version     Vypíše označení verze.\n"
+#~ "  --help        Vypíše tuto nápovědu.\n"
+
+#~ msgid "Seek offset error"
+#~ msgstr "Chyba při posunu na pozici"
+
+#~ msgid "Premature end of file"
+#~ msgstr "Předčasný konec souboru"
+
+#~ msgid "Reading %s\n"
+#~ msgstr "Čtení z %s\n"
+
+#~ msgid "Error is not recoverable: exiting now"
+#~ msgstr "Z chyby se nelze zotavit: ukončuji se"
+
+#~ msgid "filter the archive through bzip2"
+#~ msgstr "archiv protáhne skrze bzip2"
+
+#~ msgid "filter the archive through gzip"
+#~ msgstr "archiv protáhne skrze gzip"
+
+#~ msgid "filter the archive through compress"
+#~ msgstr "archiv protáhne skrze compress"
+
+#~ msgid "filter the archive through lzma"
+#~ msgstr "archiv protáhne skrze lzma"
+
+#~ msgid "filter the archive through lzop"
+#~ msgstr "archiv protáhne skrze lzop"
+
+#~ msgid "block size"
+#~ msgstr "velikost bloku"
+
+#~ msgid "Cannot dup"
+#~ msgstr "Popisovač souboru nelze duplikovat"
+
+#~ msgid "Cannot use compressed or remote archives"
+#~ msgstr "Komprimované nebo vzdálené archivy nelze použít"
+
+#~ msgid "tar (child)"
+#~ msgstr "tar (potomek)"
+
+#~ msgid "tar (grandchild)"
+#~ msgstr "tar (prapotomek)"
+
+#~ msgid "WARNING: No volume header"
+#~ msgstr "VAROVÁNÍ: Chybí hlavička svazku"
+
+#~ msgid "Child returned status %d"
+#~ msgstr "Potomek vrátil status %d"
+
+#~ msgid "Member names contain `..'"
+#~ msgstr "Názvy souborů obsahují „..“"
+
+#~ msgid "Visible long name error"
+#~ msgstr "Viditelná chyba dlouhého názvu"
+
+#~ msgid "Device number out of range"
+#~ msgstr "Číslo zařízení je mimo rozsah"
+
+#~ msgid "Visible longname error"
+#~ msgstr "Viditelná chyba dlouhého názvu"
+
+#~ msgid "Renamed %s to %s"
+#~ msgstr "Soubor %s přejmenován na %s"
+
+#~ msgid "%s: Cannot symlink to %s"
+#~ msgstr "%s: Symbolický odkaz na %s nelze vytvořit"
+
+#~ msgid "Symlinked %s to %s"
+#~ msgstr "%s odkazuje na %s"
+
+#~ msgid "Unknown demangling command %s"
+#~ msgstr "Neznámý příkaz %s pro spojování rozsekaných jmen"
+
+#~ msgid "Missing file name after -C"
+#~ msgstr "Za -C chybí název souboru"
+
+#~ msgid "Copyright %d Free Software Foundation, Inc."
+#~ msgstr "Copyright %d Free Software Foundation, Inc."
+
+#~ msgid ""
+#~ "This program comes with NO WARRANTY, to the extent permitted by law.\n"
+#~ "You may redistribute it under the terms of the GNU General Public License;\n"
+#~ "see the file named COPYING for details."
+#~ msgstr ""
+#~ "  Toto je volně šiřitelné programové vybavení, které je zcela BEZ ZÁRUKY.\n"
+#~ "Podmínky pro kopírování a rozšiřování naleznete v Obecné veřejné licenci GNU\n"
+#~ "(GNU General Public Licence). Více informací získáte ve zdrojových textech\n"
+#~ "v souboru COPYING."
+
+#~ msgid "rmtd: Garbage command %c\n"
+#~ msgstr "rmtd: Neznámý příkaz %c\n"
+
+#~ msgid ""
+#~ "GNU `tar' saves many files together into a single tape or disk archive, and\n"
+#~ "can restore individual files from the archive.\n"
+#~ msgstr ""
+#~ "  GNU „tar“ je archivační program. Ukládá soubory do archivu na pásku nebo \n"
+#~ "disk. Z archivu dokáže rozbalit jak celé hierarchie souborů, tak i jednotlivé\n"
+#~ "soubory.\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "If a long option shows an argument as mandatory, then it is mandatory\n"
+#~ "for the equivalent short option also.  Similarly for optional arguments.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "  Jestliže dlouhé přepínače mají povinný argument, pak tento argument je\n"
+#~ "povinný i u jejich krátkých forem. Obdobně je tomu v případě, kdy je argument\n"
+#~ "nepovinný.\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Main operation mode:\n"
+#~ "  -t, --list              list the contents of an archive\n"
+#~ "  -x, --extract, --get    extract files from an archive\n"
+#~ "  -c, --create            create a new archive\n"
+#~ "  -d, --diff, --compare   find differences between archive and file system\n"
+#~ "  -r, --append            append files to the end of an archive\n"
+#~ "  -u, --update            only append files newer than copy in archive\n"
+#~ "  -A, --catenate          append tar files to an archive\n"
+#~ "      --concatenate       same as -A\n"
+#~ "      --delete            delete from the archive (not on mag tapes!)\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Hlavní funkce:\n"
+#~ "  -t, --list              vypíše obsah archivu\n"
+#~ "  -x, --extract, --get    vyzvedne soubor(y) z archivu\n"
+#~ "  -c, --create            vytvoří nový archiv\n"
+#~ "  -d, --diff, --compare   nalezne rozdíly mezi archivem a souborovým systémem\n"
+#~ "  -r, --append            přidá soubory na konec archivu\n"
+#~ "  -u, --update            přidá pouze soubory novější, než jsou v archivu\n"
+#~ "  -A, --catenate          přidá soubory z tar archivu do archivu\n"
+#~ "      --concatenate       stejné jako -A\n"
+#~ "      --delete            maže z archivu (nefunguje na magnetických páskách)\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Operation modifiers:\n"
+#~ "  -W, --verify               attempt to verify the archive after writing it\n"
+#~ "      --remove-files         remove files after adding them to the archive\n"
+#~ "  -k, --keep-old-files       don't replace existing files when extracting\n"
+#~ "      --overwrite            overwrite existing files when extracting\n"
+#~ "  -U, --unlink-first         remove each file prior to extracting over it\n"
+#~ "      --recursive-unlink     empty hierarchies prior to extracting directory\n"
+#~ "  -S, --sparse               handle sparse files efficiently\n"
+#~ "  -O, --to-stdout            extract files to standard output\n"
+#~ "  -G, --incremental          handle old GNU-format incremental backup\n"
+#~ "  -g, --listed-incremental=FILE\n"
+#~ "                             handle new GNU-format incremental backup\n"
+#~ "      --ignore-failed-read   do not exit with nonzero on unreadable files\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Modifikátory operací:\n"
+#~ "  -W, --verify               ověří archiv po zápisu na médium\n"
+#~ "      --remove-files         smaže originální soubory po jejich archivaci\n"
+#~ "  -k, --keep-old-files       nepřepisuje existující soubory při rozbalování\n"
+#~ "                             archivu\n"
+#~ "      --overwrite            přepisuje existující soubory při rozbalování\n"
+#~ "  -U, --unlink-first         smaže soubory před jejich přepsáním\n"
+#~ "      --recursive-unlink     smaže prázdné hierarchie před \n"
+#~ "                             rozbalováním adresářů\n"
+#~ "  -S, --sparse               soubory s dírami zpracuje efektivněji\n"
+#~ "  -O, --to-stdout            rozbalí archiv na standardní výstup\n"
+#~ "  -G, --incremental          zpracuje starý GNU-formát inkrementální zálohy\n"
+#~ "  -g, --listed-incremental=SOUBOR\n"
+#~ "                             zpracuje nový GNU-formát inkrementální zálohy\n"
+#~ "      --ignore-failed-read   ignoruje chyby při čtení souborů\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Handling of file attributes:\n"
+#~ "      --owner=NAME             force NAME as owner for added files\n"
+#~ "      --group=NAME             force NAME as group for added files\n"
+#~ "      --mode=CHANGES           force (symbolic) mode CHANGES for added files\n"
+#~ "      --atime-preserve         don't change access times on dumped files\n"
+#~ "  -m, --modification-time      don't extract file modified time\n"
+#~ "      --same-owner             try extracting files with the same ownership\n"
+#~ "      --no-same-owner          extract files as yourself\n"
+#~ "      --numeric-owner          always use numbers for user/group names\n"
+#~ "  -p, --same-permissions       extract permissions information\n"
+#~ "      --no-same-permissions    do not extract permissions information\n"
+#~ "      --preserve-permissions   same as -p\n"
+#~ "  -s, --same-order             sort names to extract to match archive\n"
+#~ "      --preserve-order         same as -s\n"
+#~ "      --preserve               same as both -p and -s\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Zpracování atributů souborů:\n"
+#~ "      --owner=JMÉNO            použije JMÉNO jako vlastníka přidávaných souborů\n"
+#~ "      --group=JMÉNO            použije JMÉNO jako skupinu přidávaných souborů\n"
+#~ "      --mode=ZMĚNY             použije jako práva (symbolická) přidávaných\n"
+#~ "                               souborů\n"
+#~ "      --atime-preserve         nemění přístupový čas na zpracovávaných\n"
+#~ "                               souborech\n"
+#~ "  -m, --modification-time      u rozbalovávaných souborů nenastaví čas\n"
+#~ "                               poslední modifikace souboru z archivu\n"
+#~ "      --same-owner             u rozbalovávaných souborů zkouší nastavit\n"
+#~ "                               stejného vlastníka jako je v archivu\n"
+#~ "      --no-same-owner          rozbalí soubory a všechny budou vlastněné Vámi\n"
+#~ "      --numeric-owner          vždy používá čísla pro jména vlastníka/skupiny\n"
+#~ "  -p, --same-permissions       u rozbalovávaných souborů nastaví stejná\n"
+#~ "                               práva, jaká mají v archivu\n"
+#~ "      --no-same-permissions    při rozbalování nenastavuje práva\n"
+#~ "      --preserve-permissions   stejné jako -p\n"
+#~ "  -s, --same-order             seřazení jmen souborů pro rozbalení je\n"
+#~ "                               stejné s archivem\n"
+#~ "      --preserve-order         stejné jako -s\n"
+#~ "      --preserve               stejné jako zadání -p a -s\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Device selection and switching:\n"
+#~ "  -f, --file=ARCHIVE             use archive file or device ARCHIVE\n"
+#~ "      --force-local              archive file is local even if has a colon\n"
+#~ "      --rsh-command=COMMAND      use remote COMMAND instead of rsh\n"
+#~ "  -[0-7][lmh]                    specify drive and density\n"
+#~ "  -M, --multi-volume             create/list/extract multi-volume archive\n"
+#~ "  -L, --tape-length=NUM          change tape after writing NUM x 1024 bytes\n"
+#~ "  -F, --info-script=FILE         run script at end of each tape (implies -M)\n"
+#~ "      --new-volume-script=FILE   same as -F FILE\n"
+#~ "      --volno-file=FILE          use/update the volume number in FILE\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Výběr zařízení:\n"
+#~ "  -f, --file=ARCHIV              pracuje s archivem nebo zařízením ARCHIV\n"
+#~ "      --force-local              archivní soubor je lokální, dokonce i když\n"
+#~ "                                 obsahuje v názvu dvojtečku\n"
+#~ "      --rsh-command=PŘÍKAZ       použije PŘÍKAZ pro přihlášení místo rsh\n"
+#~ "  -[0-7][lmh]                    zadání zařízení a hustoty\n"
+#~ "  -M, --multi-volume             práce s vícesvazkovým archivem\n"
+#~ "  -L, --tape-length=ČÍSLO        vymění pásku po zapsání ČÍSLO x 1024 bajtů\n"
+#~ "  -F, --info-script=SOUBOR       spustí script na konci každé pásky\n"
+#~ "                                 (zahrnuje i -M)\n"
+#~ "      --new-volume-script=SOUBOR stejné jako -F SOUBOR\n"
+#~ "      --volno-file=SOUBOR        použije/aktualizuje číslo svazku v SOUBORu\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Device blocking:\n"
+#~ "  -b, --blocking-factor=BLOCKS   BLOCKS x 512 bytes per record\n"
+#~ "      --record-size=SIZE         SIZE bytes per record, multiple of 512\n"
+#~ "  -i, --ignore-zeros             ignore zeroed blocks in archive (means EOF)\n"
+#~ "  -B, --read-full-records        reblock as we read (for 4.2BSD pipes)\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Bloky u zařízení:\n"
+#~ "  -b, --blocking-factor=BLOKŮ    BLOKŮ x 512 bajtů na záznam\n"
+#~ "      --record-size=VELIKOST     VELIKOST bajtů na záznam, násobek 512\n"
+#~ "  -i, --ignore-zeros             ignoruje nulové bloky v archivu,\n"
+#~ "                                 které normálně znamenají EOF.\n"
+#~ "  -B, --read-full-records        když není přečteno tolik bajtů,\n"
+#~ "                                 kolik je požadováno, zkouší dočíst zbytek\n"
+#~ "                                 (vhodné pro roury)\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Archive format selection:\n"
+#~ "  -V, --label=NAME                   create archive with volume name NAME\n"
+#~ "              PATTERN                at list/extract time, a globbing PATTERN\n"
+#~ "  -o, --old-archive, --portability   write a V7 format archive\n"
+#~ "      --posix                        write a POSIX format archive\n"
+#~ "  -j, --bzip2                        filter the archive through bzip2\n"
+#~ "  -z, --gzip, --ungzip               filter the archive through gzip\n"
+#~ "  -Z, --compress, --uncompress       filter the archive through compress\n"
+#~ "      --use-compress-program=PROG    filter through PROG (must accept -d)\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Výběr formátu archivu:\n"
+#~ "  -V, --label=NÁZEV                  vytvoří archiv s názvem svazku NÁZEV\n"
+#~ "              VZOREK                 u obsahu/rozbalování globální vzorek\n"
+#~ "                                     pro názvy souborů\n"
+#~ "  -o, --old-archive, --portability   zapíše archiv ve formátu V7\n"
+#~ "      --posix                        zapíše archiv ve formátu POSIX\n"
+#~ "  -j, --bzip2                        komprimuje archiv pomocí bzip2\n"
+#~ "  -z, --gzip, --ungzip               komprimuje archiv pomocí gzip\n"
+#~ "  -Z, --compress, --uncompress       komprimuje archiv pomocí compress\n"
+#~ "      --use-compress-program=PROG    komprimuje archiv pomocí PROG\n"
+#~ "                                     (který musí akceptovat -d)\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Local file selection:\n"
+#~ "  -C, --directory=DIR          change to directory DIR\n"
+#~ "  -T, --files-from=NAME        get names to extract or create from file NAME\n"
+#~ "      --null                   -T reads null-terminated names, disable -C\n"
+#~ "      --exclude=PATTERN        exclude files, given as a PATTERN\n"
+#~ "  -X, --exclude-from=FILE      exclude patterns listed in FILE\n"
+#~ "      --anchored               exclude patterns match file name start (default)\n"
+#~ "      --no-anchored            exclude patterns match after any /\n"
+#~ "      --ignore-case            exclusion ignores case\n"
+#~ "      --no-ignore-case         exclusion is case sensitive (default)\n"
+#~ "      --wildcards              exclude patterns use wildcards (default)\n"
+#~ "      --no-wildcards           exclude patterns are plain strings\n"
+#~ "      --wildcards-match-slash  exclude pattern wildcards match '/' (default)\n"
+#~ "      --no-wildcards-match-slash exclude pattern wildcards do not match '/'\n"
+#~ "  -P, --absolute-names         don't strip leading `/'s from file names\n"
+#~ "  -h, --dereference            dump instead the files symlinks point to\n"
+#~ "      --no-recursion           avoid descending automatically in directories\n"
+#~ "  -l, --one-file-system        stay in local file system when creating archive\n"
+#~ "  -K, --starting-file=NAME     begin at file NAME in the archive\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Výběr souborů:\n"
+#~ "  -C, --directory=ADRESÁŘ      operace vykonává v ADRESÁŘi\n"
+#~ "  -T, --files-from=NÁZEV       při rozbalování nebo vytváření bere názvy\n"
+#~ "                               souborů ze souboru NÁZEV\n"
+#~ "      --null                   -T čte nulou ukončené názvy, zakázáno -C\n"
+#~ "      --exclude=VZOREK         nepracuje se soubory odpovídající VZORKU\n"
+#~ "  -X, --exclude-from=SOUBOR    nepracuje se soubory, které odpovídají\n"
+#~ "                               některému vzorku v SOUBORu\n"
+#~ "      --anchored               vylučovací (exclude) vzorky se porovnávají od\n"
+#~ "                               začátku názvu souboru (implicitní)\n"
+#~ "      --no-anchored            vylučovací vzorky se porovnávají od každého /\n"
+#~ "      --ignore-case            vylučovací vzorky ignorují velikost znaků\n"
+#~ "      --no-ignore-case         vylučovací vzorky dají na velikost znaků\n"
+#~ "                               (implicitní)\n"
+#~ "      --wildcards              vylučovací (exclude) vzorky používají ?* a pod.\n"
+#~ "                               (implicitní)\n"
+#~ "      --no-wildcards           vylučovací vzorky jsou prosté řetězce\n"
+#~ "      --wildcards-match-slash  *? nahrazují v názvu / (implicitní)\n"
+#~ "      --no-wildcards-match-slash *? nenahrazují v názvu /\n"
+#~ "  -P, --absolute-names         neodstraňuje úvodní „/“ ze jmen souborů\n"
+#~ "  -h, --dereference            místo symbolických odkazů použije soubory,\n"
+#~ "                               na které odkazy ukazují\n"
+#~ "      --no-recursion           neprochází adresáře\n"
+#~ "  -l, --one-file-system        při vytváření archivu zůstane v jednom\n"
+#~ "                               souborovém systému\n"
+#~ "  -K, --starting-file=NÁZEV    začne od souboru NÁZEV z archivu\n"
+
+#~ msgid ""
+#~ "  -N, --newer=DATE             only store files newer than DATE\n"
+#~ "      --newer-mtime=DATE       compare date and time when data changed only\n"
+#~ "      --after-date=DATE        same as -N\n"
+#~ msgstr ""
+#~ "  -N, --newer=DATUM            archivuje pouze soubory novější než DATUM\n"
+#~ "      --newer-mtime=DATUM      porovnává datum a čas pouze pokud byla změněna\n"
+#~ "                               data\n"
+#~ "      --after-date=DATUM       stejné jako -N\n"
+
+#~ msgid ""
+#~ "      --backup[=CONTROL]       backup before removal, choose version control\n"
+#~ "      --suffix=SUFFIX          backup before removal, override usual suffix\n"
+#~ msgstr ""
+#~ "      --backup[=TYP]           způsob zálohování souborů, před jejich přepsáním\n"
+#~ "      --suffix=PŘÍPONA         zálohuje před přepsáním (smazáním), jako příponu\n"
+#~ "                               u záložních souborů použije PŘÍPONU\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Informative output:\n"
+#~ "      --help            print this help, then exit\n"
+#~ "      --version         print tar program version number, then exit\n"
+#~ "  -v, --verbose         verbosely list files processed\n"
+#~ "      --checkpoint      print directory names while reading the archive\n"
+#~ "      --totals          print total bytes written while creating archive\n"
+#~ "  -R, --block-number    show block number within archive with each message\n"
+#~ "  -w, --interactive     ask for confirmation for every action\n"
+#~ "      --confirmation    same as -w\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Informativní výstup:\n"
+#~ "      --help            vypíše tuto nápovědu a skončí\n"
+#~ "      --version         vypíše označení verze programu tar a skončí\n"
+#~ "  -v, --verbose         vypisuje zpracovávané soubory\n"
+#~ "      --checkpoint      vypisuje názvy adresářů při čtení archivu\n"
+#~ "      --totals          vypíše celkem zapsaných bajtů při tvorbě archivu\n"
+#~ "  -R, --block-number    s každou zprávou vypíše číslo bloku v archivu\n"
+#~ "  -w, --interactive     žádá potvrzení každé akce\n"
+#~ "      --confirmation    stejné jako -w\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "GNU tar cannot read nor produce `--posix' archives.  If POSIXLY_CORRECT\n"
+#~ "is set in the environment, GNU extensions are disallowed with `--posix'.\n"
+#~ "Support for POSIX is only partially implemented, don't count on it yet.\n"
+#~ "ARCHIVE may be FILE, HOST:FILE or USER@HOST:FILE; DATE may be a textual date\n"
+#~ "or a file name starting with `/' or `.', in which case the file's date is used.\n"
+#~ "*This* `tar' defaults to `-f%s -b%d'.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "  GNU tar neumí číst nebo produkovat „--posix“ archivy. Jestliže je\n"
+#~ "v prostředí nastaveno POSIXLY_CORRECT, GNU rozšíření je zablokováno přepínačem\n"
+#~ "„--posix“. Podpora POSIX formátu je částečně implementována, proto s ní příliš\n"
+#~ "nepočítejte.\n"
+#~ "  ARCHIV může být SOUBOR, HOSTITEL:SOUBOR nebo UŽIVATEL@HOSTITEL:SOUBOR,\n"
+#~ "SOUBOR může být soubor nebo zařízení. DATUM může být datum nebo název souboru začínající „/“ nebo „.“, pokud chcete použít datum souboru.\n"
+#~ "  Implicitní přepínače jsou „-f%s -b%d“.\n"
+
+#~ msgid "Obsolete option, now implied by --blocking-factor"
+#~ msgstr "Zastaralý přepínač, nyní zahrnut v přepínači --blocking-factor"
+
+#~ msgid "Obsolete option name replaced by --blocking-factor"
+#~ msgstr "Zastaralý přepínač, nahrazen přepínačem --blocking-factor"
+
+#~ msgid "Obsolete option name replaced by --read-full-records"
+#~ msgstr "Zastaralý přepínač, nahrazen přepínačem --read-full-records"
+
+#~ msgid "Warning: the -I option is not supported; perhaps you meant -j or -T?"
+#~ msgstr "Upozornění: přepínač -I není podporován; nemysleli jste -j nebo -T?"
+
+#~ msgid "Obsolete option name replaced by --touch"
+#~ msgstr "Zastaralý přepínač, nahrazen přepínačem --touch"
+
+#~ msgid "Obsolete option name replaced by --absolute-names"
+#~ msgstr "Zastaralý přepínač, nahrazen přepínačem --absolute-names"
+
+#~ msgid "Obsolete option name replaced by --block-number"
+#~ msgstr "Zastaralý přepínač, nahrazen přepínačem --block-number"
+
+#~ msgid "Warning: the -y option is not supported; perhaps you meant -j?"
+#~ msgstr "Upozornění: přepínač -y není podporován; nemysleli jste -j?"
+
+#~ msgid "Obsolete option name replaced by --backup"
+#~ msgstr "Zastaralý přepínač, nahrazen přepínačem --backup"
+
+#~ msgid "Written by John Gilmore and Jay Fenlason."
+#~ msgstr "Autoři: John Gilmore a Jay Fenlason."
+
+#~ msgid "Error exit delayed from previous errors"
+#~ msgstr "Za běhu programu nastala chyba"
+
+#~ msgid ""
+#~ "If a long option shows an argument as mandatory, then it is mandatory\n"
+#~ "for the equivalent short option also.\n"
+#~ "\n"
+#~ "  -l, --file-length=LENGTH   LENGTH of generated file\n"
+#~ "  -p, --pattern=PATTERN      PATTERN is `default' or `zeros'\n"
+#~ "      --help                 display this help and exit\n"
+#~ "      --version              output version information and exit\n"
+#~ msgstr ""
+#~ "  Povinné argumenty u dlouhých přepínačů, jsou povinné také u odpovídajících \n"
+#~ "krátkých přepínačů.\n"
+#~ "\n"
+#~ "  -l, --file-length     délka generovaného souboru\n"
+#~ "      --help            vypíše tuto nápovědu a skončí\n"
+#~ "      --version         vypíše označení verze a skončí\n"
+
+#~ msgid "Ambiguous pattern `%s'"
+#~ msgstr "Nejednoznačný vzorek „%s“"

@@ -1,0 +1,134 @@
+@c This is part of the GNU tar manual.
+@c Copyright (C) 2017 Free Software Foundation, Inc.
+@c This file is distributed under GFDL 1.3 or any later version
+@c published by the Free Software Foundation.
+
+This appendix provides several recipes for performing common tasks
+using @GNUTAR{}.
+
+@menu
+* copy directory hierarchy::
+* intermediate directories::
+@end menu
+
+@node copy directory hierarchy
+@appendixsec Copying directory hierarchies
+
+This is a traditional way to copy a directory hierarchy preserving
+the dates, modes, owners and link-structure of all the files therein.
+It was used back when the @command{cp} command lacked the @option{-a}
+option:
+
+@smallexample
+$ @kbd{(cd sourcedir; tar -cf - .) | (cd targetdir; tar -xf -)}
+@end smallexample
+
+@noindent
+You can avoid subshells by using @option{-C} option:
+
+@smallexample
+$ @kbd{tar -C sourcedir -cf - . | tar -C targetdir -xf -}
+@end smallexample
+
+@noindent
+The same command using long option forms:
+
+@smallexample
+@group
+$ @kbd{(cd sourcedir; tar --create --file=- . ) \
+       | (cd targetdir; tar --extract --file=-)}
+@end group
+@end smallexample
+
+@noindent
+or
+
+@smallexample
+@group
+$ @kbd{tar --directory sourcedir --create --file=- . \
+       | tar --directory targetdir --extract --file=-}
+@end group
+@end smallexample
+
+@node intermediate directories
+@appendixsec Restoring Intermediate Directories
+
+A common concern is how to extract permissions and ownerships of
+intermediate directories when extracting only selected members from
+the archive.  To illustrate this, consider the following archive:
+
+@example
+@group
+# tar tvf A.tar
+drwxr-xr-x root/root         0 2017-11-16 14:39 foo/
+dr-xr-x--- gray/user         0 2017-11-16 14:39 foo/bar/
+-rw-r--r-- gray/user        10 2017-11-16 14:40 foo/bar/file
+@end group
+@end example
+
+Suppose you extract only the file @file{foo/bar/file}, while being
+@samp{root}:
+
+@example
+# @kbd{tar xvf A.tar foo/bar/file}
+foo/bar/file
+@end example
+
+Now, let's inspect the content of the created directories:
+
+@example
+@group
+# find foo -ls
+427257    0 drwxr-xr-x   3 root     root    16 Nov 17 16:10 foo
+427258    0 drwxr-xr-x   2 root     root    17 Nov 17 16:10 foo/bar
+427259    0 -rw-r--r--   1 gray     user    10 Nov  6 14:40 foo/bar/file
+@end group
+@end example
+
+The requested file is restored, including its ownership and
+permissions. The intermediate directories, however, are created with
+the default permissions, current timestamp and owned by the current
+user. This is because by the time @command{tar} has reached the requested file,
+it had already skipped the entries for its parent directories, so it
+has no iformation about their ownership and modes.
+
+To restore meta information about the intermediate directories,
+you'll need to specify them explicitly in the command line and use the
+@option{--no-recursive} option (@pxref{recurse}) to avoid extracting
+their content.
+
+To automate this process, @cite{Neal P. Murphy} proposed the following
+shell script@footnote{The original version of the script can be
+seen at @uref{http://lists.gnu.org/archive/html/bug-tar/2016-11/msg00024.html}}:
+
+@example
+@group
+#! /bin/sh
+(while read path
+ do
+   path=`dirname $path`
+   while [ -n "$path" -a "$path" != "." ]
+   do
+     echo $path
+     path=`dirname $path`
+   done
+ done < $2 | sort | uniq) |
+ tar -x --no-recursion -v -f $1 -T - -T $2
+@end group
+@end example
+
+The script takes two arguments: the name of the archive file, and the
+name of the file list file.
+
+To complete our example, the file list will contain single line:
+
+@example
+foo/bar/file
+@end example
+
+Supposing its name is @file{file.list} and the script is named
+@file{restore.sh}, you can invoke it as follows: 
+
+@example
+# @kbd{sh restore.sh A.tar file.list}
+@end example

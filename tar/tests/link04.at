@@ -1,0 +1,69 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# written by Paul Eggert
+
+# Make sure that tar -c correctly handles the case where a file is
+# encountered multiple times, even though it has a link count of 1.
+# This can occur when "tar -c FOO FOO" is used; it can also occur when
+# "tar -ch FOO" is used, if FOO contains symbolic links that point to
+# the same file.
+
+AT_SETUP([link count is 1 but multiple occurrences])
+AT_KEYWORDS([hardlinks link04])
+
+AT_TAR_CHECK([
+mkdir dir
+echo TEST > dir/file
+ln -s file dir/symlink || AT_SKIP_TEST
+
+tar cf archive dir dir
+tar tvf archive | sed '
+  s,.*[[0-9]] dir/,dir/,
+' | sort
+
+echo --
+
+tar cfl archive dir dir
+
+echo ==
+
+tar chf archive dir
+tar tvf archive | sed '
+  s,.*[[0-9]] dir/,dir/,
+  s,file,FOO,g
+  s,symlink,FOO,g
+' | sort
+],
+[0],
+[dir/
+dir/
+dir/file
+dir/file link to dir/file
+dir/symlink -> file
+dir/symlink link to dir/symlink
+--
+==
+dir/
+dir/FOO
+dir/FOO link to dir/FOO
+])
+
+AT_CLEANUP

@@ -1,0 +1,97 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Test suite for GNU tar.
+# Copyright 2013-2014, 2016-2017 Free Software Foundation, Inc.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: In tar 1.26 listed-incremental with -C and absolute path
+# would malfunction under certain conditions due to buggy filename
+# normalization.
+#
+# The value returned by normalize_filename() is used to populate the "caname"
+# field in both the "directory" structure in incremen.c and the "name"
+# structure in names.c, and in both cases that field is then used in the
+# "hash" and "compare" functions for the related hash tables.  Thus, the
+# fact that the returned value doesn't reflect the operation of previous
+# "-C" options means that it's possible for two different directories to
+# be given the same "caname" value in the hashed structure and thus end up
+# being confused with each other.
+#
+# The bug is triggered when dumping both relative paths after -C and
+# absolute paths that match the process' current working directory.
+#
+# Reported by: Nathan Stratton Treadway <nathanst@ontko.com>
+# References: <20130922192135.GJ32256@shire.ontko.com>,
+#             http://lists.gnu.org/archive/html/bug-tar/2013-09/msg00034.html
+
+AT_SETUP([filename normalization])
+AT_KEYWORDS([incremental create incr08 chdir])
+
+AT_TAR_WITH_HOOK(
+[AT_CHECK([
+DIR=`pwd`/gnu/tartest
+sed "s|$DIR|ABSPATH|" stdout
+],
+[0],
+[A
+.
+./foo
+./foo/subdir
+./foo/subdir/dir1
+./subdir
+./subdir/dir2
+B
+./
+./subdir/
+./subdir/dir1/
+ABSPATH/
+ABSPATH/subdir/
+ABSPATH/subdir/dir2/
+])
+
+AT_CHECK([
+DIR=`pwd`/gnu/tartest
+sed "/tar: Removing leading \`\/*\/' from/d;s|$DIR|ABSPATH|" stderr],
+[0],
+[A
+B
+tar: .: Directory is new
+tar: ./subdir: Directory is new
+tar: ./subdir/dir1: Directory is new
+tar: ABSPATH: Directory is new
+tar: ABSPATH/subdir: Directory is new
+tar: ABSPATH/subdir/dir2: Directory is new
+])],
+[AT_TAR_CHECK([
+AT_CHECK_TIMESTAMP
+AT_SORT_PREREQ
+mkdir tartest
+cd tartest
+mkdir foo
+mkdir foo/subdir
+mkdir foo/subdir/dir1
+mkdir subdir
+mkdir subdir/dir2
+decho A
+find .|sort
+
+decho B
+DIR=`pwd`
+tar -cvf ../foo.tar --listed-incremental=../foo.snar -C foo . $DIR
+],
+[0],
+[stdout],
+[stderr],[],[],[gnu])])
+
+AT_CLEANUP

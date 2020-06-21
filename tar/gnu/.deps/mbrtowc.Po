@@ -1,0 +1,54 @@
+mbrtowc.o: mbrtowc.c /usr/include/stdc-predef.h ../config.h wchar.h \
+ /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+ /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+ /usr/include/x86_64-linux-gnu/gnu/stubs-64.h /usr/include/wchar.h \
+ stdio.h /usr/include/stdio.h \
+ /usr/lib/gcc/x86_64-linux-gnu/6/include/stdarg.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar.h \
+ /usr/lib/gcc/x86_64-linux-gnu/6/include/stddef.h /usr/include/xlocale.h \
+ /usr/include/x86_64-linux-gnu/bits/wchar2.h hard-locale.h \
+ /usr/lib/gcc/x86_64-linux-gnu/6/include/stdbool.h locale.h \
+ /usr/include/locale.h /usr/include/x86_64-linux-gnu/bits/locale.h
+
+/usr/include/stdc-predef.h:
+
+../config.h:
+
+wchar.h:
+
+/usr/include/features.h:
+
+/usr/include/x86_64-linux-gnu/sys/cdefs.h:
+
+/usr/include/x86_64-linux-gnu/bits/wordsize.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/include/wchar.h:
+
+stdio.h:
+
+/usr/include/stdio.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/6/include/stdarg.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/6/include/stddef.h:
+
+/usr/include/xlocale.h:
+
+/usr/include/x86_64-linux-gnu/bits/wchar2.h:
+
+hard-locale.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/6/include/stdbool.h:
+
+locale.h:
+
+/usr/include/locale.h:
+
+/usr/include/x86_64-linux-gnu/bits/locale.h:

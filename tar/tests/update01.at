@@ -1,0 +1,57 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2009, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: If dir is a directory and arc is a tar archive which
+# contains that directory, and dir contains some modifications added
+# after adding it to the archive, then 'tar -u dir' would add dir/ to
+# the archive.
+# Last-Affected-Version: 1.22.90
+# References: <4AD4E703.80500@teclabs.eu>
+#             http://lists.gnu.org/archive/html/bug-tar/2009-10/msg00017.html
+
+AT_SETUP([update directories])
+AT_KEYWORDS([update update01])
+
+AT_TAR_CHECK([
+AT_SORT_PREREQ
+mkdir a
+genfile --file a/b
+
+tar cf arc a
+
+echo "separator"
+
+sleep 2
+genfile --file a/c
+
+tar ufv arc a
+echo "separator"
+tar tf arc | sort || exit 1
+],
+[0],
+[separator
+a/c
+separator
+a/
+a/b
+a/c
+])
+
+AT_CLEANUP

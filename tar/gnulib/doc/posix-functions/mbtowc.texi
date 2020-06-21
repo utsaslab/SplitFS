@@ -1,0 +1,24 @@
+@node mbtowc
+@section @code{mbtowc}
+@findex mbtowc
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/functions/mbtowc.html}
+
+Gnulib module: mbtowc
+
+Portability problems fixed by Gnulib:
+@itemize
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+Android 4.4.
+@item
+This function accumulates hidden state on some platforms:
+glibc 2.8 (see @url{https://sourceware.org/bugzilla/show_bug.cgi?id=9674}).
+@item
+On AIX and Windows platforms, @code{wchar_t} is a 16-bit type and therefore cannot
+accommodate all Unicode characters.
+@end itemize

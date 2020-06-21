@@ -1,0 +1,60 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2006-2007, 2013-2014, 2016-2017 Free Software Foundation,
+# Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Tar 1.16 failed to extract archives that have symlinks
+# in read-only directories.
+#
+# Reported-by: Eelco Dolstra <eelco@cs.uu.nl>
+# References: <45475D78.8050708@cs.uu.nl>
+
+AT_SETUP([extracting symlinks to a read-only dir])
+AT_KEYWORDS([extract extract07 read-only symlink chdir])
+
+AT_TAR_CHECK([
+AT_UNPRIVILEGED_PREREQ
+
+echo Prepare the directory
+mkdir dir
+genfile -f foo
+cd dir
+ln -s ../foo .
+cd ..
+chmod a-w dir
+
+echo Create the archive
+tar cf archive dir || exit 1
+
+chmod +w dir
+
+echo Extract
+mkdir out
+tar -C out -xvf archive
+],
+[0],
+[Prepare the directory
+Create the archive
+Extract
+dir/
+dir/foo
+],
+[],[],[],[ustar]) # Testing one format is enough
+
+AT_CLEANUP

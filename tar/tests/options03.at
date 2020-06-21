@@ -1,0 +1,44 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2016-2017 Free Software Foundation, Inc.
+#
+# This file is part of GNU tar.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_SETUP([TAR_OPTIONS with string arguments])
+AT_KEYWORDS([options options03])
+
+# Check whether string values are passed correctly through the
+# TAR_OPTIONS environment variable.  In tar 1.29 the stored values
+# were inadvertenlty freedm which caused TAR_OPTION to malfunction.
+# Reported by: Jan Larres <jan@majutsushi.net>
+# References: <20160906072153.c75tga556ti5sgk2@majutsushi.net>,
+#             http://lists.gnu.org/archive/html/bug-tar/2016-09/msg00005.html
+
+AT_CHECK([
+echo dir/bar > exclude.list
+mkdir dir
+genfile --file=dir/foo
+genfile --file=dir/bar
+TAR_OPTIONS=--exclude-from=exclude.list tar cf arc.tar dir
+tar tf arc.tar
+],
+[0],
+[dir/
+dir/foo
+])
+
+AT_CLEANUP

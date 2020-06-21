@@ -1,0 +1,24 @@
+Description:
+lchmod that is actually chmod (!) on hosts lacking lchmod
+
+Files:
+m4/lchmod.m4
+
+Depends-on:
+sys_stat
+extensions
+
+configure.ac:
+gl_FUNC_LCHMOD
+gl_SYS_STAT_MODULE_INDICATOR([lchmod])
+
+Makefile.am:
+
+Include:
+<sys/stat.h>
+
+License:
+GPL
+
+Maintainer:
+Paul Eggert, Jim Meyering
