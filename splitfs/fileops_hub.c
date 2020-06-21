@@ -254,6 +254,9 @@ RETT_EXECVE _hub_EXECVE(INTF_EXECVE);
 RETT_EXECVP ALIAS_EXECVP(INTF_EXECVP) WEAK_ALIAS("_hub_EXECVP");
 RETT_EXECVP _hub_EXECVP(INTF_EXECVP);
 
+RETT_EXECV ALIAS_EXECV(INTF_EXECV) WEAK_ALIAS("_hub_EXECV");
+RETT_EXECV _hub_EXECV(INTF_EXECV);
+
 RETT_MKNOD ALIAS_MKNOD(INTF_MKNOD) WEAK_ALIAS("_hub_MKNOD");
 RETT_MKNOD  _hub_MKNOD(INTF_MKNOD);
 
@@ -933,6 +936,58 @@ RETT_EXECVP _hub_EXECVP(INTF_EXECVP) {
 	
 	op_to_use = _hub_managed_fileops;
 	result = op_to_use->EXECVP(CALL_EXECVP);
+
+	return result;
+}
+
+RETT_EXECV _hub_EXECV(INTF_EXECV) {
+	int pid = getpid();
+	char exec_hub_filename[BUF_SIZE];
+
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, EXECV);
+
+	struct Fileops_p* op_to_use = NULL;
+	int result = -1, exec_hub_fd = -1, i = 0;
+	int hub_ops[1024];
+	unsigned long offset_in_map = 0;
+	
+	for (i = 0; i < 1024; i++) {
+		if (_hub_fd_lookup[i] == NULL)
+			hub_ops[i] = 0;
+		if (_hub_fd_lookup[i] == _hub_fileops)
+			hub_ops[i] = 1;
+		if (_hub_fd_lookup[i] == _hub_managed_fileops)
+			hub_ops[i] = 2;
+	}
+	
+	sprintf(exec_hub_filename, "exec-hub-%d", pid);
+	exec_hub_fd = shm_open(exec_hub_filename, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR);
+	if (exec_hub_fd == -1) {
+		printf("%s: %s\n", __func__, strerror(errno));
+		assert(0);
+	}
+
+	int res = _hub_fileops->FTRUNC64(exec_hub_fd, (1024*1024));
+	if (res == -1) {
+		printf("%s: ftruncate failed. Err = %s\n", __func__, strerror(errno));
+		assert(0);
+	}
+
+	char *shm_area = mmap(NULL, 1024*1024, PROT_READ | PROT_WRITE, MAP_SHARED, exec_hub_fd, 0);
+	if (shm_area == NULL) {
+		printf("%s: mmap failed. Err = %s\n", __func__, strerror(errno));
+		assert(0);
+	}
+
+	if (memcpy(shm_area + offset_in_map, hub_ops, 1024 * sizeof(int)) == NULL) {
+		printf("%s: memcpy of hub ops failed. Err = %s\n", __func__, strerror(errno));
+		assert(0);
+	}
+
+	offset_in_map += (1024 * sizeof(int));
+	
+	op_to_use = _hub_managed_fileops;
+	result = op_to_use->EXECV(CALL_EXECV);
 
 	return result;
 }
