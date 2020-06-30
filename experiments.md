@@ -27,7 +27,7 @@ We evaluate and benchmark on SplitFS using different application benchmarks like
 2. PM Emulation: 
     * Open `/etc/default/grub`
     * modify `GRUB_DEFAULT=0` to `GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 4.13.0"`
-    * add `GRUB_CMDLINE_LINUX="memmap=24G!4G nokaslr"`
+    * add `GRUB_CMDLINE_LINUX="memmap=24G!4G nokaslr"` -- This sets the PM partition size to 24 GiB, starting from 4 GiB in DRAM
     * Close file
     * `$ sudo update-grub && sudo update-grub2`
     * Reboot system

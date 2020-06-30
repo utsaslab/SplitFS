@@ -27,7 +27,7 @@ Rohan Kadekodi, Se Kwon Lee, Sanidhya Kashyap, Taesoo Kim, Aasheesh Kolli, Vijay
 
 ## Getting Started with SplitFS
 
-This tutorial walks you through the workflow of compiling splitfs, setting up ext4-DAX, compiling an application and running it with ext4-DAX as well as SplitFS, using a simple microbenchmark. The microbenchmark appends 128MB data to an empty file, in chunks of 4KB each, and does an fsync() at the end.
+This tutorial walks you through the workflow of compiling splitfs, setting up ext4-DAX, compiling an application and running it with ext4-DAX as well as SplitFS, using a simple microbenchmark. The microbenchmark appends 128MB data to an empty file, in chunks of 4KB each, and does an fsync() at the end. Note: Set the minimum partition size of PM to 2GiB for the microbenchmark (The partition size can be set in step 2. Please confirm the partition size using `df -h` after step 4).
 
 1. [<b>Installing Dependencies</b>](#dependencies)
 
