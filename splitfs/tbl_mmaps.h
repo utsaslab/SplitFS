@@ -26,6 +26,6 @@ int read_tbl_mmap_entry(struct NVNode *node,
 			unsigned long *mmap_addr,
 			size_t *extent_length,
 			int check_append_entry);
-int clear_tbl_mmap_entry(struct NVTable_maps *tbl);
+int clear_tbl_mmap_entry(struct NVTable_maps *tbl, int size);
 
 #endif
