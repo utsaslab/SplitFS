@@ -1939,9 +1939,9 @@ struct NVNode * nvp_allocate_node(int list_idx)
 		if (_nvp_node_lookup[list_idx][i].serialno == 0) {
 			DEBUG("Allocate unused node %d\n", i);
 			_nvp_free_node_list[list_idx][i].free_bit = 0;
-			node->index_in_free_list = i;		
-			_nvp_free_node_list_head[list_idx] = _nvp_free_node_list[list_idx][node->index_in_free_list].next_free_idx;
 			node = &_nvp_node_lookup[list_idx][i];
+			node->index_in_free_list = i;
+			_nvp_free_node_list_head[list_idx] = _nvp_free_node_list[list_idx][node->index_in_free_list].next_free_idx;
 			break;
 		}
 		if (candidate == -1 && _nvp_node_lookup[list_idx][i].reference == 0)
