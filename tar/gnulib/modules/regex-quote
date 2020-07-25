@@ -1,0 +1,25 @@
+Description:
+Construct a regular expression from a literal string.
+
+Files:
+lib/regex-quote.h
+lib/regex-quote.c
+
+Depends-on:
+stdbool
+xalloc
+mbuiter
+
+configure.ac:
+
+Makefile.am:
+lib_SOURCES += regex-quote.c
+
+Include:
+"regex-quote.h"
+
+License:
+GPL
+
+Maintainer:
+all

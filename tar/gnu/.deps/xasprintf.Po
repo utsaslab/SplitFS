@@ -1,0 +1,10 @@
+xasprintf.o: xasprintf.c /usr/include/stdc-predef.h ../config.h \
+ xvasprintf.h /usr/lib/gcc/x86_64-linux-gnu/6/include/stdarg.h
+
+/usr/include/stdc-predef.h:
+
+../config.h:
+
+xvasprintf.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/6/include/stdarg.h:

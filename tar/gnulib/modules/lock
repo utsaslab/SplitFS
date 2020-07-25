@@ -1,0 +1,31 @@
+Description:
+Locking in multithreaded situations.
+
+Files:
+lib/glthread/lock.h
+lib/glthread/lock.c
+m4/lock.m4
+m4/pthread_rwlock_rdlock.m4
+
+Depends-on:
+extensions
+threadlib
+
+configure.ac:
+gl_LOCK
+gl_MODULE_INDICATOR([lock])
+
+Makefile.am:
+lib_SOURCES += glthread/lock.h glthread/lock.c
+
+Include:
+"glthread/lock.h"
+
+Link:
+$(LTLIBTHREAD) when linking with libtool, $(LIBTHREAD) otherwise
+
+License:
+LGPLv2+
+
+Maintainer:
+all

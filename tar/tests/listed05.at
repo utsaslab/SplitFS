@@ -1,0 +1,79 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Tar up to 1.26 was unable to cope with directories that had once
+# been part of the dumped system and became separate mount points
+# afterwards.  The bug has been reported by Nathan Stratton Treadway,
+# who also proposed a fix and a testcase, on which the present one is
+# built.
+# Reported-by: Nathan Stratton Treadway <nathanst+bugtar@ontko.com>
+# Last-Affected-Version: 1.26
+# References: <20120527212417.GR2654@shire.ontko.com>
+#         http://lists.gnu.org/archive/html/bug-tar/2012-05/msg00022.html
+
+# This testcase is Linux-specific and requires root privileges.
+
+AT_SETUP([--listed-incremental and remounted directories])
+AT_KEYWORDS([listed incremental listed05 chdir])
+
+AT_TAR_CHECK([
+AT_CHECK_TIMESTAMP
+AT_PRIVILEGED_PREREQ
+options="-C tartest --create --one-file-system --verbose"
+rm -rf archive-[01].snar archive-[01].tar tartest subdir
+
+# Create initial structure
+mkdir tartest
+echo "hi" > tartest/top-level-file
+mkdir tartest/subdir
+echo "hi" > tartest/subdir/subdir-file
+
+echo "# Level 0"
+tar $options --file archive-0.tar --listed-incremental=archive-0.snar .
+
+echo "# Remount"
+mv tartest/subdir .
+mkdir tartest/subdir
+mount -t ramfs none tartest/subdir || AT_SKIP_TEST
+tar -C subdir -c -f - . | tar -C tartest/subdir -x -f -
+
+echo "# Level 1"
+cp archive-0.snar archive-1.snar
+tar $options --file archive-1.tar --listed-incremental=archive-1.snar .
+
+umount tartest/subdir
+],
+[0],
+[# Level 0
+./
+./subdir/
+./top-level-file
+./subdir/subdir-file
+# Remount
+# Level 1
+./
+./subdir/
+],
+[tar: .: Directory is new
+tar: ./subdir: Directory is new
+tar: ./subdir: directory is on a different filesystem; not dumped
+],[],[],[gnu])
+
+AT_CLEANUP

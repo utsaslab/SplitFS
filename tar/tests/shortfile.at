@@ -1,0 +1,40 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2007, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Tar 1.18 in reading mode silently ignored any invalid files smaller than 512
+# Reported by: Ian <isoboroff@gmail.com> on Thu, 23 Aug 2007 15:15:51 -0400
+# References: <ebd55800708231215l5f8f52c0i9018fdb60bb202b@mail.gmail.com>
+#             http://lists.gnu.org/archive/html/bug-tar/2007-08/msg00038.html
+
+AT_SETUP([short input files])
+AT_KEYWORDS([shortfile shortfile0])
+
+AT_TAR_CHECK([
+genfile --length 511 --file foo || exit 5
+tar tf foo
+],
+[2],
+[],
+[tar: This does not look like a tar archive
+tar: Exiting with failure status due to previous errors
+],
+[],[],[gnu])
+
+AT_CLEANUP

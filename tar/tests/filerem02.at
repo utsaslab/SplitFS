@@ -1,0 +1,51 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2009, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: see filerem01.at
+# This test case checks if the tar exit code is still 2 if a
+# file or directory disappears that is explicitly mentioned
+# in the command line.
+
+AT_SETUP([toplevel file removed (ca. 24 seconds)])
+AT_KEYWORDS([create incremental listed filechange filerem filerem02])
+
+AT_TAR_CHECK([
+mkdir dir
+mkdir dir/sub
+genfile --file dir/file1
+genfile --file dir/sub/file2
+mkdir dir2
+genfile --file dir2/file1
+
+genfile --run --checkpoint=3 --exec 'rm -rf dir2' -- \
+       tar --blocking-factor=1 --checkpoint=1 --checkpoint-action='sleep=1' \
+       --checkpoint-action='echo' -c -f archive.tar \
+       --listed-incremental db -v --warning=no-new-dir dir dir2 >/dev/null
+],
+[2],
+[ignore],
+[ignore],[],[],[gnu, posix])
+
+# Ignore stdout and stderr because their contents depend on
+# the file system implementation.
+
+# Timing information: see filerem01.at
+
+AT_CLEANUP

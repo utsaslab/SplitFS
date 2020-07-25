@@ -87,7 +87,7 @@ int execv_done;
 
 #define ALLOPS_FINITEPARAMS_WPAREN (READ) (FREAD) (WRITE) (FWRITE) (FSEEK) (FTELL) (FTELLO) (CLOSE) (FCLOSE) (SEEK) (FTRUNC) (DUP) (DUP2) (FORK) (VFORK) (READV) (WRITEV) (PIPE) (SOCKETPAIR) OPS_FINITEPARAMS_64 (PREAD) (PWRITE) (FSYNC) (FDSYNC) (SOCKET) (ACCEPT) (UNLINK) (UNLINKAT)
 //(POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (STAT) (STAT64) (FSTAT) (FSTAT64) (LSTAT) (LSTAT64)
-#define ALLOPS_WPAREN (OPEN) (OPENAT) (CREAT) (EXECVE) (EXECVP) (FOPEN) (FOPEN64) (IOCTL) (TRUNC) (MKNOD) (MKNODAT) ALLOPS_FINITEPARAMS_WPAREN
+#define ALLOPS_WPAREN (OPEN) (OPENAT) (CREAT) (EXECVE) (EXECVP) (EXECV) (FOPEN) (FOPEN64) (IOCTL) (TRUNC) (MKNOD) (MKNODAT) ALLOPS_FINITEPARAMS_WPAREN
 #define SHM_WPAREN (SHM_COPY)
 // NOTE: clone is missing on purpose.(MMAP) (MUNMAP) (MSYNC) (CLONE) (MMAP64)
 #define METAOPS (MKDIR) (RENAME) (LINK) (SYMLINK) (RMDIR) (SYMLINKAT) (MKDIRAT)
@@ -96,7 +96,7 @@ int execv_done;
 
 #define ALLOPS_FINITEPARAMS_WPAREN (READ) (WRITE) (CLOSE) (SEEK) (FTRUNC) (DUP) (DUP2) (FORK) (VFORK) (READV) (WRITEV) (PIPE) (SOCKETPAIR) OPS_FINITEPARAMS_64 (PREAD) (PWRITE) (FSYNC) (FDSYNC) (SOCKET) (ACCEPT) (UNLINK) (UNLINKAT)
 //(POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (STAT) (STAT64) (FSTAT) (FSTAT64) (LSTAT) (LSTAT64)
-#define ALLOPS_WPAREN (OPEN) (OPENAT) (CREAT) (EXECVE) (EXECVP) (IOCTL) (TRUNC) (MKNOD) (MKNODAT) ALLOPS_FINITEPARAMS_WPAREN
+#define ALLOPS_WPAREN (OPEN) (OPENAT) (CREAT) (EXECVE) (EXECVP) (EXECV) (IOCTL) (TRUNC) (MKNOD) (MKNODAT) ALLOPS_FINITEPARAMS_WPAREN
 #define SHM_WPAREN (SHM_COPY)
 #define METAOPS (MKDIR) (RENAME) (LINK) (SYMLINK) (RMDIR) (SYMLINKAT) (MKDIRAT)
 
@@ -195,6 +195,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define ALIAS_CREAT  creat
 #define ALIAS_EXECVE execve
 #define ALIAS_EXECVP execvp
+#define ALIAS_EXECV execv
 #define ALIAS_MKNOD __xmknod
 #define ALIAS_MKNODAT __xmknodat
 
@@ -269,6 +270,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define RETT_CREAT  int
 #define RETT_EXECVE int
 #define RETT_EXECVP int
+#define RETT_EXECV int
 #define RETT_SHM_COPY void
 #define RETT_MKNOD int
 #define RETT_MKNODAT int
@@ -344,6 +346,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define INTF_CREAT const char *path, mode_t mode
 #define INTF_EXECVE const char *filename, char *const argv[], char *const envp[]
 #define INTF_EXECVP const char *file, char *const argv[]
+#define INTF_EXECV const char *path, char *const argv[]
 #define INTF_SHM_COPY void
 #define INTF_MKNOD int ver, const char* path, mode_t mode, dev_t* dev
 #define INTF_MKNODAT int ver, int dirfd, const char* path, mode_t mode, dev_t* dev
@@ -419,6 +422,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define CALL_CREAT  path, mode
 #define CALL_EXECVE filename, argv, envp
 #define CALL_EXECVP file, argv
+#define CALL_EXECV path, argv
 #define CALL_MKNOD ver, path, mode, dev
 #define CALL_MKNODAT ver, dirfd, path, mode, dev
 
@@ -492,6 +496,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define PFFS_CREAT  "%s, %i"
 #define PFFS_EXECVE "%s, %s, %s"
 #define PFFS_EXECVP "%s, %s"
+#define PFFS_EXECV "%s, %s"
 #define PFFS_SHM_COPY ""
 #define PFFS_MKNOD "%i, %s, %i, %p"
 #define PFFS_MKNODAT "%i, %i, %s, %i, %p"
@@ -567,6 +572,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define STD_CREAT  __creat
 #define STD_EXECVE __execve
 #define STD_EXECVP __execvp
+#define STD_EXECV __execv
 #define STD_MKNOD __xmknod
 #define STD_MKNODAT __xmknodat
 

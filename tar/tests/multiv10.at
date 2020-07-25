@@ -1,0 +1,59 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Test suite for GNU tar.
+# Copyright 2015-2017 Free Software Foundation, Inc.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: When creating multivolume archives, the bufmap code in
+# buffer.c implicitly assumed that the members are stored in the archive
+# in a contiguous fashion, ignoring the member (and eventual extended) headers
+# between them.  This worked until the member header happened to be at
+# the very beginning of the volume, in which case its length was included in
+# the calculation of the stored size and size left to store.  Due to this,
+# the GNUFileParts extended header contained invalid GNU.volume.offset value,
+# and the resulting archive failed to extract properly.  The bug affected
+# versions of tar up to 1.29.90 (commit da8d0659a6).
+#
+# This test case also checks that GNUFileParts headers are not displayed in
+# verbose mode.
+# 
+# Reported by: <russiangolem@gmail.com>
+# References:
+#     <CAE7Kiz_0oMqGdzkoh0FbOd=hUoPhtHHYhjZveM_4hEku081QFQ@mail.gmail.com>,
+#     http://lists.gnu.org/archive/html/bug-tar/2017-05/msg00007.html
+#
+
+AT_SETUP([file start at the beginning of a posix volume])
+AT_KEYWORDS([multivolume multiv multiv10])
+
+AT_TAR_CHECK([
+set -e
+genfile --length=15360 --file data1
+genfile --length=15360 --file data2
+tar -v -c -L 10 -M -f 1.tar -f 2.tar -f 3.tar -f 4.tar -f 5.tar data1 data2
+tar -M -t -f 1.tar -f 2.tar -f 3.tar -f 4.tar -f 5.tar
+mkdir out
+tar -C out -M -x -f 1.tar -f 2.tar -f 3.tar -f 4.tar -f 5.tar
+cmp data1 out/data1
+cmp data2 out/data2
+],
+[0],
+[data1
+data2
+data1
+data2
+],
+[],[],[],[posix])
+
+AT_CLEANUP

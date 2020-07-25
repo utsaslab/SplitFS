@@ -1,0 +1,151 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_SETUP([keep-directory-symlink])
+AT_KEYWORDS([extrac20 extract old-files keep-old-files])
+
+AT_TAR_CHECK([
+AT_SORT_PREREQ
+
+for i in a b c
+do
+  dir=in$i
+  mkdir -p $dir/root/dir $dir/root/dirsymlink
+  touch $dir/root/dirsymlink/file$i
+  test $i != a && touch $dir/root/dirsymlink/file.conflict
+  tar cf archive$i.tar -C $dir root
+done
+
+prep()
+{
+  echo "== $1 =="
+  echo "== $1 ==" >&2
+  backup_dir=$1
+  dir=out
+  mkdir -p $dir/root/dir
+  ln -s dir $dir/root/dirsymlink
+  test $round = normal && cd $dir >/dev/null
+}
+
+clean()
+{
+  test $round = normal && cd .. >/dev/null
+  find $dir | sort
+  mv $dir $backup_dir
+}
+
+# Expand to '-f ../$1' or '-f $1 -C $dir' depending on $round variable
+file_spec()
+{
+  if test $round = normal
+  then
+    echo "-f ../$1"
+  else
+    echo "-f $1 -C $dir"
+  fi
+}
+
+for round in normal dir
+do
+  # Check that 'dirsymlink' replaces 'dir'
+  prep without_option_$round
+  tar -x `file_spec archivea.tar` || exit 1
+  tar -x `file_spec archiveb.tar` || exit 1
+  clean
+
+  # Keep directory symlink must keep root/dirsymlink
+  prep with_option_$round
+  tar -x --keep-directory-symlink `file_spec archivea.tar` || exit 1
+  tar -x --keep-directory-symlink `file_spec archiveb.tar` || exit 1
+  clean
+
+  prep collision_$round
+  tar -x --keep-directory-symlink `file_spec archivea.tar` --keep-old-files || exit 1
+  tar -x --keep-directory-symlink `file_spec archiveb.tar` --keep-old-files || exit 1
+  tar -x --keep-directory-symlink `file_spec archivec.tar` --keep-old-files && exit 1
+  clean
+done
+],
+[0],
+[== without_option_normal ==
+out
+out/root
+out/root/dir
+out/root/dirsymlink
+out/root/dirsymlink/file.conflict
+out/root/dirsymlink/filea
+out/root/dirsymlink/fileb
+== with_option_normal ==
+out
+out/root
+out/root/dir
+out/root/dir/file.conflict
+out/root/dir/filea
+out/root/dir/fileb
+out/root/dirsymlink
+== collision_normal ==
+out
+out/root
+out/root/dir
+out/root/dir/file.conflict
+out/root/dir/filea
+out/root/dir/fileb
+out/root/dir/filec
+out/root/dirsymlink
+== without_option_dir ==
+out
+out/root
+out/root/dir
+out/root/dirsymlink
+out/root/dirsymlink/file.conflict
+out/root/dirsymlink/filea
+out/root/dirsymlink/fileb
+== with_option_dir ==
+out
+out/root
+out/root/dir
+out/root/dir/file.conflict
+out/root/dir/filea
+out/root/dir/fileb
+out/root/dirsymlink
+== collision_dir ==
+out
+out/root
+out/root/dir
+out/root/dir/file.conflict
+out/root/dir/filea
+out/root/dir/fileb
+out/root/dir/filec
+out/root/dirsymlink
+],
+[== without_option_normal ==
+== with_option_normal ==
+== collision_normal ==
+tar: root/dirsymlink/file.conflict: Cannot open: File exists
+tar: Exiting with failure status due to previous errors
+== without_option_dir ==
+== with_option_dir ==
+== collision_dir ==
+tar: root/dirsymlink/file.conflict: Cannot open: File exists
+tar: Exiting with failure status due to previous errors
+])
+
+AT_CLEANUP
+

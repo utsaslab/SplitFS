@@ -1,0 +1,73 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2015-2017 Free Software Foundation, Inc.
+#
+# This file is part of GNU tar.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+AT_SETUP([tar --one-top-level restoring permissions])
+AT_KEYWORDS([extract onetop onetop05 chdir])
+
+# When extracting an archive that contains ./ with the --one-top-level option,
+# the mode and ownership of ./ would be incorrectly applied to the current
+# working directory, instead of the requested top-level directory.
+
+AT_TAR_CHECK([
+orig_mode=3702
+mkdir d
+chmod $orig_mode d
+
+mode=$(genfile --stat=mode.7777 d)
+test $mode = $orig_mode || AT_SKIP_TEST
+
+genfile --file d/file
+tar -cf d.tar -C d .
+rm -rf d
+
+(mkdir d1
+chmod 700 d1
+cd d1
+tar --one-top-level=top -xpf ../d.tar)
+mode=$(genfile --stat=mode.777 d1)
+if test 700 = $mode; then
+    echo "CWD: OK"
+else
+    echo "CWD: mode changed: 700 != $mode"
+fi
+ 
+mkdir d2
+chmod 700 d2
+tar -C d2 --one-top-level=top -xpf d.tar
+mode=$(genfile --stat=mode.777 d2)
+if test 700 = $mode; then
+    echo "DIR: OK"
+else
+    echo "DIR: mode changed: 700 != $mode"
+fi
+mode=$(genfile --stat=mode.7777 d2/top)
+if test $mode = $orig_mode; then
+    echo "TOP: OK"
+else    
+    echo "TOP: mode changed: $orig_mode != $mode"
+fi
+],
+[0],
+[CWD: OK
+DIR: OK
+TOP: OK
+])
+
+AT_CLEANUP

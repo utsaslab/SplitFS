@@ -1,0 +1,16 @@
+@node hstrerror
+@subsection @code{hstrerror}
+@findex hstrerror
+
+Gnulib module: ---
+
+Portability problems fixed by Gnulib:
+@itemize
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+Minix 3.1.8, HP-UX 11, mingw, MSVC 14, Interix 3.5, BeOS.
+@end itemize

@@ -1,0 +1,50 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: See label04.  This testcase uses an unlabeled archive
+# volume.
+
+AT_SETUP([label with non-create option])
+AT_KEYWORDS([label label05])
+
+AT_TAR_CHECK([
+exec <&-
+genfile --file file
+decho "# Create volume"
+tar -c -f archive file
+decho "# Update: wrong label"
+tar -rf archive --label='My volume' file; echo $?
+decho "# Update: right label"
+tar -rf archive file
+],
+[0],
+[# Create volume
+# Update: wrong label
+2
+# Update: right label
+],
+[# Create volume
+# Update: wrong label
+tar: Archive not labeled to match 'My volume'
+tar: Error is not recoverable: exiting now
+# Update: right label
+],[],[],[gnu,oldgnu,posix])
+
+AT_CLEANUP

@@ -1,0 +1,23 @@
+Description:
+Compute MD2 checksum.
+
+Files:
+lib/md2.h
+lib/md2.c
+
+Depends-on:
+minmax
+
+configure.ac:
+
+Makefile.am:
+lib_SOURCES += md2.c
+
+Include:
+"md2.h"
+
+License:
+LGPLv2+
+
+Maintainer:
+Simon Josefsson

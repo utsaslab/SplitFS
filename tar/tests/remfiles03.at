@@ -1,0 +1,43 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2009, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: Called with --remove-files, tar 1.23 failed
+# to remove a directory if it contained symlinks to another files
+# within that directory.
+# Reported-by: Alexander Kozlov <akozlov@nada.kth.se>
+# References: http://lists.gnu.org/archive/html/bug-tar/2010-03/msg00028.html
+#             <Pine.SOC.4.64.1003150951060.28948@faun.nada.kth.se>
+
+AT_SETUP([remove-files with symbolic links])
+AT_KEYWORDS([create remove-files remfiles03])
+
+AT_CHECK([
+mkdir a
+mkdir a/b
+ln -s b a/c || AT_SKIP_TEST
+tar --remove-files -cf a.tar a
+genfile --stat a
+],
+[0],
+[],
+[genfile: stat(a) failed: No such file or directory
+])
+
+AT_CLEANUP

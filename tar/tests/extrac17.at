@@ -1,0 +1,48 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_SETUP([name matching/transformation ordering])
+AT_KEYWORDS([extract extrac17 chdir])
+
+# Description: Tar 1.24 changed the ordering of name matching and
+# name transformation so that the former saw already transformed
+# file names (see commit 9c194c99 and exclude06.at).  This reverted
+# ordering made it impossible to match file names in certain cases.
+# In particular, the testcase below would not extract anything.
+#
+# Reported-by: "Gabor Z. Papp" <gzp@papp.hu>
+# References: <x6r5fd9jye@gzp>, <20101026175126.29028@Pirx.gnu.org.ua>
+#             http://lists.gnu.org/archive/html/bug-tar/2010-10/msg00047.html
+
+AT_TAR_CHECK([
+mkdir dir dir/subdir1 dir/subdir2 out
+genfile --file dir/subdir1/file1
+genfile --file dir/subdir2/file2
+
+tar cf dir.tar dir
+
+tar -x -v -f dir.tar -C out --strip-components=2 --warning=no-timestamp \
+  dir/subdir1/
+],
+[0],
+[dir/subdir1/file1
+])
+
+AT_CLEANUP

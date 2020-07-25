@@ -1,0 +1,16 @@
+@node getnetgrent
+@subsection @code{getnetgrent}
+@findex getnetgrent
+
+Gnulib module: ---
+
+Portability problems fixed by Gnulib:
+@itemize
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+Minix 3.1.8, Cygwin, mingw, MSVC 14, Interix 3.5, BeOS, Android 9.0.
+@end itemize

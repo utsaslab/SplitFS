@@ -1,0 +1,51 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2009, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Tar 1.22 failed to recognize last hard link when creating an archive with
+# the --remove-files option.
+#
+# Reported by: "Theodore Y. Ts'o" <tytso@mit.edu>,
+#              Carl Worth <cworth@cworth.org>
+# References:
+#   <E194EAe-0001lE-00@think.thunk.org>
+#   http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=188663
+#   <1248955024.1545.1.camel@yoom.home.cworth.org>
+#   http://lists.gnu.org/archive/html/bug-tar/2009-07/msg00015.html
+
+AT_SETUP([preserve hard links with --remove-files])
+AT_KEYWORDS([hardlinks link02])
+
+AT_TAR_CHECK([
+genfile -l 64 -f file1
+ln file1 file2
+ln file2 file3
+ln file3 file4
+tar -c -f archive --remove-files file1 file2 file3 file4
+tar tfv archive | sed -n 's/.*file[[2-4]] link to //p'
+],
+[0],
+[file1
+file1
+file1
+])
+
+AT_CLEANUP
+
+# End of link02.at

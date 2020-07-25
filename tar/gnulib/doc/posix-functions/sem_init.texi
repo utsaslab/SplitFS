@@ -1,0 +1,21 @@
+@node sem_init
+@section @code{sem_init}
+@findex sem_init
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/functions/sem_init.html}
+
+Gnulib module: ---
+
+Portability problems fixed by Gnulib:
+@itemize
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+Minix 3.1.8, IRIX 5.3, Solaris 2.4, mingw, MSVC 14, BeOS.
+@item
+This function is not implemented on some platforms:
+Mac OS X 10.11.
+@end itemize

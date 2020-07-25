@@ -1,0 +1,48 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Test suite for GNU tar.
+# Copyright 2015-2017 Free Software Foundation, Inc.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: Tar <=1.28 would segfault extracting from a multi-volume
+# archive containging filenames >= 100 characters if the subsequent volume
+# was not set properly.
+# Reported by: Pavel Raiskup <praiskup@redhat.com>
+# References: https://bugzilla.redhat.com/show_bug.cgi?id=866071,
+#    <1351863945-31192-3-git-send-email-praiskup@redhat.com>,
+#    http://lists.gnu.org/archive/html/bug-tar/2012-11/msg00009.html
+
+AT_SETUP([bad next volume])
+AT_KEYWORDS([multivolume multiv multiv09])
+
+# filename of length 100 characters
+m4_pushdef([FILENAME],[dnl
+m4_for([N],1,100,,[a])])
+
+AT_TAR_CHECK([
+genfile --length 2000000 --file FILENAME
+tar --format=gnu -cM --tape-length 1M -f A.tar -f B.tar FILENAME || exit $?
+echo "created"
+tar --format=gnu -xM -f A.tar 2>/dev/null <<EOF
+y
+q
+EOF
+],
+[2],
+[created
+])
+
+AT_CLEANUP
+
+m4_popdef([FILENAME])

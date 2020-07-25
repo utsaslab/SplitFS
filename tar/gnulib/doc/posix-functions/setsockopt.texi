@@ -1,0 +1,21 @@
+@node setsockopt
+@section @code{setsockopt}
+@findex setsockopt
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/functions/setsockopt.html}
+
+Gnulib module: setsockopt
+
+Portability problems fixed by Gnulib:
+@itemize
+@item
+On Windows platforms (excluding Cygwin), error codes from this function
+are not placed in @code{errno}, and @code{WSAGetLastError} must be used
+instead.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+Many socket options are not available on all platforms.
+@end itemize

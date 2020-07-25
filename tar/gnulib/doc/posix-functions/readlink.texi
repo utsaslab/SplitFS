@@ -1,0 +1,42 @@
+@node readlink
+@section @code{readlink}
+@findex readlink
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/functions/readlink.html}
+
+Gnulib module: readlink
+
+Portability problems fixed by Gnulib:
+@itemize
+@item
+Some platforms mistakenly succeed on @code{readlink("link/",buf,len)}:
+FreeBSD 7.2, Solaris 9, Mac OS X 10.10.
+@item
+On some platforms, @code{readlink} returns @code{int} instead of
+@code{ssize_t}:
+glibc 2.4, FreeBSD 6.0, OpenBSD 3.8, Cygwin 1.5.x, AIX 7.1.
+@item
+This function is missing on some platforms:
+mingw, MSVC 14.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+When @code{readlink} is called on a directory: In the case of NFS mounted
+directories, Cygwin sets @code{errno} to @code{ENOENT} or @code{EIO} instead of
+@code{EINVAL}.  To avoid this problem, check for a directory before calling
+@code{readlink}.
+@item
+When @code{readlink} is called on a file that is not a symbolic link:
+Irix may set @code{errno} to @code{ENXIO} instead of @code{EINVAL}.  Cygwin
+may set errno to @code{EACCES} instead of @code{EINVAL}.
+@item
+Symlink contents do not always have a trailing null byte, and there is
+no indication if symlink contents were truncated if the return value
+matches the length.  Furthermore, AIX 5.1 and HP-UX 11 set
+@code{errno} to @code{ERANGE} rather than returning truncated
+contents, and Linux sets @code{errno} to @code{EINVAL} if the
+requested length is zero.  Use the gnulib module @code{areadlink} for
+improved ability to read symlink contents.
+@end itemize

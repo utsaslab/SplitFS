@@ -1,0 +1,78 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2004, 2006-2007, 2013-2014, 2016-2017 Free Software
+# Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Unreadable directories yielded error despite --ignore-failed-read.
+
+AT_SETUP([ignfail])
+AT_KEYWORDS([ignfail])
+
+AT_TAR_CHECK([
+# The test is meaningless for super-user.
+AT_UNPRIVILEGED_PREREQ
+
+touch file
+mkdir directory
+touch directory/file
+
+echo 1>&2 -----
+chmod 000 file
+tar cf archive file
+status=$?
+chmod 600 file
+test $status = 2 || exit 1
+
+echo 1>&2 -----
+chmod 000 file
+tar cf archive --ignore-failed-read file || exit 1
+status=$?
+chmod 600 file
+test $status = 0 || exit 1
+
+echo 1>&2 -----
+chmod 000 directory
+tar cf archive directory
+status=$?
+chmod 700 directory
+test $status = 2 || exit 1
+
+echo 1>&2 -----
+chmod 000 directory
+tar cf archive --ignore-failed-read directory || exit 1
+status=$?
+chmod 700 directory
+test $status = 0
+],
+[0],
+[],
+[
+-----
+tar: file: Cannot open: Permission denied
+tar: Exiting with failure status due to previous errors
+-----
+tar: file: Warning: Cannot open: Permission denied
+-----
+tar: directory: Cannot open: Permission denied
+tar: Exiting with failure status due to previous errors
+-----
+tar: directory: Warning: Cannot open: Permission denied
+])
+
+AT_CLEANUP

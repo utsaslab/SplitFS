@@ -1,0 +1,50 @@
+# Test suite for GNU tar.                             -*- Autotest -*-
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: Tar 1.23 would in some cases silently fail to create
+# a continuation header in multivolume archives.
+#
+# In this testcase, the file 'a' is 18.5 blocks long and the file 'b'
+# is 19.5 blocks long.
+
+AT_SETUP([multivolume header creation])
+AT_KEYWORDS([multivolume multiv multiv08])
+
+AT_TAR_CHECK([
+genfile --length 9472 --file a
+genfile --length 9984 --file b
+decho Creating
+tar -c -M -L10 -f A.tar -f B.tar -f C.tar a b
+decho Testing
+tar -tMR -f A.tar -f B.tar -f C.tar
+],
+[0],
+[Creating
+Testing
+block 0: a
+block 21: b
+block 43: ** Block of NULs **
+],
+[Creating
+Testing
+],
+[],
+[],
+[gnu])
+
+AT_CLEANUP

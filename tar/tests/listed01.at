@@ -1,0 +1,65 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2004-2007, 2009, 2013-2014, 2016-2017 Free Software
+# Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Check if listed-incremental backups work for individual files.
+# Script proposed by Andreas Schuldei <andreas@schuldei.org>
+# References: <20040215014223.GA9699@lukas.schuldei.com>
+# http://lists.gnu.org/archive/html/bug-tar/2004-02/msg00011.html
+
+AT_SETUP([--listed for individual files])
+AT_KEYWORDS([listed incremental listed01])
+
+AT_TAR_CHECK([
+AT_CHECK_TIMESTAMP
+
+mkdir directory
+genfile --length 10240 --pattern zeros --file directory/file1
+# Let the things settle
+sleep 1
+
+tar --create \
+    --file=archive.1 \
+    --listed-incremental=listing \
+    directory/file*
+
+tar tf archive.1 || exit 1
+
+sleep 2
+
+genfile --length 10240 --pattern zeros --file directory/file2
+
+echo "separator"
+cp listing listing.old
+tar --create \
+    --file=archive.2 \
+    --listed-incremental=listing \
+    directory/file* || exit 1
+
+tar tf archive.2 || exit 1
+],
+[0],
+[directory/file1
+separator
+directory/file2
+],
+[],[],[],[gnu, oldgnu])
+
+AT_CLEANUP

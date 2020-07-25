@@ -1,0 +1,30 @@
+Description:
+Close standard output and standard error, exiting with a diagnostic on error.
+
+Files:
+lib/closeout.h
+lib/closeout.c
+m4/closeout.m4
+
+Depends-on:
+close-stream
+gettext-h
+error
+quotearg
+exitfail
+stdbool
+
+configure.ac:
+gl_CLOSEOUT
+
+Makefile.am:
+lib_SOURCES += closeout.c
+
+Include:
+"closeout.h"
+
+License:
+GPL
+
+Maintainer:
+Jim Meyering

@@ -1,0 +1,42 @@
+@node fcntl
+@section @code{fcntl}
+@findex fcntl
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/functions/fcntl.html}
+
+Gnulib module: fcntl
+
+Portability problems fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+mingw, MSVC 14.
+
+@item
+This function does not support @code{F_DUPFD_CLOEXEC} on some
+platforms:
+glibc with Linux kernels before 2.6.24,
+Mac OS X 10.5, FreeBSD 6.0, NetBSD 5.0, OpenBSD 3.8, AIX 7.1, HP-UX 11,
+IRIX 6.5, OSF/1 5.1, Solaris 11 2010-11, Cygwin 1.7.1, Interix 3.5,
+BeOS.
+Note that the gnulib replacement code is functional but not atomic.
+
+@item
+The @code{F_DUPFD} action of this function does not reject
+out-of-range targets properly on some platforms:
+AIX 7.1, Cygwin 1.5.x, Haiku.
+
+@item
+The @code{F_DUPFD} action of this function mistakenly clears
+FD_CLOEXEC on the source descriptor on some platforms:
+Haiku.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+The replacement function does not support @code{F_SETFD},
+@code{F_GETFL}, @code{F_SETFL}, @code{F_GETOWN}, @code{F_SETOWN},
+@code{F_GETLK}, @code{F_SETLK}, and @code{F_SETLKW} on some platforms:
+mingw, MSVC 14.
+@end itemize

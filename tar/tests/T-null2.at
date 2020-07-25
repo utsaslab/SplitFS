@@ -1,0 +1,46 @@
+# This file is part of test suite for GNU tar. -*- Autotest -*-
+# Copyright 2015-2017 Free Software Foundation, Inc.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_SETUP([--null enables verbatim reading])
+AT_KEYWORDS([files-from null T-null2 T-verbatim])
+
+# According to the docs, --null should read each line from the file
+# list verbatim.  This feature was broken by commit 26538c9b (tar version
+# 1.27).
+
+AT_TAR_CHECK([
+AT_DATA([file-list],[a
+-b
+--c d
+:\\.jpg
+])
+
+genfile -f a
+genfile -f -b
+genfile -f '--c d'
+genfile -f ':\\.jpg'
+
+cat file-list | tr '\n' '\0' | tar -c -f archive -v --null -T -
+],
+[0],
+[a
+-b
+--c d
+:\\\\.jpg
+],
+[],[],[],[ustar]) # Testing one format is enough
+
+AT_CLEANUP

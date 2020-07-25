@@ -1,0 +1,50 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2012-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Test description:  Test for the regression caused by tar update from 1.23 to
+# 1.26, Red Hat xattr patch was not ready for open->openat conversion.
+#
+# Related commit 4bde4f3.  See the bug: https://bugzilla.redhat.com/717684
+
+AT_SETUP([xattrs: s/open/openat/ regression])
+AT_KEYWORDS([xattrs xattr04 chdir])
+
+AT_TAR_CHECK([
+AT_XATTRS_PREREQ
+
+mkdir dir
+mkdir output
+genfile --file dir/file
+
+setfattr -n user.test -v value dir/file
+
+# archive whole directory including binary xattrs
+tar --xattrs -cf archive.tar -C dir .
+
+tar --xattrs -xf archive.tar -C output
+ret=$?
+getfattr -h -d output/file | grep -v -e '^#' -e ^$
+exit $ret
+],
+[0],
+[user.test="value"
+])
+
+AT_CLEANUP

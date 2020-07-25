@@ -1,0 +1,2903 @@
+# Translation of tar to Croatian.
+# Copyright (C) 2017 Free Software Foundation, Inc.
+# This file is distributed under the same license as the tar package.
+#     ... wishes to thank everybody who helped in good faith.
+#
+# Well, in 03:12 hrs (for 1st pass)!! who beats me I owe him a pizza ;-) -- TM
+#
+# bp, travanj 2016.: to je originalni TK zadnji prijevod od 2012. godine
+# samo su dodani novi msgid-ovi i uređeni fuzirani msgstr-ovi.
+# korektura u dogovoru s lingvistima slijedi u dogledno vrijeme.
+# bp: siječanj 2018.: puno izmjena....
+#
+#
+# Mirsad Todorovac <mtodorov_69@yahoo.com>, 2002.
+# Tomislav Krznar <tomislav.krznar@gmail.com>, 2012.
+# Božidar Putanec <bozidarp@yahoo.com>, 2016, 2017, 2018.
+#: src/create.c:1599
+msgid ""
+msgstr ""
+"Project-Id-Version: tar-1.30\n"
+"Report-Msgid-Bugs-To: bug-tar@gnu.org\n"
+"POT-Creation-Date: 2017-12-17 12:31+0200\n"
+"PO-Revision-Date: 2018-01-12 18:33-0800\n"
+"Last-Translator: Božidar Putanec <bozidarp@yahoo.com>\n"
+"Language-Team: Croatian <lokalizacija@linux.hr>\n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Lokalize 2.0\n"
+
+#: gnu/argmatch.c:134
+#, c-format
+msgid "invalid argument %s for %s"
+msgstr "neispravni argument %s za %s"
+
+#: gnu/argmatch.c:135
+#, c-format
+msgid "ambiguous argument %s for %s"
+msgstr "dvosmisleni argument %s za %s"
+
+#: gnu/argmatch.c:154
+msgid "Valid arguments are:"
+msgstr "Ispravni argumenti su:"
+
+#: gnu/argp-help.c:148
+#, c-format
+msgid "ARGP_HELP_FMT: %s value is less than or equal to %s"
+msgstr "ARGP_HELP_FMT: vrijednost %s je manja ili jednaka %s"
+
+#: gnu/argp-help.c:224
+#, c-format
+msgid "%.*s: ARGP_HELP_FMT parameter requires a value"
+msgstr "%.*s: ARGP_HELP_FMT parametar zahtijeva vrijednost"
+
+#: gnu/argp-help.c:234
+#, c-format
+msgid "%.*s: Unknown ARGP_HELP_FMT parameter"
+msgstr "%.*s: Nepoznati ARGP_HELP_FMT parametar"
+
+#: gnu/argp-help.c:247
+#, c-format
+msgid "Garbage in ARGP_HELP_FMT: %s"
+msgstr "Smeće u ARGP_HELP_FMT: %s"
+
+#: gnu/argp-help.c:1228
+msgid "Mandatory or optional arguments to long options are also mandatory or optional for any corresponding short options."
+msgstr "Obvezni ili opcijski argumenti za dugačke opcije su također obvezni i za kratke opcije."
+
+#: gnu/argp-help.c:1615
+msgid "Usage:"
+msgstr "Uporaba:"
+
+#: gnu/argp-help.c:1619
+msgid "  or: "
+msgstr "  ili: "
+
+#: gnu/argp-help.c:1631
+msgid " [OPTION...]"
+msgstr " [OPCIJA...]"
+
+# promjena svih ” u “; navodnički par „“
+#: gnu/argp-help.c:1658
+#, c-format
+msgid "Try '%s --help' or '%s --usage' for more information.\n"
+msgstr "Pokušajte „%s --help“ ili „%s --usage“ za više informacija.\n"
+
+#: gnu/argp-help.c:1686
+#, c-format
+msgid "Report bugs to %s.\n"
+msgstr "Prijavite greške na %s.\n"
+
+#: gnu/argp-help.c:1887 gnu/error.c:195
+msgid "Unknown system error"
+msgstr "Nepoznata pogreška sustava"
+
+#: gnu/argp-parse.c:81
+msgid "give this help list"
+msgstr "ova pomoć"
+
+#: gnu/argp-parse.c:82
+msgid "give a short usage message"
+msgstr "kratke upute za uporabu"
+
+#: gnu/argp-parse.c:83 src/tar.c:507 src/tar.c:509 src/tar.c:612
+#: tests/genfile.c:134
+msgid "NAME"
+msgstr "IME"
+
+#: gnu/argp-parse.c:84
+msgid "set the program name"
+msgstr "postavi ime programa"
+
+#: gnu/argp-parse.c:85
+msgid "SECS"
+msgstr "SEK"
+
+#: gnu/argp-parse.c:86
+msgid "hang for SECS seconds (default 3600)"
+msgstr "zaustavi se za SEK sekundi (zadano 3600)"
+
+#: gnu/argp-parse.c:143
+msgid "print program version"
+msgstr "inačica ovog tar programa"
+
+#: gnu/argp-parse.c:160
+msgid "(PROGRAM ERROR) No version known!?"
+msgstr "**Interna greška programa**: Nepoznata inačica!?"
+
+#: gnu/argp-parse.c:613
+#, c-format
+msgid "%s: Too many arguments\n"
+msgstr "%s: Previše argumenata\n"
+
+#: gnu/argp-parse.c:759
+msgid "(PROGRAM ERROR) Option should have been recognized!?"
+msgstr "**Interna greška programa**: Opcije su trebale biti prepoznate!?"
+
+#: gnu/closeout.c:122
+msgid "write error"
+msgstr "greška pisanja"
+
+#: gnu/getopt.c:278
+#, c-format
+msgid "%s: option '%s%s' is ambiguous\n"
+msgstr "%s: opcija „%s%s“ je dvosmislena\n"
+
+#: gnu/getopt.c:284
+#, c-format
+msgid "%s: option '%s%s' is ambiguous; possibilities:"
+msgstr "%s: opcija „%s%s“ je dvosmislena; mogućnosti:"
+
+#: gnu/getopt.c:319
+#, c-format
+msgid "%s: unrecognized option '%s%s'\n"
+msgstr "%s: neprepoznata opcija „%s%s“\n"
+
+#: gnu/getopt.c:345
+#, c-format
+msgid "%s: option '%s%s' doesn't allow an argument\n"
+msgstr "%s: opcija „%s%s“ ne dopušta argument\n"
+
+#: gnu/getopt.c:360
+#, c-format
+msgid "%s: option '%s%s' requires an argument\n"
+msgstr "%s: opcija „%s%s“ zahtijeva argument\n"
+
+#: gnu/getopt.c:621
+#, c-format
+msgid "%s: invalid option -- '%c'\n"
+msgstr "%s: neispravna opcija -- „%c“\n"
+
+#: gnu/getopt.c:636 gnu/getopt.c:682
+#, c-format
+msgid "%s: option requires an argument -- '%c'\n"
+msgstr "%s: opcija zahtijeva argument -- „%c“\n"
+
+#: gnu/obstack.c:338 gnu/obstack.c:340 gnu/xalloc-die.c:34
+msgid "memory exhausted"
+msgstr "memorija je iscrpljena"
+
+#: gnu/openat-die.c:38
+#, c-format
+msgid "unable to record current working directory"
+msgstr "nije moguće registrirati trenutačni radni direktorij"
+
+#: gnu/openat-die.c:57
+#, c-format
+msgid "failed to return to initial working directory"
+msgstr "nije uspjelo vratiti se u početni radni direktorij"
+
+#
+#. TRANSLATORS:
+#. Get translations for open and closing quotation marks.
+#. The message catalog should translate "`" to a left
+#. quotation mark suitable for the locale, and similarly for
+#. "'".  For example, a French Unicode local should translate
+#. these to U+00AB (LEFT-POINTING DOUBLE ANGLE
+#. QUOTATION MARK), and U+00BB (RIGHT-POINTING DOUBLE ANGLE
+#. QUOTATION MARK), respectively.
+#.
+#. If the catalog has no translation, we will try to
+#. use Unicode U+2018 (LEFT SINGLE QUOTATION MARK) and
+#. Unicode U+2019 (RIGHT SINGLE QUOTATION MARK).  If the
+#. current locale is not Unicode, locale_quoting_style
+#. will quote 'like this', and clocale_quoting_style will
+#. quote "like this".  You should always include translations
+#. for "`" and "'" even if U+2018 and U+2019 are appropriate
+#. for your locale.
+#.
+#. If you don't know what to put here, please see
+#. <https://en.wikipedia.org/wiki/Quotation_marks_in_other_languages>
+#. and use glyphs suitable for your language.
+#: gnu/quotearg.c:362
+msgid "`"
+msgstr "„"
+
+#: gnu/quotearg.c:363
+msgid "'"
+msgstr "“"
+
+#. TRANSLATORS: A regular expression testing for an affirmative answer
+#. (english: "yes").  Testing the first character may be sufficient.
+#. Take care to consider upper and lower case.
+#. To enquire the regular expression that your system uses for this
+#. purpose, you can use the command
+#. locale -k LC_MESSAGES | grep '^yesexpr='
+#: gnu/rpmatch.c:150
+msgid "^[yY]"
+msgstr "^[yYdD]"
+
+#. TRANSLATORS: A regular expression testing for a negative answer
+#. (english: "no").  Testing the first character may be sufficient.
+#. Take care to consider upper and lower case.
+#. To enquire the regular expression that your system uses for this
+#. purpose, you can use the command
+#. locale -k LC_MESSAGES | grep '^noexpr='
+#: gnu/rpmatch.c:163
+msgid "^[nN]"
+msgstr "^[nN]"
+
+#: gnu/version-etc.c:74
+#, c-format
+msgid "Packaged by %s (%s)\n"
+msgstr "Pakirao %s (%s)\n"
+
+#: gnu/version-etc.c:77
+#, c-format
+msgid "Packaged by %s\n"
+msgstr "Pakirao %s\n"
+
+#. TRANSLATORS: Translate "(C)" to the copyright symbol
+#. (C-in-a-circle), if this symbol is available in the user's
+#. locale.  Otherwise, do not translate "(C)"; leave it as-is.
+#: gnu/version-etc.c:84
+msgid "(C)"
+msgstr "©"
+
+#: gnu/version-etc.c:86
+msgid ""
+"\n"
+"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
+"\n"
+msgstr ""
+"\n"
+"Licencija GPLv3+: GNU GPL inačica 3 ili kasnija <https://gnu.org/licenses/gpl.html>.\n"
+"Ovo je slobodan softver: slobodno ga mijenjajte i dijelite.\n"
+"NEMA JAMSTVA do granica dopuštenih zakonom.\n"
+"\n"
+
+#. TRANSLATORS: %s denotes an author name.
+#: gnu/version-etc.c:102
+#, c-format
+msgid "Written by %s.\n"
+msgstr "Napisao %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: gnu/version-etc.c:106
+#, c-format
+msgid "Written by %s and %s.\n"
+msgstr "Napisali %s i %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: gnu/version-etc.c:110
+#, c-format
+msgid "Written by %s, %s, and %s.\n"
+msgstr "Napisali %s, %s i %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:117
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+"Napisali %s, %s, %s\n"
+"i %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:124
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+"Napisali %s, %s, %s,\n"
+"%s i %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:131
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, and %s.\n"
+msgstr ""
+"Napisali %s, %s, %s,\n"
+"%s, %s i %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:139
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, and %s.\n"
+msgstr ""
+"Napisali %s, %s, %s,\n"
+"%s, %s, %s i %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:147
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+"Napisali %s, %s, %s,\n"
+"%s, %s, %s, %s\n"
+"i %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:156
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+"Napisali %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s i %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:167
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, %s, and others.\n"
+msgstr ""
+"Napisali %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, %s i ostali.\n"
+
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: gnu/version-etc.c:245
+#, c-format
+msgid ""
+"\n"
+"Report bugs to: %s\n"
+msgstr ""
+"\n"
+"Prijavite programske greške (na engleskom, LC_ALL=C) na %s.\n"
+"Prijavite greške u prijevodu na <lokalizacija@linux.hr>.\n"
+
+#: gnu/version-etc.c:247
+#, c-format
+msgid "Report %s bugs to: %s\n"
+msgstr "Prijavite %s greške na %s\n"
+
+#: gnu/version-etc.c:251
+#, c-format
+msgid "%s home page: <%s>\n"
+msgstr "Internetska stranica od %s: <%s>\n"
+
+#: gnu/version-etc.c:253
+#, c-format
+msgid "%s home page: <https://www.gnu.org/software/%s/>\n"
+msgstr "Internetska stranica od %s: <https://www.gnu.org/software/%s/>\n"
+
+#: gnu/version-etc.c:256
+msgid "General help using GNU software: <https://www.gnu.org/gethelp/>\n"
+msgstr "Općenita pomoć za korištenje GNU softvera: <https://www.gnu.org/gethelp/>\n"
+
+#. TRANSLATORS: %s after `Cannot' is a function name, e.g. `Cannot open'.
+#. Directly translating this to another language will not work, first because
+#. %s itself is not translated.
+#. Translate it as `%s: Function %s failed'.
+#: lib/paxerror.c:60 lib/paxerror.c:73
+#, c-format
+msgid "%s: Cannot %s"
+msgstr "%s: Funkcija %s je završila s greškom"
+
+#. TRANSLATORS: %s after `Cannot' is a function name, e.g. `Cannot open'.
+#. Directly translating this to another language will not work, first because
+#. %s itself is not translated.
+#. Translate it as `%s: Function %s failed'.
+#: lib/paxerror.c:86
+#, c-format
+msgid "%s: Warning: Cannot %s"
+msgstr "%s: Upozorenje: funkcija %s je završila s greškom"
+
+#: lib/paxerror.c:95
+#, c-format
+msgid "%s: Cannot change mode to %s"
+msgstr "%s: Nije moguće promijeniti prava dostupa od %s"
+
+#: lib/paxerror.c:103
+#, c-format
+msgid "%s: Cannot change ownership to uid %lu, gid %lu"
+msgstr "%s: Nije moguće promijeniti vlasništvo u uid %lu, gid %lu"
+
+#: lib/paxerror.c:129
+#, c-format
+msgid "%s: Cannot hard link to %s"
+msgstr "%s: Nije moguće napraviti čvrstu vezu na %s"
+
+#: lib/paxerror.c:181 lib/paxerror.c:213
+#, c-format
+msgid "%s: Read error at byte %s, while reading %lu byte"
+msgid_plural "%s: Read error at byte %s, while reading %lu bytes"
+msgstr[0] "%s: Pogreška u čitanju na bajtu %s pri čitanju %lu bajta"
+msgstr[1] "%s: Pogreška u čitanju na bajtu %s pri čitanju %lu bajta"
+msgstr[2] "%s: Pogreška u čitanju na bajtu %s pri čitanju %lu bajtova"
+
+#: lib/paxerror.c:194
+#, c-format
+msgid "%s: Warning: Read error at byte %s, while reading %lu byte"
+msgid_plural "%s: Warning: Read error at byte %s, while reading %lu bytes"
+msgstr[0] "%s: Upozorenje: Pogreška u čitanju na bajtu %s pri čitanju %lu bajta"
+msgstr[1] "%s: Upozorenje: Pogreška u čitanju na bajtu %s pri čitanju %lu bajta"
+msgstr[2] "%s: Upozorenje: Pogreška u čitanju na bajtu %s pri čitanju %lu bajtova"
+
+#: lib/paxerror.c:261
+#, c-format
+msgid "%s: Cannot seek to %s"
+msgstr "%s: Nije moguće skiočiti/naći na %s"
+
+#: lib/paxerror.c:277
+#, c-format
+msgid "%s: Warning: Cannot seek to %s"
+msgstr "%s: Upozorenje: Nije moguće skočiti/naći na %s"
+
+#: lib/paxerror.c:286
+#, c-format
+msgid "%s: Cannot create symlink to %s"
+msgstr "%s: Nije moguće napraviti simboličku vezu na %s"
+
+#: lib/paxerror.c:351
+#, c-format
+msgid "%s: Wrote only %lu of %lu byte"
+msgid_plural "%s: Wrote only %lu of %lu bytes"
+msgstr[0] "%s: Zapisano je samo %lu bajt iz %lu"
+msgstr[1] "%s: Zapisano je samo %lu bajta iz %lu"
+msgstr[2] "%s: Zapisano je samo %lu bajtova iz %lu"
+
+#: lib/paxnames.c:140
+#, c-format
+msgid "Removing leading `%s' from member names"
+msgstr "Uklanja se početni „%s“ iz imena člana"
+
+#: lib/paxnames.c:141
+#, c-format
+msgid "Removing leading `%s' from hard link targets"
+msgstr "Uklanja se početni „%s“ iz meta tvrdih veza"
+
+#: lib/paxnames.c:154
+msgid "Substituting `.' for empty member name"
+msgstr "„.“ (točkom) se zamjenjuje prazno ime člana"
+
+#: lib/paxnames.c:155
+msgid "Substituting `.' for empty hard link target"
+msgstr "„.“ (točkom) se zamjenjuje prazna meta tvrde veze"
+
+#: lib/rtapelib.c:299
+#, c-format
+msgid "exec/tcp: Service not available"
+msgstr "exec/tcp: Servis nije dostupan"
+
+# FIXME -- verify against source
+#: lib/rtapelib.c:303
+#, c-format
+msgid "stdin"
+msgstr "standardni ulaz (stdin)"
+
+#: lib/rtapelib.c:306
+#, c-format
+msgid "stdout"
+msgstr "standardni izlaz (stdout)"
+
+#: lib/rtapelib.c:429
+#, c-format
+msgid "Cannot connect to %s: resolve failed"
+msgstr "Nije moguće povezivanje s %s: riješenje nije uspjelo"
+
+#: lib/rtapelib.c:502
+#, c-format
+msgid "Cannot redirect files for remote shell"
+msgstr "Nije moguće preusmjeriti datoteke za udaljenu ljusku (remote shell)"
+
+#: lib/rtapelib.c:516
+#, c-format
+msgid "Cannot execute remote shell"
+msgstr "Nije moguće pokrenuti udaljenu ljusku (remote shell)"
+
+#: rmt/rmt.c:432
+msgid "Seek direction out of range"
+msgstr "Smjer za skok na poziciju je izvan dosega"
+
+#: rmt/rmt.c:438
+msgid "Invalid seek direction"
+msgstr "Neispravni smjer za skok na poziciju"
+
+#: rmt/rmt.c:446
+msgid "Invalid seek offset"
+msgstr "Neispravna pozicija skoka"
+
+# FIXME -- find xlation for 'seek offset' -- TM
+#: rmt/rmt.c:452
+msgid "Seek offset out of range"
+msgstr "Pozicija skoka je izvan dosega"
+
+#: rmt/rmt.c:493 rmt/rmt.c:544 rmt/rmt.c:608
+msgid "Invalid byte count"
+msgstr "Neispravni broj bajtova"
+
+# FIXME -- find xlation for 'seek offset' -- TM
+#: rmt/rmt.c:499 rmt/rmt.c:550 rmt/rmt.c:614 rmt/rmt.c:625
+msgid "Byte count out of range"
+msgstr "Broj bajtova je izvan raspona"
+
+#: rmt/rmt.c:558
+msgid "Premature eof"
+msgstr "Preuranjen eof (kraj datoteke)"
+
+#: rmt/rmt.c:601
+msgid "Invalid operation code"
+msgstr "Neispravni kod operacije"
+
+#: rmt/rmt.c:636 rmt/rmt.c:680
+msgid "Operation not supported"
+msgstr "Operacija nije podržana"
+
+#: rmt/rmt.c:664
+msgid "Unexpected arguments"
+msgstr "Neočekivani argumenti"
+
+#: rmt/rmt.c:689
+msgid "Manipulate a tape drive, accepting commands from a remote process"
+msgstr "Rad s pogonom vrpce, prihvaćajući naredbe udaljenog procesa"
+
+#: rmt/rmt.c:696 src/tar.c:432 src/tar.c:436 src/tar.c:610 src/tar.c:625
+#: src/tar.c:714 src/tar.c:730 tests/genfile.c:171
+msgid "NUMBER"
+msgstr "BROJ"
+
+#: rmt/rmt.c:697
+msgid "set debug level"
+msgstr "postavite razinu debugiranja (opširnost izvješća o greškama)"
+
+#: rmt/rmt.c:698 src/names.c:71 src/names.c:75 src/names.c:93 src/names.c:103
+#: src/names.c:106 src/names.c:109 src/names.c:112 src/names.c:114
+#: src/tar.c:430 src/tar.c:511 src/tar.c:513 src/tar.c:615 src/tar.c:747
+#: tests/genfile.c:136 tests/genfile.c:185 tests/genfile.c:189
+#: tests/genfile.c:192 tests/genfile.c:198
+msgid "FILE"
+msgstr "DATOTEKA"
+
+#: rmt/rmt.c:699
+msgid "set debug output file name"
+msgstr "zadajte naziv izlazne datoteke s podacima za uklanjanje grešaka"
+
+#: rmt/rmt.c:715 rmt/rmt.c:783
+#, c-format
+msgid "cannot open %s"
+msgstr "nije moguće otvoriti %s"
+
+#: rmt/rmt.c:780 tests/genfile.c:977 tests/genfile.c:994
+#, c-format
+msgid "too many arguments"
+msgstr "previše argumenata"
+
+#: rmt/rmt.c:822
+msgid "Garbage command"
+msgstr "Neispravna naredba"
+
+#: src/buffer.c:474 src/buffer.c:479 src/buffer.c:773 src/buffer.c:1415
+#: src/buffer.c:1452 src/buffer.c:1464 src/buffer.c:1493 src/delete.c:211
+#: src/list.c:275 src/update.c:188
+msgid "This does not look like a tar archive"
+msgstr "Ovo ne izgleda kao tar arhiva"
+
+#: src/buffer.c:590
+msgid "Total bytes read"
+msgstr "Ukupno pročitano bajtova"
+
+# FIXME -- ovo neće raditi ako je prevedeno -- Denis?
+#: src/buffer.c:592
+msgid "Total bytes written"
+msgstr "Ukupno zapisano bajtova"
+
+# FIXME -- ovo neće raditi ako je prevedeno -- Denis?
+#: src/buffer.c:593
+msgid "Total bytes deleted"
+msgstr "Ukupno izbrisano bajtova"
+
+#: src/buffer.c:672
+msgid "(pipe)"
+msgstr "(cijev)"
+
+# Hrvatski jezični portal
+# otkazati > odbiti izvršiti naredbu
+# odbijati > ne pristati
+#: src/buffer.c:696
+msgid "Refusing to read archive contents from terminal (missing -f option?)"
+msgstr "Uskraćuje se čitanje sadržaja arhive s terminala (nedostaje -f opcija?)"
+
+#: src/buffer.c:698
+msgid "Refusing to write archive contents to terminal (missing -f option?)"
+msgstr "Odbija se ispisati sadržaj arhive na terminal (nedostaje -f opcija?)"
+
+#: src/buffer.c:711
+msgid "Invalid value for record_size"
+msgstr "Neispravna vrijednost za record_size"
+
+#: src/buffer.c:714
+msgid "No archive name given"
+msgstr "Nije dano ime za arhivu"
+
+#: src/buffer.c:757
+msgid "Cannot verify stdin/stdout archive"
+msgstr "Nije moguće provjeriti stdin/stdout arhivu"
+
+#: src/buffer.c:770
+#, c-format
+msgid "Archive is compressed. Use %s option"
+msgstr "Arhiva je komprimirana. rabite opciju %s"
+
+#: src/buffer.c:828 src/tar.c:2455
+msgid "Cannot update compressed archives"
+msgstr "Nije moguće ažurirati komprimirane arhive"
+
+#: src/buffer.c:928
+msgid "At beginning of tape, quitting now"
+msgstr "Početak trake, kraj rada"
+
+#: src/buffer.c:934
+msgid "Too many errors, quitting"
+msgstr "Previše grešaka, kraj rada"
+
+#: src/buffer.c:967
+#, c-format
+msgid "Record size = %lu block"
+msgid_plural "Record size = %lu blocks"
+msgstr[0] "Veličina zapisa = %lu blok"
+msgstr[1] "Veličina zapisa = %lu bloka"
+msgstr[2] "Veličina zapisa = %lu blokova"
+
+#: src/buffer.c:988
+#, c-format
+msgid "Unaligned block (%lu byte) in archive"
+msgid_plural "Unaligned block (%lu bytes) in archive"
+msgstr[0] "Neporavnani blok (%lu bajt) unutar arhive"
+msgstr[1] "Neporavnani blok (%lu bajta) unutar arhive"
+msgstr[2] "Neporavnani blok (%lu bajtova) unutar arhive"
+
+#: src/buffer.c:1075
+msgid "Cannot backspace archive file; it may be unreadable without -i"
+msgstr "Nije momoguće vratiti se i ponovno pretražiti arhivu; možda je nečitljiva bez -i"
+
+#: src/buffer.c:1107
+msgid "rmtlseek not stopped at a record boundary"
+msgstr "rmtlseek se nije zaustavio na granici zapisa"
+
+#: src/buffer.c:1168
+#, c-format
+msgid "%s: contains invalid volume number"
+msgstr "%s: sadrži neispravni broj sveska"
+
+#: src/buffer.c:1203
+msgid "Volume number overflow"
+msgstr "Broj sveska je prevelik"
+
+#: src/buffer.c:1218
+#, c-format
+msgid "Prepare volume #%d for %s and hit return: "
+msgstr "Pripremite svezak broj #%d za %s i pritisnite [ENTER]: "
+
+#: src/buffer.c:1224
+msgid "EOF where user reply was expected"
+msgstr "Kraj datoteke (EOF) umjesto očekivanoga odgovora korisnika"
+
+#: src/buffer.c:1229 src/buffer.c:1261
+msgid "WARNING: Archive is incomplete"
+msgstr "UPOZORENJE: Arhiva je nepotpuna"
+
+#: src/buffer.c:1243
+#, c-format
+msgid ""
+" n name        Give a new file name for the next (and subsequent) volume(s)\n"
+" q             Abort tar\n"
+" y or newline  Continue operation\n"
+msgstr ""
+" n [ime]           Novo ime datoteke za sljedeći (i naredne) sveske\n"
+" q                 Izlazi iz tar-a\n"
+" y ili novi redak  Nastavlja operaciju\n"
+
+#: src/buffer.c:1248
+#, c-format
+msgid " !             Spawn a subshell\n"
+msgstr " !             Pokrene podljusku\n"
+
+#: src/buffer.c:1249
+#, c-format
+msgid " ?             Print this list\n"
+msgstr " ?             Ispiše ovaj popis\n"
+
+#: src/buffer.c:1256
+msgid "No new volume; exiting.\n"
+msgstr "Nema novog sveska; kraj rada, izlaz.\n"
+
+#: src/buffer.c:1289
+msgid "File name not specified. Try again.\n"
+msgstr "Ime datoteke nije specificirano. Pokušajte ponovo.\n"
+
+#: src/buffer.c:1301
+#, c-format
+msgid "Invalid input. Type ? for help.\n"
+msgstr "Neispravni ulazni podaci. Unesite ? za pomoć.\n"
+
+#: src/buffer.c:1352
+#, c-format
+msgid "%s command failed"
+msgstr "Naredba %s nije uspjela"
+
+#: src/buffer.c:1529 src/buffer.c:1545
+#, c-format
+msgid "%s is not continued on this volume"
+msgstr "%s se ne nastavlja na ovom svesku"
+
+#: src/buffer.c:1541
+#, c-format
+msgid "%s is possibly continued on this volume: header contains truncated name"
+msgstr "%s se možda nastavlja na ovom svesku: zaglavlje sadrži skraćeno ime"
+
+#: src/buffer.c:1559
+#, c-format
+msgid "%s is the wrong size (%s != %s + %s)"
+msgstr "%s je netočna veličina (%s != %s + %s)"
+
+#: src/buffer.c:1574
+#, c-format
+msgid "This volume is out of sequence (%s - %s != %s)"
+msgstr "Ovaj svezak je izvan sekvencije (%s - %s != %s)"
+
+# FIXME -- clean against source! (TM)
+#: src/buffer.c:1652 src/buffer.c:1678
+#, c-format
+msgid "Archive not labeled to match %s"
+msgstr "Arhiva nije etiketirana, i ne može se podudarati s(a) %s"
+
+#: src/buffer.c:1682
+#, c-format
+msgid "Volume %s does not match %s"
+msgstr "Svezak %s se ne podudara s(a) %s"
+
+#: src/buffer.c:1774
+#, c-format
+msgid "%s: file name too long to be stored in a GNU multivolume header, truncated"
+msgstr "%s: ime datoteke je predugo za spremanje u višesvezačno zaglavlje GNU-a; skraćuje se"
+
+#: src/buffer.c:1965
+msgid "write did not end on a block boundary"
+msgstr "pisanje nije završilo na granici bloka"
+
+#: src/compare.c:98
+#, c-format
+msgid "Could only read %lu of %lu byte"
+msgid_plural "Could only read %lu of %lu bytes"
+msgstr[0] "Pročitano je samo %lu od %lu bajta"
+msgstr[1] "Pročitano je samo %lu od %lu bajta"
+msgstr[2] "Pročitano je samo %lu od %lu bajtova"
+
+#: src/compare.c:108 src/compare.c:398
+msgid "Contents differ"
+msgstr "Sadržaji se razlikuju"
+
+#: src/compare.c:134 src/extract.c:1204 src/incremen.c:1508 src/list.c:488
+#: src/list.c:1404 src/xheader.c:847
+msgid "Unexpected EOF in archive"
+msgstr "Neočekivani kraj datoteke (EOF) u arhivi"
+
+#: src/compare.c:182 src/compare.c:198 src/compare.c:317 src/compare.c:422
+msgid "File type differs"
+msgstr "Vrsta datoteke se razlikuje"
+
+#: src/compare.c:185 src/compare.c:205 src/compare.c:331
+msgid "Mode differs"
+msgstr "Prava dostupa se razlikuju"
+
+#: src/compare.c:208
+msgid "Uid differs"
+msgstr "UID se razlikuje"
+
+#: src/compare.c:210
+msgid "Gid differs"
+msgstr "GID se razlikuje"
+
+#: src/compare.c:214
+msgid "Mod time differs"
+msgstr "Vrijeme izmjene se razlikuje"
+
+#: src/compare.c:218 src/compare.c:432
+msgid "Size differs"
+msgstr "Veličina se razlikuje"
+
+#: src/compare.c:267
+#, c-format
+msgid "Not linked to %s"
+msgstr "Nije povezan na %s"
+
+#: src/compare.c:293
+msgid "Symlink differs"
+msgstr "Simbolička veza se razlikuje"
+
+#: src/compare.c:325
+msgid "Device number differs"
+msgstr "Broj uređaja se razlikuje"
+
+#: src/compare.c:473
+#, c-format
+msgid "Verify "
+msgstr "Provjeri "
+
+#: src/compare.c:480
+#, c-format
+msgid "%s: Unknown file type '%c', diffed as normal file"
+msgstr "%s: Nepoznata vrsta datoteke „%c“, uspoređuje se kao normalna datoteka"
+
+#: src/compare.c:535
+msgid "Archive contains file names with leading prefixes removed."
+msgstr "Arhiva sadrži imena datoteka s uklonjenim prefiksima."
+
+#: src/compare.c:541
+msgid "Archive contains transformed file names."
+msgstr "Arhiva sadrži transformirana imena datoteka."
+
+#: src/compare.c:546
+msgid "Verification may fail to locate original files."
+msgstr "Provjera možda neće uspjeti pronaći originalne datoteke."
+
+#: src/compare.c:620
+#, c-format
+msgid "VERIFY FAILURE: %d invalid header detected"
+msgid_plural "VERIFY FAILURE: %d invalid headers detected"
+msgstr[0] "NEUSPJELA PROVJERA: otkriveno %d neispravno zaglavlje"
+msgstr[1] "NEUSPJELA PROVJERA: otkrivena %d neispravna zaglavlja"
+msgstr[2] "NEUSPJELA PROVJERA: otkriveno %d neispravnih zaglavlja"
+
+#: src/compare.c:638 src/list.c:252
+#, c-format
+msgid "A lone zero block at %s"
+msgstr "Izolirani nulti blok pri %s"
+
+#: src/create.c:74
+#, c-format
+msgid "%s: contains a cache directory tag %s; %s"
+msgstr "%s: sadrži „cache directory tag“ (CACHEDIR.TAG) %s; %s v. http://www.brynosaurus.com/cachedir/spec.html"
+
+#: src/create.c:263
+#, c-format
+msgid "value %s out of %s range %s..%s; substituting %s"
+msgstr "vrijednost %s je izvan %s raspona %s..%s; zamijenjuje se s/sa %s"
+
+#: src/create.c:269
+#, c-format
+msgid "value %s out of %s range %s..%s"
+msgstr "vrijednost %s izvan %s raspona %s..%s"
+
+# FIXME -- find `padež' here from source
+#: src/create.c:329
+msgid "Generating negative octal headers"
+msgstr "Generiranje negativnih oktalnih zaglavlja"
+
+#: src/create.c:606 src/create.c:669
+#, c-format
+msgid "%s: file name is too long (max %d); not dumped"
+msgstr "%s: ime datoteke je predugo (max %d); ne arhivira se"
+
+#: src/create.c:616
+#, c-format
+msgid "%s: file name is too long (cannot be split); not dumped"
+msgstr "%s: ime datoteke je predugo (ne može se rastaviti); ne arhivira se"
+
+#: src/create.c:643
+#, c-format
+msgid "%s: link name is too long; not dumped"
+msgstr "%s: ime veze je predugo; ne arhivira se"
+
+#: src/create.c:1106
+#, c-format
+msgid "%s: File shrank by %s byte; padding with zeros"
+msgid_plural "%s: File shrank by %s bytes; padding with zeros"
+msgstr[0] "%s: Datoteka je skraćena za %s bajt; dopunjena s nulama"
+msgstr[1] "%s: Datoteka je skraćena za %s bajta; dopunjena s nulama"
+msgstr[2] "%s: Datoteka je skraćena za %s bajtova; dopunjena s nulama"
+
+#: src/create.c:1204
+#, c-format
+msgid "%s: file is on a different filesystem; not dumped"
+msgstr "%s: datoteka je na drugom datotečnom sustavu; ne arhivira se"
+
+#: src/create.c:1247 src/create.c:1258 src/incremen.c:610 src/incremen.c:617
+msgid "contents not dumped"
+msgstr "sadržaj nije arhiviran"
+
+#: src/create.c:1464
+#, c-format
+msgid "%s: Unknown file type; file ignored"
+msgstr "%s: Nepoznata vrsta datoteke; ignorira se"
+
+#: src/create.c:1576
+#, c-format
+msgid "Missing links to %s."
+msgstr "Nedostaju veze na %s."
+
+#: src/create.c:1737
+#, c-format
+msgid "%s: file is unchanged; not dumped"
+msgstr "%s: datoteka je nepromijenjena; ne arhivira se"
+
+#: src/create.c:1746
+#, c-format
+msgid "%s: file is the archive; not dumped"
+msgstr "%s: datoteka je arhiva; ne arhivira se"
+
+#: src/create.c:1774 src/incremen.c:603
+msgid "directory not dumped"
+msgstr "direktorij nije arhiviran"
+
+#: src/create.c:1846
+#, c-format
+msgid "%s: file changed as we read it"
+msgstr "%s: datoteka se promijenila za vrijeme učitavanja"
+
+#: src/create.c:1922
+#, c-format
+msgid "%s: socket ignored"
+msgstr "%s: utičnica je zanemarena"
+
+#: src/create.c:1928
+#, c-format
+msgid "%s: door ignored"
+msgstr "%s: zanemarena vrata"
+
+#: src/delete.c:216 src/list.c:288 src/update.c:192
+msgid "Skipping to next header"
+msgstr "Propuštanje do sljedećeg zaglavlja"
+
+#: src/delete.c:281
+msgid "Deleting non-header from archive"
+msgstr "Brisanje ne-zaglavlja iz arhive"
+
+#: src/extract.c:302
+#, c-format
+msgid "%s: implausibly old time stamp %s"
+msgstr "%s: nevjerojatno stara vremenska oznaka %s"
+
+#: src/extract.c:320
+#, c-format
+msgid "%s: time stamp %s is %s s in the future"
+msgstr "%s: vremenska oznaka %s je %s sekundi u budućnosti"
+
+#: src/extract.c:553
+#, c-format
+msgid "%s: Unexpected inconsistency when making directory"
+msgstr "%s: Neočekivana proturječnost pri izradi direktorija"
+
+#: src/extract.c:771
+#, c-format
+msgid "%s: skipping existing file"
+msgstr "%s:  propušta se postojeća datoteka"
+
+#: src/extract.c:901
+#, c-format
+msgid "%s: Directory renamed before its status could be extracted"
+msgstr "%s: Direktorij je bio preimenovan prije nego se njegov status mogao odrediti"
+
+#: src/extract.c:1086
+msgid "Extracting contiguous files as regular files"
+msgstr "Susjedne datoteke (contiguous files) izdvajaju se kao obične datoteke"
+
+#: src/extract.c:1433
+msgid "Attempting extraction of symbolic links as hard links"
+msgstr "Pokušava izdvojiti simboličke veze kao tvrde veze"
+
+#: src/extract.c:1596
+#, c-format
+msgid "%s: Cannot extract -- file is continued from another volume"
+msgstr "%s: Nije moguće izdvojiti -- datoteka se nastavlja iz nekog drugog sveska"
+
+#: src/extract.c:1603 src/list.c:1167
+msgid "Unexpected long name header"
+msgstr "Neočekivano dugo ime zaglavlja"
+
+#: src/extract.c:1610
+#, c-format
+msgid "%s: Unknown file type '%c', extracted as normal file"
+msgstr "%s: Nepoznata vrsta datoteke „%c“, izdvojena kao normalna datoteka"
+
+#: src/extract.c:1636
+#, c-format
+msgid "Current %s is newer or same age"
+msgstr "Trenutačni %s je noviji ili jednako star"
+
+#: src/extract.c:1664
+#, c-format
+msgid "%s: Member name contains '..'"
+msgstr "%s: Ime člana sadrži „..“"
+
+#: src/extract.c:1696
+#, c-format
+msgid "%s: Was unable to backup this file"
+msgstr "%s: Nije bilo moguće osigurati (napraviti sigurnosnu kopiju) ovu datoteku"
+
+#: src/extract.c:1845
+#, c-format
+msgid "Cannot rename %s to %s"
+msgstr "Nije moguće preimenovati %s u %s"
+
+#: src/incremen.c:494 src/incremen.c:536
+#, c-format
+msgid "%s: Directory has been renamed from %s"
+msgstr "%s: Direktorij je bio preimenovan od %s"
+
+#: src/incremen.c:549
+#, c-format
+msgid "%s: Directory is new"
+msgstr "%s: Direktorij je novi"
+
+#: src/incremen.c:566
+#, c-format
+msgid "%s: directory is on a different filesystem; not dumped"
+msgstr "%s: direktorij je na drugom datotečnom sustavu; ne arhivira se"
+
+#: src/incremen.c:587
+#, c-format
+msgid "%s: Directory has been renamed"
+msgstr "%s: Direktoriju je bio preimenovan"
+
+#: src/incremen.c:1003 src/incremen.c:1018
+msgid "Invalid time stamp"
+msgstr "Neispravna vremenska oznaka"
+
+#: src/incremen.c:1047
+msgid "Invalid modification time"
+msgstr "Neispravno vrijeme izmjene (sekunde)"
+
+#: src/incremen.c:1057
+msgid "Invalid modification time (nanoseconds)"
+msgstr "Neispravno vrijeme izmjene (nanosekunde)"
+
+#: src/incremen.c:1073
+msgid "Invalid device number"
+msgstr "Neispravni broj uređaja"
+
+#: src/incremen.c:1081
+msgid "Invalid inode number"
+msgstr "Neispravni broj indeksa čvora (inode)"
+
+#: src/incremen.c:1137
+#, c-format
+msgid "%s: byte %s: %s %.*s... too long"
+msgstr "%s: bajt %s: %s %.*s... predugačko"
+
+#: src/incremen.c:1153 src/incremen.c:1211 src/incremen.c:1273
+msgid "Unexpected EOF in snapshot file"
+msgstr "Neočekivani kraj datoteke u snapshot (stanje osiguranja u trenutku arhiviranja) datoteci"
+
+#: src/incremen.c:1161
+#, c-format
+msgid "%s: byte %s: %s %s followed by invalid byte 0x%02x"
+msgstr "%s: bajt %s: %s %s slijedi iza neispravnog bajta 0x%02x"
+
+#: src/incremen.c:1174
+#, c-format
+msgid ""
+"%s: byte %s: (valid range %s..%s)\n"
+"\t%s %s"
+msgstr ""
+"%s: bajt %s: (valjan raspon %s..%s)\n"
+"\t%s %s"
+
+#: src/incremen.c:1181
+#, c-format
+msgid "%s: byte %s: %s %s"
+msgstr "%s: bajt %s: %s %s"
+
+#: src/incremen.c:1262
+#, c-format
+msgid "%s: byte %s: %s"
+msgstr "%s: bajt %s: %s"
+
+#: src/incremen.c:1265
+msgid "Missing record terminator"
+msgstr "Nedostaje indikator kraja zapisa"
+
+#: src/incremen.c:1371 src/incremen.c:1374
+msgid "Bad incremental file format"
+msgstr "Loši inkrementalni format datoteke"
+
+#: src/incremen.c:1393
+#, c-format
+msgid "Unsupported incremental format version: %<PRIuMAX>"
+msgstr "Nepodržana verzija inkrementalnog formata: %<PRIuMAX>"
+
+#: src/incremen.c:1549
+#, c-format
+msgid "Malformed dumpdir: expected '%c' but found %#3o"
+msgstr "Deformirani arhivski direktorij: očekivano „%c“, a pronađeno je %#3o"
+
+#: src/incremen.c:1559
+msgid "Malformed dumpdir: 'X' duplicated"
+msgstr "Deformirani arhivski direktorij: duplicirani 'X'"
+
+#: src/incremen.c:1572
+msgid "Malformed dumpdir: empty name in 'R'"
+msgstr "Deformirani arhivski direktorij: prazno ime u „R“"
+
+# bp: Malformed > Nepravilan
+# prije „T“ ne dolazi „R“ > „T“ ne prethodi „R“
+#: src/incremen.c:1585
+msgid "Malformed dumpdir: 'T' not preceded by 'R'"
+msgstr "Deformirani arhivski direktorij: ispred „T“ ne stoji „R“"
+
+#: src/incremen.c:1591
+msgid "Malformed dumpdir: empty name in 'T'"
+msgstr "Deformirani arhivski direktorij: prazno ime u „T“"
+
+#: src/incremen.c:1611
+#, c-format
+msgid "Malformed dumpdir: expected '%c' but found end of data"
+msgstr "Deformirani arhivski direktorij: očekivano „%c“, ali pronađen kraj podataka"
+
+#: src/incremen.c:1618
+msgid "Malformed dumpdir: 'X' never used"
+msgstr "Deformirani arhivski direktorij: „X“ se nijednom ne rabi"
+
+#: src/incremen.c:1662
+#, c-format
+msgid "Cannot create temporary directory using template %s"
+msgstr "Nije moguće napraviti privremeni direktorij iz predloška %s"
+
+#: src/incremen.c:1723
+#, c-format
+msgid "%s: Not purging directory: unable to stat"
+msgstr "%s: Direktorij se ne čisti: nije moguće odrediti status"
+
+#: src/incremen.c:1736
+#, c-format
+msgid "%s: directory is on a different device: not purging"
+msgstr "%s: direktorij je na drugom uređaju: ne čisti se"
+
+#: src/incremen.c:1744
+#, c-format
+msgid "%s: Deleting %s\n"
+msgstr "%s: Brisanje %s\n"
+
+#: src/incremen.c:1749
+#, c-format
+msgid "%s: Cannot remove"
+msgstr "%s: Nije moguće ukloniti"
+
+#: src/list.c:219
+#, c-format
+msgid "%s: Omitting"
+msgstr "%s: Propušta se"
+
+#: src/list.c:237
+#, c-format
+msgid "block %s: ** Block of NULs **\n"
+msgstr "blok %s: ** Blok ispunjen NUL-znakovima **\n"
+
+#: src/list.c:263
+#, c-format
+msgid "block %s: ** End of File **\n"
+msgstr "blok %s: ** Kraj datoteke **\n"
+
+#: src/list.c:285 src/list.c:1136 src/list.c:1372
+#, c-format
+msgid "block %s: "
+msgstr "blok %s: "
+
+#. TRANSLATORS: %s is type of the value (gid_t, uid_t,
+#. etc.)
+#: src/list.c:751
+#, c-format
+msgid "Blanks in header where numeric %s value expected"
+msgstr "Praznine u zaglavlju, a očekuje se numerička %s vrijednost"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:806
+#, c-format
+msgid "Archive octal value %.*s is out of %s range; assuming two's complement"
+msgstr "Oktalna vrijednost %.*s iz arhive je izvan %s raspona; podrazumijeva se 2-komplement"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:817
+#, c-format
+msgid "Archive octal value %.*s is out of %s range"
+msgstr "Oktalna vrijednost iz arhive %.*s je izvan %s raspona"
+
+# FIXME -- obsolescent -- TM
+#: src/list.c:838
+msgid "Archive contains obsolescent base-64 headers"
+msgstr "Arhiva sadrži zastarjela base-64 zaglavlja"
+
+# FIXME??
+#: src/list.c:852
+#, c-format
+msgid "Archive signed base-64 string %s is out of %s range"
+msgstr "Arhiva potpisana s base-64 stringom %s je izvan raspona %s"
+
+#: src/list.c:883
+#, c-format
+msgid "Archive base-256 value is out of %s range"
+msgstr "Base-256 vrijednost iz arhive je izvan %s raspona"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:912
+#, c-format
+msgid "Archive contains %.*s where numeric %s value expected"
+msgstr "Arhiva sadrži %.*s, a očekuje se numerička %s vrijednost"
+
+#. TRANSLATORS: Second %s is type name (gid_t,uid_t,etc.)
+#: src/list.c:934
+#, c-format
+msgid "Archive value %s is out of %s range %s..%s"
+msgstr "Vrijednost %s iz arhive je izvan %s raspona %s..%s"
+
+#: src/list.c:1272
+#, c-format
+msgid " link to %s\n"
+msgstr " veza na %s\n"
+
+#: src/list.c:1280
+#, c-format
+msgid " unknown file type %s\n"
+msgstr " nepoznata vrsta datoteke %s\n"
+
+#: src/list.c:1298
+#, c-format
+msgid "--Long Link--\n"
+msgstr "--Dugačka veza--\n"
+
+#: src/list.c:1302
+#, c-format
+msgid "--Long Name--\n"
+msgstr "--Dugačko ime--\n"
+
+#: src/list.c:1306
+#, c-format
+msgid "--Volume Header--\n"
+msgstr "--Zaglavlje sveska--\n"
+
+# FIXME -- clarify against source -- TM
+#: src/list.c:1314
+#, c-format
+msgid "--Continued at byte %s--\n"
+msgstr "--Nastavlja se na bajtu %s--\n"
+
+#: src/list.c:1377
+msgid "Creating directory:"
+msgstr "Kreiranje direktorija:"
+
+#: src/misc.c:738
+#, c-format
+msgid "Renaming %s to %s\n"
+msgstr "%s preimenovan u %s\n"
+
+#: src/misc.c:747 src/misc.c:766
+#, c-format
+msgid "%s: Cannot rename to %s"
+msgstr "%s: Nije moguće preimenovati u %s"
+
+#: src/misc.c:771
+#, c-format
+msgid "Renaming %s back to %s\n"
+msgstr "%s preimenovan natrag u %s\n"
+
+#: src/misc.c:1134
+#, c-format
+msgid "%s: File removed before we read it"
+msgstr "%s: Datoteka je uklonjena prije nego što smo je pročitana"
+
+#: src/misc.c:1148
+msgid "child process"
+msgstr "dijete-proces (potomački proces)"
+
+#: src/misc.c:1157
+msgid "interprocess channel"
+msgstr "međuprocesni kanal"
+
+# bp: možda Izbor imena lokalne datoteke
+#: src/names.c:69
+msgid "Local file name selection:"
+msgstr "Selekcija datoteka za arhiviranje u lokalne arhive:"
+
+#: src/names.c:72
+msgid "add given FILE to the archive (useful if its name starts with a dash)"
+msgstr "doda DATOTEKU u arhivu (korisno ako DATOTECI ime počinje s crticom)"
+
+#: src/names.c:73 src/tar.c:484
+msgid "DIR"
+msgstr "DIR"
+
+#: src/names.c:74
+msgid "change to directory DIR"
+msgstr "prijeđe u direktorij DIR"
+
+#: src/names.c:76
+msgid "get names to extract or create from FILE"
+msgstr "učita iz DATOTEKE imena elemenata za izdvajanje iz arhive ili kreiranje arhive"
+
+# bp: čita s  NULL završena imena....
+#: src/names.c:78
+msgid "-T reads null-terminated names; implies --verbatim-files-from"
+msgstr "-T čita s nul-znakom završena imena, implicira --verbatim-files-from"
+
+#: src/names.c:81
+msgid "disable the effect of the previous --null option"
+msgstr "poništava učinak prethodne --null opcije"
+
+# original TK: ukloni navode imena datoteka pročitanih s -T (zadano)
+#: src/names.c:83
+msgid "unquote input file or member names (default)"
+msgstr "ne citira imena ulazne datoteke ili člana (zadano); v. GNU tar manual"
+
+#: src/names.c:85
+msgid "do not unquote input file or member names"
+msgstr "citira imena ulaznih datoteka ili članova; v. GNU tar manual"
+
+#: src/names.c:87
+msgid "-T reads file names verbatim (no escape or option handling)"
+msgstr "-T doslovno čita imena datoteka (ne bavi se opcijama)"
+
+# bp: novi prijevod, stari fuziran.
+#: src/names.c:89
+msgid "-T treats file names starting with dash as options (default)"
+msgstr "-T tretira nazive datoteka koji počinju s crticom (-) kao opcije (zadano)"
+
+#: src/names.c:91 tests/genfile.c:140
+msgid "PATTERN"
+msgstr "UZORAK"
+
+#: src/names.c:92
+msgid "exclude files, given as a PATTERN"
+msgstr "isključi datoteke podudarene s UZORKOM"
+
+#: src/names.c:94
+msgid "exclude patterns listed in FILE"
+msgstr "isključi datoteke podudarene s uzorcima u DATOTECI"
+
+#: src/names.c:96
+msgid "exclude contents of directories containing CACHEDIR.TAG, except for the tag file itself"
+msgstr "isključi sadržaj direktorija koji sadrže CACHEDIR.TAG osim same CACHEDIR.TAG datoteke; v. GNU tar manual"
+
+#: src/names.c:99
+msgid "exclude everything under directories containing CACHEDIR.TAG"
+msgstr "isključi sve ispod direktorija koji sadrže CACHEDIR.TAG"
+
+#: src/names.c:102
+msgid "exclude directories containing CACHEDIR.TAG"
+msgstr "isključi direktorije koji sadrže CACHEDIR.TAG"
+
+#: src/names.c:104
+msgid "exclude contents of directories containing FILE, except for FILE itself"
+msgstr "isključi sadržaj direktorija koji sadrži DATOTEKU osim same DATOTEKE"
+
+# bp: novi msgid; možda treba FILE ne prevađati?
+# TK: FILE mijenja u DATOTEKA
+#: src/names.c:107
+msgid "read exclude patterns for each directory from FILE, if it exists"
+msgstr "ako DATOTEKA postoji, čita uzorke za isključenje za svaki direktorij iz DATOTEKE"
+
+# bp: novi msgid
+#: src/names.c:110
+msgid "read exclude patterns for each directory and its subdirectories from FILE, if it exists"
+msgstr "ako DATOTEKA postoji, čita uzorke za isključenje za svaki direktorij i njegove poddirektorije iz DATOTEKE"
+
+#: src/names.c:113
+msgid "exclude everything under directories containing FILE"
+msgstr "isključi sve ispod direktorija koji sadrže DATOTEKU"
+
+#: src/names.c:115
+msgid "exclude directories containing FILE"
+msgstr "isključi direktorije koji sadrže DATOTEKU"
+
+#: src/names.c:117
+msgid "exclude version control system directories"
+msgstr "isključi VCS direktorije; v. GNU tar manual"
+
+# bp: novi msgid
+#: src/names.c:119
+msgid "read exclude patterns from the VCS ignore files"
+msgstr "uzorke za isključenje čita iz VCS ignore datoteka"
+
+#: src/names.c:121
+msgid "exclude backup and lock files"
+msgstr "isključi backup (osiguranje) i zaključane datoteke"
+
+#: src/names.c:123
+msgid "recurse into directories (default)"
+msgstr "rekurzivno ulazi u direktorije (zadano)"
+
+#: src/names.c:125
+msgid "avoid descending automatically in directories"
+msgstr "onemogući rekurzivni ulaz u direktorije"
+
+#: src/names.c:130
+msgid "File name matching options (affect both exclude and include patterns):"
+msgstr "Opcije za kontrolu poduraranja imena datoteka s uzorcima (vrijedi za isključenje i za uključenje):"
+
+#: src/names.c:133
+msgid "patterns match file name start"
+msgstr "uzorak mora podudariti početak imena datoteke"
+
+# bp: novi msgid
+#: src/names.c:135
+msgid "patterns match after any '/' (default for exclusion)"
+msgstr "uzorak može podudarati ikoji dio imena datoteke iza svakog „/“ (zadano za isključenje)"
+
+#: src/names.c:137
+msgid "ignore case"
+msgstr "ne razlikuje mala od velikih slova"
+
+# bp: novi msgid
+#: src/names.c:139
+msgid "case sensitive matching (default)"
+msgstr "razlikuje mala od velikih slova (zadano)"
+
+# bp: novi msgid
+# u wget.po naišao sam da je „wildcard“  načnik, pa ga ovdje koristim.
+#: src/names.c:141
+msgid "use wildcards (default for exclusion)"
+msgstr "rabi višeznačnike (zadano za isključenje)"
+
+# bp: novi msgid
+#: src/names.c:143
+msgid "verbatim string matching"
+msgstr "striktno podudaranje stringova"
+
+# bp: novi msgid
+#: src/names.c:145
+msgid "wildcards match '/' (default for exclusion)"
+msgstr "višeznačnik podudara „/“ (zadano za isključenje)"
+
+# originalno TK: Dio arhive %s ne odgovara %s
+#: src/names.c:147
+msgid "wildcards do not match '/'"
+msgstr "višeznačnik ne podudara „/“"
+
+#: src/names.c:733
+msgid "The following options were used after any non-optional arguments in archive create or update mode.  These options are positional and affect only arguments that follow them.  Please, rearrange them properly."
+msgstr "Sljedeće opcije se koriste iza neobveznih argumenata za kreiranje ili ažuriranje arhive. Te opcije su ovisne o položaju i utječu samo na argumente koji ih slijede. Trebate ih ispravno poredati."
+
+#: src/names.c:744
+#, c-format
+msgid "-C %s has no effect"
+msgstr "-C %s nema učinka"
+
+#: src/names.c:749
+#, c-format
+msgid "--%s %s has no effect"
+msgstr "--%s %s nema učinka"
+
+#: src/names.c:753
+#, c-format
+msgid "--%s has no effect"
+msgstr "--%s nema učinka"
+
+# original TK naredba %s nije uspjela
+#: src/names.c:879
+msgid "command line"
+msgstr "naredbeni redak"
+
+# original TK %s: popis datoteka je već pročitan
+#: src/names.c:897
+#, c-format
+msgid "%s: file list requested from %s already read from %s"
+msgstr "%s: zatražen popis datoteka od %s je već pročitan iz %s"
+
+# original TK ne mogu postaviti vrijeme na „%s“
+#: src/names.c:978 src/checkpoint.c:274
+#, c-format
+msgid "cannot split string '%s': %s"
+msgstr "nije moguće rastaviti string „%s“: %s"
+
+#: src/names.c:1025
+#, c-format
+msgid "%s: file name read contains nul character"
+msgstr "%s: pročitano ime datoteke sadrži NULL znak"
+
+#: src/names.c:1358
+msgid "Pattern matching characters used in file names"
+msgstr "Imena datoteka sadrže višeznačnike"
+
+#: src/names.c:1360
+msgid "Use --wildcards to enable pattern matching, or --no-wildcards to suppress this warning"
+msgstr "Rabite --wildcards da omogućite podudaranje s uzorcima, ili --no-wildcards da prigušite ovo upozorenje"
+
+#: src/names.c:1378 src/names.c:1394
+#, c-format
+msgid "%s: Not found in archive"
+msgstr "%s: Nije pronađeno u arhivi"
+
+#: src/names.c:1379
+#, c-format
+msgid "%s: Required occurrence not found in archive"
+msgstr "%s: Zatraženi nalaz nije pronađen u arhivi"
+
+# FIXME -- clean against source! (TM)
+#: src/names.c:1413
+#, c-format
+msgid "Archive label mismatch"
+msgstr "Neslaganje etiketa arhiva"
+
+#: src/names.c:1717
+msgid "Using -C option inside file list is not allowed with --listed-incremental"
+msgstr "Korištenje opcije -C u popisu datoteka nije dopušteno uz --listed-incremental"
+
+#: src/names.c:1723
+msgid "Only one -C option is allowed with --listed-incremental"
+msgstr "Samo jedna opcija -C je dopuštena uz --listed-incremental"
+
+#: src/tar.c:88
+#, c-format
+msgid "Options '%s' and '%s' both want standard input"
+msgstr "Obje opcije „-%s“ i „-%s“ zahtijevaju standardni ulaz"
+
+#: src/tar.c:165
+#, c-format
+msgid "%s: Invalid archive format"
+msgstr "%s: Neispravni format arhive"
+
+#: src/tar.c:197
+msgid "GNU features wanted on incompatible archive format"
+msgstr "Zatražene su GNU značajke za nekompatibilni format arhive"
+
+#: src/tar.c:265
+#, c-format
+msgid "Unknown quoting style '%s'. Try '%s --quoting-style=help' to get a list."
+msgstr "Nepoznat stil citiranja „%s“. Pokušajte „%s --quoting-style=help“ za popis."
+
+#: src/tar.c:354
+msgid ""
+"GNU 'tar' saves many files together into a single tape or disk archive, and can restore individual files from the archive.\n"
+"\n"
+"Examples:\n"
+"  tar -cf archive.tar foo bar  # Create archive.tar from files foo and bar.\n"
+"  tar -tvf archive.tar         # List all files in archive.tar verbosely.\n"
+"  tar -xf archive.tar          # Extract all files from archive.tar.\n"
+msgstr ""
+"GNU tar sprema puno datoteka u arhivu na vrpcu ili na disk i može vratiti pojedinačne datoteke iz arhive.\n"
+"\n"
+"Primjeri:\n"
+"  tar -cf arhiva.tar foo bar   # Kreira arhiva.tar od datoteka foo i bar\n"
+"  tar -tvf arhiva.tar          # Izlista sve datoteke sadržane u arhiva.tar\n"
+"  tar -xf arhiva.tar           # Izdvoji sve datoteke iz arhiva.tar\n"
+
+#: src/tar.c:363
+msgid ""
+"The backup suffix is '~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n"
+"The version control may be set with --backup or VERSION_CONTROL, values are:\n"
+"\n"
+"  none, off       never make backups\n"
+"  t, numbered     make numbered backups\n"
+"  nil, existing   numbered if numbered backups exist, simple otherwise\n"
+"  never, simple   always make simple backups\n"
+msgstr ""
+"Sufiks za osiguranje (sigurnosne kopije) je „~“, ako nije promijenjen s\n"
+"opcijom --suffix ili SIMPLE_BACKUP_SUFFIX.\n"
+"Varijantu kontrole postavite ili s opcijom --backup, ili s VERSION_CONTROL,\n"
+"a moguće vrijednosti za KONTROLU su:\n"
+"\n"
+" none, off       ne praviti osiguranje (sigurnosne kopije)\n"
+" t, numbered     radi numerirane kopije osiguranja\n"
+" nil, existing   numerirane, ako postoje numerirane kopije, inače jednostavne\n"
+" never, simple   uvijek radi jednostavno osiguranje\n"
+
+#: src/tar.c:393
+msgid "Main operation mode:"
+msgstr "Osnovni način rada:"
+
+#: src/tar.c:396
+msgid "list the contents of an archive"
+msgstr "izlista sadržaj arhive"
+
+#: src/tar.c:398
+msgid "extract files from an archive"
+msgstr "izdvoji datoteke iz arhive"
+
+#: src/tar.c:401
+msgid "create a new archive"
+msgstr "kreira novu arhivu"
+
+#: src/tar.c:403
+msgid "find differences between archive and file system"
+msgstr "traži razlike između arhive i datotečnoga sustava"
+
+#: src/tar.c:406
+msgid "append files to the end of an archive"
+msgstr "pridoda datoteke na kraj arhive"
+
+#: src/tar.c:408
+msgid "only append files newer than copy in archive"
+msgstr "doda datoteke, ali samo ako su novije od kopija u arhivi"
+
+#: src/tar.c:410
+msgid "append tar files to an archive"
+msgstr "doda tar datoteke u arhivu"
+
+#: src/tar.c:413
+msgid "delete from the archive (not on mag tapes!)"
+msgstr "ukloni iz arhive (ne i za magnetske vrpce!)"
+
+#: src/tar.c:415
+msgid "test the archive volume label and exit"
+msgstr "testira etiketu sveska arhive, i iziđe"
+
+#: src/tar.c:420
+msgid "Operation modifiers:"
+msgstr "Opcije za dodatno podešavanje:"
+
+#: src/tar.c:423
+msgid "handle sparse files efficiently"
+msgstr "učinkovito obradi raspršene (sparse) datoteke"
+
+# bp: novi msgid
+#: src/tar.c:424
+msgid "TYPE"
+msgstr "POSTUPAK"
+
+# bp: novi msgid
+#: src/tar.c:425
+msgid "technique to detect holes"
+msgstr "postupak za otkrivanje rupa"
+
+#: src/tar.c:426
+msgid "MAJOR[.MINOR]"
+msgstr "MAJOR[.MINOR]"
+
+#: src/tar.c:427
+msgid "set version of the sparse format to use (implies --sparse)"
+msgstr "inačica sparse formata za upotrebu (implicira --sparse)"
+
+#: src/tar.c:429
+msgid "handle old GNU-format incremental backup"
+msgstr "obradi inkrementalno osiguranje (backup) u starom GNU-formatu"
+
+#: src/tar.c:431
+msgid "handle new GNU-format incremental backup"
+msgstr "obradi inkrementalno osiguranje (backup) u novom GNU-formatu"
+
+#: src/tar.c:433
+msgid "dump level for created listed-incremental archive"
+msgstr "BROJ je dump level za arhivu kreiranu s --listed-incremental opcijom"
+
+#: src/tar.c:435
+msgid "do not exit with nonzero on unreadable files"
+msgstr "ne izlazi s neuspjehom zbog nečitljivih datoteka"
+
+#: src/tar.c:437
+msgid "process only the NUMBERth occurrence of each file in the archive; this option is valid only in conjunction with one of the subcommands --delete, --diff, --extract or --list and when a list of files is given either on the command line or via the -T option; NUMBER defaults to 1"
+msgstr "procesira samo BROJ-to pojavljivanje svake datoteke u arhivi. Ova je opcija ispravna samo uz jednu od podnaredbi --delete, --diff, --extract ili --list, te kad je popis datoteka naveden na naredbenom retku, ili uz opciju -T. Zadano BROJ=1"
+
+#: src/tar.c:443
+msgid "archive is seekable"
+msgstr "arhiva dopušta skok na poziciju"
+
+#: src/tar.c:445
+msgid "archive is not seekable"
+msgstr "arhiva ne dopušta skok na poziciju"
+
+#: src/tar.c:447
+msgid "do not check device numbers when creating incremental archives"
+msgstr "ne provjerava broj uređaja pri kreiranju inkrementalnih arhiva"
+
+#: src/tar.c:450
+msgid "check device numbers when creating incremental archives (default)"
+msgstr "provjerava broj uređaja pri stvaranju inkrementalnih arhiva (zadano)"
+
+#: src/tar.c:456
+msgid "Overwrite control:"
+msgstr "Kontrola prepisivanja (pisanjem preko) postojećih datoteka:"
+
+#: src/tar.c:459
+msgid "attempt to verify the archive after writing it"
+msgstr "isproba arhivu nakon što je zapisana"
+
+#: src/tar.c:461
+msgid "remove files after adding them to the archive"
+msgstr "izbriše datoteke nakon što su dodane u arhivu"
+
+# bp: fuzirano
+#: src/tar.c:463
+msgid "don't replace existing files when extracting, treat them as errors"
+msgstr "ne prepiše postojeće datoteke prilikom izdvajanja, tretira ih kao greške"
+
+# bp: fuzirano, dodano
+#: src/tar.c:466
+msgid "don't replace existing files when extracting, silently skip over them"
+msgstr "ne prepiše postojeće datoteke prilikom izdvajanja, jednostavno ih preskoči"
+
+#: src/tar.c:469
+msgid "don't replace existing files that are newer than their archive copies"
+msgstr "ne prepiše postojeće datoteke ako su novije od njihovih kopija u arhivi"
+
+#: src/tar.c:471
+msgid "overwrite existing files when extracting"
+msgstr "prepiše postojeće datoteke prilikom izdvajanja"
+
+#: src/tar.c:473
+msgid "remove each file prior to extracting over it"
+msgstr "izbriše svaku datoteku prije izdvajanja preko nje same"
+
+#: src/tar.c:475
+msgid "empty hierarchies prior to extracting directory"
+msgstr "rekurzivno briše direktorije prije izdvajanja direktorija iz arhive"
+
+#: src/tar.c:477
+msgid "preserve metadata of existing directories"
+msgstr "sačuva metapodatke postojećih direktorija"
+
+#: src/tar.c:479
+msgid "overwrite metadata of existing directories when extracting (default)"
+msgstr "prepiše metapodatke postojećih direktorija prilikom izdvajanja (zadano)"
+
+# original TK prepiši postojeće datoteke pri ekstrakciji
+#: src/tar.c:482
+msgid "preserve existing symlinks to directories when extracting"
+msgstr "sačuva postojeće simboličke veze na direktorije prilikom izdvajanja"
+
+# bp: novi msgid
+#: src/tar.c:485
+msgid "create a subdirectory to avoid having loose files extracted"
+msgstr "napravi poddirektorij da izbjegne izdvajanje neželjenih datoteka (tarbomb)"
+
+#: src/tar.c:491
+msgid "Select output stream:"
+msgstr "Izbor izlaznog potoka (stream):"
+
+#: src/tar.c:494
+msgid "extract files to standard output"
+msgstr "izdvoji datoteke na standardni izlaz"
+
+#: src/tar.c:495 src/tar.c:588 src/tar.c:590 tests/genfile.c:195
+msgid "COMMAND"
+msgstr "NAREDBA"
+
+#: src/tar.c:496
+msgid "pipe extracted files to another program"
+msgstr "proslijedi izdvojene datoteke kroz cijev u program NAREDBA"
+
+#: src/tar.c:498
+msgid "ignore exit codes of children"
+msgstr "ignorira izlazne kodove potomačkih procesa"
+
+#: src/tar.c:500
+msgid "treat non-zero exit codes of children as error"
+msgstr "tretira izlazne kodove potomka različite od nule kao grešku"
+
+#: src/tar.c:505
+msgid "Handling of file attributes:"
+msgstr "Manipuliranje s atributima datoteka:"
+
+#: src/tar.c:508
+msgid "force NAME as owner for added files"
+msgstr "postavi IME kao vlasnika dodanih datoteka"
+
+#: src/tar.c:510
+msgid "force NAME as group for added files"
+msgstr "postavi IME kao grupu dodanih datoteka"
+
+#: src/tar.c:512
+msgid "use FILE to map file owner UIDs and names"
+msgstr "preslika korisničke UID-ove i imena iz DATOTEKE na arhivirane datoteke"
+
+# bp: novi msgid
+#: src/tar.c:514
+msgid "use FILE to map file owner GIDs and names"
+msgstr "preslika korisničke GID-ove i imena iz DATOTEKE na arhivirane datoteke"
+
+#: src/tar.c:515 src/tar.c:700
+msgid "DATE-OR-FILE"
+msgstr "DATUM-ILI-DATOTEKA"
+
+#: src/tar.c:516
+msgid "set mtime for added files from DATE-OR-FILE"
+msgstr "primijeni vrijeme izmjene (mtime) na dodane datoteke iz DATUM-ILI-DATOTEKA"
+
+#: src/tar.c:518
+msgid "only set time when the file is more recent than what was given with --mtime"
+msgstr "primijeni vrijeme samo ako je datoteka novija od --mtime"
+
+#: src/tar.c:519
+msgid "CHANGES"
+msgstr "PROMJENE"
+
+#: src/tar.c:520
+msgid "force (symbolic) mode CHANGES for added files"
+msgstr "prisilno primjeni (simboličke) PROMJENE na dodane datoteke"
+
+#: src/tar.c:522
+msgid "METHOD"
+msgstr "NAČIN"
+
+#: src/tar.c:523
+msgid "preserve access times on dumped files, either by restoring the times after reading (METHOD='replace'; default) or by not setting the times in the first place (METHOD='system')"
+msgstr "očuvati vremena pristupa arhiviranih datoteka vraćanjem vremena nakon čitanja (NAČIN='replace'; zadano), ili ne postavljanjem vremena (NAČIN='system')"
+
+#: src/tar.c:527
+msgid "don't extract file modified time"
+msgstr "ne izdvaja vrijeme izmjene datoteke"
+
+#: src/tar.c:529
+msgid "try extracting files with the same ownership as exists in the archive (default for superuser)"
+msgstr "pokuša izdvojiti datoteke s istim vlasništvom kakvo je u arhivi (zadano za administratora)"
+
+#: src/tar.c:531
+msgid "extract files as yourself (default for ordinary users)"
+msgstr "datoteke izdvoji kao svoje vlastite (zadano za obične korisnike)"
+
+#: src/tar.c:533
+msgid "always use numbers for user/group names"
+msgstr "uvijek rabi brojke umjesto imena za korisnika/grupu"
+
+#: src/tar.c:535
+msgid "extract information about file permissions (default for superuser)"
+msgstr "izvadi informacije o pravima dostupa datoteci (zadano za administratora)"
+
+#: src/tar.c:539
+msgid "apply the user's umask when extracting permissions from the archive (default for ordinary users)"
+msgstr "primijeni korisnikov umask prilikom izdvajanja prava dostupa iz arhive (zadano za obične korisnike)"
+
+# bp: novi msgid
+#: src/tar.c:541
+msgid "member arguments are listed in the same order as the files in the archive"
+msgstr "argumenti članova su popisani u istom poretku kao datoteke u arhivi"
+
+#: src/tar.c:545
+msgid "delay setting modification times and permissions of extracted directories until the end of extraction"
+msgstr "odgodi postavljanje vremena izmjene i prava dostupa izdvojenih direktorija do svršetka izdvajanja"
+
+#: src/tar.c:548
+msgid "cancel the effect of --delay-directory-restore option"
+msgstr "poništi utjecaj opcije --delay-directory-restore"
+
+# bp: novi msgid
+#: src/tar.c:549
+msgid "ORDER"
+msgstr "POREDAK"
+
+# bp: novi msid
+#: src/tar.c:551
+msgid "directory sorting order: none (default), name or inode"
+msgstr "poreda direktorije po: none (zadano), name ili inode"
+
+# bp: novi msgid
+#: src/tar.c:553
+msgid "directory sorting order: none (default) or name"
+msgstr "poreda direktorije po: none (zadano) ili name"
+
+# bp: fuzirano; dodano
+#: src/tar.c:560
+msgid "Handling of extended file attributes:"
+msgstr "Manipuliranje s proširenim atributima datoteka:"
+
+# bp: novi msgid
+#: src/tar.c:563
+msgid "Enable extended attributes support"
+msgstr "Omogući podršku za proširene atribute"
+
+#: src/tar.c:565
+msgid "Disable extended attributes support"
+msgstr "Onemogući podršku za proširene atribute"
+
+# bp: sljedećih sedam novih mgsgid-ova
+#: src/tar.c:566 src/tar.c:568
+msgid "MASK"
+msgstr "MASKA"
+
+#: src/tar.c:567
+msgid "specify the include pattern for xattr keys"
+msgstr "specificira uključi-uzorak za xattr ključeve"
+
+#: src/tar.c:569
+msgid "specify the exclude pattern for xattr keys"
+msgstr "specificira isključi-uzorak za xattr ključeve"
+
+#: src/tar.c:571
+msgid "Enable the SELinux context support"
+msgstr "Omogući SELinux kontekstnu podršku"
+
+#: src/tar.c:573
+msgid "Disable the SELinux context support"
+msgstr "Onemogući SELinux kontekstnu podršku"
+
+#: src/tar.c:575
+msgid "Enable the POSIX ACLs support"
+msgstr "Omogući podršku za POSIX ACLs"
+
+#: src/tar.c:577
+msgid "Disable the POSIX ACLs support"
+msgstr "Onemogući podršku za POSIX ACLs"
+
+#: src/tar.c:582
+msgid "Device selection and switching:"
+msgstr "Izbor i zamjena uređaja:"
+
+#: src/tar.c:584
+msgid "ARCHIVE"
+msgstr "ARHIVA"
+
+#: src/tar.c:585
+msgid "use archive file or device ARCHIVE"
+msgstr "rabi arhiviranu datoteku ili uređaj ARHIVA"
+
+#: src/tar.c:587
+msgid "archive file is local even if it has a colon"
+msgstr "arhivirana datoteka je lokalna iako sadrži dvotočku „:“"
+
+#: src/tar.c:589
+msgid "use given rmt COMMAND instead of rmt"
+msgstr "rabi navedenu rmt NAREDBU umjesto rmt"
+
+#: src/tar.c:591
+msgid "use remote COMMAND instead of rsh"
+msgstr "rabi udaljenu NAREDBU umjesto rsh"
+
+#: src/tar.c:595
+msgid "specify drive and density"
+msgstr "specifikacija uređaja i gustoće pisanja"
+
+# FIXME -- volume -- find more suitable (ask others) -- TM
+#: src/tar.c:609
+msgid "create/list/extract multi-volume archive"
+msgstr "napraviti/izlistati/izdvojiti višesvezačne arhive"
+
+#: src/tar.c:611
+msgid "change tape after writing NUMBER x 1024 bytes"
+msgstr "promijeni vrpcu nakon zapisivanja BROJ x 1024 bajtova"
+
+#: src/tar.c:613
+msgid "run script at end of each tape (implies -M)"
+msgstr "pokrene skriptu na kraju svake vrpce (podrazumijeva -M)"
+
+#: src/tar.c:616
+msgid "use/update the volume number in FILE"
+msgstr "rabi/ažurira broj sveska u DATOTECI"
+
+#: src/tar.c:621
+msgid "Device blocking:"
+msgstr "Uređaj i blokovi:"
+
+#: src/tar.c:623
+msgid "BLOCKS"
+msgstr "BLOKOVI"
+
+#: src/tar.c:624
+msgid "BLOCKS x 512 bytes per record"
+msgstr "BLOKOVI x 512 bajtova po zapisu"
+
+#: src/tar.c:626
+msgid "NUMBER of bytes per record, multiple of 512"
+msgstr "BROJ bajtova po zapisu, višekratnik od 512"
+
+#: src/tar.c:628
+msgid "ignore zeroed blocks in archive (means EOF)"
+msgstr "ignorira blokove s nulom u arhivi (to jest EOF)"
+
+#: src/tar.c:630
+msgid "reblock as we read (for 4.2BSD pipes)"
+msgstr "obnovi blokove u tijeku čitanja (za 4.2BSD cijevi)"
+
+#: src/tar.c:635
+msgid "Archive format selection:"
+msgstr "Selekcija formata arhive:"
+
+#: src/tar.c:637 tests/genfile.c:158
+msgid "FORMAT"
+msgstr "FORMAT"
+
+#: src/tar.c:638
+msgid "create archive of the given format"
+msgstr "kreira arhivu danog formata"
+
+#: src/tar.c:640
+msgid "FORMAT is one of the following:"
+msgstr "FORMAT je jedan od:"
+
+#: src/tar.c:641
+msgid "old V7 tar format"
+msgstr "stari format tar V7"
+
+#: src/tar.c:644
+msgid "GNU format as per tar <= 1.12"
+msgstr "GNU format za tar <= 1.12"
+
+#: src/tar.c:646
+msgid "GNU tar 1.13.x format"
+msgstr "GNU tar 1.13.x format"
+
+#: src/tar.c:648
+msgid "POSIX 1003.1-1988 (ustar) format"
+msgstr "POSIX 1003.1-1988 (ustar) format"
+
+#: src/tar.c:650
+msgid "POSIX 1003.1-2001 (pax) format"
+msgstr "POSIX 1003.1-2001 (pax) format"
+
+#: src/tar.c:651
+msgid "same as pax"
+msgstr "isto kao pax"
+
+#: src/tar.c:654
+msgid "same as --format=v7"
+msgstr "isto kao --format=v7"
+
+#: src/tar.c:657
+msgid "same as --format=posix"
+msgstr "isto kao --format=posix"
+
+#: src/tar.c:658
+msgid "keyword[[:]=value][,keyword[[:]=value]]..."
+msgstr "keyword[[:]=vrijednost][,keyword[[:]=vrijednost]]..."
+
+#: src/tar.c:659
+msgid "control pax keywords"
+msgstr "kontrolira pax ključne riječi"
+
+#: src/tar.c:660
+msgid "TEXT"
+msgstr "TEKST"
+
+#: src/tar.c:661
+msgid "create archive with volume name TEXT; at list/extract time, use TEXT as a globbing pattern for volume name"
+msgstr "kreira arhivu s imenom sveska TEKST; pri listanju/izdvajanju rabi TEKST kao globbing uzorak za ime sveska"
+
+#: src/tar.c:666
+msgid "Compression options:"
+msgstr "Opcije za kompresiju:"
+
+#: src/tar.c:668
+msgid "use archive suffix to determine the compression program"
+msgstr "arhivin sufiks određuje program za kompresiju"
+
+#: src/tar.c:670
+msgid "do not use archive suffix to determine the compression program"
+msgstr "arhivin sufiks ne određuje program za kompresiju"
+
+#: src/tar.c:672
+msgid "PROG"
+msgstr "PROGRAM"
+
+#: src/tar.c:673
+msgid "filter through PROG (must accept -d)"
+msgstr "filtrira arhivu kroz PROGRAM (mora prihvatiti -d)"
+
+#: src/tar.c:689
+msgid "Local file selection:"
+msgstr "Selekcija lokalnih datoteka:"
+
+#: src/tar.c:691
+msgid "stay in local file system when creating archive"
+msgstr "kreira arhivu u lokalnom datotečnom sustavu"
+
+#: src/tar.c:693
+msgid "don't strip leading '/'s from file names"
+msgstr "ne skida početne „/“ iz imena datoteka"
+
+#: src/tar.c:695
+msgid "follow symlinks; archive and dump the files they point to"
+msgstr "slijedi simboličke veze; arhivira i sprema datoteke u koje veze gađaju"
+
+#: src/tar.c:697
+msgid "follow hard links; archive and dump the files they refer to"
+msgstr "slijedi čvrste veze; arhivira i sprema datoteke na koje veze pokazuju"
+
+#: src/tar.c:698
+msgid "MEMBER-NAME"
+msgstr "IME-ČLANA"
+
+#: src/tar.c:699
+msgid "begin at member MEMBER-NAME when reading the archive"
+msgstr "čitanje arhive započeti s članom IME-ČLANA"
+
+#: src/tar.c:701
+msgid "only store files newer than DATE-OR-FILE"
+msgstr "sprema samo datoteke novije od DATUM-ILI-DATOTEKA"
+
+#: src/tar.c:703
+msgid "DATE"
+msgstr "DATUM"
+
+#: src/tar.c:704
+msgid "compare date and time when data changed only"
+msgstr "usporedi datum i vrijeme, ali samo ako su podaci promijenjeni; testira samo mtime"
+
+#: src/tar.c:705
+msgid "CONTROL"
+msgstr "KONTROLA"
+
+#: src/tar.c:706
+msgid "backup before removal, choose version CONTROL"
+msgstr "osiguranje (sigurnosne kopije) napravi prije uklanjanja; odaberite varijantu KONTROLE"
+
+#: src/tar.c:707 src/tar.c:766 src/tar.c:768 tests/genfile.c:174
+msgid "STRING"
+msgstr "STRING"
+
+#: src/tar.c:708
+msgid "backup before removal, override usual suffix ('~' unless overridden by environment variable SIMPLE_BACKUP_SUFFIX)"
+msgstr "osiguranje (sigurnosne kopije) napravi prije uklanjanja, promijeni uobičajeni sufiks „~“ (ako nije promijenjen varijablom okoline SIMPLE_BACKUP_SUFFIX) u STRING"
+
+#: src/tar.c:713
+msgid "File name transformations:"
+msgstr "Transformacija imena datoteka:"
+
+#: src/tar.c:715
+msgid "strip NUMBER leading components from file names on extraction"
+msgstr "skine BROJ vodećih komponenti iz imena datoteka prilikom izdvajanja"
+
+#: src/tar.c:717
+msgid "EXPRESSION"
+msgstr "IZRAZ"
+
+#: src/tar.c:718
+msgid "use sed replace EXPRESSION to transform file names"
+msgstr "transformacija imena datoteka upotrebom sed IZRAZA"
+
+#: src/tar.c:724
+msgid "Informative output:"
+msgstr "Informativni izlaz:"
+
+#: src/tar.c:727
+msgid "verbosely list files processed"
+msgstr "izlista procesirane datoteke"
+
+#: src/tar.c:728
+msgid "KEYWORD"
+msgstr "KLJUČNA_RIJEČ"
+
+#: src/tar.c:729
+msgid "warning control"
+msgstr "upravljanje s upozorenjima"
+
+#: src/tar.c:731
+msgid "display progress messages every NUMBERth record (default 10)"
+msgstr "poruke o progresu pokaže svakih BROJ zapisa (zadano 10)"
+
+#: src/tar.c:733
+msgid "ACTION"
+msgstr "AKCIJA"
+
+#: src/tar.c:734
+msgid "execute ACTION on each checkpoint"
+msgstr "izvrši AKCIJU na svakoj kontrolnoj točki"
+
+#: src/tar.c:737
+msgid "print a message if not all links are dumped"
+msgstr "ispiše poruku ako sve veze nisu arhivirane"
+
+#: src/tar.c:738
+msgid "SIGNAL"
+msgstr "SIGNAL"
+
+#: src/tar.c:739
+msgid "print total bytes after processing the archive; with an argument - print total bytes when this SIGNAL is delivered; Allowed signals are: SIGHUP, SIGQUIT, SIGINT, SIGUSR1 and SIGUSR2; the names without SIG prefix are also accepted"
+msgstr "ispiše ukupan broj bajtova nakon obrade arhive; s argumentom - ispiše ukupan broj bajtova nakon primanja ovog SIGNALA. Dopušteni signali su: SIGHUP, SIGQUIT, SIGINT, SIGUSR1 i SIGUSR2; prihvaćaju se također i imena bez SIG prefiksa"
+
+#: src/tar.c:744
+msgid "print file modification times in UTC"
+msgstr "ispiše vremena izmjene datoteka u UTC-u"
+
+#: src/tar.c:746
+msgid "print file time to its full resolution"
+msgstr "ispis (u punoj rezoluciji) vremena datoteka"
+
+#: src/tar.c:748
+msgid "send verbose output to FILE"
+msgstr "pošalje opširan izlaz u DATOTEKU"
+
+#: src/tar.c:750
+msgid "show block number within archive with each message"
+msgstr "broj bloka u arhivi u svakoj poruci"
+
+#: src/tar.c:752
+msgid "ask for confirmation for every action"
+msgstr "pita za potvrdu za svaku akciju"
+
+#: src/tar.c:755
+msgid "show tar defaults"
+msgstr "zadane (defaults) tar postavke"
+
+# bp: novi msgid
+#: src/tar.c:757
+msgid "show valid ranges for snapshot-file fields"
+msgstr "valjani rasponi za polja snapshot-datoteke"
+
+#: src/tar.c:759
+msgid "when listing or extracting, list each directory that does not match search criteria"
+msgstr "pri listanju ili izdvajanju ispiše svaki direktorij koji se ne podurara s uvjetima pretraživanja"
+
+#: src/tar.c:761
+msgid "show file or archive names after transformation"
+msgstr "imena datoteka ili arhiva nakon transformacije"
+
+#: src/tar.c:764
+msgid "STYLE"
+msgstr "STIL"
+
+#: src/tar.c:765
+msgid "set name quoting style; see below for valid STYLE values"
+msgstr "stil citiranja imena; pogledajte niže valjane vrijednosti za STIL"
+
+#: src/tar.c:767
+msgid "additionally quote characters from STRING"
+msgstr "dodatno uvijek citira i znakove iz STRINGA"
+
+#: src/tar.c:769
+msgid "disable quoting for characters from STRING"
+msgstr "onemogući citiranje znakova iz STRINGA"
+
+#: src/tar.c:774
+msgid "Compatibility options:"
+msgstr "Opcije za kompatibilnost:"
+
+#: src/tar.c:777
+msgid "when creating, same as --old-archive; when extracting, same as --no-same-owner"
+msgstr "pri kreiranju isto kao --old-archive; pri izdvajanju isto kao --no-same-owner"
+
+#: src/tar.c:782
+msgid "Other options:"
+msgstr "Ostale opcije:"
+
+#: src/tar.c:785
+msgid "disable use of some potentially harmful options"
+msgstr "deaktivira nekoliko potencijalno opasnih opcija"
+
+# bp: fuziran, dotjeran
+#. TRANSLATORS: Both %s in this statement are replaced with
+#. option names.
+#: src/tar.c:845
+#, c-format
+msgid "'%s' cannot be used with '%s'"
+msgstr "„%s“: ne može se rabiti s „%s“"
+
+# bp: fuziran, dodana
+#: src/tar.c:933
+msgid "You may not specify more than one '-Acdtrux', '--delete' or  '--test-label' option"
+msgstr "Smijete navesti samo jednu od opcija „-Acdtrux“, „--delete“ ili „--test-label“"
+
+#: src/tar.c:945
+msgid "Conflicting compression options"
+msgstr "Konfliktne opcije za kompresiju"
+
+#: src/tar.c:1004
+#, c-format
+msgid "Unknown signal name: %s"
+msgstr "Nepoznato ime signala: %s"
+
+#: src/tar.c:1028
+msgid "Date sample file not found"
+msgstr "Datoteka s uzorkom datuma nije pronađena"
+
+#: src/tar.c:1036
+#, c-format
+msgid "Substituting %s for unknown date format %s"
+msgstr "S(a) %s zamijenjuje se nepoznati format datuma %s"
+
+#: src/tar.c:1065
+#, c-format
+msgid "Option %s: Treating date '%s' as %s"
+msgstr "Opcija %s: Datum „%s“ tretira se kao %s"
+
+#: src/tar.c:1105 src/tar.c:1109 src/tar.c:1113 src/tar.c:1117 src/tar.c:1121
+#: src/tar.c:1125 src/tar.c:1129
+#, c-format
+msgid "filter the archive through %s"
+msgstr "filtrira arhivu kroz %s"
+
+#: src/tar.c:1137
+msgid "Valid arguments for the --quoting-style option are:"
+msgstr "Valjane vrijednosti za opciju --quoting-style su:"
+
+#: src/tar.c:1141
+msgid ""
+"\n"
+"*This* tar defaults to:\n"
+msgstr ""
+"\n"
+"Uobičajeno ponašanje *ovog* programa tar je:\n"
+
+# bp: fuzirano, dodano
+#: src/tar.c:1253
+msgid "Invalid owner or group ID"
+msgstr "Neispravni vlasnik ili ID grupe"
+
+#: src/tar.c:1347
+msgid "Invalid blocking factor"
+msgstr "Neispravna veličina bloka"
+
+#: src/tar.c:1467
+msgid "Invalid tape length"
+msgstr "Neispravna duljina vrpce"
+
+#: src/tar.c:1481
+msgid "Invalid incremental level value"
+msgstr "Neispravna vrijednost za inkrement razine"
+
+#: src/tar.c:1527
+msgid "More than one threshold date"
+msgstr "Više od jednog praga datuma"
+
+#: src/tar.c:1594 src/tar.c:1597
+msgid "Invalid sparse version value"
+msgstr "Neispravna vrijednost za sparse verziju (sparse version)"
+
+#: src/tar.c:1661
+msgid "--atime-preserve='system' is not supported on this platform"
+msgstr "--atime-preserve='system' opcija nije podržana na ovoj platformi"
+
+#: src/tar.c:1686
+msgid "--checkpoint value is not an integer"
+msgstr "vrijednost --checkpoint nije cijeli broj"
+
+#: src/tar.c:1764
+msgid "Invalid mode given on option"
+msgstr "U opciji je naveden neispravni format prava dostupa"
+
+#: src/tar.c:1797
+msgid "Invalid number"
+msgstr "Neispravni broj"
+
+#: src/tar.c:1861
+msgid "Invalid record size"
+msgstr "Neispravna veličina zapisa"
+
+#: src/tar.c:1864
+#, c-format
+msgid "Record size must be a multiple of %d."
+msgstr "Veličina zapisa mora biti višekratnik od %d."
+
+#: src/tar.c:1910
+msgid "Invalid number of elements"
+msgstr "Neispravan broj elemenata"
+
+#: src/tar.c:1935
+msgid "Only one --to-command option allowed"
+msgstr "Dopuštena je samo jedna opcija --to-command"
+
+#: src/tar.c:2023
+#, c-format
+msgid "Malformed density argument: %s"
+msgstr "Deformirani argument gustoće: %s"
+
+#: src/tar.c:2049
+#, c-format
+msgid "Unknown density: '%c'"
+msgstr "Nepoznata gustoća: „%c“"
+
+#: src/tar.c:2066
+#, c-format
+msgid "Options '-[0-7][lmh]' not supported by *this* tar"
+msgstr "Opcije „-[0-7][lmh]“ *ovaj* tar ne podržava"
+
+# bp: novi msgid
+#: src/tar.c:2073
+#, c-format
+msgid "%s:%lu: location of the error"
+msgstr "%s:%lu: mjesto greške"
+
+# bp: fuzirano, dotjerano
+#: src/tar.c:2076
+#, c-format
+msgid "error parsing %s"
+msgstr "greška pri analizi %s"
+
+#: src/tar.c:2090
+msgid "[FILE]..."
+msgstr "[DATOTEKA]..."
+
+# bp: fuzirano, popravljeno
+#: src/tar.c:2181
+#, c-format
+msgid "non-option arguments in %s"
+msgstr "argumenti, koji nisu opcije u %s"
+
+# bp: novi msgid
+#: src/tar.c:2196
+#, c-format
+msgid "cannot split TAR_OPTIONS: %s"
+msgstr "nije moguće razdijeliti TAR_OPTIONS: %s"
+
+#: src/tar.c:2291
+#, c-format
+msgid "Old option '%c' requires an argument."
+msgstr "Stara opcija „%c“ zahtijeva argument."
+
+#: src/tar.c:2364
+msgid "--occurrence is meaningless without a file list"
+msgstr "--occurrence nema smisla bez popisa datoteka"
+
+#: src/tar.c:2390
+msgid "Multiple archive files require '-M' option"
+msgstr "Više arhivskih datoteka zahtijeva opciju „-M“"
+
+#: src/tar.c:2407
+msgid "--level is meaningless without --listed-incremental"
+msgstr "--level nema smisla bez --listed-incremental"
+
+#: src/tar.c:2424
+#, c-format
+msgid "%s: Volume label is too long (limit is %lu byte)"
+msgid_plural "%s: Volume label is too long (limit is %lu bytes)"
+msgstr[0] "%s: Etiketa sveska je preduga (ograničenje je %lu bajt)"
+msgstr[1] "%s: Etiketa sveska je preduga (ograničenje je %lu bajta)"
+msgstr[2] "%s: Etiketa sveska je preduga (ograničenje je %lu bajtova)"
+
+#: src/tar.c:2437
+msgid "Cannot verify multi-volume archives"
+msgstr "Nemoguće je provjeriti svezačne arhive"
+
+#: src/tar.c:2439
+msgid "Cannot verify compressed archives"
+msgstr "Nije moguće provjeriti komprimirane arhive"
+
+#: src/tar.c:2453
+msgid "Cannot use multi-volume compressed archives"
+msgstr "Nemoguće je rabiti višesvezačne komprimirane arhive"
+
+#: src/tar.c:2457
+msgid "Cannot concatenate compressed archives"
+msgstr "Nije moguće spojiti komprimirane arhive"
+
+#: src/tar.c:2464
+msgid "--clamp-mtime needs a date specified using --mtime"
+msgstr "opcija --clamp-mtime zahtijeva datum specificiran s --mtime"
+
+#: src/tar.c:2474
+msgid "--pax-option can be used only on POSIX archives"
+msgstr "--pax-option može se rabiti samo na POSIX arhivama"
+
+# bp: fuzirano, popravljeno
+#: src/tar.c:2481
+msgid "--acls can be used only on POSIX archives"
+msgstr "--acls može se rabiti samo na POSIX arhivama"
+
+# bp: fuzirano, popravljeno
+#: src/tar.c:2486
+msgid "--selinux can be used only on POSIX archives"
+msgstr "--selinux može se rabiti samo na POSIX arhivama"
+
+# bp: fuzirano, popravljeno
+#: src/tar.c:2491
+msgid "--xattrs can be used only on POSIX archives"
+msgstr "--xattrs može se rabiti samo na POSIX arhivama"
+
+# bp: novi msgid
+#: src/tar.c:2540
+msgid "Cannot deduce top-level directory name; please set it explicitly with --one-top-level=DIR"
+msgstr "Nije moguće odrediti ime vrhovnoga direktorija; specificirajte ga eksplicitno s --one-top-level=DIR"
+
+#: src/tar.c:2573
+msgid "Volume length cannot be less than record size"
+msgstr "Duljina sveska ne može biti manja od veličine zapisa"
+
+# LOL -- TM
+#: src/tar.c:2597
+msgid "Cowardly refusing to create an empty archive"
+msgstr "Pravljenje prazne arhive se kukavički odbija"
+
+#: src/tar.c:2623
+msgid "Options '-Aru' are incompatible with '-f -'"
+msgstr "Opcije „-Aru“ nisu kompatibilne s „-f -“"
+
+# bp: fuzirano, popravljeno
+#: src/tar.c:2711
+msgid "You must specify one of the '-Acdtrux', '--delete' or '--test-label' options"
+msgstr "Morate navesti jednu od opcija „-Acdtrux“, „--delete“ ili „--test-label“"
+
+#: src/tar.c:2768
+#, c-format
+msgid "Exiting with failure status due to previous errors"
+msgstr "Izlaz sa statusom neuspjeha zbog prethodnih grešaka"
+
+#: src/update.c:87
+#, c-format
+msgid "%s: File shrank by %s byte"
+msgid_plural "%s: File shrank by %s bytes"
+msgstr[0] "%s: Datoteka skraćena za %s bajt"
+msgstr[1] "%s: Datoteka skraćena za %s bajta"
+msgstr[2] "%s: Datoteka skraćena za %s bajtova"
+
+#: src/xheader.c:165
+#, c-format
+msgid "Keyword %s is unknown or not yet implemented"
+msgstr "Ključna riječ %s je nepoznata ili još nije implementirana"
+
+#: src/xheader.c:174
+msgid "Time stamp is out of allowed range"
+msgstr "Vremenska oznaka je izvan dopuštenoga raspona"
+
+#: src/xheader.c:205
+#, c-format
+msgid "Pattern %s cannot be used"
+msgstr "Uzorak %s se ne može rabiti"
+
+#: src/xheader.c:219
+#, c-format
+msgid "Keyword %s cannot be overridden"
+msgstr "Ključnu riječ %s nije moguće prepisati (nadjačati)"
+
+#: src/xheader.c:668
+msgid "Malformed extended header: missing length"
+msgstr "Deformirano prošireno zaglavlje: nedostaje duljina"
+
+#: src/xheader.c:677
+#, c-format
+msgid "Extended header length %*s is out of range"
+msgstr "Duljina proširenog zaglavlja %*s je izvan raspona"
+
+#: src/xheader.c:689
+msgid "Malformed extended header: missing blank after length"
+msgstr "Deformirano prošireno zaglavlje: nedostaje praznina nakon duljine"
+
+#: src/xheader.c:697
+msgid "Malformed extended header: missing equal sign"
+msgstr "Deformirano prošireno zaglavlje: nedostaje znak jednakosti"
+
+#: src/xheader.c:703
+msgid "Malformed extended header: missing newline"
+msgstr "Deformirano prošireno zaglavlje: nedostaje novi redak (newline)"
+
+#: src/xheader.c:741
+#, c-format
+msgid "Ignoring unknown extended header keyword '%s'"
+msgstr "Ignorira se nepoznata ključna riječ proširenog zaglavlja „%s“"
+
+#: src/xheader.c:1023
+#, c-format
+msgid "Generated keyword/value pair is too long (keyword=%s, length=%s)"
+msgstr "Predugi generirani par ključna_riječ/vrijednost (ključna_riječ=%s, duljina=%s)"
+
+#. TRANSLATORS: The first %s is the pax extended header keyword
+#. (atime, gid, etc.).
+#: src/xheader.c:1053
+#, c-format
+msgid "Extended header %s=%s is out of range %s..%s"
+msgstr "Prošireno zaglavlje %s=%s je izvan raspona %s..%s"
+
+#: src/xheader.c:1104 src/xheader.c:1137 src/xheader.c:1487
+#, c-format
+msgid "Malformed extended header: invalid %s=%s"
+msgstr "Deformirano proširenje zaglavlja: neispravni %s=%s"
+
+#: src/xheader.c:1440 src/xheader.c:1465 src/xheader.c:1520
+#, c-format
+msgid "Malformed extended header: excess %s=%s"
+msgstr "Deformirano prošireno zaglavlje: suvišan %s=%s"
+
+#: src/xheader.c:1533
+#, c-format
+msgid "Malformed extended header: invalid %s: unexpected delimiter %c"
+msgstr "Deformirano proširenje zaglavlja: neispravni %s: neočekivani međaš %c"
+
+#: src/xheader.c:1543
+#, c-format
+msgid "Malformed extended header: invalid %s: odd number of values"
+msgstr "Deformirano proširenje zaglavlja: neispravni %s: neparan broj vrijednosti"
+
+#: src/checkpoint.c:114
+#, c-format
+msgid "%s: not a valid timeout"
+msgstr "%s: nije ispravno vremensko ograničenje (timeout)"
+
+#: src/checkpoint.c:121
+#, c-format
+msgid "%s: unknown checkpoint action"
+msgstr "%s: nepoznata akcija kontrolne točke"
+
+#: src/checkpoint.c:202
+msgid "write"
+msgstr "pisati"
+
+#: src/checkpoint.c:202
+msgid "read"
+msgstr "(u/pro)čitati"
+
+#. TRANSLATORS: This is a "checkpoint of write operation",
+#. *not* "Writing a checkpoint".
+#. E.g. in Spanish "Punto de comprobaci@'on de escritura",
+#. *not* "Escribiendo un punto de comprobaci@'on"
+#: src/checkpoint.c:218
+#, c-format
+msgid "Write checkpoint %u"
+msgstr "Zapisati kontrolnu točku %u"
+
+#. TRANSLATORS: This is a "checkpoint of read operation",
+#. *not* "Reading a checkpoint".
+#. E.g. in Spanish "Punto de comprobaci@'on de lectura",
+#. *not* "Leyendo un punto de comprobaci@'on"
+#: src/checkpoint.c:224
+#, c-format
+msgid "Read checkpoint %u"
+msgstr "Učitati kontrolnu točku %u"
+
+#: tests/genfile.c:115
+msgid ""
+"genfile manipulates data files for GNU paxutils test suite.\n"
+"OPTIONS are:\n"
+msgstr ""
+"genfile rukuje podatkovnim datotekama GNU paxutils testsuite.\n"
+"OPCIJE su:\n"
+
+#: tests/genfile.c:131
+msgid "File creation options:"
+msgstr "Opcije za kreiranje datoteka:"
+
+#: tests/genfile.c:132 tests/genfile.c:143
+msgid "SIZE"
+msgstr "VELIČINA"
+
+#: tests/genfile.c:133
+msgid "Create file of the given SIZE"
+msgstr "Kreiranje datoteke dane VELIČINE"
+
+#: tests/genfile.c:135
+msgid "Write to file NAME, instead of standard output"
+msgstr "Piši u datoteku IME umjesto na standardni izlaz"
+
+#: tests/genfile.c:137
+msgid "Read file names from FILE"
+msgstr "Učitati imena datoteka iz DATOTEKE"
+
+#: tests/genfile.c:139
+msgid "-T reads null-terminated names"
+msgstr "-T čita imena završena praznim (null) znakom"
+
+#: tests/genfile.c:141
+msgid "Fill the file with the given PATTERN. PATTERN is 'default' or 'zeros'"
+msgstr "Popuni datoteku s navedenim UZORKOM. UZORAK je „default“ ili „zeros“"
+
+#: tests/genfile.c:144
+msgid "Size of a block for sparse file"
+msgstr "Veličina bloka za raspršenu (sparse) datoteku"
+
+#: tests/genfile.c:146
+msgid "Generate sparse file. Rest of the command line gives the file map."
+msgstr "Generira raspršenu (sparse) datoteku. Ostatak naredbe zada mapu datoteke."
+
+#: tests/genfile.c:148
+msgid "OFFSET"
+msgstr "ODMAK"
+
+#: tests/genfile.c:149
+msgid "Seek to the given offset before writing data"
+msgstr "Otiđe na zadani odmak prije pisanja podataka"
+
+#: tests/genfile.c:152
+msgid "Suppress non-fatal diagnostic messages"
+msgstr "Priguši sve dijagnostičke poruke koje nisu fatalne"
+
+#: tests/genfile.c:156
+msgid "File statistics options:"
+msgstr "Opcije za statistiku datoteka:"
+
+#: tests/genfile.c:159
+msgid "Print contents of struct stat for each given file. Default FORMAT is: "
+msgstr "Ispiše sadržaj struct stat za svaku navedenu datoteku. Standardni FORMAT je: "
+
+#: tests/genfile.c:166
+msgid "Synchronous execution options:"
+msgstr "Opcije sinkronog izvršavanja:"
+
+#: tests/genfile.c:168
+msgid "OPTION"
+msgstr "OPCIJA"
+
+#: tests/genfile.c:169
+msgid "Execute ARGS. Useful with --checkpoint and one of --cut, --append, --touch, --unlink"
+msgstr "Izvrši ARGUMENTE. Korisno uz --checkpoint i jednu od opcija --cut, --append, --touch, --unlink"
+
+#: tests/genfile.c:172
+msgid "Perform given action (see below) upon reaching checkpoint NUMBER"
+msgstr "Izvrši dane akcije (v. dolje) pri dostizanju kontrolne točke BROJ"
+
+#: tests/genfile.c:175
+msgid "Set date for next --touch option"
+msgstr "Zadaje datum za sljedeću --touch opciju"
+
+#: tests/genfile.c:178
+msgid "Display executed checkpoints and exit status of COMMAND"
+msgstr "Pokaže izvršene kontrolne točke i izlazni status NAREDBE"
+
+#: tests/genfile.c:183
+msgid "Synchronous execution actions. These are executed when checkpoint number given by --checkpoint option is reached."
+msgstr "Sinkrono izvršene akcije. Izvršavaju se kad se dostigne broj kontrolne točke dan opcijom --checkpoint."
+
+#: tests/genfile.c:186
+msgid "Truncate FILE to the size specified by previous --length option (or 0, if it is not given)"
+msgstr "Skrati DATOTEKU na veličinu zadanu prethodnom opcijom --length (ili 0 ako veličina nije dana)"
+
+#: tests/genfile.c:190
+msgid "Append SIZE bytes to FILE. SIZE is given by previous --length option."
+msgstr "Dodati VELIČINU bajtova u DATOTEKU. VELIČINA je zadana prethodnom opcijom --length."
+
+#: tests/genfile.c:193
+msgid "Update the access and modification times of FILE"
+msgstr "Ažurira vremena dostupa i izmjene DATOTEKE"
+
+#: tests/genfile.c:196
+msgid "Execute COMMAND"
+msgstr "Izvrši NAREDBU"
+
+#: tests/genfile.c:199
+msgid "Delete FILE"
+msgstr "Izbriše DATOTEKU"
+
+#: tests/genfile.c:250
+#, c-format
+msgid "Invalid size: %s"
+msgstr "Neispravna veličina: %s"
+
+#: tests/genfile.c:255
+#, c-format
+msgid "Number out of allowed range: %s"
+msgstr "Broj je izvan dopuštenoga raspona: %s"
+
+#: tests/genfile.c:258
+#, c-format
+msgid "Negative size: %s"
+msgstr "Negativna veličina: %s"
+
+#: tests/genfile.c:271 tests/genfile.c:642
+#, c-format
+msgid "stat(%s) failed"
+msgstr "nije uspjelo odrediti status od %s"
+
+#: tests/genfile.c:274
+#, c-format
+msgid "requested file length %lu, actual %lu"
+msgstr "tražena duljina datoteke %lu, stvarna %lu"
+
+#: tests/genfile.c:278
+#, c-format
+msgid "created file is not sparse"
+msgstr "kreirana datoteka nije raspršena (sparse)"
+
+#: tests/genfile.c:375
+#, c-format
+msgid "Error parsing number near `%s'"
+msgstr "Greška analize broja u blizini „%s“"
+
+#: tests/genfile.c:381
+#, c-format
+msgid "Unknown date format"
+msgstr "Nepoznat format datuma"
+
+#: tests/genfile.c:405
+msgid "[ARGS...]"
+msgstr "[ARGUMENTI...]"
+
+#: tests/genfile.c:442 tests/genfile.c:482 tests/genfile.c:583
+#: tests/genfile.c:746 tests/genfile.c:760
+#, c-format
+msgid "cannot open `%s'"
+msgstr "nije moguće otvoriti „%s“"
+
+#: tests/genfile.c:448
+msgid "cannot seek"
+msgstr "nije moguće skočiti na poziciju"
+
+#: tests/genfile.c:465
+#, c-format
+msgid "file name contains null character"
+msgstr "ime datoteke sadrži prazan (null) znak"
+
+#: tests/genfile.c:578
+#, c-format
+msgid "cannot generate sparse files on standard output, use --file option"
+msgstr "nemoguće je generirati raspršene (sparse) datoteke na standardnom izlazu, rabite opciju --file"
+
+#: tests/genfile.c:669
+#, c-format
+msgid "incorrect mask (near `%s')"
+msgstr "netočna maska (blizu „%s“)"
+
+#: tests/genfile.c:675 tests/genfile.c:708
+#, c-format
+msgid "Unknown field `%s'"
+msgstr "Nepoznato polje „%s“"
+
+#: tests/genfile.c:735
+#, c-format
+msgid "cannot set time on `%s'"
+msgstr "nije moguće postaviti vrijeme na „%s“"
+
+# bp: fuzirano.
+# možda je „vezu“ suvišna
+#: tests/genfile.c:765
+#, c-format
+msgid "cannot truncate `%s'"
+msgstr "nije moguće skratiti „%s“"
+
+#: tests/genfile.c:774
+#, c-format
+msgid "command failed: %s"
+msgstr "naredba %s nije uspjela"
+
+# bp: fuzirano.
+# možda je „vezu“ suvišna
+#: tests/genfile.c:781
+#, c-format
+msgid "cannot stat `%s'"
+msgstr "nije moguće dobiti status od „%s“"
+
+#: tests/genfile.c:785
+#, c-format
+msgid "cannot remove directory `%s'"
+msgstr "direktorij „%s“ nije moguće ukloniti"
+
+#: tests/genfile.c:788
+#, c-format
+msgid "cannot unlink `%s'"
+msgstr "nije moguće ukloniti vezu (unlink) „%s“"
+
+#: tests/genfile.c:918
+#, c-format
+msgid "Command exited successfully\n"
+msgstr "Naredba je uspješno izvršena\n"
+
+#: tests/genfile.c:920
+#, c-format
+msgid "Command failed with status %d\n"
+msgstr "Naredba nije uspjela; status %d\n"
+
+#: tests/genfile.c:924
+#, c-format
+msgid "Command terminated on signal %d\n"
+msgstr "Naredba okončana signalom %d\n"
+
+#: tests/genfile.c:926
+#, c-format
+msgid "Command stopped on signal %d\n"
+msgstr "Naredba zaustavljena signalom %d\n"
+
+#: tests/genfile.c:929
+#, c-format
+msgid "Command dumped core\n"
+msgstr "Naredba je proizvela core dump\n"
+
+#: tests/genfile.c:932
+#, c-format
+msgid "Command terminated\n"
+msgstr "Naredba je okončana\n"
+
+#: tests/genfile.c:964
+#, c-format
+msgid "--stat requires file names"
+msgstr "--stat zahtijeva imena datoteka"

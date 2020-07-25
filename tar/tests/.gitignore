@@ -1,0 +1,15 @@
+atconfig
+atlocal
+package.m4
+testsuite
+testsuite.dir
+testsuite.log
+argcv.c
+argcv.h
+genfile.c
+genfile
+download
+ttyemu
+checkseekhole
+ckmtime
+/compress-*.at

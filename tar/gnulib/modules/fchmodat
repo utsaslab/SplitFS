@@ -1,0 +1,41 @@
+Description:
+fchmodat() function: Change access permissions of a file at a directory.
+
+Files:
+lib/fchmodat.c
+lib/chmodat.c
+lib/at-func.c
+m4/fchmodat.m4
+
+Depends-on:
+sys_stat
+extensions
+at-internal     [test $HAVE_FCHMODAT = 0]
+dosname         [test $HAVE_FCHMODAT = 0]
+errno           [test $HAVE_FCHMODAT = 0]
+extern-inline   [test $HAVE_FCHMODAT = 0]
+fchdir          [test $HAVE_FCHMODAT = 0]
+fcntl-h         [test $HAVE_FCHMODAT = 0]
+openat-die      [test $HAVE_FCHMODAT = 0]
+openat-h        [test $HAVE_FCHMODAT = 0]
+save-cwd        [test $HAVE_FCHMODAT = 0]
+
+configure.ac:
+gl_FUNC_FCHMODAT
+if test $HAVE_FCHMODAT = 0; then
+  AC_LIBOBJ([fchmodat])
+fi
+gl_MODULE_INDICATOR([fchmodat]) dnl for lib/openat.h
+gl_SYS_STAT_MODULE_INDICATOR([fchmodat])
+
+Makefile.am:
+lib_SOURCES += chmodat.c
+
+Include:
+<sys/stat.h>
+
+License:
+GPL
+
+Maintainer:
+Jim Meyering, Eric Blake

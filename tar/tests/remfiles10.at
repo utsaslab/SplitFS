@@ -1,0 +1,46 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Test suite for GNU tar.
+# Copyright 2014, 2016-2017 Free Software Foundation, Inc.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Check --remove-files with .
+
+AT_SETUP([remove-files])
+AT_KEYWORDS([create remove-files remfiles10])
+
+AT_TAR_CHECK([
+mkdir foo
+echo foo/file > foo/file
+decho A
+(cd foo && tar -cvf ../foo.tar --remove-files .)
+tar_status=$?
+decho B
+find foo
+exit $tar_status
+],
+[2],
+[A
+./
+./file
+B
+foo
+],
+[A
+tar: .: Cannot rmdir: Invalid argument
+tar: Exiting with failure status due to previous errors
+B
+],[],[],[gnu])
+
+AT_CLEANUP

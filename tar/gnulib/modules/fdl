@@ -1,0 +1,19 @@
+Description:
+Provide the GNU Free Documentation License in Texinfo format.
+
+Files:
+doc/fdl.texi
+
+Depends-on:
+
+configure.ac:
+
+Makefile.am:
+
+Include:
+
+License:
+unmodifiable license text
+
+Maintainer:
+all

@@ -1,0 +1,62 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2009-2010, 2013-2014, 2016-2017 Free Software Foundation,
+# Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# When creating archives, tar 1.22 did not apply the --transform option
+# to hard links.
+#
+# Reported by: Jose Miguel Goncalves <jose.goncalves@inov.pt>
+# References:
+#   <4A436D1D.4040408@inov.pt>
+#   http://lists.gnu.org/archive/html/bug-tar/2009-06/msg00017.html
+#
+
+AT_SETUP([transforming hard links on create])
+AT_KEYWORDS([transform xform xform-h])
+
+m4_pushdef([xformtest],[
+echo "$1"
+tar cf archive --transform="s,^basedir/,,$2" basedir/test basedir/test_link
+tar tvf archive | sed -n 's/.*test_link link to //p'
+])
+
+AT_TAR_CHECK([
+mkdir basedir
+echo "hello" > basedir/test
+ln basedir/test basedir/test_link
+
+xformtest(Default transform scope)
+xformtest(Transforming hard links,h)
+xformtest(Not transforming hard links,H)
+],
+[0],
+[Default transform scope
+test
+Transforming hard links
+test
+Not transforming hard links
+basedir/test
+])
+
+m4_popdef([xformtest])
+
+AT_CLEANUP
+
+# End of xform-h.at

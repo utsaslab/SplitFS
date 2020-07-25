@@ -1,0 +1,46 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# written by Paul Eggert
+
+# Check diagnostic of 'tar -x a/b/c' when b cannot be created.
+
+AT_SETUP([extract parent mkdir failure])
+AT_KEYWORDS([extract extrac15 chdir])
+
+AT_TAR_CHECK([
+AT_UNPRIVILEGED_PREREQ
+
+mkdir src src/a src/a/b dest dest/a
+touch src/a/b/c
+chmod a-w dest/a
+
+tar -cf archive.tar -C src a/b/c &&
+if tar -xf archive.tar -C dest a/b/c
+then (exit 1)
+else (exit 0)
+fi
+],
+[0],[],[tar: a/b: Cannot mkdir: Permission denied
+tar: a/b/c: Cannot open: No such file or directory
+tar: Exiting with failure status due to previous errors
+],[],[],[gnu])
+
+AT_CLEANUP

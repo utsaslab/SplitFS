@@ -1,0 +1,37 @@
+Description:
+Temporary directories and temporary files with automatic cleanup.
+
+Files:
+lib/clean-temp.h
+lib/clean-temp.c
+
+Depends-on:
+stdbool
+unistd
+error
+fatal-signal
+open
+pathmax
+tmpdir
+mkdtemp
+rmdir
+xalloc
+xmalloca
+linkedhash-list
+xlist
+gettext-h
+
+configure.ac:
+AC_DEFINE([SIGNAL_SAFE_LIST], [1], [Define if lists must be signal-safe.])
+
+Makefile.am:
+lib_SOURCES += clean-temp.h clean-temp.c
+
+Include:
+"clean-temp.h"
+
+License:
+GPL
+
+Maintainer:
+all

@@ -1,0 +1,19 @@
+@node getpagesize
+@subsection @code{getpagesize}
+@findex getpagesize
+
+Gnulib module: getpagesize
+
+Portability problems fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+MSVC 14, BeOS, Android 4.4.
+@item
+This function is broken on some platforms:
+mingw.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@end itemize

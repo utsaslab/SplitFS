@@ -1,0 +1,55 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2009, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Make sure -l option works correctly in conjunction with --remove-files
+# See also link02.at
+
+AT_SETUP([working -l with --remove-files])
+AT_KEYWORDS([hardlinks link03])
+
+m4_pushdef([create_files],[
+genfile -l 64 -f file1
+ln file1 file2
+ln file2 file3
+ln file3 file4
+])
+
+AT_TAR_CHECK([
+create_files
+echo archive.1
+tar -c -f archive.1 -l --remove-files file1 file2 file3 file4
+create_files
+echo archive.2
+tar -c -f archive.2 -l --remove-files file1 file2 file3
+echo testing archive.2
+tar tfv archive.2 | sed -n 's/.*file[[2-3]] link to //p'
+],
+[0],
+[archive.1
+archive.2
+testing archive.2
+file1
+file1
+],
+[tar: Missing links to 'file1'.
+])
+
+m4_popdef([create_files])
+AT_CLEANUP

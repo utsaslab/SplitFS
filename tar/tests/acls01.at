@@ -1,0 +1,55 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2011, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Test description:
+#
+# This is basic test for acl support.
+
+AT_SETUP([acls: basic functionality])
+AT_KEYWORDS([xattrs acls acls01])
+
+AT_TAR_CHECK([
+AT_XATTRS_UTILS_PREREQ
+AT_ACLS_PREREQ
+
+mkdir dir
+genfile --file dir/file
+
+MYNAME=$( id -un )
+
+setfacl -m u:$MYNAME:--x dir/file
+setfacl -m u:$MYNAME:--x dir
+
+getfattr -h -m. -d dir dir/file > before
+
+tar --acls -cf archive.tar dir
+rm -rf dir
+
+tar --acls -xf archive.tar
+
+getfattr -h -m. -d dir dir/file > after
+
+diff before after
+test "$?" = 0
+],
+[0],
+[])
+
+AT_CLEANUP

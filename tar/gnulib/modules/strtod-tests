@@ -1,0 +1,16 @@
+Files:
+tests/test-strtod.c
+tests/signature.h
+tests/minus-zero.h
+tests/macros.h
+
+Depends-on:
+float
+isnand-nolibm
+signbit
+
+configure.ac:
+
+Makefile.am:
+TESTS += test-strtod
+check_PROGRAMS += test-strtod

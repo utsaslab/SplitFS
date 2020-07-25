@@ -1,0 +1,74 @@
+Description:
+Translate messages to user's native language.
+
+Status:
+obsolete
+
+Notice:
+This module is obsolete. Use the module 'gettext-h' instead to make
+your program capable of internationalization, when GNU gettext is also
+used.
+
+Files:
+m4/codeset.m4
+m4/fcntl-o.m4
+m4/gettext.m4
+m4/glibc2.m4
+m4/glibc21.m4
+m4/iconv.m4
+m4/intdiv0.m4
+m4/intl.m4
+m4/intldir.m4
+m4/intlmacosx.m4
+m4/intmax.m4
+m4/inttypes_h.m4
+m4/inttypes-pri.m4
+m4/lcmessage.m4
+m4/lock.m4
+m4/longlong.m4
+m4/nls.m4
+m4/po.m4
+m4/printf-posix.m4
+m4/progtest.m4
+m4/size_max.m4
+m4/stdint_h.m4
+m4/threadlib.m4
+m4/uintmax_t.m4
+m4/visibility.m4
+m4/wchar_t.m4
+m4/wint_t.m4
+m4/xsize.m4
+build-aux/config.rpath
+
+Depends-on:
+extensions
+gettext-h
+havelib
+
+configure.ac:
+AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.18.1])
+
+Makefile.am:
+# If your project uses "gettextize --intl" to put a source-code
+# copy of libintl into the package, every Makefile.am needs
+# -I$(top_builddir)/intl, so that <libintl.h> can be found in this directory.
+# Here's one way to do this:
+#AM_CPPFLAGS += -I$(top_builddir)/intl
+# This option has no effect when the user disables NLS (because then
+# the intl directory contains no libintl.h file).  This option is not
+# enabled by default because the intl directory might not exist if
+# your project does not use "gettext --intl", and some compilers
+# complain about -I options applied to nonexistent directories.
+
+Include:
+"gettext.h"
+
+Link:
+$(LTLIBINTL) when linking with libtool, $(LIBINTL) otherwise
+
+License:
+LGPLv2+
+
+Maintainer:
+all

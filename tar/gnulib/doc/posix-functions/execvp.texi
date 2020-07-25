@@ -1,0 +1,22 @@
+@node execvp
+@section @code{execvp}
+@findex execvp
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/functions/execvp.html}
+
+Gnulib module: ---
+
+Portability problems fixed by Gnulib:
+@itemize
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+On some platforms, a script without executable permission is still run:
+Cygwin 1.5.x.
+@item
+On Windows platforms (excluding Cygwin), this function operates by spawning
+and then by exiting the current process, which means the current
+process's parent may incorrectly proceed as if its child had exited.
+@end itemize

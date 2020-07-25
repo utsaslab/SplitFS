@@ -1,0 +1,23 @@
+Description:
+Macros to search for libraries.
+
+Files:
+m4/lib-ld.m4
+m4/lib-link.m4
+m4/lib-prefix.m4
+build-aux/config.rpath
+
+Depends-on:
+host-cpu-c-abi
+
+configure.ac:
+
+Makefile.am:
+
+Include:
+
+License:
+unlimited
+
+Maintainer:
+all

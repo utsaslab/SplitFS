@@ -1,0 +1,68 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Test suite for GNU tar.
+# Copyright 2013-2014, 2016-2017 Free Software Foundation, Inc.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: For some intermediate versions of tar 1.26.90,
+# tar would fail to correctly cannonicalize archive member names
+# in incremental mode if there was a -C options with an absolute path
+# on the command line without any archive members specified within that
+# directory. (In that case, the canonical name generated for
+# members specified after later -C options wouldn't correctly reflect the
+# previous absolute path.)
+
+AT_SETUP([incremental with alternating -C])
+AT_KEYWORDS([incremental create incr09 chdir])
+
+AT_TAR_CHECK([
+AT_CHECK_TIMESTAMP
+AT_SORT_PREREQ
+mkdir foo bar middle
+echo foo/foo_file > foo/foo_file
+echo bar/bar_file > bar/bar_file
+echo middle/file > middle/middle_file
+decho A
+tar -cvf foo.tar --incremental -C foo . -C `pwd` middle  -C bar .
+
+rm foo.tar
+>toplevel_file
+decho B
+tar -cvf foo.tar --incremental -C foo . -C `pwd` toplevel_file  -C bar .
+],
+[0],
+[A
+./
+./
+middle/
+./bar_file
+./foo_file
+middle/middle_file
+B
+./
+./
+toplevel_file
+./bar_file
+./foo_file
+],
+[A
+tar: .: Directory is new
+tar: middle: Directory is new
+tar: .: Directory is new
+B
+tar: .: Directory is new
+tar: .: Directory is new
+],[],[],[gnu])
+
+AT_CLEANUP

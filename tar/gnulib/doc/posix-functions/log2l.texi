@@ -1,0 +1,24 @@
+@node log2l
+@section @code{log2l}
+@findex log2l
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/functions/log2l.html}
+
+Gnulib module: log2l
+
+Portability problems fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+FreeBSD 6.0, NetBSD 5.0, OpenBSD 3.8, Minix 3.1.8, AIX 5.1, HP-UX 11, older IRIX 6.5, Solaris 9, Cygwin, MSVC 9, Interix 3.5, BeOS, Android 4.2.
+@item
+This function is not declared on some platforms:
+IRIX 6.5.
+@item
+This function returns a wrong value for a minus zero argument on some platforms:
+OSF/1 5.1.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@end itemize

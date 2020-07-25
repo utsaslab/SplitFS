@@ -1,0 +1,28 @@
+Description:
+Thread-local storage in multithreaded situations.
+
+Files:
+lib/glthread/tls.h
+lib/glthread/tls.c
+m4/tls.m4
+
+Depends-on:
+threadlib
+
+configure.ac:
+gl_TLS
+
+Makefile.am:
+lib_SOURCES += glthread/tls.h glthread/tls.c
+
+Include:
+"glthread/tls.h"
+
+Link:
+$(LTLIBTHREAD) when linking with libtool, $(LIBTHREAD) otherwise
+
+License:
+LGPLv2+
+
+Maintainer:
+all

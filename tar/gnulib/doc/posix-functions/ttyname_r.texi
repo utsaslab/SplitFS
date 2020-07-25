@@ -1,0 +1,33 @@
+@node ttyname_r
+@section @code{ttyname_r}
+@findex ttyname_r
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/functions/ttyname_r.html}
+
+Gnulib module: ttyname_r
+
+Portability problems fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+NetBSD 3.0, Minix 3.1.8, mingw, MSVC 14, BeOS.
+@item
+This function is not declared unless @code{_REENTRANT} is defined,
+on some platforms:
+HP-UX 11.
+@item
+This function has an incompatible declaration on some platforms:
+Mac OS X 10.4, Solaris 11.3 (when @code{_POSIX_PTHREAD_SEMANTICS} is not defined).
+@item
+This function ignores the size argument, thus overwriting memory after the
+buffer, on some platforms:
+OSF/1 5.1.
+@item
+This function refuses to do anything when the output buffer is less than 128
+bytes large, on some platforms:
+Solaris 11 2010-11.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@end itemize

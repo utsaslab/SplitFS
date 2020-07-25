@@ -1,0 +1,165 @@
+@c This is part of the paxutils manual.
+@c Copyright (C) 2005, 2007, 2014, 2016-2017 Free Software Foundation,
+@c Inc.
+@c Written by Sergey Poznyakoff
+@c This file is distributed under GFDL 1.1 or any later version
+@c published by the Free Software Foundation.
+
+  A @dfn{snapshot file} (or @dfn{directory file}) is created during
+incremental backups (@pxref{Incremental Dumps}).  It
+contains the status of the file system at the time of the dump and is
+used to determine which files were modified since the last backup.
+
+  @GNUTAR{} version @value{VERSION} supports three snapshot file
+formats.  The first format, called @dfn{format 0}, is the one used by
+@GNUTAR{} versions up to and including 1.15.1. The second format, called 
+@dfn{format 1} is an extended version of this format, that contains more
+metadata and allows for further extensions. It was used by alpha release
+version 1.15.90. For alpha version 1.15.91 and stable releases
+version 1.16 up through @value{VERSION}, the @dfn{format 2} is used.
+
+  @GNUTAR{} is able to read all three formats, but will create
+snapshots only in format 2.
+
+  This appendix describes all three formats in detail.
+
+@enumerate 0
+@cindex format 0, snapshot file
+@cindex snapshot file, format 0
+@item
+  @samp{Format 0} snapshot file begins with a line containing a
+decimal number that represents a @acronym{UNIX} timestamp of the
+beginning of the last archivation. This line is followed by directory
+metadata descriptions, one per line. Each description has the
+following format:
+
+@smallexample
+[@var{nfs}]@var{dev} @var{inode} @var{name}
+@end smallexample
+
+@noindent
+where:
+
+@table @var
+@item nfs
+A single plus character (@samp{+}), if this directory is located on
+an @acronym{NFS}-mounted partition, otherwise empty.  
+
+(That is, for non-NFS directories, the first character on the
+description line contains the start of the @var{dev} field.)
+
+@item dev
+Device number of the directory;
+
+@item inode
+I-node number of the directory;
+
+@item name
+Name of the directory. Any special characters (white-space,
+backslashes, etc.) are quoted.
+@end table
+
+@cindex format 1, snapshot file
+@cindex snapshot file, format 1
+@item
+  @samp{Format 1} snapshot file begins with a line specifying the
+format of the file. This line has the following structure:
+
+@smallexample
+@samp{GNU tar-}@var{tar-version}@samp{-}@var{incr-format-version}
+@end smallexample
+
+@noindent
+where @var{tar-version} is the version number of @GNUTAR{}
+implementation that created this snapshot, and
+@var{incr-format-version} is the version number of the snapshot format
+(in this case @samp{1}).
+
+  Next line contains two decimal numbers, representing the
+time of the last backup. First number is the number of seconds, the
+second one is the number of nanoseconds, since the beginning of the
+epoch.
+
+  Lines that follow contain directory metadata, one line per
+directory. Each line is formatted as follows:
+
+@smallexample
+[@var{nfs}]@var{mtime-sec} @var{mtime-nsec} @var{dev} @var{inode} @var{name}
+@end smallexample
+
+@noindent
+where @var{mtime-sec} and @var{mtime-nsec} represent last
+modification time of this directory with nanosecond precision;
+@var{nfs}, @var{dev}, @var{inode} and @var{name} have the same meaning
+as with @samp{format 0}.
+
+@cindex format 2, snapshot file
+@cindex snapshot file, format 2
+@item
+  @samp{Format 2} snapshot file begins with a format identifier, as described for
+version 1, e.g.:
+
+@smallexample
+GNU tar-@value{VERSION}-2
+@end smallexample
+
+  This line is followed by newline. Rest of file consists of
+records, separated by null (@acronym{ASCII} 0)
+characters. Thus, in contrast to the previous formats, format 2
+snapshot is a binary file.
+
+  First two records are decimal integers, representing the
+time of the last backup.  First number is the number of seconds, the
+second one is the number of nanoseconds, since the beginning of the
+epoch.  These are followed by arbitrary number of directory records.
+
+  Each @dfn{directory record} contains a set of metadata describing a
+particular directory.  Parts of a directory record are delimited with
+@acronym{ASCII} 0 characters.  The following table describes each
+part.  The @dfn{Number} type in this table stands for a decimal integer
+in @acronym{ASCII} notation.  (Negative values are preceded with a "-"
+character, while positive values have no leading punctuation.)
+
+@multitable @columnfractions 0.25 0.15 0.6
+@headitem Field @tab Type @tab Description
+@item nfs @tab Character @tab @samp{1} if the directory is located on
+an @acronym{NFS}-mounted partition, or @samp{0} otherwise;
+@item timestamp_sec @tab Number @tab Modification time, seconds;
+@item timestamp_nsec @tab Number @tab Modification time, nanoseconds;
+@item dev @tab Number @tab Device number;
+@item ino @tab Number @tab I-node number;
+@item name @tab String @tab Directory name; in contrast to the
+previous versions it is not quoted;
+@item contents @tab Dumpdir @tab Contents of the directory;
+@xref{Dumpdir}, for a description of its format.
+@item
+@end multitable
+
+  Dumpdirs stored in snapshot files contain only records of types
+@samp{Y}, @samp{N} and @samp{D}.
+
+@cindex snapshot file field ranges
+@opindex show-snapshot-field-ranges
+The specific range of values allowed in each of the @dfn{Number} fields
+depends on the underlying C datatypes as determined when @command{tar}
+is compiled.  To see the specific ranges allowed for a particular
+@command{tar} binary, you can use the
+@option{--show-snapshot-field-ranges} option:
+
+@smallexample
+$ @kbd{tar --show-snapshot-field-ranges}
+This tar's snapshot file field ranges are
+   (field name      => [ min, max ]):
+
+    nfs             => [ 0, 1 ],
+    timestamp_sec   => [ -9223372036854775808, 9223372036854775807 ],
+    timestamp_nsec  => [ 0, 999999999 ],
+    dev             => [ 0, 18446744073709551615 ],
+    ino             => [ 0, 18446744073709551615 ],
+@end smallexample
+
+(This example is from a GNU/Linux x86_64 system.)
+
+@end enumerate
+
+@c End of snapshot.texi

@@ -1,0 +1,45 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_SETUP([append with name transformation])
+AT_KEYWORDS([append append03])
+
+# Description: Make sure filenames are transformed during append.
+
+AT_TAR_CHECK([
+genfile --file file.1
+genfile --file file.2
+
+tar -c -f archive --transform 's/file/plik/' file.*
+echo Appending
+tar -r -f archive --transform 's/file/plik/' -v --show-transformed-names file.1
+echo Testing
+tar tf archive
+],
+[0],
+[Appending
+plik.1
+Testing
+plik.1
+plik.2
+plik.1
+])
+
+AT_CLEANUP

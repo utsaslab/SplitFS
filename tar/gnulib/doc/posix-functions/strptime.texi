@@ -1,0 +1,18 @@
+@node strptime
+@section @code{strptime}
+@findex strptime
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/functions/strptime.html}
+
+Gnulib module: strptime
+
+Portability problems fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+IRIX 5.3, mingw, MSVC 14, BeOS.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@end itemize

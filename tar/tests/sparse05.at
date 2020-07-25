@@ -1,0 +1,48 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_SETUP([listing sparse files bigger than 2^33 B])
+AT_KEYWORDS([sparse sparse05 largefile])
+
+# Description: If an archive in POSIX.1-2001 archive contained a sparse file
+# member whose real size (excluding zero blocks) is bigger than 2^33 bytes,
+# tar 1.28 would incorrectly list the real member size.
+# Reported by: Pavel Raiskup <praiskup@redhat.com>
+# References: <1359119879.15037.4.camel@raiskup>,
+#             http://lists.gnu.org/archive/html/bug-tar/2013-01/msg00001.html
+
+AT_TAR_CHECK([
+AT_SKIP_LARGE_FILES
+AT_DATA([mapfile],
+[0 =2560
+m4_for([i], 1, 999, 1, [10M =2560
+])])
+genfile --sparse --file BIGFILE --block-size 4K - < mapfile || AT_SKIP_TEST
+tar -f - -c --sparse --posix BIGFILE | tar tvf - | awk '{ print $3, $(NF) }'
+],
+[0],
+[20961034240 BIGFILE
+],
+[],
+[],
+[],
+[pax])
+
+AT_CLEANUP

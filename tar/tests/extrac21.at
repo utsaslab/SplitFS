@@ -1,0 +1,59 @@
+# Test suite for GNU tar.                             -*- Autotest -*-
+# Copyright 2017 Free Software Foundation, Inc.
+#
+# This file is part of GNU tar.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# When called with the --delay-directory-restore option, tar would
+# in some cases restore the directory permissions too early, before
+# attempting to replace softlink placeholders with the actual link.
+# This caused failure if the permissions forbade writing.
+#
+# The bug was caused by incorrect assumption about delayed_set_stat
+# ordering in create_placeholder_file.
+#
+# Reported by: Giuseppe Scrivano <gscrivano@gnu.org>
+# References: <878tfa17ti.fsf@redhat.com>,
+#    <http://lists.gnu.org/archive/html/bug-tar/2017-11/msg00009.html>
+
+AT_SETUP([delay-directory-restore])
+AT_KEYWORDS([extract extract21 read-only symlink delay-directory-restore])
+AT_TAR_CHECK([
+AT_UNPRIVILEGED_PREREQ
+
+mkdir a a/b a/c
+genfile --file a/b/D
+genfile --file a/c/A
+cd a/b
+ln -sf ../c/A
+cd ../..
+chmod a-w a/b
+tar --no-recurs -c -f A.tar a a/b a/b/D a/c a/b/A a/c/A
+mkdir out
+tar -C out -v -x -f A.tar --delay-directory-restore
+],
+[0],
+[a/
+a/b/
+a/b/D
+a/c/
+a/b/A
+a/c/A
+],
+[],[],[],[ustar]) # Testing one format is enough
+
+AT_CLEANUP
+
+

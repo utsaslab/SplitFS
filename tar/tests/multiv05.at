@@ -1,0 +1,66 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2006-2008, 2013-2014, 2016-2017 Free Software Foundation,
+# Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Up to version 1.15.91 tar was unable to recognize all volumes
+# given after an out-of-sync volume.
+# Reported by: Joerg Weilbier <gnu@weilbier.net>
+# References: <200610011952.29880.gnu@weilbier.net>
+
+AT_SETUP([Restoring after an out of sync volume])
+AT_KEYWORDS([multivolume multiv multiv05 sync])
+m4_pushdef([FILELIST],[jeden,dwa,trzy,cztery,piec,szesc])
+
+AT_TAR_CHECK([
+exec <&-
+
+m4_foreach([f],
+  [FILELIST],
+  [genfile --length 250k --file f
+])
+
+echo Creating archive
+tar -c -M -L 502 -f a.tar -f b.tar -f c.tar m4_foreach([f],[FILELIST],f )
+echo separator
+mkdir bak
+mv m4_foreach([f],[FILELIST],f )bak
+tar -vxM -f a.tar -f c.tar -f b.tar -f c.tar
+m4_foreach([f],
+  [FILELIST],
+  [echo Diffing f
+   cmp bak/f f || exit 1
+])],
+[0],
+[Creating archive
+separator]
+m4_foreach([file],
+  [FILELIST],
+  [file
+])dnl
+m4_foreach([file],
+  [FILELIST],
+  [Diffing file
+])dnl
+,
+[tar: 'trzy' is not continued on this volume
+],[],[], [gnu])
+
+m4_popdef([FILELIST])
+AT_CLEANUP

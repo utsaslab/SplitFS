@@ -1,0 +1,71 @@
+These notes intend to help people working on the Git version of
+this package.
+
+* Requirements
+
+You need the following packages to build the Git version of GNU
+paxutils.  We do not make any efforts to accommodate older versions of
+these packages, so please make sure that you have the latest stable
+version. 
+
+- Automake <http://www.gnu.org/software/automake/>
+- Autoconf <http://www.gnu.org/software/autoconf/>
+- M4 <http://www.gnu.org/software/m4/>
+- Texinfo <http://www.gnu.org/software/texinfo>
+- Gnulib <http://www.gnu.org/software/gnulib> 
+- Git <http://git.or.cz>
+
+* Bootstrapping
+
+Obviously, if you are reading these notes, you did manage to clone
+paxutils from Git. The next step is to get other files needed to build,
+which are extracted from other source packages: 
+
+1. Change to the source tree directory
+
+   cd paxutils
+
+2. Run
+
+   ./bootstrap 
+
+Once done, proceed as described in the file README (section
+INSTALLATION).
+
+Normally you will have to run bootstrap only once. However, if you
+intend to hack on GNU paxutils, you might need to run it again later. In
+this case, you will probably want to save some time and bandwidth by
+avoiding downloading the same files again. If so, create in GNU paxutils
+root directory the file named `.bootstrap' with the following
+contents:
+
+   --gnulib-srcdir=$HOME/gnulib
+
+Replace `$HOME/gnulib' with the actual directory where the Gnulib
+sources reside.
+   
+For more information about `bootstrap', run `bootstrap --help'.
+
+
+* Copyright information
+
+ Copyright (C) 2007, 2008, 2009 Free Software Foundation, Inc.
+
+ Permission is granted to anyone to make or distribute verbatim copies
+ of this document as received, in any medium, provided that the
+ copyright notice and this permission notice are preserved,
+ thus giving the recipient permission to redistribute in turn.
+
+ Permission is granted to distribute modified versions
+ of this document, or of portions of it,
+ under the above conditions, provided also that they
+ carry prominent notices stating who last changed them.
+
+^L
+Local Variables:
+mode: outline
+paragraph-separate: "[	^L]*$"
+version-control: never
+End:
+
+

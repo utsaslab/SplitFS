@@ -1,0 +1,131 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+#
+# Test suite for GNU tar.
+# Copyright 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Test description:
+#
+# Check the storing/restoring with/without default ACLs.  When --acls is passed,
+# restored directory tree should always match archive contents (even when the
+# archive does not contain any ACLs).
+#
+# References:
+# http://www.mail-archive.com/bug-tar@gnu.org/msg04355.html
+
+AT_SETUP([acls: default ACLs])
+AT_KEYWORDS([xattrs acls acls03 chdir])
+
+m4_define([ACL_LISTDIR], [
+    cd $1
+    $1="$(find d1 | sort | xargs -n 1 getfacl)"
+    cd ..
+])
+
+m4_define([ACL_ASSERT], [
+    echo "$$1" > $1.log
+    echo "$$2" > $2.log
+    if test ! "$$1" "$3" "$$2"; then
+        echo "bad '$1' against '$2' output"
+    fi
+])
+
+AT_TAR_CHECK([
+AT_XATTRS_UTILS_PREREQ
+AT_ACLS_PREREQ
+AT_SORT_PREREQ
+
+MYNAME=$( id -un )
+MYGROUP=$( id -gn )
+
+# Prepare directory structure with default ACLs
+mkdir -p pure/d1/d2
+genfile --file pure/d1/f2a
+genfile --file pure/d1/f2b
+genfile --file pure/d1/d2/f3a
+genfile --file pure/d1/d2/f3b
+setfacl    -m g:$MYGROUP:r-x pure/d1
+setfacl -d -m g:$MYGROUP:rwx pure/d1
+setfacl -d -m u:$MYNAME:rwx  pure/d1
+# "*a" files have "some" additional ACLs
+setfacl    -m u:$MYNAME:--- pure/d1/d2/f3a
+setfacl    -m u:$MYNAME:--- pure/d1/f2a
+
+# use default format (no acls stored)
+tar -cf noacl.tar -C pure d1
+
+# use posix format, acls stored
+tar --acls -cf acl.tar -C pure d1
+
+# Directory names are chosen based on "how the files were extracted from
+# archive".  Equivalent no* tags are used also:
+#   ^sacl_    — extracted archive has stored ACLs
+#   _def_     — target directory (-C) has default ACLs
+#   _optacl$  — extraction was done with --acls option
+
+mkdir sacl_def_optacl
+mkdir sacl_def_optnoacl
+mkdir sacl_nodef_optacl
+mkdir sacl_nodef_optnoacl
+mkdir nosacl_def_optacl
+mkdir nosacl_def_optnoacl
+mkdir nosacl_nodef_optacl
+mkdir nosacl_nodef_optnoacl
+
+setfacl -d -m u:$MYNAME:---  nosacl_def_optnoacl sacl_def_optnoacl sacl_def_optacl nosacl_def_optacl
+setfacl -d -m g:$MYGROUP:--- nosacl_def_optnoacl sacl_def_optnoacl sacl_def_optacl nosacl_def_optacl
+
+tar -xf acl.tar -C sacl_nodef_optnoacl
+tar --acls -xf acl.tar -C sacl_nodef_optacl
+tar -xf acl.tar -C sacl_def_optnoacl
+tar --acls -xf acl.tar -C sacl_def_optacl
+tar -xf noacl.tar -C nosacl_def_optnoacl
+# _NO_ ACLs in output
+tar -xf noacl.tar -C nosacl_nodef_optnoacl
+tar -xf noacl.tar -C nosacl_nodef_optacl
+tar -cf noacl_repackaged.tar -C nosacl_nodef_optnoacl d1
+# _NO_ ACLs in output (even when default ACLs exist)
+tar --acls -xf noacl_repackaged.tar -C nosacl_def_optacl
+
+ACL_LISTDIR(pure)
+
+ACL_LISTDIR(sacl_def_optacl)
+ACL_LISTDIR(sacl_def_optnoacl)
+ACL_LISTDIR(sacl_nodef_optacl)
+ACL_LISTDIR(sacl_nodef_optnoacl)
+ACL_LISTDIR(nosacl_def_optacl)
+ACL_LISTDIR(nosacl_def_optnoacl)
+ACL_LISTDIR(nosacl_nodef_optacl)
+ACL_LISTDIR(nosacl_nodef_optnoacl)
+
+ACL_ASSERT(pure, sacl_def_optacl, =)
+
+ACL_ASSERT(sacl_def_optacl,     sacl_nodef_optacl,      =)
+ACL_ASSERT(sacl_def_optnoacl,   nosacl_def_optnoacl,    =)
+ACL_ASSERT(sacl_nodef_optnoacl, nosacl_nodef_optnoacl,  =)
+ACL_ASSERT(nosacl_def_optacl,   nosacl_nodef_optacl,    =)
+ACL_ASSERT(nosacl_def_optacl,   nosacl_nodef_optnoacl,  =)
+
+ACL_ASSERT(sacl_def_optacl,     sacl_def_optnoacl,      !=)
+ACL_ASSERT(sacl_def_optacl,     nosacl_def_optnoacl,    !=)
+ACL_ASSERT(nosacl_def_optnoacl, nosacl_nodef_optnoacl,  !=)
+],
+[0],
+[],
+[])
+
+AT_CLEANUP

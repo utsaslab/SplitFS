@@ -1,0 +1,2920 @@
+# Turkish translations for GNU tar messages.
+# Copyright (C) 2007 Free Software Foundation, Inc.
+# This file is distributed under the same license as the tar package.
+# Nilgün Belma Bugüner <nilgun@buguner.name.tr>, 2001,..., 2007.
+# Volkan Gezer <vlkngzr@gmail.com>, 2013, 2017.
+#: src/create.c:1592
+msgid ""
+msgstr ""
+"Project-Id-Version: tar 1.29\n"
+"Report-Msgid-Bugs-To: bug-tar@gnu.org\n"
+"POT-Creation-Date: 2016-05-16 09:55+0300\n"
+"PO-Revision-Date: 2017-04-28 15:25+0100\n"
+"Last-Translator: Volkan Gezer <volkangezer@gmail.com>\n"
+"Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 2.0\n"
+
+#: gnu/argmatch.c:133
+#, c-format
+msgid "invalid argument %s for %s"
+msgstr "%2$s için %1$s argümanı geçersiz"
+
+#: gnu/argmatch.c:134
+#, c-format
+msgid "ambiguous argument %s for %s"
+msgstr "`%2$s' için %1$s argümanı belirsiz"
+
+#: gnu/argmatch.c:153
+msgid "Valid arguments are:"
+msgstr "Geçerli argümanlar:"
+
+#: gnu/argp-help.c:148
+#, c-format
+msgid "ARGP_HELP_FMT: %s value is less than or equal to %s"
+msgstr "ARGP_HELP_FMT: %s değeri %s değerinden küçük ya da ona eşit"
+
+#: gnu/argp-help.c:221
+#, c-format
+msgid "%.*s: ARGP_HELP_FMT parameter requires a value"
+msgstr "%.*s: ARGP_HELP_FMT parametresi bir değer gerektirir"
+
+#: gnu/argp-help.c:227
+#, c-format
+msgid "%.*s: ARGP_HELP_FMT parameter must be positive"
+msgstr "%.*s: ARGP_HELP_FMT parametresi pozitif olmalı"
+
+#: gnu/argp-help.c:236
+#, c-format
+msgid "%.*s: Unknown ARGP_HELP_FMT parameter"
+msgstr "%.*s: ARGP_HELP_FMT ile belirtilen parametre bilinmiyor"
+
+#: gnu/argp-help.c:248
+#, c-format
+msgid "Garbage in ARGP_HELP_FMT: %s"
+msgstr "ARGP_HELP_FMT bozuk: %s"
+
+#: gnu/argp-help.c:1248
+msgid "Mandatory or optional arguments to long options are also mandatory or optional for any corresponding short options."
+msgstr "Uzun seçenekler için zorunlu veya isteğe bağlı olan argümanlar kısa seçenekler için de geçerlidir."
+
+#: gnu/argp-help.c:1645
+msgid "Usage:"
+msgstr "Kullanımı:"
+
+#: gnu/argp-help.c:1649
+msgid "  or: "
+msgstr "  veya: "
+
+#: gnu/argp-help.c:1661
+msgid " [OPTION...]"
+msgstr " [SEÇENEK...]"
+
+#: gnu/argp-help.c:1688
+#, c-format
+msgid "Try '%s --help' or '%s --usage' for more information.\n"
+msgstr "Daha fazla bilgi için '%s --help' veya '%s --usage' yazın.\n"
+
+#: gnu/argp-help.c:1716
+#, c-format
+msgid "Report bugs to %s.\n"
+msgstr ""
+"Yazılım hatalarını <%s> adresine,\n"
+"çeviri hatalarını <gnu-tr@belgeler.org> adresine bildiriniz.\n"
+
+#: gnu/argp-help.c:1935 gnu/error.c:191
+msgid "Unknown system error"
+msgstr "Bilinmeyen sistem hatası"
+
+#: gnu/argp-parse.c:81
+msgid "give this help list"
+msgstr "bu yardım iletisi gösterilir"
+
+#: gnu/argp-parse.c:82
+msgid "give a short usage message"
+msgstr "kısa bir kullanım iletisi gösterilir"
+
+#: gnu/argp-parse.c:83 src/tar.c:507 src/tar.c:509 src/tar.c:612
+#: tests/genfile.c:134
+msgid "NAME"
+msgstr "İSİM"
+
+#: gnu/argp-parse.c:83
+msgid "set the program name"
+msgstr "uygulama ismi"
+
+#: gnu/argp-parse.c:84
+msgid "SECS"
+msgstr "SAN"
+
+#: gnu/argp-parse.c:85
+msgid "hang for SECS seconds (default 3600)"
+msgstr "SANİYE saniye bekler (öntanımlı 3600)"
+
+#: gnu/argp-parse.c:142
+msgid "print program version"
+msgstr "sürüm bilgisi gösterilir"
+
+#: gnu/argp-parse.c:159
+msgid "(PROGRAM ERROR) No version known!?"
+msgstr "(YAZILIM HATASI) Sürümünü bilmiyor!?"
+
+#: gnu/argp-parse.c:612
+#, c-format
+msgid "%s: Too many arguments\n"
+msgstr "%s: argüman sayısı fazla\n"
+
+#: gnu/argp-parse.c:755
+msgid "(PROGRAM ERROR) Option should have been recognized!?"
+msgstr "(YAZILIM HATASI) Seçenek tanınmak zorunda!?"
+
+#: gnu/closeout.c:112
+msgid "write error"
+msgstr "yazma hatası"
+
+#: gnu/getopt.c:575 gnu/getopt.c:604
+#, c-format
+msgid "%s: option '%s' is ambiguous; possibilities:"
+msgstr "%s: '%s' seçeneği belirsiz; olasılıklar:"
+
+#: gnu/getopt.c:619
+#, c-format
+msgid "%s: option '%s' is ambiguous\n"
+msgstr "%s: `%s' seçeneği belirsiz\n"
+
+#: gnu/getopt.c:654 gnu/getopt.c:658
+#, c-format
+msgid "%s: option '--%s' doesn't allow an argument\n"
+msgstr "%s: `--%s' seçeneği argümansız kullanılır\n"
+
+#: gnu/getopt.c:667 gnu/getopt.c:672
+#, c-format
+msgid "%s: option '%c%s' doesn't allow an argument\n"
+msgstr "%s: seçenek `%c%s' argümansız kullanılır\n"
+
+#: gnu/getopt.c:715 gnu/getopt.c:734
+#, c-format
+msgid "%s: option '--%s' requires an argument\n"
+msgstr "%s: `%s' seçeneği bir argümanla kullanılır\n"
+
+#: gnu/getopt.c:772 gnu/getopt.c:775
+#, c-format
+msgid "%s: unrecognized option '--%s'\n"
+msgstr "%s: `--%s' seçeneği bilinmiyor\n"
+
+#: gnu/getopt.c:783 gnu/getopt.c:786
+#, c-format
+msgid "%s: unrecognized option '%c%s'\n"
+msgstr "%s: `%c%s' seçeneği bilinmiyor\n"
+
+#: gnu/getopt.c:835 gnu/getopt.c:838
+#, c-format
+msgid "%s: invalid option -- '%c'\n"
+msgstr "%s: geçersiz seçenek -- %c\n"
+
+#: gnu/getopt.c:891 gnu/getopt.c:908 gnu/getopt.c:1118 gnu/getopt.c:1136
+#, c-format
+msgid "%s: option requires an argument -- '%c'\n"
+msgstr "%s: seçenek bir argümanla kullanılır -- %c\n"
+
+#: gnu/getopt.c:964 gnu/getopt.c:980
+#, c-format
+msgid "%s: option '-W %s' is ambiguous\n"
+msgstr "%s: `-W %s' seçeneği belirsiz\n"
+
+#: gnu/getopt.c:1004 gnu/getopt.c:1022
+#, c-format
+msgid "%s: option '-W %s' doesn't allow an argument\n"
+msgstr "%s: `-W %s' seçeneği argümansız kullanılır\n"
+
+#: gnu/getopt.c:1043 gnu/getopt.c:1061
+#, c-format
+msgid "%s: option '-W %s' requires an argument\n"
+msgstr "%s: `%s' seçeneği bir argümanla kullanılır\n"
+
+#: gnu/obstack.c:338 gnu/obstack.c:340 gnu/xalloc-die.c:34
+msgid "memory exhausted"
+msgstr "bellek tükendi"
+
+#: gnu/openat-die.c:38
+#, c-format
+msgid "unable to record current working directory"
+msgstr "geçerli çalışma dizini kaydedilemiyor"
+
+#: gnu/openat-die.c:57
+#, c-format
+msgid "failed to return to initial working directory"
+msgstr "başlangıç çalışma dizinine dönülemedi"
+
+#. TRANSLATORS:
+#. Get translations for open and closing quotation marks.
+#. The message catalog should translate "`" to a left
+#. quotation mark suitable for the locale, and similarly for
+#. "'".  For example, a French Unicode local should translate
+#. these to U+00AB (LEFT-POINTING DOUBLE ANGLE
+#. QUOTATION MARK), and U+00BB (RIGHT-POINTING DOUBLE ANGLE
+#. QUOTATION MARK), respectively.
+#.
+#. If the catalog has no translation, we will try to
+#. use Unicode U+2018 (LEFT SINGLE QUOTATION MARK) and
+#. Unicode U+2019 (RIGHT SINGLE QUOTATION MARK).  If the
+#. current locale is not Unicode, locale_quoting_style
+#. will quote 'like this', and clocale_quoting_style will
+#. quote "like this".  You should always include translations
+#. for "`" and "'" even if U+2018 and U+2019 are appropriate
+#. for your locale.
+#.
+#. If you don't know what to put here, please see
+#. <http://en.wikipedia.org/wiki/Quotation_marks_in_other_languages>
+#. and use glyphs suitable for your language.
+#: gnu/quotearg.c:312
+msgid "`"
+msgstr "`"
+
+#: gnu/quotearg.c:313
+msgid "'"
+msgstr "'"
+
+#. TRANSLATORS: A regular expression testing for an affirmative answer
+#. (english: "yes").  Testing the first character may be sufficient.
+#. Take care to consider upper and lower case.
+#. To enquire the regular expression that your system uses for this
+#. purpose, you can use the command
+#. locale -k LC_MESSAGES | grep '^yesexpr='
+#: gnu/rpmatch.c:150
+msgid "^[yY]"
+msgstr "^[eEyY]"
+
+#. TRANSLATORS: A regular expression testing for a negative answer
+#. (english: "no").  Testing the first character may be sufficient.
+#. Take care to consider upper and lower case.
+#. To enquire the regular expression that your system uses for this
+#. purpose, you can use the command
+#. locale -k LC_MESSAGES | grep '^noexpr='
+#: gnu/rpmatch.c:163
+msgid "^[nN]"
+msgstr "^[hHnN]"
+
+#: gnu/version-etc.c:74
+#, c-format
+msgid "Packaged by %s (%s)\n"
+msgstr "%s (%s) tarafından paketlenmiş\n"
+
+#: gnu/version-etc.c:77
+#, c-format
+msgid "Packaged by %s\n"
+msgstr "%s tarafından paketlenmiş\n"
+
+#. TRANSLATORS: Translate "(C)" to the copyright symbol
+#. (C-in-a-circle), if this symbol is available in the user's
+#. locale.  Otherwise, do not translate "(C)"; leave it as-is.
+#: gnu/version-etc.c:84
+msgid "(C)"
+msgstr "(C)"
+
+#: gnu/version-etc.c:86
+msgid ""
+"\n"
+"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
+"\n"
+msgstr ""
+"\n"
+"Lisans GPLv3+: GNU GPL sürüm 3 veya sonrası <http://gnu.org/licenses/gpl.html>.\n"
+"Bu ücretsiz bir yazılımdır: değiştirmekte ve tekrar dağıtmakta özgürsünüz.\n"
+"İzin verilen yasalar kapsamında hiçbir GARANTİSİ BULUNMAMAKTADIR.\n"
+"\n"
+
+#. TRANSLATORS: %s denotes an author name.
+#: gnu/version-etc.c:102
+#, c-format
+msgid "Written by %s.\n"
+msgstr "Yazan %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: gnu/version-etc.c:106
+#, c-format
+msgid "Written by %s and %s.\n"
+msgstr "Yazanlar %s ve %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: gnu/version-etc.c:110
+#, c-format
+msgid "Written by %s, %s, and %s.\n"
+msgstr "Yazanlar %s, %s ve %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:117
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+"Yazanlar %s, %s, %s,\n"
+"ve %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:124
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+"Yazanlar %s, %s, %s,\n"
+"%s ve %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:131
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, and %s.\n"
+msgstr ""
+"Yazanlar %s, %s, %s,\n"
+"%s, %s ve %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:139
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, and %s.\n"
+msgstr ""
+"Yazanlar %s, %s, %s,\n"
+"%s, %s, %s ve %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:147
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+"Yazanlar %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"ve %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:156
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+"Yazanlar %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s ve %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:167
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, %s, and others.\n"
+msgstr ""
+"Yazanlar %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, %s ve diğerleri.\n"
+
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: gnu/version-etc.c:245
+#, c-format
+msgid ""
+"\n"
+"Report bugs to: %s\n"
+msgstr ""
+"\n"
+"Hataları şuraya bildirin: %s\n"
+
+#: gnu/version-etc.c:247
+#, c-format
+msgid "Report %s bugs to: %s\n"
+msgstr "%s hatalarını şuraya bildirin: %s\n"
+
+#: gnu/version-etc.c:251
+#, c-format
+msgid "%s home page: <%s>\n"
+msgstr "%s ana sayfası: <%s>\n"
+
+#: gnu/version-etc.c:253
+#, c-format
+msgid "%s home page: <http://www.gnu.org/software/%s/>\n"
+msgstr "%s ana sayfası: <http://www.gnu.org/software/%s/>\n"
+
+#: gnu/version-etc.c:256
+msgid "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
+msgstr "GNU yazılımı kullanımı hakkında genel yardım: <http://www.gnu.org/gethelp/>\n"
+
+#. TRANSLATORS: %s after `Cannot' is a function name, e.g. `Cannot open'.
+#. Directly translating this to another language will not work, first because
+#. %s itself is not translated.
+#. Translate it as `%s: Function %s failed'.
+#: lib/paxerror.c:60 lib/paxerror.c:73
+#, c-format
+msgid "%s: Cannot %s"
+msgstr "%s: %s olanaksız"
+
+#. TRANSLATORS: %s after `Cannot' is a function name, e.g. `Cannot open'.
+#. Directly translating this to another language will not work, first because
+#. %s itself is not translated.
+#. Translate it as `%s: Function %s failed'.
+#: lib/paxerror.c:86
+#, c-format
+msgid "%s: Warning: Cannot %s"
+msgstr "%s: Uyarı: %s olanaksız"
+
+#: lib/paxerror.c:95
+#, c-format
+msgid "%s: Cannot change mode to %s"
+msgstr "%s: Kip %s olarak değiştirilemez"
+
+#: lib/paxerror.c:103
+#, c-format
+msgid "%s: Cannot change ownership to uid %lu, gid %lu"
+msgstr "%s: Dosya sahipliği, Kullanıcı-kimlik %lu ve Grup-kimlik %lu olarak değiştirilemez."
+
+#: lib/paxerror.c:129
+#, c-format
+msgid "%s: Cannot hard link to %s"
+msgstr "%s: %s'e sabit bağ kurulamıyor"
+
+#: lib/paxerror.c:181 lib/paxerror.c:213
+#, c-format
+msgid "%s: Read error at byte %s, while reading %lu byte"
+msgid_plural "%s: Read error at byte %s, while reading %lu bytes"
+msgstr[0] "%1$s: %3$lu bayt okunurken  %2$s. baytta okuma hatası"
+msgstr[1] "%1$s: %3$lu bayt okunurken  %2$s. baytta okuma hatası"
+
+#: lib/paxerror.c:194
+#, c-format
+msgid "%s: Warning: Read error at byte %s, while reading %lu byte"
+msgid_plural "%s: Warning: Read error at byte %s, while reading %lu bytes"
+msgstr[0] "%1$s: Uyarı: %3$lu bayt okunurken  %2$s. baytta okuma hatası"
+msgstr[1] "%1$s: Uyarı: %3$lu bayt okunurken  %2$s. baytta okuma hatası"
+
+#: lib/paxerror.c:261
+#, c-format
+msgid "%s: Cannot seek to %s"
+msgstr "%s: %s e gidilemiyor"
+
+#: lib/paxerror.c:277
+#, c-format
+msgid "%s: Warning: Cannot seek to %s"
+msgstr "%s: Uyarı: %s e gidilemiyor"
+
+#: lib/paxerror.c:286
+#, c-format
+msgid "%s: Cannot create symlink to %s"
+msgstr "%s: %s'e sembolik bağ oluşturulamıyor"
+
+#: lib/paxerror.c:351
+#, c-format
+msgid "%s: Wrote only %lu of %lu byte"
+msgid_plural "%s: Wrote only %lu of %lu bytes"
+msgstr[0] "%1$s: %3$lu baytın sadece %2$lu baytı yazıldı"
+msgstr[1] "%1$s: %3$lu baytın sadece %2$lu baytı yazıldı"
+
+#: lib/paxnames.c:140
+#, c-format
+msgid "Removing leading `%s' from member names"
+msgstr "Üye isimlerinden `%s' kaldırılıyor"
+
+#: lib/paxnames.c:141
+#, c-format
+msgid "Removing leading `%s' from hard link targets"
+msgstr "Sabit bağ hedeflerinden `%s' kaldırılıyor"
+
+#: lib/paxnames.c:154
+msgid "Substituting `.' for empty member name"
+msgstr "Boş üye ismi için `.' ikamesi"
+
+#: lib/paxnames.c:155
+msgid "Substituting `.' for empty hard link target"
+msgstr "Boş sabit bağ hedefi için `.' ikamesi"
+
+#: lib/rtapelib.c:299
+#, c-format
+msgid "exec/tcp: Service not available"
+msgstr "exec/tcp: Servis yok"
+
+#: lib/rtapelib.c:303
+#, c-format
+msgid "stdin"
+msgstr "stdG"
+
+#: lib/rtapelib.c:306
+#, c-format
+msgid "stdout"
+msgstr "stdÇ"
+
+#: lib/rtapelib.c:429
+#, c-format
+msgid "Cannot connect to %s: resolve failed"
+msgstr "%s bağlantısı yapılamadı: çözme başarısız"
+
+#: lib/rtapelib.c:502
+#, c-format
+msgid "Cannot redirect files for remote shell"
+msgstr "Uzak kabuk için dosyalar yönlendirilemiyor"
+
+#: lib/rtapelib.c:516
+#, c-format
+msgid "Cannot execute remote shell"
+msgstr "Uzak kabuk çalıştırılamıyor"
+
+#: rmt/rmt.c:432
+msgid "Seek direction out of range"
+msgstr "Arama yönü kapsamdışı"
+
+#: rmt/rmt.c:438
+msgid "Invalid seek direction"
+msgstr "Geçersiz arama yönü"
+
+#: rmt/rmt.c:446
+msgid "Invalid seek offset"
+msgstr "Geçersiz arama başlangıcı"
+
+#: rmt/rmt.c:452
+msgid "Seek offset out of range"
+msgstr "Arama başlangıcı kapsamdışı"
+
+#: rmt/rmt.c:493 rmt/rmt.c:544 rmt/rmt.c:608
+msgid "Invalid byte count"
+msgstr "Geçersiz bayt sayısı"
+
+#: rmt/rmt.c:499 rmt/rmt.c:550 rmt/rmt.c:614 rmt/rmt.c:625
+msgid "Byte count out of range"
+msgstr "Bayt aralığı aralık dışında"
+
+#: rmt/rmt.c:558
+msgid "Premature eof"
+msgstr "Erken dosya sonu"
+
+#: rmt/rmt.c:601
+msgid "Invalid operation code"
+msgstr "Geçersiz işlem kodu"
+
+#: rmt/rmt.c:636 rmt/rmt.c:680
+msgid "Operation not supported"
+msgstr "İşlem desteklenmiyor"
+
+#: rmt/rmt.c:664
+msgid "Unexpected arguments"
+msgstr "Beklenmeyen argümanlar"
+
+#: rmt/rmt.c:689
+msgid "Manipulate a tape drive, accepting commands from a remote process"
+msgstr "Uzak bir işlem komutları kabul eden, bir kaset sürücüsü değiştir"
+
+#: rmt/rmt.c:696 src/tar.c:432 src/tar.c:436 src/tar.c:610 src/tar.c:625
+#: src/tar.c:714 src/tar.c:730 tests/genfile.c:171
+msgid "NUMBER"
+msgstr "SAYI"
+
+#: rmt/rmt.c:697
+msgid "set debug level"
+msgstr "hata ayıklama seviyesini ayarla"
+
+#: rmt/rmt.c:698 src/names.c:70 src/names.c:74 src/names.c:92 src/names.c:102
+#: src/names.c:105 src/names.c:108 src/names.c:111 src/names.c:113
+#: src/tar.c:430 src/tar.c:511 src/tar.c:513 src/tar.c:615 src/tar.c:747
+#: tests/genfile.c:136 tests/genfile.c:185 tests/genfile.c:189
+#: tests/genfile.c:192 tests/genfile.c:198
+msgid "FILE"
+msgstr "DOSYA"
+
+#: rmt/rmt.c:699
+msgid "set debug output file name"
+msgstr "hata ayıklama çıktı dosyasının adını ayarla"
+
+#: rmt/rmt.c:715 rmt/rmt.c:783
+#, c-format
+msgid "cannot open %s"
+msgstr "%s açılamıyor"
+
+#: rmt/rmt.c:780 tests/genfile.c:960 tests/genfile.c:977
+#, c-format
+msgid "too many arguments"
+msgstr "argüman sayısı çok fazla"
+
+#: rmt/rmt.c:822
+msgid "Garbage command"
+msgstr "Bozuk komut"
+
+#: src/buffer.c:461 src/buffer.c:466 src/buffer.c:760 src/buffer.c:1396
+#: src/buffer.c:1433 src/buffer.c:1445 src/buffer.c:1474 src/delete.c:212
+#: src/list.c:275 src/update.c:188
+msgid "This does not look like a tar archive"
+msgstr "Bu bir tar arşivi gibi görünmüyor"
+
+#: src/buffer.c:577
+msgid "Total bytes read"
+msgstr "Okunan toplam bayt"
+
+#: src/buffer.c:579
+msgid "Total bytes written"
+msgstr "Yazılan toplam bayt"
+
+#: src/buffer.c:580
+msgid "Total bytes deleted"
+msgstr "Silinen toplam bayt"
+
+#: src/buffer.c:659
+msgid "(pipe)"
+msgstr "(boru)"
+
+#: src/buffer.c:683
+msgid "Refusing to read archive contents from terminal (missing -f option?)"
+msgstr "Uçbirimden arşiv içeriğini okuma reddediliyor (-f seçeneği eksik?)"
+
+#: src/buffer.c:685
+msgid "Refusing to write archive contents to terminal (missing -f option?)"
+msgstr "Uçbirime arşiv içeriğini yazma reddediliyor (-f seçeneği eksik?)"
+
+#: src/buffer.c:698
+msgid "Invalid value for record_size"
+msgstr "record_size için geçersiz değer"
+
+#: src/buffer.c:701
+msgid "No archive name given"
+msgstr "Arşiv ismi verilmemiş"
+
+#: src/buffer.c:744
+msgid "Cannot verify stdin/stdout archive"
+msgstr "stdG/stdÇ arşivi doğrulanamaz"
+
+#: src/buffer.c:757
+#, c-format
+msgid "Archive is compressed. Use %s option"
+msgstr "Aeşiv sıkıştırılmış. %s seçeneğini kullanın"
+
+#: src/buffer.c:815 src/tar.c:2460
+msgid "Cannot update compressed archives"
+msgstr "Sıkıştırılmış arşivler güncellenemez"
+
+#: src/buffer.c:908
+msgid "At beginning of tape, quitting now"
+msgstr "Bandın başlangıcında, şimdilik çıkıyor"
+
+#: src/buffer.c:914
+msgid "Too many errors, quitting"
+msgstr "Çok hata var, çıkıyor"
+
+#: src/buffer.c:947
+#, c-format
+msgid "Record size = %lu block"
+msgid_plural "Record size = %lu blocks"
+msgstr[0] "Kayıt uzunluğu = %lu blok"
+msgstr[1] "Kayıt uzunluğu = %lu blok"
+
+#: src/buffer.c:968
+#, c-format
+msgid "Unaligned block (%lu byte) in archive"
+msgid_plural "Unaligned block (%lu bytes) in archive"
+msgstr[0] "Arşivde hizalanmamış blok (%lu bayt)"
+msgstr[1] "Arşivde hizalanmamış blok (%lu bayt)"
+
+#: src/buffer.c:1055
+msgid "Cannot backspace archive file; it may be unreadable without -i"
+msgstr "Arşiv dosyası geri alınamaz; -i olmaksızın okunamayabilir"
+
+#: src/buffer.c:1087
+msgid "rmtlseek not stopped at a record boundary"
+msgstr "rmtlseek bir kaydın sınırında durmadı"
+
+#: src/buffer.c:1148
+#, c-format
+msgid "%s: contains invalid volume number"
+msgstr "%s: geçersiz bölüm numarası içeriyor"
+
+#: src/buffer.c:1183
+msgid "Volume number overflow"
+msgstr "Bölüm numarası kapsamdışı"
+
+#: src/buffer.c:1198
+#, c-format
+msgid "Prepare volume #%d for %s and hit return: "
+msgstr "#%d. bölümü %s için hazırlamak istiyorsanız return tuşuna basınız: "
+
+#: src/buffer.c:1204
+msgid "EOF where user reply was expected"
+msgstr "Kullanıcı cevabı beklenirken dosya sonuna gelindi"
+
+#: src/buffer.c:1209 src/buffer.c:1241
+msgid "WARNING: Archive is incomplete"
+msgstr "UYARI: Arşiv eksik"
+
+#: src/buffer.c:1223
+#, c-format
+msgid ""
+" n name        Give a new file name for the next (and subsequent) volume(s)\n"
+" q             Abort tar\n"
+" y or newline  Continue operation\n"
+msgstr ""
+" n isim              Sonraki (ve peşisıra) bölüm(ler) için yeni dosya ismi\n"
+" q                   Uygulama sonlandırılır\n"
+" y veya <enter>      İşlem sürdürülür\n"
+
+#: src/buffer.c:1228
+#, c-format
+msgid " !             Spawn a subshell\n"
+msgstr " !                   bir alt kabuk açılır\n"
+
+#: src/buffer.c:1229
+#, c-format
+msgid " ?             Print this list\n"
+msgstr " ?                    Bu listeyi basar\n"
+
+#: src/buffer.c:1236
+msgid "No new volume; exiting.\n"
+msgstr "Yeni bölüm yok; çıkıyor.\n"
+
+#: src/buffer.c:1269
+msgid "File name not specified. Try again.\n"
+msgstr "Dosya ismi belirtilmemiş. Tekrar deneyin.\n"
+
+#: src/buffer.c:1282
+#, c-format
+msgid "Invalid input. Type ? for help.\n"
+msgstr "Girdi geçersiz, Yardım için ? yazın.\n"
+
+#: src/buffer.c:1333
+#, c-format
+msgid "%s command failed"
+msgstr "%s komutu başarısız"
+
+#: src/buffer.c:1511 src/buffer.c:1527
+#, c-format
+msgid "%s is not continued on this volume"
+msgstr "%s bu bölümde devam etmiyor"
+
+#: src/buffer.c:1523
+#, c-format
+msgid "%s is possibly continued on this volume: header contains truncated name"
+msgstr "%s belki de bu bölümde devam ediyor: başlıktaki isim kırpılmış"
+
+#: src/buffer.c:1541
+#, c-format
+msgid "%s is the wrong size (%s != %s + %s)"
+msgstr "%s yanlış uzunluk (%s != %s + %s)"
+
+#: src/buffer.c:1556
+#, c-format
+msgid "This volume is out of sequence (%s - %s != %s)"
+msgstr "Bu hacim sıranın dışında (% s -% s =% s)"
+
+#: src/buffer.c:1634 src/buffer.c:1660
+#, c-format
+msgid "Archive not labeled to match %s"
+msgstr "Arşiv etiketi %s ile eşleşmiyor"
+
+#: src/buffer.c:1664
+#, c-format
+msgid "Volume %s does not match %s"
+msgstr "%s bölümü %s ile eşleşmiyor"
+
+#: src/buffer.c:1758
+#, c-format
+msgid "%s: file name too long to be stored in a GNU multivolume header, truncated"
+msgstr "%s: dosya ismi GNU çoklu bölüm başlığında saklanamayacak kadar uzun, kırpıldı"
+
+#: src/buffer.c:1949
+msgid "write did not end on a block boundary"
+msgstr "yazma bir blok sınırında bitmiyor"
+
+#: src/compare.c:96
+#, c-format
+msgid "Could only read %lu of %lu byte"
+msgid_plural "Could only read %lu of %lu bytes"
+msgstr[0] "Sadece %2$lu baytın %1$lu baytı okunabildi"
+msgstr[1] "Sadece %2$lu baytın %1$lu baytı okunabildi"
+
+#: src/compare.c:106 src/compare.c:395
+msgid "Contents differ"
+msgstr "İçerikler farklı"
+
+#: src/compare.c:132 src/extract.c:1177 src/incremen.c:1508 src/list.c:489
+#: src/list.c:1405 src/xheader.c:847
+msgid "Unexpected EOF in archive"
+msgstr "Arşivde beklenmeyen dosya sonu"
+
+#: src/compare.c:180 src/compare.c:196 src/compare.c:314 src/compare.c:419
+msgid "File type differs"
+msgstr "Dosya türleri farklı"
+
+#: src/compare.c:183 src/compare.c:203 src/compare.c:328
+msgid "Mode differs"
+msgstr "Kipleri farklı"
+
+#: src/compare.c:206
+msgid "Uid differs"
+msgstr "Kullanıcı-kimlikler farklı"
+
+#: src/compare.c:208
+msgid "Gid differs"
+msgstr "Grup-kimlikler farklı"
+
+#: src/compare.c:212
+msgid "Mod time differs"
+msgstr "Değişiklik zamanları farklı"
+
+#: src/compare.c:216 src/compare.c:429
+msgid "Size differs"
+msgstr "Uzunlukları farklı"
+
+#: src/compare.c:265
+#, c-format
+msgid "Not linked to %s"
+msgstr "%s'e bağlı değil"
+
+#: src/compare.c:290
+msgid "Symlink differs"
+msgstr "Sembolik bağlar farklı"
+
+#: src/compare.c:322
+msgid "Device number differs"
+msgstr "Aygıt numaraları farklı"
+
+#: src/compare.c:470
+#, c-format
+msgid "Verify "
+msgstr "Doğrulama "
+
+#: src/compare.c:477
+#, c-format
+msgid "%s: Unknown file type '%c', diffed as normal file"
+msgstr "%s: '%c' dosya türü bilinmiyor, normal dosya olarak karşılaştırıldı"
+
+#: src/compare.c:533
+msgid "Archive contains file names with leading prefixes removed."
+msgstr "Arşivdeki dosya isimleri dosya yolu içermiyor."
+
+#: src/compare.c:539
+msgid "Archive contains transformed file names."
+msgstr "Arşiv dönüştürülmüş dosya adları içeriyor."
+
+#: src/compare.c:544
+msgid "Verification may fail to locate original files."
+msgstr "Doğrulama, özgün dosyaların konumlanmasında başarısız olabilir."
+
+#: src/compare.c:618
+#, c-format
+msgid "VERIFY FAILURE: %d invalid header detected"
+msgid_plural "VERIFY FAILURE: %d invalid headers detected"
+msgstr[0] "DOĞRULAMA BAŞARISIZ: %d geçersiz başlık saptandı"
+msgstr[1] "DOĞRULAMA BAŞARISIZ: %d geçersiz başlık saptandı"
+
+#: src/compare.c:636 src/list.c:252
+#, c-format
+msgid "A lone zero block at %s"
+msgstr "%s de tek başına sıfır bloğu"
+
+#: src/create.c:74
+#, c-format
+msgid "%s: contains a cache directory tag %s; %s"
+msgstr "%s: %s arabellekleme dizini yaftasını içeriyor; %s"
+
+#: src/create.c:263
+#, c-format
+msgid "value %s out of %s range %s..%s; substituting %s"
+msgstr "%1$s değeri, %3$s..%4$s aralığının %2$s dışında; yerine %5$s kullanılıyor"
+
+#: src/create.c:269
+#, c-format
+msgid "value %s out of %s range %s..%s"
+msgstr "%1$s değeri, %3$s..%4$s aralığının %2$s dışında"
+
+#: src/create.c:329
+msgid "Generating negative octal headers"
+msgstr "Negatif sekizlik başlık üretiliyor"
+
+#: src/create.c:602 src/create.c:665
+#, c-format
+msgid "%s: file name is too long (max %d); not dumped"
+msgstr "%s: dosya ismi çok uzun (en çok %d olabilir); dökümlenmedi"
+
+#: src/create.c:612
+#, c-format
+msgid "%s: file name is too long (cannot be split); not dumped"
+msgstr "%s: dosya ismi çok uzun (parçalanamıyor); dökümlenmedi"
+
+#: src/create.c:639
+#, c-format
+msgid "%s: link name is too long; not dumped"
+msgstr "%s: bağ ismi çok uzun; dökümlenmedi"
+
+#: src/create.c:1102
+#, c-format
+msgid "%s: File shrank by %s byte; padding with zeros"
+msgid_plural "%s: File shrank by %s bytes; padding with zeros"
+msgstr[0] "%s: Dosya %s baytta kaldı; sıfırlarla dolduruluyor"
+msgstr[1] "%s: Dosya %s baytta kaldı; sıfırlarla dolduruluyor"
+
+#: src/create.c:1200
+#, c-format
+msgid "%s: file is on a different filesystem; not dumped"
+msgstr "%s: dosya farklı bir dosya sisteminde; dökümlenmedi"
+
+#: src/create.c:1243 src/create.c:1254 src/incremen.c:610 src/incremen.c:617
+msgid "contents not dumped"
+msgstr "içerik dökümlenmedi"
+
+#: src/create.c:1458
+#, c-format
+msgid "%s: Unknown file type; file ignored"
+msgstr "%s: Bilinmeyen dosya türü; dosya yoksayıldı"
+
+#: src/create.c:1569
+#, c-format
+msgid "Missing links to %s."
+msgstr "%s için bağlar kayıp."
+
+#: src/create.c:1730
+#, c-format
+msgid "%s: file is unchanged; not dumped"
+msgstr "%s: dosya değişmedi; dökümlenmedi"
+
+#: src/create.c:1739
+#, c-format
+msgid "%s: file is the archive; not dumped"
+msgstr "%s: dosya arşivdir; dökümlenmedi"
+
+#: src/create.c:1767 src/incremen.c:603
+msgid "directory not dumped"
+msgstr "dizin dökümlenmedi"
+
+#: src/create.c:1839
+#, c-format
+msgid "%s: file changed as we read it"
+msgstr "%s: dosya okundu olarak imlendi"
+
+#: src/create.c:1915
+#, c-format
+msgid "%s: socket ignored"
+msgstr "%s: soket yoksayıldı"
+
+#: src/create.c:1921
+#, c-format
+msgid "%s: door ignored"
+msgstr "%s: kapı yoksayıldı"
+
+#: src/delete.c:218 src/list.c:289 src/update.c:193
+msgid "Skipping to next header"
+msgstr "Sonraki başlığa atlanıyor"
+
+#: src/delete.c:284
+msgid "Deleting non-header from archive"
+msgstr "Arşivden başlık-olmayan siliniyor"
+
+#: src/extract.c:302
+#, c-format
+msgid "%s: implausibly old time stamp %s"
+msgstr "%s: makul olmayan eski tarih damgası %s"
+
+#: src/extract.c:320
+#, c-format
+msgid "%s: time stamp %s is %s s in the future"
+msgstr "%s: zaman damgası %s %s s gelecekte"
+
+#: src/extract.c:535
+#, c-format
+msgid "%s: Unexpected inconsistency when making directory"
+msgstr "%s: Dizin oluşturulurken anlaşılamayan uyumsuzluk"
+
+#: src/extract.c:754
+#, c-format
+msgid "%s: skipping existing file"
+msgstr "%s: varolan dosya atlanıyor"
+
+#: src/extract.c:870
+#, c-format
+msgid "%s: Directory renamed before its status could be extracted"
+msgstr "%s: durumu çıkarılamadan dizin ismi değiştirildi"
+
+#: src/extract.c:1055
+msgid "Extracting contiguous files as regular files"
+msgstr "Bitişik dosyaları normal dosyalar olarak çıkarıyor"
+
+#: src/extract.c:1410
+msgid "Attempting extraction of symbolic links as hard links"
+msgstr "Sembolik bağlar, sabit bağlar olarak çıkarılmaya çalışılıyor"
+
+#: src/extract.c:1573
+#, c-format
+msgid "%s: Cannot extract -- file is continued from another volume"
+msgstr "%s: Dosya çıkarılamaz -- dosyanın başı diğer bölümde"
+
+#: src/extract.c:1580 src/list.c:1168
+msgid "Unexpected long name header"
+msgstr "Umulmadık uzun isim başlığı"
+
+#: src/extract.c:1587
+#, c-format
+msgid "%s: Unknown file type '%c', extracted as normal file"
+msgstr "%s: Bilinmeyen dosya türü '%c', normal dosya olarak çıkartıldı"
+
+#: src/extract.c:1613
+#, c-format
+msgid "Current %s is newer or same age"
+msgstr "Mevcut %s daha yeni ya da yaşıt"
+
+#: src/extract.c:1665
+#, c-format
+msgid "%s: Was unable to backup this file"
+msgstr "%s: Bu dosyayı yedeklemek mümkün olmadı"
+
+#: src/extract.c:1814
+#, c-format
+msgid "Cannot rename %s to %s"
+msgstr "%s ismi %s olarak değiştirilemez"
+
+#: src/incremen.c:494 src/incremen.c:536
+#, c-format
+msgid "%s: Directory has been renamed from %s"
+msgstr "%s: Dizinin eski adı %s idi"
+
+#: src/incremen.c:549
+#, c-format
+msgid "%s: Directory is new"
+msgstr "%s: Dizin yeni"
+
+#: src/incremen.c:566
+#, c-format
+msgid "%s: directory is on a different filesystem; not dumped"
+msgstr "%s: dizin farklı bir dosya sisteminde; dökümlenmedi"
+
+#: src/incremen.c:587
+#, c-format
+msgid "%s: Directory has been renamed"
+msgstr "%s: Dizin adı değiştirilmişti"
+
+#: src/incremen.c:1003 src/incremen.c:1018
+msgid "Invalid time stamp"
+msgstr "Geçersiz zaman damgası"
+
+#: src/incremen.c:1047
+msgid "Invalid modification time"
+msgstr "Değişiklik zamanı geçersiz"
+
+#: src/incremen.c:1057
+msgid "Invalid modification time (nanoseconds)"
+msgstr "Değişiklik zamanı (nanosaniye cinsinden) geçersiz"
+
+#: src/incremen.c:1073
+msgid "Invalid device number"
+msgstr "Geçersiz aygıt numarası"
+
+#: src/incremen.c:1081
+msgid "Invalid inode number"
+msgstr "Geçersiz düğüm numarası"
+
+#: src/incremen.c:1137
+#, c-format
+msgid "%s: byte %s: %s %.*s... too long"
+msgstr "%s: bayt %s: %s %.*s... çok uzun"
+
+#: src/incremen.c:1153 src/incremen.c:1211 src/incremen.c:1273
+msgid "Unexpected EOF in snapshot file"
+msgstr "Anlık görüntü dosyasında beklenmeyen dosya sonu"
+
+#: src/incremen.c:1161
+#, c-format
+msgid "%s: byte %s: %s %s followed by invalid byte 0x%02x"
+msgstr "%s: bayt %s: %s %s geçersiz bayt 0x%02x izliyor"
+
+#: src/incremen.c:1174
+#, c-format
+msgid ""
+"%s: byte %s: (valid range %s..%s)\n"
+"\t%s %s"
+msgstr ""
+"%s: bayt %s: (geçerli aralık %s..%s)\n"
+"\t%s %s"
+
+#: src/incremen.c:1181
+#, c-format
+msgid "%s: byte %s: %s %s"
+msgstr "%s: bayt %s: %s %s"
+
+#: src/incremen.c:1262
+#, c-format
+msgid "%s: byte %s: %s"
+msgstr "%s: bayt %s: %s"
+
+#: src/incremen.c:1265
+msgid "Missing record terminator"
+msgstr "Kayıt sonlandırıcı eksik"
+
+#: src/incremen.c:1371 src/incremen.c:1374
+msgid "Bad incremental file format"
+msgstr "Arttırımlı dosya biçimi hatalı"
+
+#: src/incremen.c:1393
+#, c-format
+msgid "Unsupported incremental format version: %<PRIuMAX>"
+msgstr "Desteklenmeyen arttırımlı biçim sürümü: %<PRIuMAX>"
+
+#: src/incremen.c:1549
+#, c-format
+msgid "Malformed dumpdir: expected '%c' but found %#3o"
+msgstr "dumpdir bozuk: umulan '%c' ama bulunan %#3o"
+
+#: src/incremen.c:1559
+msgid "Malformed dumpdir: 'X' duplicated"
+msgstr "dumpdir bozuk: 'X' yinelenmiş"
+
+#: src/incremen.c:1572
+msgid "Malformed dumpdir: empty name in 'R'"
+msgstr "dumpdir bozuk: 'R'deki isim boş"
+
+#: src/incremen.c:1585
+msgid "Malformed dumpdir: 'T' not preceded by 'R'"
+msgstr "dumpdir bozuk: 'T' 'R' ile öncelenmemiş"
+
+#: src/incremen.c:1591
+msgid "Malformed dumpdir: empty name in 'T'"
+msgstr "dumpdir bozuk: 'T'deki isim boş"
+
+#: src/incremen.c:1611
+#, c-format
+msgid "Malformed dumpdir: expected '%c' but found end of data"
+msgstr "dumpdir bozuk: umulan'%c' ama bulunan veri sonu"
+
+#: src/incremen.c:1618
+msgid "Malformed dumpdir: 'X' never used"
+msgstr "dumpdir bozuk: 'X' hiç kullanılmamış"
+
+#: src/incremen.c:1662
+#, c-format
+msgid "Cannot create temporary directory using template %s"
+msgstr "%s şablonu kullanılarak geçici dizin oluşturulamıyor"
+
+#: src/incremen.c:1723
+#, c-format
+msgid "%s: Not purging directory: unable to stat"
+msgstr "%s: dizin temizlenmiyor: durumlama yapılamadı"
+
+#: src/incremen.c:1736
+#, c-format
+msgid "%s: directory is on a different device: not purging"
+msgstr "%s: dizin farklı bir aygıtta: temizlenmiyor"
+
+#: src/incremen.c:1744
+#, c-format
+msgid "%s: Deleting %s\n"
+msgstr "%s: %s siliniyor\n"
+
+#: src/incremen.c:1749
+#, c-format
+msgid "%s: Cannot remove"
+msgstr "%s: Kaldırılamaz"
+
+#: src/list.c:219
+#, c-format
+msgid "%s: Omitting"
+msgstr "%s: Geçiliyor"
+
+#: src/list.c:237
+#, c-format
+msgid "block %s: ** Block of NULs **\n"
+msgstr "blok %s: ** NUL bloku **\n"
+
+#: src/list.c:263
+#, c-format
+msgid "block %s: ** End of File **\n"
+msgstr "blok %s: ** Dosya Sonu **\n"
+
+#: src/list.c:286 src/list.c:1137 src/list.c:1373
+#, c-format
+msgid "block %s: "
+msgstr "blok %s: "
+
+#. TRANSLATORS: %s is type of the value (gid_t, uid_t,
+#. etc.)
+#: src/list.c:752
+#, c-format
+msgid "Blanks in header where numeric %s value expected"
+msgstr "Sayısal %s değeri beklenirken başlıkta boşluklar bulundu"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:807
+#, c-format
+msgid "Archive octal value %.*s is out of %s range; assuming two's complement"
+msgstr "Arşiv sekizlik değeri %.*s aralığın %s dışında; ikinin tümleyeni kabul ediliyor"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:818
+#, c-format
+msgid "Archive octal value %.*s is out of %s range"
+msgstr "Arşiv sekizlik değeri %.*s aralığın %s dışında"
+
+#: src/list.c:839
+msgid "Archive contains obsolescent base-64 headers"
+msgstr "Arşiv atıl base-64 başlıklar içeriyor"
+
+#: src/list.c:853
+#, c-format
+msgid "Archive signed base-64 string %s is out of %s range"
+msgstr "Arşiv imzalı base-64 dizge %s, %s aralığının dışında"
+
+#: src/list.c:884
+#, c-format
+msgid "Archive base-256 value is out of %s range"
+msgstr "Arşiv base-256 değeri %s aralığının dışında"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:913
+#, c-format
+msgid "Archive contains %.*s where numeric %s value expected"
+msgstr "Arşiv %.*s içeriyor, halbuki orada sayısal %s değeri bekleniyor"
+
+#. TRANSLATORS: Second %s is type name (gid_t,uid_t,etc.)
+#: src/list.c:935
+#, c-format
+msgid "Archive value %s is out of %s range %s..%s"
+msgstr "Arşiv değeri %s %s türünün %s..%s aralığının dışında"
+
+#: src/list.c:1273
+#, c-format
+msgid " link to %s\n"
+msgstr " bağı -> %s \n"
+
+#: src/list.c:1281
+#, c-format
+msgid " unknown file type %s\n"
+msgstr " bilinmeyen dosya türü %s\n"
+
+#: src/list.c:1299
+#, c-format
+msgid "--Long Link--\n"
+msgstr "--Uzun  Bağ--\n"
+
+#: src/list.c:1303
+#, c-format
+msgid "--Long Name--\n"
+msgstr "--Uzun İsim--\n"
+
+#: src/list.c:1307
+#, c-format
+msgid "--Volume Header--\n"
+msgstr "--Bölüm Başlığı--\n"
+
+#: src/list.c:1315
+#, c-format
+msgid "--Continued at byte %s--\n"
+msgstr "--Devamı bayt %s de--\n"
+
+#: src/list.c:1378
+msgid "Creating directory:"
+msgstr "Oluşturulan dizin:"
+
+#: src/misc.c:733
+#, c-format
+msgid "Renaming %s to %s\n"
+msgstr "%s %s olarak değiştiriliyor\n"
+
+#: src/misc.c:742 src/misc.c:761
+#, c-format
+msgid "%s: Cannot rename to %s"
+msgstr "%s: İsmi %s olarak değiştirilemez"
+
+#: src/misc.c:766
+#, c-format
+msgid "Renaming %s back to %s\n"
+msgstr "Gerisin geriye %s %s olarak değiştiriliyor\n"
+
+#: src/misc.c:1108
+#, c-format
+msgid "%s: File removed before we read it"
+msgstr "%s: Dosya okunamadan kaldırıldı"
+
+#: src/misc.c:1122
+msgid "child process"
+msgstr "alt süreç"
+
+#: src/misc.c:1131
+msgid "interprocess channel"
+msgstr "süreçlerarası kanal"
+
+#: src/names.c:68
+msgid "Local file name selection:"
+msgstr "Yerel dosya adı seçimi:"
+
+#: src/names.c:71
+msgid "add given FILE to the archive (useful if its name starts with a dash)"
+msgstr "belirtilen DOSYA arşive eklenir (isim bir tire ile başlıyorsa kullanışlıdır)"
+
+#: src/names.c:72 src/tar.c:484
+msgid "DIR"
+msgstr "DİZİN"
+
+#: src/names.c:73
+msgid "change to directory DIR"
+msgstr "DİZİN dizinine geçilir"
+
+#: src/names.c:75
+msgid "get names to extract or create from FILE"
+msgstr "çıkarılacak ya da oluşturulacak isimler DOSYAdan alınır"
+
+#: src/names.c:77
+msgid "-T reads null-terminated names; implies --verbatim-files-from"
+msgstr "-T boş karakter sonlandırmalı isimleri okur, --verbatim-files-from anlamına gelir"
+
+#: src/names.c:80
+msgid "disable the effect of the previous --null option"
+msgstr "önceki --null seçeneği etkisini devre dışı bırak"
+
+#: src/names.c:82
+msgid "unquote input file or member names (default)"
+msgstr "girdi dosyası veya üye adlarında tırnakları kaldır (varsayılan)"
+
+#: src/names.c:84
+msgid "do not unquote input file or member names"
+msgstr "girdi dosyası veya üye adlarında tırnakları kaldırma"
+
+#: src/names.c:86
+msgid "-T reads file names verbatim (no option handling)"
+msgstr "-T dosya adlarını harfiyen okur (seçenek işleme yok)"
+
+#: src/names.c:88
+msgid "-T treats file names starting with dash as options (default)"
+msgstr "-T çizgi ile başlayan dosya adlarını seçenek olarak kabul eder (varsayılan)"
+
+#: src/names.c:90 tests/genfile.c:140
+msgid "PATTERN"
+msgstr "ŞABLON"
+
+#: src/names.c:91
+msgid "exclude files, given as a PATTERN"
+msgstr "belirtilen ŞABLONa uyan dosyalar hariç tutulur"
+
+#: src/names.c:93
+msgid "exclude patterns listed in FILE"
+msgstr "DOSYAdaki şablonlara uyan isimler hariç tutulur"
+
+#: src/names.c:95
+msgid "exclude contents of directories containing CACHEDIR.TAG, except for the tag file itself"
+msgstr "yafta dosyası hariç, CACHEDIR.TAG içeren dizinler dışlanır"
+
+#: src/names.c:98
+msgid "exclude everything under directories containing CACHEDIR.TAG"
+msgstr "CACHEDIR.TAG içeren dizinlerin altındaki herşey hariç tutulur"
+
+#: src/names.c:101
+msgid "exclude directories containing CACHEDIR.TAG"
+msgstr "CACHEDIR.TAG içeren dizinler hariç tutulur"
+
+#: src/names.c:103
+msgid "exclude contents of directories containing FILE, except for FILE itself"
+msgstr "DOSYA'nın kendisi hariç, DOSYA içeren dizinlerin içerikleri hariç tutulur"
+
+#: src/names.c:106
+msgid "read exclude patterns for each directory from FILE, if it exists"
+msgstr "mevcutsa, DOSYAdan her dizin için dışta tutulma kalıbını oku"
+
+#: src/names.c:109
+msgid "read exclude patterns for each directory and its subdirectories from FILE, if it exists"
+msgstr "mevcutsa, DOSYAdan her dizin ve alt dizini için dışta tutulma kalıbını oku"
+
+#: src/names.c:112
+msgid "exclude everything under directories containing FILE"
+msgstr "DOSYA içeren dizinlerin altındaki herşey hariç tutulur"
+
+#: src/names.c:114
+msgid "exclude directories containing FILE"
+msgstr "DOSYA içeren dizinler hariç tutulur"
+
+#: src/names.c:116
+msgid "exclude version control system directories"
+msgstr "sürüm denetimi sistem dizinlerini hariç tut"
+
+#: src/names.c:118
+msgid "read exclude patterns from the VCS ignore files"
+msgstr "VCS yoksayma dosyalarından dışta tutma kalıplarını oku"
+
+#: src/names.c:120
+msgid "exclude backup and lock files"
+msgstr "yedek ve kilit dosyalarını hariç tut"
+
+#: src/names.c:122
+msgid "recurse into directories (default)"
+msgstr "dizinlerin alt dizinlerine inilir (öntanımlı)"
+
+#: src/names.c:124
+msgid "avoid descending automatically in directories"
+msgstr "dizinlerde özdevinimli olarak azalan sıralamadan kaçınılır"
+
+#: src/names.c:129
+msgid "File name matching options (affect both exclude and include patterns):"
+msgstr ""
+"Dosya ismi eşleştirme seçenekleri\n"
+"(içerme ve dışlama kalıplarının her ikisi de etkili):"
+
+#: src/names.c:132
+msgid "patterns match file name start"
+msgstr "dosya isminin başlangıcına uyan kalıplar"
+
+#: src/names.c:134
+msgid "patterns match after any '/' (default for exclusion)"
+msgstr "bir '/' işaretinden sonra şablonla eşleşen kalıplar (dışlama için öntanımlı)"
+
+#: src/names.c:136
+msgid "ignore case"
+msgstr "harf büyüklükleri önemsenmez"
+
+#: src/names.c:138
+msgid "case sensitive matching (default)"
+msgstr "harf büyüklüklerine duyarlı eşleşme (öntanımlı)"
+
+#: src/names.c:140
+msgid "use wildcards (default for exclusion)"
+msgstr "genelleme kalıpları kullanılır (dışlama için öntanımlı)"
+
+#: src/names.c:142
+msgid "verbatim string matching"
+msgstr "birebir dizge eşleme"
+
+#: src/names.c:144
+msgid "wildcards match '/' (default for exclusion)"
+msgstr "'/' ile eşleşen genelleme kalıpları (dışlama için öntanımlı)"
+
+#: src/names.c:146
+msgid "wildcards do not match '/'"
+msgstr "'/' ile eşleşmeyen genelleme kalıpları"
+
+#: src/names.c:768
+msgid "command line"
+msgstr "komut satırı"
+
+#: src/names.c:786
+#, c-format
+msgid "%s: file list requested from %s already read from %s"
+msgstr "%s: %s dosyasından istenen dosya listesi zaten %s dosyasından okundu"
+
+#: src/names.c:867 src/checkpoint.c:274
+#, c-format
+msgid "cannot split string '%s': %s"
+msgstr "'%s' dizgesi ayrılamıyor: %s"
+
+#: src/names.c:914
+#, c-format
+msgid "%s: file name read contains nul character"
+msgstr "%s: okunan dosya ismi boş karakter içeriyor"
+
+#: src/names.c:1242
+msgid "Pattern matching characters used in file names"
+msgstr "Kalıp eşleme karakterleri dosya isimlerinde kullanılmış"
+
+#: src/names.c:1244
+msgid "Use --wildcards to enable pattern matching, or --no-wildcards to suppress this warning"
+msgstr "Lütfen ya kalıp eşlemeyi etkin kılmak için --wildcards ya da bu uyarıyı yoksaymak için --no-wildcards kullanın."
+
+#: src/names.c:1262 src/names.c:1278
+#, c-format
+msgid "%s: Not found in archive"
+msgstr "%s: Arşivde yok"
+
+#: src/names.c:1263
+#, c-format
+msgid "%s: Required occurrence not found in archive"
+msgstr "%s: Arşivde bulunması gerekirken yok"
+
+#: src/names.c:1297
+#, c-format
+msgid "Archive label mismatch"
+msgstr "Arşiv etiketi uyumsuzluğu"
+
+#: src/names.c:1601
+msgid "Using -C option inside file list is not allowed with --listed-incremental"
+msgstr "Bir dosya listesi içerisinde --listed-incremental ile -C seçeneği kullanmaya izin verilmiyor"
+
+#: src/names.c:1607
+msgid "Only one -C option is allowed with --listed-incremental"
+msgstr "--listed-incremental seçeneği ile sadece bir -C seçeneği kullanılabilir"
+
+#: src/tar.c:88
+#, c-format
+msgid "Options '%s' and '%s' both want standard input"
+msgstr "'-%s' ve '-%s' seçeneklerinin ikisi de standart girdi istiyor"
+
+#: src/tar.c:165
+#, c-format
+msgid "%s: Invalid archive format"
+msgstr "%s: Geçersiz arşiv biçimi"
+
+#: src/tar.c:197
+msgid "GNU features wanted on incompatible archive format"
+msgstr "GNU özellikleri ile uyumsuz arşiv biçimi"
+
+#: src/tar.c:265
+#, c-format
+msgid "Unknown quoting style '%s'. Try '%s --quoting-style=help' to get a list."
+msgstr "Sarmalama şekli '%s' bilinmiyor. Listeyi almak için '%s --quoting-style=help' yazın."
+
+#: src/tar.c:354
+msgid ""
+"GNU 'tar' saves many files together into a single tape or disk archive, and can restore individual files from the archive.\n"
+"\n"
+"Examples:\n"
+"  tar -cf archive.tar foo bar  # Create archive.tar from files foo and bar.\n"
+"  tar -tvf archive.tar         # List all files in archive.tar verbosely.\n"
+"  tar -xf archive.tar          # Extract all files from archive.tar.\n"
+msgstr ""
+"GNU 'tar' çok sayıda dosyayı birarada tek bir disk arşivi olarak veya teybe\n"
+" kaydeder ve böyle bir arşivden dosyaları tek tek çıkarabilir\n"
+"\n"
+"Örnekler:\n"
+"  tar -cf arşiv.tar foo bar  # foo ve bar dosyalarından arşiv.tar oluşturulur\n"
+"  tar -tvf arşiv.tar         # arşiv.tar içindeki dosyalar listelenir\n"
+"  tar -xf arşiv.tar          # arşiv.tar'dan tüm dosyalar çıkarılır\n"
+
+#: src/tar.c:363
+msgid ""
+"The backup suffix is '~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n"
+"The version control may be set with --backup or VERSION_CONTROL, values are:\n"
+"\n"
+"  none, off       never make backups\n"
+"  t, numbered     make numbered backups\n"
+"  nil, existing   numbered if numbered backups exist, simple otherwise\n"
+"  never, simple   always make simple backups\n"
+msgstr ""
+"--suffix veya SIMPLE_BACKUP_SUFFIX ile belirtilmedikçe yedek soneki '~' dir.\n"
+"Sürüm denetimi aşağıdaki değerler --backup veya VERSION_CONTROL ile\n"
+"kullanılarak yapılabilir:\n"
+"\n"
+"  none, off       yedekleme yapılmaz\n"
+"  t, numbered     numaralı yedekleme yapılır\n"
+"  nil, existing   numaralıysa numaralı, değilse basit yedekleme yapılır\n"
+"  never, simple   daima basit yedekleme yapılır\n"
+
+#: src/tar.c:393
+msgid "Main operation mode:"
+msgstr "Ana işlem kipi:"
+
+#: src/tar.c:396
+msgid "list the contents of an archive"
+msgstr "bir arşiv içeriğini listeler"
+
+#: src/tar.c:398
+msgid "extract files from an archive"
+msgstr "bir arşivdeki dosyaları çıkarır"
+
+#: src/tar.c:401
+msgid "create a new archive"
+msgstr "yeni bir arşiv oluşturur"
+
+#: src/tar.c:403
+msgid "find differences between archive and file system"
+msgstr "arşiv ile dosya sistemi arasındaki farklar bulunur"
+
+#: src/tar.c:406
+msgid "append files to the end of an archive"
+msgstr "dosyaları arşivin sonuna ekler"
+
+#: src/tar.c:408
+msgid "only append files newer than copy in archive"
+msgstr "sadece arşivdeki kopyasından daha yeni dosyalar eklenir"
+
+#: src/tar.c:410
+msgid "append tar files to an archive"
+msgstr "bir arşive tar dosyaları ekler"
+
+#: src/tar.c:413
+msgid "delete from the archive (not on mag tapes!)"
+msgstr "arşivden siler (teyplerde değil!)"
+
+#: src/tar.c:415
+msgid "test the archive volume label and exit"
+msgstr "arşiv bölüm etiketini sınar ve çıkar"
+
+#: src/tar.c:420
+msgid "Operation modifiers:"
+msgstr "İşlem değiştiriciler:"
+
+#: src/tar.c:423
+msgid "handle sparse files efficiently"
+msgstr "seyrek dosyalar verimli şekilde elde edilir"
+
+#: src/tar.c:424
+msgid "TYPE"
+msgstr "TÜR"
+
+#: src/tar.c:425
+msgid "technique to detect holes"
+msgstr "boşlukları algılama teknikleri"
+
+#: src/tar.c:426
+msgid "MAJOR[.MINOR]"
+msgstr "ANA[.ALT]"
+
+#: src/tar.c:427
+msgid "set version of the sparse format to use (implies --sparse)"
+msgstr "kullanılacak seyrek biçim sürümü ayarlanır (--sparse uygular)"
+
+#: src/tar.c:429
+msgid "handle old GNU-format incremental backup"
+msgstr "GNU eski tarz arttırımlı yedekleme tanınır"
+
+#: src/tar.c:431
+msgid "handle new GNU-format incremental backup"
+msgstr "GNU yeni tarz arttırımlı yedekleme tanınır"
+
+#: src/tar.c:433
+msgid "dump level for created listed-incremental archive"
+msgstr "oluşturulan listed-incremental arşivi için döküm seviyesi"
+
+#: src/tar.c:435
+msgid "do not exit with nonzero on unreadable files"
+msgstr "dosyalar okunamadığında sıfırdan farklı bir değerle çıkılmaz"
+
+#: src/tar.c:437
+msgid "process only the NUMBERth occurrence of each file in the archive; this option is valid only in conjunction with one of the subcommands --delete, --diff, --extract or --list and when a list of files is given either on the command line or via the -T option; NUMBER defaults to 1"
+msgstr "her dosyanın arşivdeki sadece SAYI'ıncı kopyası işlenir; bu seçenek sadece --delete, --diff, --extract veya --list alt komutlarından biri ile geçerlidir ve dosyaların listelenmesi sırasında ya komut satırından ya da -T seçeneği üzerinden belirtilir. SAYI öntanımlı olaral 1'dir."
+
+#: src/tar.c:443
+msgid "archive is seekable"
+msgstr "arşiv arama yapılabilen türde"
+
+#: src/tar.c:445
+msgid "archive is not seekable"
+msgstr "arşiv aranabilir değil"
+
+#: src/tar.c:447
+msgid "do not check device numbers when creating incremental archives"
+msgstr "artımlı arşivler oluştururken aygıt numaralarını denetleme"
+
+#: src/tar.c:450
+msgid "check device numbers when creating incremental archives (default)"
+msgstr "artımlı arşivler oluştururken aygıt numaralarını denetle (öntanımlı)"
+
+#: src/tar.c:456
+msgid "Overwrite control:"
+msgstr "Üsteyazma denetimi:"
+
+#: src/tar.c:459
+msgid "attempt to verify the archive after writing it"
+msgstr "yazdıktan sonra arşivi doğrulamaya çalışır"
+
+#: src/tar.c:461
+msgid "remove files after adding them to the archive"
+msgstr "arşive eklendikten sonra dosyalar silinir"
+
+#: src/tar.c:463
+msgid "don't replace existing files when extracting, treat them as errors"
+msgstr "çıkarırken mevcut dosyaları değiştirme, hatalar olarak değerlendir"
+
+#: src/tar.c:466
+msgid "don't replace existing files when extracting, silently skip over them"
+msgstr "çıkarırken mevcut dosyaları değiştirme, sessizce atla"
+
+#: src/tar.c:469
+msgid "don't replace existing files that are newer than their archive copies"
+msgstr "arşivdeki kopyalaraından daha yeni dosyalar değiştirilmez"
+
+#: src/tar.c:471
+msgid "overwrite existing files when extracting"
+msgstr "çıkarılırken mevcut dosyaların üzerine yazılır"
+
+#: src/tar.c:473
+msgid "remove each file prior to extracting over it"
+msgstr "çıkarılmadan önce mevcut dosya silinir"
+
+#: src/tar.c:475
+msgid "empty hierarchies prior to extracting directory"
+msgstr "dizin çıkarılmadan önce alt dizinleri silinir"
+
+#: src/tar.c:477
+msgid "preserve metadata of existing directories"
+msgstr "mevcut dizinlerin öznitelikleri korunur"
+
+#: src/tar.c:479
+msgid "overwrite metadata of existing directories when extracting (default)"
+msgstr "çıkarılırken mevcut dizinlerin metaverisinin üzerine yazılır (öntanımlı)"
+
+#: src/tar.c:482
+msgid "preserve existing symlinks to directories when extracting"
+msgstr "çıkarılırken dizinlere bağlanan sembolik bağları koru"
+
+#: src/tar.c:485
+msgid "create a subdirectory to avoid having loose files extracted"
+msgstr "geniş dosya ayıklanmasını önlemek için bir alt dizin oluştur"
+
+#: src/tar.c:491
+msgid "Select output stream:"
+msgstr "Çıktı akımını seçiniz:"
+
+#: src/tar.c:494
+msgid "extract files to standard output"
+msgstr "dosyalar standart çıktıya çıkarılır"
+
+#: src/tar.c:495 src/tar.c:588 src/tar.c:590 tests/genfile.c:195
+msgid "COMMAND"
+msgstr "KOMUT"
+
+#: src/tar.c:496
+msgid "pipe extracted files to another program"
+msgstr "çıkarılan dosyaları başka bir uygulamaya borular"
+
+#: src/tar.c:498
+msgid "ignore exit codes of children"
+msgstr "altsüreçlerin çıkış kodları yoksayılır"
+
+#: src/tar.c:500
+msgid "treat non-zero exit codes of children as error"
+msgstr "altsüreçlerin çıkış kodları sıfırdan farklıysa hata olarak ele alınır"
+
+#: src/tar.c:505
+msgid "Handling of file attributes:"
+msgstr "Dosya özniteliklerinin elde edilmesi:"
+
+#: src/tar.c:508
+msgid "force NAME as owner for added files"
+msgstr "İSİM eklenen dosyaların sahibi yapılır"
+
+#: src/tar.c:510
+msgid "force NAME as group for added files"
+msgstr "İSİM eklenen dosyaların grubu yapılır"
+
+#: src/tar.c:512
+msgid "use FILE to map file owner UIDs and names"
+msgstr "sahip kullanıcı kimliği ve adlarını eşlemek için DOSYA kullan"
+
+#: src/tar.c:514
+msgid "use FILE to map file owner GIDs and names"
+msgstr "sahip grup kimliği ve adlarını eşlemek için DOSYA kullan"
+
+#: src/tar.c:515 src/tar.c:700
+msgid "DATE-OR-FILE"
+msgstr "DOSYA-TARİHİ"
+
+#: src/tar.c:516
+msgid "set mtime for added files from DATE-OR-FILE"
+msgstr "DOSYA-TARİHİnde eklenen dosyalar için mtime ayarlanır"
+
+#: src/tar.c:518
+msgid "only set time when the file is more recent than what was given with --mtime"
+msgstr "yalnızca dosyanın --mtime ile verilenden daha yakın olduğund zamanı ayarla"
+
+#: src/tar.c:519
+msgid "CHANGES"
+msgstr "KİP"
+
+#: src/tar.c:520
+msgid "force (symbolic) mode CHANGES for added files"
+msgstr "KİP eklenen dosyaların (sembolik) kipi yapılır"
+
+#: src/tar.c:522
+msgid "METHOD"
+msgstr "YÖNTEM"
+
+#: src/tar.c:523
+msgid "preserve access times on dumped files, either by restoring the times after reading (METHOD='replace'; default) or by not setting the times in the first place (METHOD='system')"
+msgstr "dökümlenen dosyalarda erişim zamanları korunur; ya okuma sonrası eski değerine getirerek (YÖNTEM='replace' öntanımlıdır) ya da ilk yerindeki zamanı değiştirmeyerek (YÖNTEM='system')."
+
+#: src/tar.c:527
+msgid "don't extract file modified time"
+msgstr "dosya değişiklik zamanı çıkarılmaz"
+
+#: src/tar.c:529
+msgid "try extracting files with the same ownership as exists in the archive (default for superuser)"
+msgstr "dosyaları arşivde bulunduğu gibi aynı sahiplikle çıkarmayı deneyin (yetkili kullanıcı için öntanımlı)"
+
+#: src/tar.c:531
+msgid "extract files as yourself (default for ordinary users)"
+msgstr "dosyalar sizin sahipliğinizde çıkarın (normal kullanıcılar için öntanımlı)"
+
+#: src/tar.c:533
+msgid "always use numbers for user/group names"
+msgstr "kullanıcı/grup isimleri yerine daima numaraları kullanılır"
+
+#: src/tar.c:535
+msgid "extract information about file permissions (default for superuser)"
+msgstr "dosya izinleri ile ilgili bilgileri çıkarır (root kullanıcısı için öntanımlı)"
+
+#: src/tar.c:539
+msgid "apply the user's umask when extracting permissions from the archive (default for ordinary users)"
+msgstr "arşivden çıkarılırken izinlere kullanıcıların umask'ı uygulanır (sıradan kullanıcılar için öntanımlı)"
+
+#: src/tar.c:541
+msgid "member arguments are listed in the same order as the files in the archive"
+msgstr "üye bağımsız değişkenleri, arşivdeki dosyalarla aynı sırayla listelenir"
+
+#: src/tar.c:545
+msgid "delay setting modification times and permissions of extracted directories until the end of extraction"
+msgstr "herşey çıkarılana kadar çıkarılan dizinlerin izinleri ve değişiklik zamanlarının değiştirilmesi geciktirilir"
+
+#: src/tar.c:548
+msgid "cancel the effect of --delay-directory-restore option"
+msgstr "--delay-directory-restore seçeneğinin etkisi iptal edilir."
+
+#: src/tar.c:549
+msgid "ORDER"
+msgstr "SIRALAMA"
+
+#: src/tar.c:553
+msgid "directory sorting order: none (default) or name"
+msgstr "Dizin sıralaması: yok (varsayılan) veya isim"
+
+#: src/tar.c:560
+msgid "Handling of extended file attributes:"
+msgstr "Genişletilmiş dosya özniteliklerinin işlenmesi:"
+
+#: src/tar.c:563
+msgid "Enable extended attributes support"
+msgstr "Genişletilmiş öznitelik desteğini etkinleştir"
+
+#: src/tar.c:565
+msgid "Disable extended attributes support"
+msgstr "Genişletilmiş özniteliklerini devre dışı bırak"
+
+#: src/tar.c:566 src/tar.c:568
+msgid "MASK"
+msgstr "MASKE"
+
+#: src/tar.c:567
+msgid "specify the include pattern for xattr keys"
+msgstr "xattr tuşları için dahil edilecek deseni belirtin"
+
+#: src/tar.c:569
+msgid "specify the exclude pattern for xattr keys"
+msgstr "xattr tuşları için dışlama desenini belirtin"
+
+#: src/tar.c:571
+msgid "Enable the SELinux context support"
+msgstr "SELinux bağlam desteğini etkinleştir"
+
+#: src/tar.c:573
+msgid "Disable the SELinux context support"
+msgstr "SELinux bağlam desteğini devre dışı bırak"
+
+#: src/tar.c:575
+msgid "Enable the POSIX ACLs support"
+msgstr "POSIX ACL desteğini etkinleştir"
+
+#: src/tar.c:577
+msgid "Disable the POSIX ACLs support"
+msgstr "POSIX ACL desteğini devre dışı bırak"
+
+#: src/tar.c:582
+msgid "Device selection and switching:"
+msgstr "Aygıt seçimi ve aygıt değiştirme:"
+
+#: src/tar.c:584
+msgid "ARCHIVE"
+msgstr "ARŞİV"
+
+#: src/tar.c:585
+msgid "use archive file or device ARCHIVE"
+msgstr "arşiv dosyası ya da ARŞİV aygıtı kullanılır"
+
+#: src/tar.c:587
+msgid "archive file is local even if it has a colon"
+msgstr "bir iki nokta üstüste içerse bile arşiv dosyası yereldir"
+
+#: src/tar.c:589
+msgid "use given rmt COMMAND instead of rmt"
+msgstr "rmt yerine rmt KOMUT kullanılır"
+
+#: src/tar.c:591
+msgid "use remote COMMAND instead of rsh"
+msgstr "rsh yerine uzak uçta KOMUT kullanılır"
+
+#: src/tar.c:595
+msgid "specify drive and density"
+msgstr "sürücü ve yoğunluk belirtilir"
+
+#: src/tar.c:609
+msgid "create/list/extract multi-volume archive"
+msgstr "çok bölümlü arşivi oluşturur/listeler/çıkarır"
+
+#: src/tar.c:611
+msgid "change tape after writing NUMBER x 1024 bytes"
+msgstr "SAYI x 1024 bayt yazıldıktan sonra band değiştirilir"
+
+#: src/tar.c:613
+msgid "run script at end of each tape (implies -M)"
+msgstr "her bandın sonunda betiği çalıştırır (-M uygular)"
+
+#: src/tar.c:616
+msgid "use/update the volume number in FILE"
+msgstr "DOSYAda bölüm numarası kullanılır/güncellenir"
+
+#: src/tar.c:621
+msgid "Device blocking:"
+msgstr "Aygıtın blok düzeni:"
+
+#: src/tar.c:623
+msgid "BLOCKS"
+msgstr "BLOK"
+
+#: src/tar.c:624
+msgid "BLOCKS x 512 bytes per record"
+msgstr "kayıt başına BLOK x 512 bayt"
+
+#: src/tar.c:626
+msgid "NUMBER of bytes per record, multiple of 512"
+msgstr "512'nin katları olarak kayıt başına BOYUT bayt"
+
+#: src/tar.c:628
+msgid "ignore zeroed blocks in archive (means EOF)"
+msgstr "arşivdeki sıfırlı bloklar yoksayılır (dosyasonu anlamında)"
+
+#: src/tar.c:630
+msgid "reblock as we read (for 4.2BSD pipes)"
+msgstr "okunmuş olarak yeniden bloklanır (4.2 BSD boruları için)"
+
+#: src/tar.c:635
+msgid "Archive format selection:"
+msgstr "Arşiv biçimi seçimi:"
+
+#: src/tar.c:637 tests/genfile.c:158
+msgid "FORMAT"
+msgstr "BİÇİM"
+
+#: src/tar.c:638
+msgid "create archive of the given format"
+msgstr "belirtilen biçimin arşivi oluşturulur."
+
+#: src/tar.c:640
+msgid "FORMAT is one of the following:"
+msgstr "BİÇİM şunlardan biri olabilir:"
+
+#: src/tar.c:641
+msgid "old V7 tar format"
+msgstr "eski V7 tar biçimi"
+
+#: src/tar.c:644
+msgid "GNU format as per tar <= 1.12"
+msgstr "tar <= 1.12 için GNU biçimi"
+
+#: src/tar.c:646
+msgid "GNU tar 1.13.x format"
+msgstr "GNU tar 1.13.x biçimi"
+
+#: src/tar.c:648
+msgid "POSIX 1003.1-1988 (ustar) format"
+msgstr "POSIX 1003.1-1988 (ustar) biçimi"
+
+#: src/tar.c:650
+msgid "POSIX 1003.1-2001 (pax) format"
+msgstr "POSIX 1003.1-2001 (pax) biçimi"
+
+#: src/tar.c:651
+msgid "same as pax"
+msgstr "pax ile aynı"
+
+#: src/tar.c:654
+msgid "same as --format=v7"
+msgstr " --format=v7 ile aynı"
+
+#: src/tar.c:657
+msgid "same as --format=posix"
+msgstr "--format=posix ile aynı"
+
+#: src/tar.c:658
+msgid "keyword[[:]=value][,keyword[[:]=value]]..."
+msgstr "isim[[:]=değer][,isim[[:]=değer]]..."
+
+#: src/tar.c:659
+msgid "control pax keywords"
+msgstr "pax anahtar sözcüklerini denetler"
+
+#: src/tar.c:660
+msgid "TEXT"
+msgstr "METİN"
+
+#: src/tar.c:661
+msgid "create archive with volume name TEXT; at list/extract time, use TEXT as a globbing pattern for volume name"
+msgstr "arşivi METİN bölüm ismiyle oluşturur; listeleme/çıkarma sırasında METİN, bölüm ismini genelleme kalıbı olarak kullanılır"
+
+#: src/tar.c:666
+msgid "Compression options:"
+msgstr "Sıkıştırma seçenekleri:"
+
+#: src/tar.c:668
+msgid "use archive suffix to determine the compression program"
+msgstr "sıkıştırma programını bulmak için arşiv sonekini kullan"
+
+#: src/tar.c:670
+msgid "do not use archive suffix to determine the compression program"
+msgstr "sıkıştırma programını bulmak için arşiv sonekini kullanma"
+
+#: src/tar.c:672
+msgid "PROG"
+msgstr "UYG"
+
+#: src/tar.c:673
+msgid "filter through PROG (must accept -d)"
+msgstr "arşivi UYG üzerinden geçirir (UYG -d kabul etmeli)"
+
+#: src/tar.c:689
+msgid "Local file selection:"
+msgstr "Yerel dosya seçimi:"
+
+#: src/tar.c:691
+msgid "stay in local file system when creating archive"
+msgstr "arşiv oluşturulurken yerel dosya sisteminde kalınır"
+
+#: src/tar.c:693
+msgid "don't strip leading '/'s from file names"
+msgstr "dosya isimlerinin başındaki '/' işaretlerini ayıklama"
+
+#: src/tar.c:695
+msgid "follow symlinks; archive and dump the files they point to"
+msgstr "sembolik bağlar izlenir; hedeflerindeki dosyalar arşivlenir ve dökümlenir"
+
+#: src/tar.c:697
+msgid "follow hard links; archive and dump the files they refer to"
+msgstr "sembolik bağları izle; hedeflerindeki dosyaları arşivle ve şuraya atıfta bulunan dosyaları dökümle"
+
+#: src/tar.c:698
+msgid "MEMBER-NAME"
+msgstr "ÜYE-İSMİ"
+
+#: src/tar.c:699
+msgid "begin at member MEMBER-NAME when reading the archive"
+msgstr "arşivi okurken üye MEMBER-NAME ile başla"
+
+#: src/tar.c:701
+msgid "only store files newer than DATE-OR-FILE"
+msgstr "sadece DOSYA-TARİHİnden daha yeni dosyalar saklanır"
+
+#: src/tar.c:703
+msgid "DATE"
+msgstr "TARİH"
+
+#: src/tar.c:704
+msgid "compare date and time when data changed only"
+msgstr "sadece veri değişecekse tarih ve saat karşılaştırılır"
+
+#: src/tar.c:705
+msgid "CONTROL"
+msgstr "DENETİM"
+
+#: src/tar.c:706
+msgid "backup before removal, choose version CONTROL"
+msgstr "kaldırılmadan önce DENETİM sürümü seçilerek yedeklenir"
+
+#: src/tar.c:707 src/tar.c:766 src/tar.c:768 tests/genfile.c:174
+msgid "STRING"
+msgstr "DİZGE"
+
+#: src/tar.c:708
+msgid "backup before removal, override usual suffix ('~' unless overridden by environment variable SIMPLE_BACKUP_SUFFIX)"
+msgstr "kaldırmadan önce uygun sonekle yedekleme yapılır (SIMPLE_BACKUP_SUFFIX ortam değişkeni ile belirlenmemişse sonek olarak '~' kullanılır"
+
+#: src/tar.c:713
+msgid "File name transformations:"
+msgstr "Dosya ismi dönüşümleri:"
+
+#: src/tar.c:715
+msgid "strip NUMBER leading components from file names on extraction"
+msgstr "çıkarılırken dosya isimlerinden baştaki SAYI bileşen ayrılır"
+
+#: src/tar.c:717
+msgid "EXPRESSION"
+msgstr "İFADE"
+
+#: src/tar.c:718
+msgid "use sed replace EXPRESSION to transform file names"
+msgstr "dosya isimleri dönüştürülürken sed değiştirme İFADEsi kullanılır"
+
+#: src/tar.c:724
+msgid "Informative output:"
+msgstr "Bilgilendirme çıktısı:"
+
+#: src/tar.c:727
+msgid "verbosely list files processed"
+msgstr "işlenen dosyalar ayrıntılı listelenir"
+
+#: src/tar.c:728
+msgid "KEYWORD"
+msgstr "ANAHTAR SÖZCÜK"
+
+#: src/tar.c:729
+msgid "warning control"
+msgstr "uyarı denetimi"
+
+#: src/tar.c:731
+msgid "display progress messages every NUMBERth record (default 10)"
+msgstr "her SAYIncı kayıtta gelişim iletisi gösterilir (öntanımlı: 10)"
+
+#: src/tar.c:733
+msgid "ACTION"
+msgstr "İŞLEM"
+
+#: src/tar.c:734
+msgid "execute ACTION on each checkpoint"
+msgstr "her kontrol noktasında İŞLEM çalıştır"
+
+#: src/tar.c:737
+msgid "print a message if not all links are dumped"
+msgstr "tüm bağlar dökümlenmezse bir ileti basılır"
+
+#: src/tar.c:738
+msgid "SIGNAL"
+msgstr "SiNYAL"
+
+#: src/tar.c:739
+msgid "print total bytes after processing the archive; with an argument - print total bytes when this SIGNAL is delivered; Allowed signals are: SIGHUP, SIGQUIT, SIGINT, SIGUSR1 and SIGUSR2; the names without SIG prefix are also accepted"
+msgstr "arşivi işledikten sonra bayt toplamını basar; bir - argümanla SiNYAL alındığında bayt toplamını basar; İzin verilen sinyaller: SIGHUP, SIGQUIT, SIGINT, SIGUSR1 ve SIGUSR2; SIG ile başlamayanları da kabul edilir"
+
+#: src/tar.c:744
+msgid "print file modification times in UTC"
+msgstr "dosya değişiklik zamanlarını UTC'ye göre bas"
+
+#: src/tar.c:746
+msgid "print file time to its full resolution"
+msgstr "tüm çözünürlüğü kullanarak dosya zamanını bas"
+
+#: src/tar.c:748
+msgid "send verbose output to FILE"
+msgstr "ayrıntılı çıktı DOSYAya gönderilir"
+
+#: src/tar.c:750
+msgid "show block number within archive with each message"
+msgstr "her iletide arşiv içindeki blok sayısı gösterilir"
+
+#: src/tar.c:752
+msgid "ask for confirmation for every action"
+msgstr "her eylemden önce doğrulama istenir"
+
+#: src/tar.c:755
+msgid "show tar defaults"
+msgstr "tar öntanımlıları gösterilir"
+
+#: src/tar.c:757
+msgid "show valid ranges for snapshot-file fields"
+msgstr "Anlık görüntü dosyası alanları için geçerli aralıkları göster"
+
+#: src/tar.c:759
+msgid "when listing or extracting, list each directory that does not match search criteria"
+msgstr "listeleme ya da çıkarma sırasında arama koşuluna uymayan dizinler listelenir"
+
+#: src/tar.c:761
+msgid "show file or archive names after transformation"
+msgstr "dönüşümden sonra dosya ve arşiv isimlerini gösterir"
+
+#: src/tar.c:764
+msgid "STYLE"
+msgstr "ŞEKİL"
+
+#: src/tar.c:765
+msgid "set name quoting style; see below for valid STYLE values"
+msgstr "sarmalama şeklinin ismi; geçerli ŞEKİL değerleri için aşağıya bakınız"
+
+#: src/tar.c:767
+msgid "additionally quote characters from STRING"
+msgstr "DİZGEdeki sarmalama karakterlerine ek olarak"
+
+#: src/tar.c:769
+msgid "disable quoting for characters from STRING"
+msgstr "DİZGEdeki karakterler için sarmalamayı iptal eder"
+
+#: src/tar.c:774
+msgid "Compatibility options:"
+msgstr "Uyumluluk seçenekleri:"
+
+#: src/tar.c:777
+msgid "when creating, same as --old-archive; when extracting, same as --no-same-owner"
+msgstr "oluştururken --old-archive ile, çıkarırken --no-same-owner ile aynı"
+
+#: src/tar.c:782
+msgid "Other options:"
+msgstr "Diğer seçenekler:"
+
+#: src/tar.c:785
+msgid "disable use of some potentially harmful options"
+msgstr "bozuculuk olasılığı olan bazı seçeneklerin kullanımı iptal edilir"
+
+#. TRANSLATORS: Both %s in this statement are replaced with
+#. option names.
+#: src/tar.c:846
+#, c-format
+msgid "'%s' cannot be used with '%s'"
+msgstr "'%s', '%s' ile kullanılamaz"
+
+#: src/tar.c:934
+msgid "You may not specify more than one '-Acdtrux', '--delete' or  '--test-label' option"
+msgstr "Birden fazla '-Acdtrux', '--delete' veya '--test-label' seçeneği belirtemezsiniz"
+
+#: src/tar.c:946
+msgid "Conflicting compression options"
+msgstr "Sıkıştırma seçenekleri çelişiyor"
+
+#: src/tar.c:1005
+#, c-format
+msgid "Unknown signal name: %s"
+msgstr "Bilinmeyen  sinyal ismi: %s"
+
+#: src/tar.c:1029
+msgid "Date sample file not found"
+msgstr "Tarih örnekleri dosyası bulunamadı"
+
+#: src/tar.c:1037
+#, c-format
+msgid "Substituting %s for unknown date format %s"
+msgstr "Bilinmeyen tarih biçemi %2$s yerine %1$s kullanılıyor"
+
+#: src/tar.c:1066
+#, c-format
+msgid "Option %s: Treating date '%s' as %s"
+msgstr "Seçenek %s: '%s' tarihi %s olarak ele alınıyor"
+
+#: src/tar.c:1106 src/tar.c:1110 src/tar.c:1114 src/tar.c:1118 src/tar.c:1122
+#: src/tar.c:1126 src/tar.c:1129
+#, c-format
+msgid "filter the archive through %s"
+msgstr "arşivi %s üzerinden filtrele"
+
+#: src/tar.c:1137
+msgid "Valid arguments for the --quoting-style option are:"
+msgstr "--quoting-style seçeneği için geçerli argümanlar:"
+
+#: src/tar.c:1141
+msgid ""
+"\n"
+"*This* tar defaults to:\n"
+msgstr ""
+"\n"
+"*Bu* tar için öntanımlılar:\n"
+
+#: src/tar.c:1253
+msgid "Invalid owner or group ID"
+msgstr "Geçersiz kullanıcı veya grup kimliği"
+
+#: src/tar.c:1348
+msgid "Invalid blocking factor"
+msgstr "Bloklama çarpanı geçersiz"
+
+#: src/tar.c:1469
+msgid "Invalid tape length"
+msgstr "Kayıt ortamının uzunluğu geçersiz"
+
+#: src/tar.c:1483
+msgid "Invalid incremental level value"
+msgstr "Geçersiz arttırımlı seviye değeri"
+
+#: src/tar.c:1530
+msgid "More than one threshold date"
+msgstr "Birden fazla eşik tarihi"
+
+#: src/tar.c:1597 src/tar.c:1600
+msgid "Invalid sparse version value"
+msgstr "Seyrek sürüm değeri geçersiz"
+
+#: src/tar.c:1664
+msgid "--atime-preserve='system' is not supported on this platform"
+msgstr "--atime-preserve='system' seçeneği bu platformda desteklenmiyor"
+
+#: src/tar.c:1689
+msgid "--checkpoint value is not an integer"
+msgstr "--checkpoint değeri bir tamsayı değil"
+
+#: src/tar.c:1767
+msgid "Invalid mode given on option"
+msgstr "Seçenekte verilen kip geçersiz"
+
+#: src/tar.c:1800
+msgid "Invalid number"
+msgstr "Sayı geçersiz"
+
+#: src/tar.c:1864
+msgid "Invalid record size"
+msgstr "Kayıt uzunluğu geçersiz"
+
+#: src/tar.c:1867
+#, c-format
+msgid "Record size must be a multiple of %d."
+msgstr "Kayıt uzunluğu %d nin katları olmalı"
+
+#: src/tar.c:1913
+msgid "Invalid number of elements"
+msgstr "Elemen sayısı geçersiz"
+
+#: src/tar.c:1938
+msgid "Only one --to-command option allowed"
+msgstr "Sadece tek bir --to-command seçeneği kullanılabilir"
+
+#: src/tar.c:2026
+#, c-format
+msgid "Malformed density argument: %s"
+msgstr "Hatalı yoğunluk argümanı: %s"
+
+#: src/tar.c:2052
+#, c-format
+msgid "Unknown density: '%c'"
+msgstr "Bilinmeyen yoğunluk: '%c'"
+
+#: src/tar.c:2069
+#, c-format
+msgid "Options '-[0-7][lmh]' not supported by *this* tar"
+msgstr "'-[0-7][lmh]' seçeneği *bu* tar ile desteklenmiyor"
+
+#: src/tar.c:2075
+#, c-format
+msgid "%s:%lu: location of the error"
+msgstr "%s:%lu: dosya konum hatası"
+
+#: src/tar.c:2078
+#, c-format
+msgid "error parsing %s"
+msgstr "%s ayrıştırılırken hata oluştu"
+
+#: src/tar.c:2092
+msgid "[FILE]..."
+msgstr "[DOSYA]..."
+
+#: src/tar.c:2183
+#, c-format
+msgid "non-option arguments in %s"
+msgstr "%s içinde seçenek olmayan argümanlar"
+
+#: src/tar.c:2198
+#, c-format
+msgid "cannot split TAR_OPTIONS: %s"
+msgstr "TAR_OPTIONS parçalanamıyor: %s"
+
+#: src/tar.c:2293
+#, c-format
+msgid "Old option '%c' requires an argument."
+msgstr "Eski seçenek '%c' bir argümanla kullanılır."
+
+#: src/tar.c:2369
+msgid "--occurrence is meaningless without a file list"
+msgstr "--occurrence bir dosya listesi olmaksızın anlamlı değil"
+
+#: src/tar.c:2395
+msgid "Multiple archive files require '-M' option"
+msgstr "Çok sayıda arşiv dosyası '-M' seçeneği gerektirir"
+
+#: src/tar.c:2412
+msgid "--level is meaningless without --listed-incremental"
+msgstr "--listed-incremental olmadan --level anlamsızdır"
+
+#: src/tar.c:2429
+#, c-format
+msgid "%s: Volume label is too long (limit is %lu byte)"
+msgid_plural "%s: Volume label is too long (limit is %lu bytes)"
+msgstr[0] "%s: Bölüm etiketi çok uzun (sınır: %lu bayt)"
+msgstr[1] "%s: Bölüm etiketi çok uzun (sınır: %lu bayt)"
+
+#: src/tar.c:2442
+msgid "Cannot verify multi-volume archives"
+msgstr "Çok sayıda bölüm içeren arşivler doğrulanamaz"
+
+#: src/tar.c:2444
+msgid "Cannot verify compressed archives"
+msgstr "Sıkıştırılmış arşivler doğrulanamaz"
+
+#: src/tar.c:2458
+msgid "Cannot use multi-volume compressed archives"
+msgstr "Çok sayıda bölüm içeren sıkıştırılmış arşivler kullanılamıyor"
+
+#: src/tar.c:2462
+msgid "Cannot concatenate compressed archives"
+msgstr "Sıkıştırılmış arşivler birleştirilemez"
+
+#: src/tar.c:2469
+msgid "--clamp-mtime needs a date specified using --mtime"
+msgstr "--clamp-mtime, --mtime ile belirtilmiş bir tarihe ihtiyaç duyuyor"
+
+#: src/tar.c:2479
+msgid "--pax-option can be used only on POSIX archives"
+msgstr "--pax-option sadece POSIX arşivlerinde kullanılabilir"
+
+#: src/tar.c:2486
+msgid "--acls can be used only on POSIX archives"
+msgstr "--acls sadece POSIX arşivlerinde kullanılabilir"
+
+#: src/tar.c:2491
+msgid "--selinux can be used only on POSIX archives"
+msgstr "--selinux sadece POSIX arşivlerinde kullanılabilir"
+
+#: src/tar.c:2496
+msgid "--xattrs can be used only on POSIX archives"
+msgstr "--xattrs sadece POSIX arşivlerinde kullanılabilir"
+
+#: src/tar.c:2545
+msgid "Cannot deduce top-level directory name; please set it explicitly with --one-top-level=DIR"
+msgstr "Üst düzey dizin adı çıkarılamıyor; lütfen açıkça --one-top-level=DİZİN ile ayarlayın"
+
+#: src/tar.c:2578
+msgid "Volume length cannot be less than record size"
+msgstr "Hacim uzunluğu kayıt boyutundan daha az olamaz"
+
+#: src/tar.c:2602
+msgid "Cowardly refusing to create an empty archive"
+msgstr "Bir boş arşivin oluşturulması ister istemez reddediliyor"
+
+#: src/tar.c:2628
+msgid "Options '-Aru' are incompatible with '-f -'"
+msgstr "'-Aru' seçenekleri '-f -' ile uyumsuz"
+
+#: src/tar.c:2716
+msgid "You must specify one of the '-Acdtrux', '--delete' or '--test-label' options"
+msgstr "Aynı anda '-Acdtrux', '--delete' veya '--test-label' seçeneklerinin sadece birini kullanmalısınız"
+
+#: src/tar.c:2773
+#, c-format
+msgid "Exiting with failure status due to previous errors"
+msgstr "Önceki hatalar nedeniyle başarısız durumla çıkılıyor"
+
+#: src/tar.c:551
+msgid "directory sorting order: none (default), name or inode"
+msgstr "Dizin sıralaması: yok (varsayılan), ad veya inode"
+
+#: src/update.c:87
+#, c-format
+msgid "%s: File shrank by %s byte"
+msgid_plural "%s: File shrank by %s bytes"
+msgstr[0] "%s: Dosya %s baytta kırpılmış"
+msgstr[1] "%s: Dosya %s baytta kırpılmış"
+
+#: src/xheader.c:165
+#, c-format
+msgid "Keyword %s is unknown or not yet implemented"
+msgstr "%s anahtar sözcüğü ya bilinmiyor ya da henüz gerçeklenmemiş"
+
+#: src/xheader.c:174
+msgid "Time stamp is out of allowed range"
+msgstr "Zaman damgası izin verilen aralığın dışında"
+
+#: src/xheader.c:205
+#, c-format
+msgid "Pattern %s cannot be used"
+msgstr "%s şablonu kullanılamıyor"
+
+#: src/xheader.c:219
+#, c-format
+msgid "Keyword %s cannot be overridden"
+msgstr "%s anahtar sözcüğü çakıştırılamaz"
+
+#: src/xheader.c:668
+msgid "Malformed extended header: missing length"
+msgstr "Ek başlık bozuk: uzunluk eksik"
+
+#: src/xheader.c:677
+#, c-format
+msgid "Extended header length %*s is out of range"
+msgstr "Ek başlık uzunluğu %*s aralık dışında"
+
+#: src/xheader.c:689
+msgid "Malformed extended header: missing blank after length"
+msgstr "Ek başlık bozuk: uzunluktan sonra boşluk yok"
+
+#: src/xheader.c:697
+msgid "Malformed extended header: missing equal sign"
+msgstr "Ek başlık bozuk: eşit işareti eksik"
+
+#: src/xheader.c:703
+msgid "Malformed extended header: missing newline"
+msgstr "Ek başlık bozuk: satırsonu eksik"
+
+#: src/xheader.c:741
+#, c-format
+msgid "Ignoring unknown extended header keyword '%s'"
+msgstr "Bilinmeyen ek başlık anahtar sözcüğü '%s' yoksayılıyor"
+
+#: src/xheader.c:1023
+#, c-format
+msgid "Generated keyword/value pair is too long (keyword=%s, length=%s)"
+msgstr "Üretilen isim/değer çifti çok uzun (isim=%s, uzunluk=%s)"
+
+#. TRANSLATORS: The first %s is the pax extended header keyword
+#. (atime, gid, etc.).
+#: src/xheader.c:1053
+#, c-format
+msgid "Extended header %s=%s is out of range %s..%s"
+msgstr "Ek başlık %s=%s, %s..%s aralığının dışında"
+
+#: src/xheader.c:1104 src/xheader.c:1137 src/xheader.c:1469
+#, c-format
+msgid "Malformed extended header: invalid %s=%s"
+msgstr "Ek başlık bozuk: %s=%s geçersiz"
+
+#: src/xheader.c:1422 src/xheader.c:1447 src/xheader.c:1502
+#, c-format
+msgid "Malformed extended header: excess %s=%s"
+msgstr "Ek başlık bozuk: %s=%s aşırıya kaçmış"
+
+#: src/xheader.c:1515
+#, c-format
+msgid "Malformed extended header: invalid %s: unexpected delimiter %c"
+msgstr "Ek başlık bozuk: %s geçersiz: umulmadık %c ayracı"
+
+#: src/xheader.c:1525
+#, c-format
+msgid "Malformed extended header: invalid %s: odd number of values"
+msgstr "Ek başlık bozuk: %s geçersiz: değerler tek sayıda"
+
+#: src/checkpoint.c:114
+#, c-format
+msgid "%s: not a valid timeout"
+msgstr "%s: geçerli bir zaman çıktısı değil"
+
+#: src/checkpoint.c:121
+#, c-format
+msgid "%s: unknown checkpoint action"
+msgstr "%s: bilinmeyen kontrol noktası işlemi"
+
+#: src/checkpoint.c:202
+msgid "write"
+msgstr "yazma"
+
+#: src/checkpoint.c:202
+msgid "read"
+msgstr "okuma"
+
+#. TRANSLATORS: This is a "checkpoint of write operation",
+#. *not* "Writing a checkpoint".
+#. E.g. in Spanish "Punto de comprobaci@'on de escritura",
+#. *not* "Escribiendo un punto de comprobaci@'on"
+#: src/checkpoint.c:218
+#, c-format
+msgid "Write checkpoint %u"
+msgstr "Yazma sınama yeri %u"
+
+#. TRANSLATORS: This is a "checkpoint of read operation",
+#. *not* "Reading a checkpoint".
+#. E.g. in Spanish "Punto de comprobaci@'on de lectura",
+#. *not* "Leyendo un punto de comprobaci@'on"
+#: src/checkpoint.c:224
+#, c-format
+msgid "Read checkpoint %u"
+msgstr "Okuma sınaması yeri %u"
+
+#: tests/genfile.c:115
+msgid ""
+"genfile manipulates data files for GNU paxutils test suite.\n"
+"OPTIONS are:\n"
+msgstr ""
+"genfile, GNU paxutils deneme araçları için veri dosyalarını işleme sokar.\n"
+"SEÇENEKLER:\n"
+
+#: tests/genfile.c:131
+msgid "File creation options:"
+msgstr "Dosya oluşturma seçenekleri:"
+
+#: tests/genfile.c:132 tests/genfile.c:143
+msgid "SIZE"
+msgstr "BOYUT"
+
+#: tests/genfile.c:133
+msgid "Create file of the given SIZE"
+msgstr "Dosya belirtilen BOYUTta oluşturulur"
+
+#: tests/genfile.c:135
+msgid "Write to file NAME, instead of standard output"
+msgstr "Dosyalar standart çıktı yerine İSİM dosyasına yazılır"
+
+#: tests/genfile.c:137
+msgid "Read file names from FILE"
+msgstr "Dosya isimleri DOSYAdan okunur"
+
+#: tests/genfile.c:139
+msgid "-T reads null-terminated names"
+msgstr "-T boş karakter sonlandırmalı isimleri okur"
+
+#: tests/genfile.c:141
+msgid "Fill the file with the given PATTERN. PATTERN is 'default' or 'zeros'"
+msgstr "Dosyayı belirtilen ŞABLON ile doldurur. ŞABLON 'default' veya 'zeros' olabilir"
+
+#: tests/genfile.c:144
+msgid "Size of a block for sparse file"
+msgstr "Seyrek dosyalar için blok boyu"
+
+#: tests/genfile.c:146
+msgid "Generate sparse file. Rest of the command line gives the file map."
+msgstr "Seyrek dosya üretilir. Komut satırının kalanı dosya eşlemini verir."
+
+#: tests/genfile.c:148
+msgid "OFFSET"
+msgstr "KONUM"
+
+#: tests/genfile.c:149
+msgid "Seek to the given offset before writing data"
+msgstr "Veriyi yazmadan önce belirtilen konuma gider"
+
+#: tests/genfile.c:152
+msgid "Suppress non-fatal diagnostic messages"
+msgstr "Ölümcül olmayan tanı mesajlarını gizle"
+
+#: tests/genfile.c:156
+msgid "File statistics options:"
+msgstr "Dosya istatistikleri seçenekleri:"
+
+#: tests/genfile.c:159
+msgid "Print contents of struct stat for each given file. Default FORMAT is: "
+msgstr "Belirtilen her dosya için stat yapısının içeriğini basar. Öntanımlı BİÇİM: "
+
+#: tests/genfile.c:166
+msgid "Synchronous execution options:"
+msgstr "İcra eşzamanlama seçenekleri:"
+
+#: tests/genfile.c:168
+msgid "OPTION"
+msgstr "SEÇENEK"
+
+#: tests/genfile.c:169
+msgid "Execute ARGS. Useful with --checkpoint and one of --cut, --append, --touch, --unlink"
+msgstr "Belirtilen ARGları çalıştır. --checkpoint ile ve --cut, --append, --touch seçeneklerinden biri ile birlikte kullanışlıdır"
+
+#: tests/genfile.c:172
+msgid "Perform given action (see below) upon reaching checkpoint NUMBER"
+msgstr "Sınama SAYIsı aşıldığında belirtilen eylem uygulanır (aşağıya bakınız)"
+
+#: tests/genfile.c:175
+msgid "Set date for next --touch option"
+msgstr "Sonraki --touch seçeneği için tarih ayarlanır"
+
+#: tests/genfile.c:178
+msgid "Display executed checkpoints and exit status of COMMAND"
+msgstr "İcra edilen sınamalar ve KOMUTun çıkış durumu gösterilir"
+
+#: tests/genfile.c:183
+msgid "Synchronous execution actions. These are executed when checkpoint number given by --checkpoint option is reached."
+msgstr "Çalıştırma eylemlerini eşzamanlar. Bunlar --checkpoint seçeneği ile belirtilen sayı aşıldığında çalıştırılırlar."
+
+#: tests/genfile.c:186
+msgid "Truncate FILE to the size specified by previous --length option (or 0, if it is not given)"
+msgstr "DOSYA --length seçeneği ile belirtilen boyutta kırpılır (belirtilmemişse 0)"
+
+#: tests/genfile.c:190
+msgid "Append SIZE bytes to FILE. SIZE is given by previous --length option."
+msgstr "DOSYAya BOYUT bayt eklenir. BOYUT evvelce --length seçeneği ile belirtilir."
+
+#: tests/genfile.c:193
+msgid "Update the access and modification times of FILE"
+msgstr "DOSYAnın değişiklik ve erişim zamanları güncellenir"
+
+#: tests/genfile.c:196
+msgid "Execute COMMAND"
+msgstr "KOMUT çalıştırılır"
+
+#: tests/genfile.c:199
+msgid "Unlink FILE"
+msgstr "DOSYA bağlantısını kes"
+
+#: tests/genfile.c:249
+#, c-format
+msgid "Invalid size: %s"
+msgstr "Geçersiz boyut: %s"
+
+#: tests/genfile.c:254
+#, c-format
+msgid "Number out of allowed range: %s"
+msgstr "Numara izin verilen aralığın dışında: %s"
+
+#: tests/genfile.c:257
+#, c-format
+msgid "Negative size: %s"
+msgstr "Negatif boyut: %s"
+
+#: tests/genfile.c:270 tests/genfile.c:637
+#, c-format
+msgid "stat(%s) failed"
+msgstr "stat(%s) başarısız"
+
+#: tests/genfile.c:273
+#, c-format
+msgid "requested file length %lu, actual %lu"
+msgstr "istenen dosya uzunluğu %lu, asıl %lu"
+
+#: tests/genfile.c:277
+#, c-format
+msgid "created file is not sparse"
+msgstr "oluşturulan dosya seyrek değil"
+
+#: tests/genfile.c:370
+#, c-format
+msgid "Error parsing number near `%s'"
+msgstr "Sayı çözümlenirken `%s' civarında hata"
+
+#: tests/genfile.c:376
+#, c-format
+msgid "Unknown date format"
+msgstr "Bilinmeyen tarih biçimi"
+
+#: tests/genfile.c:400
+msgid "[ARGS...]"
+msgstr "[ARGÜMANLAR...]"
+
+#: tests/genfile.c:437 tests/genfile.c:477 tests/genfile.c:578
+#: tests/genfile.c:741 tests/genfile.c:755
+#, c-format
+msgid "cannot open `%s'"
+msgstr "`%s' açılamıyor"
+
+#: tests/genfile.c:443
+msgid "cannot seek"
+msgstr "konumlanamıyor"
+
+#: tests/genfile.c:460
+#, c-format
+msgid "file name contains null character"
+msgstr "dosya ismi boş karakter içeriyor"
+
+#: tests/genfile.c:573
+#, c-format
+msgid "cannot generate sparse files on standard output, use --file option"
+msgstr "seyrek dosyalar standart çıktıda üretilemez, --file seçeneğini kullanın"
+
+#: tests/genfile.c:664
+#, c-format
+msgid "incorrect mask (near `%s')"
+msgstr "kalıp yanlış (`%s' yakınında)"
+
+#: tests/genfile.c:670 tests/genfile.c:703
+#, c-format
+msgid "Unknown field `%s'"
+msgstr "Bilinmeyen alan `%s'"
+
+#: tests/genfile.c:730
+#, c-format
+msgid "cannot set time on `%s'"
+msgstr "zaman `%s' olarak ayarlanamaz"
+
+#: tests/genfile.c:760
+#, c-format
+msgid "cannot truncate `%s'"
+msgstr "`%s' parçalanamıyor"
+
+#: tests/genfile.c:769
+#, c-format
+msgid "command failed: %s"
+msgstr "komut başarısız: %s"
+
+#: tests/genfile.c:774
+#, c-format
+msgid "cannot unlink `%s'"
+msgstr "`%s' bağlantısı kesilemiyor"
+
+#: tests/genfile.c:901
+#, c-format
+msgid "Command exited successfully\n"
+msgstr "Komut başarıyla sonlandı\n"
+
+#: tests/genfile.c:903
+#, c-format
+msgid "Command failed with status %d\n"
+msgstr "Komut %d çıkış durumu ile başarısız oldu\n"
+
+#: tests/genfile.c:907
+#, c-format
+msgid "Command terminated on signal %d\n"
+msgstr "Komut %d sinyali ile sonlandırıldı\n"
+
+#: tests/genfile.c:909
+#, c-format
+msgid "Command stopped on signal %d\n"
+msgstr "Komut %d sinyali ile durduruldu\n"
+
+#: tests/genfile.c:912
+#, c-format
+msgid "Command dumped core\n"
+msgstr "Komut bellek dökümü verdi\n"
+
+#: tests/genfile.c:915
+#, c-format
+msgid "Command terminated\n"
+msgstr "Komut sonlandı\n"
+
+#: tests/genfile.c:947
+#, c-format
+msgid "--stat requires file names"
+msgstr "--stat seçeneği dosya isimleri gerektirir"
+
+#~ msgid "Field too long while reading snapshot file"
+#~ msgstr "Anlık görüntü dosyası okunurken alan çok uzun"
+
+#~ msgid "Read error in snapshot file"
+#~ msgstr "Anlık görüntü dosyasında okuma hatası"
+
+#~ msgid "Unexpected field value in snapshot file"
+#~ msgstr "Anlık görüntü dosyasında beklenmeyen alan değeri"
+
+#~ msgid "Cannot get working directory"
+#~ msgstr "Çalışma dizini alınamıyor"
+
+#~ msgid "sort names to extract to match archive"
+#~ msgstr "isimler arşivdeki sırasına göre çıkarılır"
+
+#~ msgid "same as both -p and -s"
+#~ msgstr "-p ve -s birlikte verilmiş gibi olur"
+
+#~ msgid "Invalid group"
+#~ msgstr "Geçersiz grup"
+
+#~ msgid "The --preserve option is deprecated, use --preserve-permissions --preserve-order instead"
+#~ msgstr "--preserve seçeneği kullanılmıyor, yerine --preserve-permissions --preserve-order kullanın"
+
+#~ msgid "--occurrence cannot be used in the requested operation mode"
+#~ msgstr "--occurrence istenen işlem kipinde kullanılamaz"
+
+#~ msgid "Cannot combine --listed-incremental with --newer"
+#~ msgstr "--listed-incremental ile --newer birlikte kullanılamaz"
+
+#~ msgid "--preserve-order is not compatible with --listed-incremental"
+#~ msgstr "--preserve-order, --listed-incremental ile uyumlu değil"
+
+#~ msgid "Extended header length is out of allowed range"
+#~ msgstr "Ek başlık uzunluğu izin verilen aralığın dışında"
+
+#~ msgid "%s: illegal option -- %c\n"
+#~ msgstr "%s: kuraldışı seçenek -- %c\n"
+
+#~ msgid "block size"
+#~ msgstr "blok uzunluğu"
+
+#~ msgid "Input string too long"
+#~ msgstr "Girdi dizgesi çok uzun"
+
+#~ msgid "Number syntax error"
+#~ msgstr "Sayısal sözdizimi hatası"
+
+#~ msgid "rmtd: Cannot allocate buffer space\n"
+#~ msgstr "rmtd: Tampon alanı ayrılamıyor\n"
+
+#~ msgid "Cannot allocate buffer space"
+#~ msgstr "Tampon alanı ayrılamıyor"
+
+#~ msgid "Try `%s --help' for more information.\n"
+#~ msgstr "Daha fazla bilgi için `%s --help' yazın.\n"
+
+#~ msgid ""
+#~ "Usage: %s [OPTION]\n"
+#~ "Manipulate a tape drive, accepting commands from a remote process.\n"
+#~ "\n"
+#~ "  --version  Output version info.\n"
+#~ "  --help     Output this help.\n"
+#~ msgstr ""
+#~ "Kullanımı: %s [SEÇENEK]\n"
+#~ "Bir teybi uzak bağlantı üzerinden komut kabul ederek çalıştırır.\n"
+#~ "\n"
+#~ "  --version   Sürümü basar.\n"
+#~ "  --help      Bu iletiyi basar.\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Report bugs to <%s>.\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Yazılım hatalarını <%s> adresine,\n"
+#~ "çeviri hatalarını <gnu-tr@belgeler.org> adresine bildiriniz.\n"
+
+#~ msgid "Seek offset error"
+#~ msgstr "Arama başlangıcı hatası"
+
+#~ msgid "Premature end of file"
+#~ msgstr "Dosya sonu belirsiz"
+
+#~ msgid "Reading %s\n"
+#~ msgstr "%s okunuyor\n"
+
+#~ msgid "Error is not recoverable: exiting now"
+#~ msgstr "Hata kurtarılabilir değil: şimdilik çıkılıyor"
+
+#~ msgid "suppress this warning."
+#~ msgstr "ya da bu uyarıyı engellemek için --no-wildcards kullanın."
+
+#~ msgid "filter the archive through bzip2"
+#~ msgstr "arşivi bzip2 üzerinden geçirir"
+
+#~ msgid "filter the archive through compress"
+#~ msgstr "arşivi compress üzerinden geçirir"
+
+#~ msgid "[.]NUMBER"
+#~ msgstr "[.]SAYI"
+
+#~ msgid "Warning: the -I option is not supported; perhaps you meant -j or -T?"
+#~ msgstr "Uyarı: -I seçeneği desteklenmiyor; -j ya da -T mi yazacaktınız yoksa?"
+
+#~ msgid "Error exit delayed from previous errors"
+#~ msgstr "Hata çıkışı önceki hatalardan dolayı gecikti"

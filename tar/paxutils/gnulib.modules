@@ -1,0 +1,23 @@
+# List of gnulib modules needed for GNU paxutils.
+# A module name per line. Empty lines and comments are ignored.
+
+closeout
+configmake
+dirname
+fseeko
+full-write
+gettext
+getopt-gnu
+gitlog-to-changelog
+inttostr
+obstack
+parse-datetime
+quote
+quotearg
+safe-read
+stdbool
+strerror
+strtol
+utimensat
+version-etc-fsf
+xalloc

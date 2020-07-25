@@ -1,0 +1,65 @@
+# @configure_input@                                     -*- shell-script -*-
+# Configurable variable values for tar test suite.
+# Copyright 2004, 2006, 2013-2014, 2016-2017 Free Software Foundation,
+# Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+PATH=@abs_builddir@:@abs_top_builddir@/src:@abs_top_srcdir@/build-aux:$top_srcdir:$srcdir:$PATH
+
+XFAILFILE=$abs_builddir/.badversion
+
+trap "test -r $XFAILFILE && cat $XFAILFILE; exit $?" 1 2 13 15
+
+TEST_DATA_URL=ftp://download.gnu.org.ua/pub/tests/tar
+if test -z "$TEST_DATA_DIR"; then
+  TEST_DATA_DIR=$abs_builddir/download
+fi
+
+STAR_DATA_URL=$TEST_DATA_URL/star
+if test -z "$STAR_TESTSCRIPTS"; then
+  STAR_TESTSCRIPTS=$TEST_DATA_DIR
+fi
+
+# tarball_prereq file sum dir url
+tarball_prereq() {
+  if ! test -d "$3"; then
+    mkdir "$3"
+    cat > "$3/README" <<EOF
+This directory contains test data downloaded during full check.
+You can remove it, if you wish.
+EOF
+  fi
+  if test -r $3/$1; then
+    :
+  elif test -n "$FULL_TEST"; then
+    wget -q -O $3/$1 $4/$1
+  fi
+  echo "$2  $3/$1" | md5sum --status --check - >/dev/null 2>&1
+}
+
+decho() {
+  echo $*
+  echo >&2 $*
+}
+
+mkexcltest() {
+  mkdir $1 $1/subdir
+  genfile --file=$1/top-level-file
+  genfile --file=$1/subdir/excludeme
+  genfile --file=$1/subdir/subdir-file
+}
+  

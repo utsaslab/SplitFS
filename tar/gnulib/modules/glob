@@ -1,0 +1,75 @@
+Description:
+glob() function: Search for files and directories with paths matching a
+pattern, with GNU extensions.
+
+Files:
+lib/glob.in.h
+lib/glob-libc.h
+lib/glob.c
+lib/glob_internal.h
+lib/glob_pattern_p.c
+lib/globfree.c
+m4/glob.m4
+
+Depends-on:
+c99
+extensions
+largefile
+snippet/c++defs
+alloca          [test $REPLACE_GLOB = 1]
+builtin-expect  [test $REPLACE_GLOB = 1]
+closedir        [test $REPLACE_GLOB = 1]
+d-type          [test $REPLACE_GLOB = 1]
+flexmember      [test $REPLACE_GLOB = 1]
+fnmatch         [test $REPLACE_GLOB = 1]
+getlogin_r      [test $REPLACE_GLOB = 1]
+libc-config     [test $REPLACE_GLOB = 1]
+lstat           [test $REPLACE_GLOB = 1]
+memchr          [test $REPLACE_GLOB = 1]
+mempcpy         [test $REPLACE_GLOB = 1]
+opendir         [test $REPLACE_GLOB = 1]
+readdir         [test $REPLACE_GLOB = 1]
+scratch_buffer  [test $REPLACE_GLOB = 1]
+stdbool         [test $REPLACE_GLOB = 1]
+stdint          [test $REPLACE_GLOB = 1]
+strdup          [test $REPLACE_GLOB = 1]
+sys_stat        [test $REPLACE_GLOB = 1]
+unistd          [test $REPLACE_GLOB = 1]
+malloc-posix    [test $REPLACE_GLOB = 1]
+
+configure.ac:
+gl_GLOB
+if test $REPLACE_GLOB = 1; then
+  AC_LIBOBJ([glob])
+  AC_LIBOBJ([glob_pattern_p])
+  AC_LIBOBJ([globfree])
+  gl_PREREQ_GLOB
+fi
+
+Makefile.am:
+BUILT_SOURCES += glob.h
+
+# We need the following in order to create <glob.h>.
+glob.h: glob.in.h $(top_builddir)/config.status $(CXXDEFS_H)
+	$(AM_V_GEN)rm -f $@-t $@ && \
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  sed -e 's|@''GUARD_PREFIX''@|${gl_include_guard_prefix}|g' \
+	      -e 's|@''REPLACE_GLOB''@|$(REPLACE_GLOB)|g' \
+	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
+	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
+	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
+	      -e 's|@''NEXT_GLOB_H''@|$(NEXT_GLOB_H)|g' \
+	      -e '/definitions of _GL_FUNCDECL_RPL/r $(CXXDEFS_H)' \
+	      < $(srcdir)/glob.in.h; \
+	} > $@-t && \
+	mv -f $@-t $@
+MOSTLYCLEANFILES += glob.h glob.h-t
+
+Include:
+<glob.h>
+
+License:
+LGPLv2+
+
+Maintainer:
+all, glibc

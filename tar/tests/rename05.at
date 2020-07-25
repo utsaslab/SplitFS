@@ -1,0 +1,79 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2008, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description:  A continuation of rename04.at, that checks additionally if
+# renamed subdirectories are restored correctly.
+
+AT_SETUP([renamed subdirectories])
+AT_KEYWORDS([incremental rename05 rename])
+
+AT_TAR_CHECK([
+AT_SORT_PREREQ
+
+decho Creating directory structure
+mkdir directory
+mkdir directory/subdir
+genfile --file=directory/file
+
+decho Creating initial archive
+tar -cf archive.1 -g db.1 directory
+
+decho Renaming
+mv directory/subdir directory/subdir.0
+mv directory dir
+
+decho Creating incremental archive
+cp db.1 db.2
+tar -cf archive.2 -g db.2 dir
+
+mv dir orig
+
+decho First restore
+tar -xf archive.1 -g db.1 --warning=no-timestamp
+find directory | sort
+
+decho Second restore
+tar -xf archive.2 -g db.2 --warning=no-timestamp
+find dir | sort
+],
+[0],
+[Creating directory structure
+Creating initial archive
+Renaming
+Creating incremental archive
+First restore
+directory
+directory/file
+directory/subdir
+Second restore
+dir
+dir/subdir.0
+],
+[Creating directory structure
+Creating initial archive
+Renaming
+Creating incremental archive
+First restore
+Second restore
+],[],[],[gnu, oldgnu, posix])
+
+AT_CLEANUP
+
+# End of rename05.at

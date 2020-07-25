@@ -1,0 +1,28 @@
+@node futimesat
+@subsection @code{futimesat}
+@findex futimesat
+
+Gnulib module: ---
+
+Portability problems fixed by Gnulib:
+@itemize
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+glibc 2.3.6, Mac OS X 10.5, FreeBSD 6.0, NetBSD 5.0, OpenBSD 3.8, Minix 3.1.8, AIX 5.1, HP-UX 11, IRIX 6.5, OSF/1 5.1, Solaris 8, Cygwin 1.5.x, mingw, MSVC 14, Interix 3.5, BeOS, Android 7.1.
+@item
+On some platforms, this function mis-handles trailing slash:
+Solaris 9.
+@item
+This function cannot set full timestamp resolution.  Use
+
+@example
+file ? utimensat(fd, file, times, 0)
+     : futimens(fd, times)
+@end example
+
+@noindent or the gnulib module @code{fdutimensat}, instead.
+@end itemize

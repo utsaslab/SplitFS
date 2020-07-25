@@ -1,0 +1,54 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: Test interaction of --recursion and --no-recursion options.
+# Each of them remains in effect until cancelled by the next ocurrence
+# of its counterpart.  This didn't work in v.1.27.1 and was fixed by
+# commit 2bd9c153.
+# Reported by: Kai <hellsy22@mail.ru>
+# References: <1389166145.829001090@f341.i.mail.ru>,
+#             <20140108231826.16453@ulysses.gnu.org.ua>,
+#             https://lists.gnu.org/archive/html/bug-tar/2014-01/msg00019.html
+
+AT_SETUP([recurse: toggle])
+AT_KEYWORDS([recurse options recurse02])
+
+AT_TAR_CHECK([
+mkdir directory1 directory2
+touch directory1/file directory2/file
+tar --create --file archive \
+    --no-recursion directory1 \
+    --recursion directory2 || exit 1
+tar tf archive
+tar cf archive directory1 directory2
+tar tf archive \
+    --no-recursion directory1 \
+    --recursion directory2 || exit 1
+],
+[0],
+[directory1/
+directory2/
+directory2/file
+directory1/
+directory2/
+directory2/file
+])
+
+AT_CLEANUP

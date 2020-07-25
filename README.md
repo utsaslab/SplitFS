@@ -13,9 +13,21 @@ Rohan Kadekodi, Se Kwon Lee, Sanidhya Kashyap, Taesoo Kim, Aasheesh Kolli, Vijay
 *Proceedings of the The 27th ACM Symposium on Operating Systems Principles (SOSP 19)*. 
 [Paper PDF](https://www.cs.utexas.edu/~vijay/papers/sosp19-splitfs.pdf). [Bibtex](https://www.cs.utexas.edu/~vijay/bibtex/sosp19-splitfs.bib). [Talk Video](https://sosp19.rcs.uwaterloo.ca/videos/D3-S1-P4.mp4)
 
+~~~~
+@InProceedings{KadekodiEtAl19-SplitFS,
+  title =        "{SplitFS: Reducing Software Overhead in File Systems for Persistent Memory}",
+  author =       "Rohan Kadekodi and Se Kwon Lee and  Sanidhya Kashyap and  Taesoo Kim and  Vijay Chidambaram",
+  booktitle =    "Proceedings of the 27th ACM Symposium on Operating
+                  Systems Principles (SOSP '19)",
+  month =        "October",
+  year =         "2019",
+  address =      "Ontario, Canada",
+}
+~~~~
+
 ## Getting Started with SplitFS
 
-This tutorial walks you through the workflow of compiling splitfs, setting up ext4-DAX, compiling an application and running it with ext4-DAX as well as SplitFS, using a simple microbenchmark. The microbenchmark appends 128MB data to an empty file, in chunks of 4KB each, and does an fsync() at the end.
+This tutorial walks you through the workflow of compiling splitfs, setting up ext4-DAX, compiling an application and running it with ext4-DAX as well as SplitFS, using a simple microbenchmark. The microbenchmark appends 128MB data to an empty file, in chunks of 4KB each, and does an fsync() at the end. Note: Set the minimum partition size of PM to 2GiB for the microbenchmark (The partition size can be set in step 2. Please confirm the partition size using `df -h` after step 4).
 
 1. [<b>Installing Dependencies</b>](#dependencies)
 
@@ -69,13 +81,14 @@ $ rm -rf /mnt/pmem_emul/*
 2. `dependencies/` contains packages and scripts to resolve dependencies
 3. `kernel/` contains the Linux 4.13.0 kernel
 4. `micro/` contains the microbenchmark
-4. `leveldb/` contains LevelDB source code
-5. `rsync/` contains the rsync source code
-6. `scripts/` contains scripts to compile and run workloads and kernel
-7. `splitfs-so/` contains the SplitFS-strict shared libraries for running different workloads
-8. `sqlite3-trace/` contains SQLite3 source code
-9. `tpcc-sqlite/` contains TPCC source code
-10. `ycsb/` contains YCSB source code
+5. `leveldb/` contains LevelDB source code
+6. `rsync/` contains the rsync source code
+7. `scripts/` contains scripts to compile and run workloads and kernel
+8. `splitfs-so/` contains the SplitFS-strict shared libraries for running different workloads
+9. `sqlite3-trace/` contains SQLite3 source code
+10. `tpcc-sqlite/` contains TPCC source code
+11. `ycsb/` contains YCSB source code
+12. `tar/` contains tar source code
 
 The [Experiments
 page](https://github.com/utsaslab/SplitFS/blob/master/experiments.md)
@@ -99,6 +112,14 @@ The kernel patch for the implementation of relink() system call for linux v4.13 
 SplitFS is under active development.
 1. The current implementation of SplitFS handles the following system calls: `open, openat, close, read, pread64, write, pwrite64, fsync, unlink, ftruncate, fallocate, stat, fstat, lstat, dup, dup2, execve and clone`. The rest of the calls are passed through to the kernel.
 2. The current implementation of SplitFS works correctly for the following applictions: `LevelDB running YCSB, SQLite running TPCC, tar, git, rsync`. This limitation is purely due to the state of the implementation, and we aim to increase the coverage of applications by supporting more system calls in the future.
+
+## Applications currently supported
+1. LevelDB (with YCSB)
+2. SQLite (running TPCC)
+3. Redis
+3. git
+4. tar
+5. rsync
 
 ## Testing
 [PJD POSIX Test Suite](https://www.tuxera.com/community/posix-test-suite/) that tests primarily the metadata operations was run on SplitFS successfully. SplitFS passes all tests. 

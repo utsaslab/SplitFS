@@ -1,0 +1,23 @@
+Description:
+Decomposition of composed ISO-8859-1 characters.
+
+Files:
+lib/diacrit.h
+lib/diacrit.c
+
+Depends-on:
+
+configure.ac:
+
+Makefile.am:
+lib_SOURCES += diacrit.h diacrit.c
+
+Include:
+"diacrit.h"
+
+License:
+GPL
+
+Maintainer:
+Jim Meyering
+

@@ -1,0 +1,30 @@
+Description:
+Access to multithreading primitives.
+
+Files:
+lib/glthread/threadlib.c
+m4/threadlib.m4
+build-aux/config.rpath
+
+Depends-on:
+havelib
+
+configure.ac-early:
+gl_THREADLIB_EARLY
+
+configure.ac:
+gl_THREADLIB
+
+Makefile.am:
+lib_SOURCES += glthread/threadlib.c
+
+Include:
+
+Link:
+$(LTLIBTHREAD) when linking with libtool, $(LIBTHREAD) otherwise
+
+License:
+LGPLv2+
+
+Maintainer:
+all

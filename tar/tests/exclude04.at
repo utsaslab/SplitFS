@@ -1,0 +1,75 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Copyright 2009, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_SETUP([exclude: case insensitive])
+AT_KEYWORDS([exclude exclude04])
+
+AT_TAR_CHECK([
+AT_SORT_PREREQ
+
+rm -rf testdir
+mkdir -p testdir/dir
+touch testdir/file1
+touch testdir/file2
+touch testdir/file3
+touch testdir/file4
+touch testdir/dir/File1
+touch testdir/dir/File2
+touch testdir/dir/File3
+touch testdir/dir/File4
+
+tar cf archive --exclude=FILE2 \
+               --exclude=file1 \
+               --ignore-case \
+               --exclude=file3 \
+               --no-ignore-case \
+               --exclude=FILE2 \
+               --exclude=file4 \
+               testdir
+tar tf archive | sort
+
+echo "SUB 1"
+tar cf archive testdir
+tar t --wildcards --wildcards-match-slash '*File2' -f archive | sort
+
+echo "SUB 2"
+tar t --wildcards --wildcards-match-slash --ignore-case '*File2' -f archive | sort
+
+echo "SUB 3"
+tar t --wildcards --wildcards-match-slash --no-ignore-case '*File2' -f archive | sort
+
+rm -rf testdir
+
+],
+[0],
+[testdir/
+testdir/dir/
+testdir/dir/File1
+testdir/dir/File2
+testdir/dir/File4
+testdir/file2
+SUB 1
+testdir/dir/File2
+SUB 2
+testdir/dir/File2
+testdir/file2
+SUB 3
+testdir/dir/File2
+])
+
+AT_CLEANUP

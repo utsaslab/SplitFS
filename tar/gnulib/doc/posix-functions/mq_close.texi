@@ -1,0 +1,18 @@
+@node mq_close
+@section @code{mq_close}
+@findex mq_close
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/functions/mq_close.html}
+
+Gnulib module: ---
+
+Portability problems fixed by Gnulib:
+@itemize
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+Mac OS X 10.5, FreeBSD 6.0, NetBSD 3.0, OpenBSD 3.8, Minix 3.1.8, IRIX 5.3, Solaris 2.4, Cygwin 1.5.x, mingw, MSVC 14, Interix 3.5, BeOS, Android 9.0.
+@end itemize

@@ -1,0 +1,34 @@
+Description:
+Execute a Java program.
+
+Files:
+lib/javaexec.h
+lib/javaexec.c
+
+Depends-on:
+stdbool
+execute
+classpath
+xsetenv
+sh-quote
+xconcat-filename
+xalloc
+xmalloca
+error
+gettext-h
+javaexec-script
+
+configure.ac:
+
+Makefile.am:
+DEFS += -DEXEEXT=\"@EXEEXT@\"
+lib_SOURCES += javaexec.h javaexec.c
+
+Include:
+"javaexec.h"
+
+License:
+GPL
+
+Maintainer:
+all

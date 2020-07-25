@@ -1,0 +1,91 @@
+@c This is part of the paxutils manual.
+@c Copyright (C) 2007, 2014, 2016-2017 Free Software Foundation, Inc.
+@c This file is distributed under GFDL 1.1 or any later version
+@c published by the Free Software Foundation.
+
+@cindex Device numbers, changing
+@cindex snapshot files, editing
+@cindex snapshot files, fixing device numbers
+  Various situations can cause device numbers to change: upgrading your
+kernel version, reconfiguring your hardware, loading kernel modules in a
+different order, using virtual volumes that are assembled dynamically
+(such as with @acronym{LVM} or @acronym{RAID}), hot-plugging drives
+(e.g. external USB or Firewire drives), etc.  In the majority of 
+cases this change is unnoticed by the users.  However, it influences
+@command{tar} incremental backups: the device number is stored in tar
+snapshot files (@pxref{Snapshot Files}) and is used to determine whether
+the file has changed since the last backup.  If the device numbers
+change for some reason, by default the next backup you run will be a
+full backup.
+
+
+@pindex tar-snapshot-edit
+  To minimize the impact in these cases, GNU @command{tar} comes with
+the @command{tar-snapshot-edit} utility for inspecting and updating
+device numbers in snapshot files.  (The utility, written by
+Dustin J.@: Mitchell, is also available from the
+@uref{http://www.gnu.org/@/software/@/tar/@/utils/@/tar-snapshot-edit.html,
+@GNUTAR{} home page}.)
+
+  To obtain a summary of the device numbers found in the snapshot file, run
+
+@smallexample
+$ @kbd{tar-snapshot-edit @var{snapfile}}
+@end smallexample
+
+@noindent
+where @var{snapfile} is the name of the snapshot file (you can supply as many
+files as you wish in a single command line).  You can then compare the 
+numbers across snapshot files, or against those currently in use on the
+live filesystem (using @command{ls -l} or @command{stat}).
+
+  Assuming the device numbers have indeed changed, it's often possible
+to simply tell @GNUTAR{} to ignore the device number when processing the
+incremental snapshot files for these backups, using the
+@option{--no-check-device} option (@pxref{device numbers}).
+
+  Alternatively, you can use the @command{tar-edit-snapshot} script's 
+@option{-r} option to update all occurrences of the given device
+number in the snapshot file(s).  It takes a single argument
+of the form
+@samp{@var{olddev}-@var{newdev}},  where @var{olddev} is the device number
+used in the snapshot file, and @var{newdev} is the corresponding new device
+number.  Both numbers may be specified in hex (e.g., @samp{0xfe01}),
+decimal (e.g., @samp{65025}), or as a major:minor number pair (e.g.,
+@samp{254:1}).  To change several device numbers at once, specify them
+in a single comma-separated list, as in
+@option{-r 0x3060-0x4500,0x307-0x4600}.
+
+Before updating the snapshot file, it is a good idea to create a backup
+copy of it.  This is accomplished by @samp{-b} option.  The name of the
+backup file is obtained by appending @samp{~} to the original file name.
+
+An example session:
+@smallexample
+$ @kbd{tar-snapshot-edit root_snap.0 boot_snap.0}
+File: root_snap.0
+  Detected snapshot file version: 2
+
+  Device 0x0000 occurs 1 times.
+  Device 0x0003 occurs 1 times.
+  Device 0x0005 occurs 1 times.
+  Device 0x0013 occurs 1 times.
+  Device 0x6801 occurs 1 times.
+  Device 0x6803 occurs 6626 times.
+  Device 0xfb00 occurs 1 times.
+
+File: boot_snap.0
+  Detected snapshot file version: 2
+
+  Device 0x6801 occurs 3 times.
+$ @kbd{tar-snapshot-edit -b -r 0x6801-0x6901,0x6803-0x6903 root_snap.0 boot_snap.0}
+File: root_snap.0
+  Detected snapshot file version: 2
+
+  Updated 6627 records.
+
+File: boot_snap.0
+  Detected snapshot file version: 2
+
+  Updated 3 records.
+@end smallexample

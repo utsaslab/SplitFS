@@ -1,0 +1,22 @@
+@node srandom
+@section @code{srandom}
+@findex srandom
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/functions/srandom.html}
+
+Gnulib module: random
+
+Portability problems fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+Solaris 2.4, mingw, MSVC 14, Android 4.4.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+This function has a slightly incompatible declaration (the return type being
+@samp{long} instead of @samp{void}) on some platforms:
+Cygwin 1.5.25.
+@end itemize

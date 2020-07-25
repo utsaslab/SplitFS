@@ -1,0 +1,2846 @@
+# Japanese messages for GNU tar 1.30
+# Copyright (C) 1999, 2000, 2001, 2004, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2017 Free Software Foundation, Inc.
+# This file is distributed under the same license as the tar package.
+# Masahito Yamaga <ma@yama-ga.com>, 2017.
+#  derived from the version by
+#              Daisuke Yamashita <yamad@mb.infoweb.ne.jp>, 1999-2001.
+#              Masahito Yamaga <yamaga@ipc.chiba-u.ac.jp>, 2007.
+#
+#: src/create.c:1599
+msgid ""
+msgstr ""
+"Project-Id-Version: GNU tar 1.30\n"
+"Report-Msgid-Bugs-To: bug-tar@gnu.org\n"
+"POT-Creation-Date: 2017-12-17 12:31+0200\n"
+"PO-Revision-Date: 2017-12-18 07:23+0900\n"
+"Last-Translator: Masahito Yamaga <ma@yama-ga.com>\n"
+"Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=EUC-JP\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+"Plural-Forms: nplurals=2; plural=0;\n"
+
+#: gnu/argmatch.c:134
+#, c-format
+msgid "invalid argument %s for %s"
+msgstr "引数 %s は %s に対して無効です"
+
+#: gnu/argmatch.c:135
+#, c-format
+msgid "ambiguous argument %s for %s"
+msgstr "引数 %s は %s に対してあいまいです"
+
+#: gnu/argmatch.c:154
+msgid "Valid arguments are:"
+msgstr "正しい引数は:"
+
+#: gnu/argp-help.c:148
+#, c-format
+msgid "ARGP_HELP_FMT: %s value is less than or equal to %s"
+msgstr "ARGP_HELP_FMT: %s 値は %s より小さいか等しい"
+
+#: gnu/argp-help.c:224
+#, c-format
+msgid "%.*s: ARGP_HELP_FMT parameter requires a value"
+msgstr "%.*s: ARGP_HELP_FMT パラメータは値が必要"
+
+#: gnu/argp-help.c:234
+#, c-format
+msgid "%.*s: Unknown ARGP_HELP_FMT parameter"
+msgstr "%.*s: 未知の ARGP_HELP_FMT パラメータ"
+
+#: gnu/argp-help.c:247
+#, c-format
+msgid "Garbage in ARGP_HELP_FMT: %s"
+msgstr "ARGP_HELP_FMT にゴミ: %s"
+
+#: gnu/argp-help.c:1228
+msgid "Mandatory or optional arguments to long options are also mandatory or optional for any corresponding short options."
+msgstr "長いオプションに対する必須または任意の引数は対応する短いオプションに対しても必須または任意です."
+
+#: gnu/argp-help.c:1615
+msgid "Usage:"
+msgstr "使用法:"
+
+#: gnu/argp-help.c:1619
+msgid "  or: "
+msgstr "  または: "
+
+#: gnu/argp-help.c:1631
+msgid " [OPTION...]"
+msgstr " [オプション...]"
+
+#: gnu/argp-help.c:1658
+#, c-format
+msgid "Try '%s --help' or '%s --usage' for more information.\n"
+msgstr "より詳しい情報は '%s --help' または '%s --usage' で.\n"
+
+#: gnu/argp-help.c:1686
+#, c-format
+msgid "Report bugs to %s.\n"
+msgstr "バグレポートは %s まで.\n"
+
+#: gnu/argp-help.c:1887 gnu/error.c:195
+msgid "Unknown system error"
+msgstr "不明なシステムエラー"
+
+#: gnu/argp-parse.c:81
+msgid "give this help list"
+msgstr "このヘルプ一覧を表示"
+
+#: gnu/argp-parse.c:82
+msgid "give a short usage message"
+msgstr "短い使用法メッセージを表示"
+
+#: gnu/argp-parse.c:83 src/tar.c:507 src/tar.c:509 src/tar.c:612
+#: tests/genfile.c:134
+msgid "NAME"
+msgstr "NAME"
+
+#: gnu/argp-parse.c:84
+msgid "set the program name"
+msgstr "プログラム名を指定"
+
+#: gnu/argp-parse.c:85
+msgid "SECS"
+msgstr "SECS"
+
+#: gnu/argp-parse.c:86
+msgid "hang for SECS seconds (default 3600)"
+msgstr "SECS 秒停止 (標準 3600)"
+
+#: gnu/argp-parse.c:143
+msgid "print program version"
+msgstr "プログラムバージョンを表示"
+
+#: gnu/argp-parse.c:160
+msgid "(PROGRAM ERROR) No version known!?"
+msgstr "(プログラムエラー) バージョン不明!?"
+
+#: gnu/argp-parse.c:613
+#, c-format
+msgid "%s: Too many arguments\n"
+msgstr "%s: 引数が多すぎます\n"
+
+#: gnu/argp-parse.c:759
+msgid "(PROGRAM ERROR) Option should have been recognized!?"
+msgstr "(プログラムエラー) オプション認識不能!?"
+
+#: gnu/closeout.c:122
+msgid "write error"
+msgstr "書き込みエラー"
+
+#: gnu/getopt.c:278
+#, c-format
+msgid "%s: option '%s%s' is ambiguous\n"
+msgstr "%s: オプション '%s%s' はあいまいです\n"
+
+#: gnu/getopt.c:284
+#, c-format
+msgid "%s: option '%s%s' is ambiguous; possibilities:"
+msgstr "%s: オプション '%s%s' はあいまいです. 可能性があるのは"
+
+#: gnu/getopt.c:319
+#, c-format
+msgid "%s: unrecognized option '%s%s'\n"
+msgstr "%s: 未知のオプション '%s%s'\n"
+
+#: gnu/getopt.c:345
+#, c-format
+msgid "%s: option '%s%s' doesn't allow an argument\n"
+msgstr "%s: オプション '%s%s' に引数はありません\n"
+
+#: gnu/getopt.c:360
+#, c-format
+msgid "%s: option '%s%s' requires an argument\n"
+msgstr "%s: オプション '%s%s' には引数が必要です\n"
+
+#: gnu/getopt.c:621
+#, c-format
+msgid "%s: invalid option -- '%c'\n"
+msgstr "%s: 無効なオプション -- '%c'\n"
+
+#: gnu/getopt.c:636 gnu/getopt.c:682
+#, c-format
+msgid "%s: option requires an argument -- '%c'\n"
+msgstr "%s: オプションには引数が必要です -- '%c'\n"
+
+#: gnu/obstack.c:338 gnu/obstack.c:340 gnu/xalloc-die.c:34
+msgid "memory exhausted"
+msgstr "メモリを使い切りました"
+
+#: gnu/openat-die.c:38
+#, c-format
+msgid "unable to record current working directory"
+msgstr "現在のワークディレクトリを記録できません"
+
+#: gnu/openat-die.c:57
+#, c-format
+msgid "failed to return to initial working directory"
+msgstr "初期ワークディレクトリに戻るのに失敗しました"
+
+#. TRANSLATORS:
+#. Get translations for open and closing quotation marks.
+#. The message catalog should translate "`" to a left
+#. quotation mark suitable for the locale, and similarly for
+#. "'".  For example, a French Unicode local should translate
+#. these to U+00AB (LEFT-POINTING DOUBLE ANGLE
+#. QUOTATION MARK), and U+00BB (RIGHT-POINTING DOUBLE ANGLE
+#. QUOTATION MARK), respectively.
+#.
+#. If the catalog has no translation, we will try to
+#. use Unicode U+2018 (LEFT SINGLE QUOTATION MARK) and
+#. Unicode U+2019 (RIGHT SINGLE QUOTATION MARK).  If the
+#. current locale is not Unicode, locale_quoting_style
+#. will quote 'like this', and clocale_quoting_style will
+#. quote "like this".  You should always include translations
+#. for "`" and "'" even if U+2018 and U+2019 are appropriate
+#. for your locale.
+#.
+#. If you don't know what to put here, please see
+#. <https://en.wikipedia.org/wiki/Quotation_marks_in_other_languages>
+#. and use glyphs suitable for your language.
+#: gnu/quotearg.c:362
+msgid "`"
+msgstr "`"
+
+#: gnu/quotearg.c:363
+msgid "'"
+msgstr "'"
+
+#. TRANSLATORS: A regular expression testing for an affirmative answer
+#. (english: "yes").  Testing the first character may be sufficient.
+#. Take care to consider upper and lower case.
+#. To enquire the regular expression that your system uses for this
+#. purpose, you can use the command
+#. locale -k LC_MESSAGES | grep '^yesexpr='
+#: gnu/rpmatch.c:150
+msgid "^[yY]"
+msgstr "^[yY]"
+
+#. TRANSLATORS: A regular expression testing for a negative answer
+#. (english: "no").  Testing the first character may be sufficient.
+#. Take care to consider upper and lower case.
+#. To enquire the regular expression that your system uses for this
+#. purpose, you can use the command
+#. locale -k LC_MESSAGES | grep '^noexpr='
+#: gnu/rpmatch.c:163
+msgid "^[nN]"
+msgstr "^[nN]"
+
+#: gnu/version-etc.c:74
+#, c-format
+msgid "Packaged by %s (%s)\n"
+msgstr "パッケージ化: %s (%s)\n"
+
+#: gnu/version-etc.c:77
+#, c-format
+msgid "Packaged by %s\n"
+msgstr "パッケージ化: %s\n"
+
+#. TRANSLATORS: Translate "(C)" to the copyright symbol
+#. (C-in-a-circle), if this symbol is available in the user's
+#. locale.  Otherwise, do not translate "(C)"; leave it as-is.
+#: gnu/version-etc.c:84
+msgid "(C)"
+msgstr "(C)"
+
+#: gnu/version-etc.c:86
+msgid ""
+"\n"
+"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
+"\n"
+msgstr ""
+"\n"
+"使用許諾 GPLv3+: GNU GPL version 3 またはそれ以降 <https://gnu.org/licenses/gpl.html>\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
+"\n"
+"[参考訳]\n"
+"これはフリーソフトウェアです. 変更と再配布は自由です.\n"
+"法律で認められる範囲で「無保証」です.\n"
+"\n"
+
+#. TRANSLATORS: %s denotes an author name.
+#: gnu/version-etc.c:102
+#, c-format
+msgid "Written by %s.\n"
+msgstr "作者: %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: gnu/version-etc.c:106
+#, c-format
+msgid "Written by %s and %s.\n"
+msgstr "作者: %s, %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: gnu/version-etc.c:110
+#, c-format
+msgid "Written by %s, %s, and %s.\n"
+msgstr "作者: %s, %s, %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:117
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+"作者: by %s, %s, %s,\n"
+"%s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:124
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+"作者: %s, %s, %s,\n"
+"%s, %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:131
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, and %s.\n"
+msgstr ""
+"作者: %s, %s, %s,\n"
+"%s, %s, %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:139
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, and %s.\n"
+msgstr ""
+"作者: %s, %s, %s,\n"
+"%s, %s, %s, %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:147
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+"作者: %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:156
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+"作者: %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: gnu/version-etc.c:167
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, %s, and others.\n"
+msgstr ""
+"作者: %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, %s 他.\n"
+
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: gnu/version-etc.c:245
+#, c-format
+msgid ""
+"\n"
+"Report bugs to: %s\n"
+msgstr ""
+"\n"
+"バグレポート宛先: %s\n"
+
+#: gnu/version-etc.c:247
+#, c-format
+msgid "Report %s bugs to: %s\n"
+msgstr "%s バグのレポート宛先: %s\n"
+
+#: gnu/version-etc.c:251
+#, c-format
+msgid "%s home page: <%s>\n"
+msgstr "%s ホームページ: <%s>\n"
+
+#: gnu/version-etc.c:253
+#, c-format
+msgid "%s home page: <https://www.gnu.org/software/%s/>\n"
+msgstr "%s ホームページ: <https://www.gnu.org/software/%s/>\n"
+
+#: gnu/version-etc.c:256
+msgid "General help using GNU software: <https://www.gnu.org/gethelp/>\n"
+msgstr "GNU ソフトウェア使用上の一般的ヘルプ: <https://www.gnu.org/gethelp/>\n"
+
+#. TRANSLATORS: %s after `Cannot' is a function name, e.g. `Cannot open'.
+#. Directly translating this to another language will not work, first because
+#. %s itself is not translated.
+#. Translate it as `%s: Function %s failed'.
+#: lib/paxerror.c:60 lib/paxerror.c:73
+#, c-format
+msgid "%s: Cannot %s"
+msgstr "%s: %s 不能"
+
+#. TRANSLATORS: %s after `Cannot' is a function name, e.g. `Cannot open'.
+#. Directly translating this to another language will not work, first because
+#. %s itself is not translated.
+#. Translate it as `%s: Function %s failed'.
+#: lib/paxerror.c:86
+#, c-format
+msgid "%s: Warning: Cannot %s"
+msgstr "%s: 警告: %s 不能"
+
+#: lib/paxerror.c:95
+#, c-format
+msgid "%s: Cannot change mode to %s"
+msgstr "%s: モードを %s に変更できません"
+
+#: lib/paxerror.c:103
+#, c-format
+msgid "%s: Cannot change ownership to uid %lu, gid %lu"
+msgstr "%s: uid %lu gid %lu に所有者を変更できません"
+
+#: lib/paxerror.c:129
+#, c-format
+msgid "%s: Cannot hard link to %s"
+msgstr "%s: %s にハードリンクできませんでした"
+
+#: lib/paxerror.c:181 lib/paxerror.c:213
+#, c-format
+msgid "%s: Read error at byte %s, while reading %lu byte"
+msgid_plural "%s: Read error at byte %s, while reading %lu bytes"
+msgstr[0] "%s: %s バイト目で読み込みエラー (%lu バイト読み込み中)"
+msgstr[1] "%s: %s バイト目で読み込みエラー (%lu バイト読み込み中)"
+
+#: lib/paxerror.c:194
+#, c-format
+msgid "%s: Warning: Read error at byte %s, while reading %lu byte"
+msgid_plural "%s: Warning: Read error at byte %s, while reading %lu bytes"
+msgstr[0] "%s: 警告: %s バイト目で読み込みエラー (%lu バイト読み込み中)"
+msgstr[1] "%s: 警告: %s バイト目で読み込みエラー (%lu バイト読み込み中)"
+
+#: lib/paxerror.c:261
+#, c-format
+msgid "%s: Cannot seek to %s"
+msgstr "%s: %s への seek ができません"
+
+#: lib/paxerror.c:277
+#, c-format
+msgid "%s: Warning: Cannot seek to %s"
+msgstr "%s: 警告: %s への seek ができません"
+
+#: lib/paxerror.c:286
+#, c-format
+msgid "%s: Cannot create symlink to %s"
+msgstr "%s: `%s' へのシンボリックリンクが作れません"
+
+#: lib/paxerror.c:351
+#, c-format
+msgid "%s: Wrote only %lu of %lu byte"
+msgid_plural "%s: Wrote only %lu of %lu bytes"
+msgstr[0] "%1$s: %3$lu バイトのうち、%2$lu バイトのみ書き込みました"
+msgstr[1] "%1$s: %3$lu バイトのうち、%2$lu バイトのみ書き込みました"
+
+#: lib/paxnames.c:140
+#, c-format
+msgid "Removing leading `%s' from member names"
+msgstr "メンバ名から先頭の `%s' を取り除きます"
+
+#: lib/paxnames.c:141
+#, c-format
+msgid "Removing leading `%s' from hard link targets"
+msgstr "ハードリンク先から先頭の `%s' を取り除きます"
+
+#: lib/paxnames.c:154
+msgid "Substituting `.' for empty member name"
+msgstr "空のメンバ名に `.' を代入します"
+
+#: lib/paxnames.c:155
+msgid "Substituting `.' for empty hard link target"
+msgstr "空のハードリンク先に `.' を代入します"
+
+#: lib/rtapelib.c:299
+#, c-format
+msgid "exec/tcp: Service not available"
+msgstr "exec/tcp: そのサービスは使えません"
+
+#: lib/rtapelib.c:303
+#, c-format
+msgid "stdin"
+msgstr "標準入力"
+
+#: lib/rtapelib.c:306
+#, c-format
+msgid "stdout"
+msgstr "標準出力"
+
+#: lib/rtapelib.c:429
+#, c-format
+msgid "Cannot connect to %s: resolve failed"
+msgstr "%s に接続できません: 名前解決失敗"
+
+#: lib/rtapelib.c:502
+#, c-format
+msgid "Cannot redirect files for remote shell"
+msgstr "遠隔シェルに対してファイルをリダイレクトできません"
+
+#: lib/rtapelib.c:516
+#, c-format
+msgid "Cannot execute remote shell"
+msgstr "遠隔シェルが実行できません"
+
+#: rmt/rmt.c:432
+msgid "Seek direction out of range"
+msgstr "検索方向が範囲外"
+
+#: rmt/rmt.c:438
+msgid "Invalid seek direction"
+msgstr "無効な検索方向"
+
+#: rmt/rmt.c:446
+msgid "Invalid seek offset"
+msgstr "無効な検索オフセット"
+
+#: rmt/rmt.c:452
+msgid "Seek offset out of range"
+msgstr "検索オフセットが範囲外"
+
+#: rmt/rmt.c:493 rmt/rmt.c:544 rmt/rmt.c:608
+msgid "Invalid byte count"
+msgstr "無効なバイト数"
+
+#: rmt/rmt.c:499 rmt/rmt.c:550 rmt/rmt.c:614 rmt/rmt.c:625
+msgid "Byte count out of range"
+msgstr "バイト数が範囲外"
+
+#: rmt/rmt.c:558
+msgid "Premature eof"
+msgstr "ファイルの途中終了"
+
+#: rmt/rmt.c:601
+msgid "Invalid operation code"
+msgstr "無効な操作コード"
+
+#: rmt/rmt.c:636 rmt/rmt.c:680
+msgid "Operation not supported"
+msgstr "実装されていない操作"
+
+#: rmt/rmt.c:664
+msgid "Unexpected arguments"
+msgstr "予期せぬ引数"
+
+#: rmt/rmt.c:689
+msgid "Manipulate a tape drive, accepting commands from a remote process"
+msgstr "遠隔プロセスからの命令を受け付けてテープドライブを操作"
+
+#: rmt/rmt.c:696 src/tar.c:432 src/tar.c:436 src/tar.c:610 src/tar.c:625
+#: src/tar.c:714 src/tar.c:730 tests/genfile.c:171
+msgid "NUMBER"
+msgstr "NUMBER"
+
+#: rmt/rmt.c:697
+msgid "set debug level"
+msgstr "デバッグレベルを設定"
+
+#: rmt/rmt.c:698 src/names.c:71 src/names.c:75 src/names.c:93 src/names.c:103
+#: src/names.c:106 src/names.c:109 src/names.c:112 src/names.c:114
+#: src/tar.c:430 src/tar.c:511 src/tar.c:513 src/tar.c:615 src/tar.c:747
+#: tests/genfile.c:136 tests/genfile.c:185 tests/genfile.c:189
+#: tests/genfile.c:192 tests/genfile.c:198
+msgid "FILE"
+msgstr "FILE"
+
+#: rmt/rmt.c:699
+msgid "set debug output file name"
+msgstr "デバッグ出力ファイル名を設定"
+
+#: rmt/rmt.c:715 rmt/rmt.c:783
+#, c-format
+msgid "cannot open %s"
+msgstr "%s を開けません"
+
+#: rmt/rmt.c:780 tests/genfile.c:977 tests/genfile.c:994
+#, c-format
+msgid "too many arguments"
+msgstr "引数が多すぎます"
+
+#: rmt/rmt.c:822
+msgid "Garbage command"
+msgstr "不要なコマンド"
+
+#: src/buffer.c:474 src/buffer.c:479 src/buffer.c:773 src/buffer.c:1415
+#: src/buffer.c:1452 src/buffer.c:1464 src/buffer.c:1493 src/delete.c:211
+#: src/list.c:275 src/update.c:188
+msgid "This does not look like a tar archive"
+msgstr "これは tar アーカイブではないようです"
+
+#: src/buffer.c:590
+msgid "Total bytes read"
+msgstr "総読み込みバイト数"
+
+#: src/buffer.c:592
+msgid "Total bytes written"
+msgstr "総書き出しバイト数"
+
+#: src/buffer.c:593
+msgid "Total bytes deleted"
+msgstr "総削除バイト数"
+
+#: src/buffer.c:672
+msgid "(pipe)"
+msgstr "(パイプ)"
+
+#: src/buffer.c:696
+msgid "Refusing to read archive contents from terminal (missing -f option?)"
+msgstr "端末からアーカイブの内容を読み取るのを拒否 (-f オプションの指定忘れ?)"
+
+#: src/buffer.c:698
+msgid "Refusing to write archive contents to terminal (missing -f option?)"
+msgstr "端末にアーカイブの内容を書き出すのを拒否 (-f オプションの指定忘れ?)"
+
+#: src/buffer.c:711
+msgid "Invalid value for record_size"
+msgstr "record_size が無効な値です"
+
+#: src/buffer.c:714
+msgid "No archive name given"
+msgstr "アーカイブ名が指定されていません"
+
+#: src/buffer.c:757
+msgid "Cannot verify stdin/stdout archive"
+msgstr "標準入出力のアーカイブは検証できません"
+
+#: src/buffer.c:770
+#, c-format
+msgid "Archive is compressed. Use %s option"
+msgstr "アーカイブは圧縮されています. %s オプションを使ってください"
+
+#: src/buffer.c:828 src/tar.c:2455
+msgid "Cannot update compressed archives"
+msgstr "圧縮されたアーカイブはアップデートできません"
+
+#: src/buffer.c:928
+msgid "At beginning of tape, quitting now"
+msgstr "テープの先頭です. 処理を中止します"
+
+#: src/buffer.c:934
+msgid "Too many errors, quitting"
+msgstr "エラーが多すぎます. 処理を中止します"
+
+#: src/buffer.c:967
+#, c-format
+msgid "Record size = %lu block"
+msgid_plural "Record size = %lu blocks"
+msgstr[0] "記録サイズ = %lu ブロック"
+msgstr[1] "記録サイズ = %lu ブロック"
+
+#: src/buffer.c:988
+#, c-format
+msgid "Unaligned block (%lu byte) in archive"
+msgid_plural "Unaligned block (%lu bytes) in archive"
+msgstr[0] "アーカイブ内のアラインメントされていないブロック (%lu バイト)"
+msgstr[1] "アーカイブ内のアラインメントされていないブロック (%lu バイト)"
+
+#: src/buffer.c:1075
+msgid "Cannot backspace archive file; it may be unreadable without -i"
+msgstr "アーカイブファイルを後ろ方向に戻せません. -i なしでは読めないかも知れません."
+
+#: src/buffer.c:1107
+msgid "rmtlseek not stopped at a record boundary"
+msgstr "rmtlseek を記録の境界で止めません"
+
+#: src/buffer.c:1168
+#, c-format
+msgid "%s: contains invalid volume number"
+msgstr "%s: 無効なボリューム番号を含んでいます"
+
+#: src/buffer.c:1203
+msgid "Volume number overflow"
+msgstr "ボリューム番号がオーバーフローしました"
+
+#: src/buffer.c:1218
+#, c-format
+msgid "Prepare volume #%d for %s and hit return: "
+msgstr "ボリューム #%d (%s) を準備します. リターンキーを押してください: "
+
+#: src/buffer.c:1224
+msgid "EOF where user reply was expected"
+msgstr "ユーザが応答する EOF が必要となります"
+
+#: src/buffer.c:1229 src/buffer.c:1261
+msgid "WARNING: Archive is incomplete"
+msgstr "警告: アーカイブが不完全です"
+
+#: src/buffer.c:1243
+#, c-format
+msgid ""
+" n name        Give a new file name for the next (and subsequent) volume(s)\n"
+" q             Abort tar\n"
+" y or newline  Continue operation\n"
+msgstr ""
+" n [name]      次 (およびその続き) のボリュームに対する新しいファイル名を指定\n"
+" q             tar を終了\n"
+" y または改行  操作を継続\n"
+
+#: src/buffer.c:1248
+#, c-format
+msgid " !             Spawn a subshell\n"
+msgstr " !             サブシェルを起動\n"
+
+#: src/buffer.c:1249
+#, c-format
+msgid " ?             Print this list\n"
+msgstr " ?             このリストを表示\n"
+
+#: src/buffer.c:1256
+msgid "No new volume; exiting.\n"
+msgstr "新しいボリュームがありません. 終了します.\n"
+
+#: src/buffer.c:1289
+msgid "File name not specified. Try again.\n"
+msgstr "ファイル名が指定されていません. もう一度.\n"
+
+#: src/buffer.c:1301
+#, c-format
+msgid "Invalid input. Type ? for help.\n"
+msgstr "不正な入力. ? でヘルプを表示\n"
+
+#: src/buffer.c:1352
+#, c-format
+msgid "%s command failed"
+msgstr "%s コマンドが失敗しました"
+
+#: src/buffer.c:1529 src/buffer.c:1545
+#, c-format
+msgid "%s is not continued on this volume"
+msgstr "%s はこのボリューム上で連続していません"
+
+#: src/buffer.c:1541
+#, c-format
+msgid "%s is possibly continued on this volume: header contains truncated name"
+msgstr "%s はこのボリューム上でおそらく連続しています: ヘッダは省略された名前を含んでいます"
+
+#: src/buffer.c:1559
+#, c-format
+msgid "%s is the wrong size (%s != %s + %s)"
+msgstr "%s は不正なサイズです (%s != %s + %s)"
+
+#: src/buffer.c:1574
+#, c-format
+msgid "This volume is out of sequence (%s - %s != %s)"
+msgstr "このボリュームは連続していません (%s - %s != %s)"
+
+#: src/buffer.c:1652 src/buffer.c:1678
+#, c-format
+msgid "Archive not labeled to match %s"
+msgstr "アーカイブは %s に一致するラベルが付いていません"
+
+#: src/buffer.c:1682
+#, c-format
+msgid "Volume %s does not match %s"
+msgstr "ボリューム %s は %s に一致しません"
+
+#: src/buffer.c:1774
+#, c-format
+msgid "%s: file name too long to be stored in a GNU multivolume header, truncated"
+msgstr "%s: ファイル名が長過ぎて GNU マルチボリュームヘッダに保存できないので切り捨てます"
+
+#: src/buffer.c:1965
+msgid "write did not end on a block boundary"
+msgstr "書き込みがブロック境界で終わっていません"
+
+#: src/compare.c:98
+#, c-format
+msgid "Could only read %lu of %lu byte"
+msgid_plural "Could only read %lu of %lu bytes"
+msgstr[0] "%lu バイトだけを %lu バイトから読み込むことができました"
+msgstr[1] "%lu バイトだけを %lu バイトから読み込むことができました"
+
+#: src/compare.c:108 src/compare.c:398
+msgid "Contents differ"
+msgstr "内容が異なります"
+
+#: src/compare.c:134 src/extract.c:1204 src/incremen.c:1508 src/list.c:488
+#: src/list.c:1404 src/xheader.c:847
+msgid "Unexpected EOF in archive"
+msgstr "アーカイブ中に予期せぬ EOF があります"
+
+#: src/compare.c:182 src/compare.c:198 src/compare.c:317 src/compare.c:422
+msgid "File type differs"
+msgstr "ファイルタイプが異なります"
+
+#: src/compare.c:185 src/compare.c:205 src/compare.c:331
+msgid "Mode differs"
+msgstr "モードが異なります"
+
+#: src/compare.c:208
+msgid "Uid differs"
+msgstr "ユーザ ID が異なります"
+
+#: src/compare.c:210
+msgid "Gid differs"
+msgstr "グループ ID が異なります"
+
+#: src/compare.c:214
+msgid "Mod time differs"
+msgstr "最終修正時刻が異なります"
+
+#: src/compare.c:218 src/compare.c:432
+msgid "Size differs"
+msgstr "サイズが異なります"
+
+#: src/compare.c:267
+#, c-format
+msgid "Not linked to %s"
+msgstr "%s にリンクしていません"
+
+#: src/compare.c:293
+msgid "Symlink differs"
+msgstr "シンボリックリンクが異なります"
+
+#: src/compare.c:325
+msgid "Device number differs"
+msgstr "デバイス番号が違います"
+
+#: src/compare.c:473
+#, c-format
+msgid "Verify "
+msgstr "検証"
+
+#: src/compare.c:480
+#, c-format
+msgid "%s: Unknown file type '%c', diffed as normal file"
+msgstr "%s: 未知のファイルタイプ '%c', 通常ファイルと差分を取ります"
+
+#: src/compare.c:535
+msgid "Archive contains file names with leading prefixes removed."
+msgstr "アーカイブ中に接頭辞が削除されたファイル名があります."
+
+#: src/compare.c:541
+msgid "Archive contains transformed file names."
+msgstr "アーカイブに変換されたファイル名が含まれています"
+
+#: src/compare.c:546
+msgid "Verification may fail to locate original files."
+msgstr "元のファイルの所在確認に失敗した可能性があります."
+
+#: src/compare.c:620
+#, c-format
+msgid "VERIFY FAILURE: %d invalid header detected"
+msgid_plural "VERIFY FAILURE: %d invalid headers detected"
+msgstr[0] "確認失敗: %d 個の無効なヘッダが見つかりました"
+msgstr[1] "確認失敗: %d 個の無効なヘッダが見つかりました"
+
+#: src/compare.c:638 src/list.c:252
+#, c-format
+msgid "A lone zero block at %s"
+msgstr "%s に孤立したゼロブロック"
+
+#: src/create.c:74
+#, c-format
+msgid "%s: contains a cache directory tag %s; %s"
+msgstr "%s: キャッシュ ディレクトリ タグ %s を含んでいます; %s"
+
+#: src/create.c:263
+#, c-format
+msgid "value %s out of %s range %s..%s; substituting %s"
+msgstr "値 %s は %s の範囲 %s..%s にありません -- %s を代用"
+
+#: src/create.c:269
+#, c-format
+msgid "value %s out of %s range %s..%s"
+msgstr "値 %s は %s の範囲 %s..%s にありません"
+
+#: src/create.c:329
+msgid "Generating negative octal headers"
+msgstr "負の 8 進ヘッダを生成します"
+
+#: src/create.c:606 src/create.c:669
+#, c-format
+msgid "%s: file name is too long (max %d); not dumped"
+msgstr "%s: ファイル名が長過ぎる (最大 %d) のでダンプしません"
+
+#: src/create.c:616
+#, c-format
+msgid "%s: file name is too long (cannot be split); not dumped"
+msgstr "%s: ファイル名が長過ぎる (分割不能) のでダンプしません"
+
+#: src/create.c:643
+#, c-format
+msgid "%s: link name is too long; not dumped"
+msgstr "%s: リンク名が長過ぎるのでダンプしません"
+
+#: src/create.c:1106
+#, c-format
+msgid "%s: File shrank by %s byte; padding with zeros"
+msgid_plural "%s: File shrank by %s bytes; padding with zeros"
+msgstr[0] "%s: %s バイト小さくなったので、ゼロで埋めます"
+msgstr[1] "%s: %s バイト小さくなったので、ゼロで埋めます"
+
+#: src/create.c:1204
+#, c-format
+msgid "%s: file is on a different filesystem; not dumped"
+msgstr "%s: ファイルは異なるファイルシステム上にあるのでダンプしません"
+
+#: src/create.c:1247 src/create.c:1258 src/incremen.c:610 src/incremen.c:617
+msgid "contents not dumped"
+msgstr "内容をダンプしません"
+
+#: src/create.c:1464
+#, c-format
+msgid "%s: Unknown file type; file ignored"
+msgstr "%s: 未知のファイル形式; ファイルは無視されます"
+
+#: src/create.c:1576
+#, c-format
+msgid "Missing links to %s."
+msgstr "%s へのリンクがありません."
+
+#: src/create.c:1737
+#, c-format
+msgid "%s: file is unchanged; not dumped"
+msgstr "%s: 変更されていないのでダンプしません"
+
+#: src/create.c:1746
+#, c-format
+msgid "%s: file is the archive; not dumped"
+msgstr "%s: はアーカイブなのでダンプしません"
+
+#: src/create.c:1774 src/incremen.c:603
+msgid "directory not dumped"
+msgstr "ディレクトリをダンプしません"
+
+#: src/create.c:1846
+#, c-format
+msgid "%s: file changed as we read it"
+msgstr "%s: 読み込んだファイルが変更されています"
+
+#: src/create.c:1922
+#, c-format
+msgid "%s: socket ignored"
+msgstr "%s: ソケットは無視します"
+
+#: src/create.c:1928
+#, c-format
+msgid "%s: door ignored"
+msgstr "%s: door は無視します"
+
+#: src/delete.c:216 src/list.c:288 src/update.c:192
+msgid "Skipping to next header"
+msgstr "次のヘッダをスキップします"
+
+#: src/delete.c:281
+msgid "Deleting non-header from archive"
+msgstr "アーカイブからヘッダでないものを削除します"
+
+#: src/extract.c:302
+#, c-format
+msgid "%s: implausibly old time stamp %s"
+msgstr "%s: 恐らく古いタイムスタンプ %s"
+
+#: src/extract.c:320
+#, c-format
+msgid "%s: time stamp %s is %s s in the future"
+msgstr "%s: タイムスタンプ %s は %s 秒先を示しています"
+
+#: src/extract.c:553
+#, c-format
+msgid "%s: Unexpected inconsistency when making directory"
+msgstr "%s: ディレクトリ作成時に不測の矛盾が起こりました"
+
+#: src/extract.c:771
+#, c-format
+msgid "%s: skipping existing file"
+msgstr "%s: 既存ファイルをスキップします"
+
+#: src/extract.c:901
+#, c-format
+msgid "%s: Directory renamed before its status could be extracted"
+msgstr "%s: ディレクトリは状態を展開できるようになる前に名前を変更されました"
+
+#: src/extract.c:1086
+msgid "Extracting contiguous files as regular files"
+msgstr "連続したファイルを正常なファイルとして取り出します"
+
+#: src/extract.c:1433
+msgid "Attempting extraction of symbolic links as hard links"
+msgstr "シンボリックリンクをハードリンクとして取り出してみます"
+
+#: src/extract.c:1596
+#, c-format
+msgid "%s: Cannot extract -- file is continued from another volume"
+msgstr "%s: 取り出せません -- ファイルは別のボリュームから続いています"
+
+#: src/extract.c:1603 src/list.c:1167
+msgid "Unexpected long name header"
+msgstr "予期せぬ長い名前ヘッダ"
+
+#: src/extract.c:1610
+#, c-format
+msgid "%s: Unknown file type '%c', extracted as normal file"
+msgstr "%s: 未知のファイルタイプ '%c', 通常ファイルとして抽出"
+
+#: src/extract.c:1636
+#, c-format
+msgid "Current %s is newer or same age"
+msgstr "現在の %s の方が新しいか同じ"
+
+#: src/extract.c:1664
+#, c-format
+msgid "%s: Member name contains '..'"
+msgstr "%s: メンバー名が含むのは '..'"
+
+#: src/extract.c:1696
+#, c-format
+msgid "%s: Was unable to backup this file"
+msgstr "%s: このファイルのバックアップを取ることができませんでした"
+
+#: src/extract.c:1845
+#, c-format
+msgid "Cannot rename %s to %s"
+msgstr "%s の名前を %s に変更できません"
+
+#: src/incremen.c:494 src/incremen.c:536
+#, c-format
+msgid "%s: Directory has been renamed from %s"
+msgstr "%s: ディレクトリ名が %s から変更されました"
+
+#: src/incremen.c:549
+#, c-format
+msgid "%s: Directory is new"
+msgstr "%s: ディレクトリは新しく作られました"
+
+#: src/incremen.c:566
+#, c-format
+msgid "%s: directory is on a different filesystem; not dumped"
+msgstr "%s: ディレクトリは異なるファイルシステム上にあるのでダンプしません"
+
+#: src/incremen.c:587
+#, c-format
+msgid "%s: Directory has been renamed"
+msgstr "%s: ディレクトリ名が変更されました"
+
+#: src/incremen.c:1003 src/incremen.c:1018
+msgid "Invalid time stamp"
+msgstr "無効なタイムスタンプ"
+
+#: src/incremen.c:1047
+msgid "Invalid modification time"
+msgstr "不正な最終更新時刻"
+
+#: src/incremen.c:1057
+msgid "Invalid modification time (nanoseconds)"
+msgstr "不正な最終更新時刻 (ナノ秒)"
+
+#: src/incremen.c:1073
+msgid "Invalid device number"
+msgstr "無効なデバイス番号です"
+
+#: src/incremen.c:1081
+msgid "Invalid inode number"
+msgstr "無効な inode 番号"
+
+#: src/incremen.c:1137
+#, c-format
+msgid "%s: byte %s: %s %.*s... too long"
+msgstr "%s: バイト %s: %s %.*s... 長過ぎます"
+
+#: src/incremen.c:1153 src/incremen.c:1211 src/incremen.c:1273
+msgid "Unexpected EOF in snapshot file"
+msgstr "スナップショットファイルに予期せぬ EOF"
+
+#: src/incremen.c:1161
+#, c-format
+msgid "%s: byte %s: %s %s followed by invalid byte 0x%02x"
+msgstr "%s: バイト %s: %s %s が不正なバイト 0x%02x に続いています"
+
+#: src/incremen.c:1174
+#, c-format
+msgid ""
+"%s: byte %s: (valid range %s..%s)\n"
+"\t%s %s"
+msgstr ""
+"%s: バイト %s: (正当な範囲 %s..%s)\n"
+"\t%s %s"
+
+#: src/incremen.c:1181
+#, c-format
+msgid "%s: byte %s: %s %s"
+msgstr "%s: バイト %s: %s %s"
+
+#: src/incremen.c:1262
+#, c-format
+msgid "%s: byte %s: %s"
+msgstr "%s: バイト %s: %s"
+
+#: src/incremen.c:1265
+msgid "Missing record terminator"
+msgstr "終端記録なし"
+
+#: src/incremen.c:1371 src/incremen.c:1374
+msgid "Bad incremental file format"
+msgstr "不正な増分ファイル形式"
+
+#: src/incremen.c:1393
+#, c-format
+msgid "Unsupported incremental format version: %<PRIuMAX>"
+msgstr "未実装の増分形式バージョン: %<PRIuMAX>"
+
+#: src/incremen.c:1549
+#, c-format
+msgid "Malformed dumpdir: expected '%c' but found %#3o"
+msgstr "不正形式の dumpdir: '%c' があるべきところに %#3o"
+
+#: src/incremen.c:1559
+msgid "Malformed dumpdir: 'X' duplicated"
+msgstr "不正形式の dumpdir: 'X' が重複"
+
+#: src/incremen.c:1572
+msgid "Malformed dumpdir: empty name in 'R'"
+msgstr "不正形式の dumpdir: 'R' に空の名前"
+
+#: src/incremen.c:1585
+msgid "Malformed dumpdir: 'T' not preceded by 'R'"
+msgstr "不正形式の dumpdir: 'T' が 'R' の前にない"
+
+#: src/incremen.c:1591
+msgid "Malformed dumpdir: empty name in 'T'"
+msgstr "不正形式の dumpdir: 'T' に空の名前"
+
+#: src/incremen.c:1611
+#, c-format
+msgid "Malformed dumpdir: expected '%c' but found end of data"
+msgstr "不正形式の dumpdir: '%c' があるべきところにデータの終端"
+
+#: src/incremen.c:1618
+msgid "Malformed dumpdir: 'X' never used"
+msgstr "不正形式の dumpdir: 'X' が未使用"
+
+#: src/incremen.c:1662
+#, c-format
+msgid "Cannot create temporary directory using template %s"
+msgstr "テンプレート %s を使って一時ディレクトリを作れません"
+
+#: src/incremen.c:1723
+#, c-format
+msgid "%s: Not purging directory: unable to stat"
+msgstr "%s: ディレクトリを削除しません: 状態が分かりません"
+
+#: src/incremen.c:1736
+#, c-format
+msgid "%s: directory is on a different device: not purging"
+msgstr "%s: ディレクトリは異なるデバイス上にあるので消去しません"
+
+#: src/incremen.c:1744
+#, c-format
+msgid "%s: Deleting %s\n"
+msgstr "%s: %s を削除\n"
+
+#: src/incremen.c:1749
+#, c-format
+msgid "%s: Cannot remove"
+msgstr "%s: 削除できません"
+
+#: src/list.c:219
+#, c-format
+msgid "%s: Omitting"
+msgstr "%s: 省略します"
+
+#: src/list.c:237
+#, c-format
+msgid "block %s: ** Block of NULs **\n"
+msgstr "ブロック %s: ** NUL のブロック **\n"
+
+#: src/list.c:263
+#, c-format
+msgid "block %s: ** End of File **\n"
+msgstr "ブロック %s: ** ファイルの終端 **\n"
+
+#: src/list.c:285 src/list.c:1136 src/list.c:1372
+#, c-format
+msgid "block %s: "
+msgstr "ブロック %s: "
+
+#. TRANSLATORS: %s is type of the value (gid_t, uid_t,
+#. etc.)
+#: src/list.c:751
+#, c-format
+msgid "Blanks in header where numeric %s value expected"
+msgstr "数値 %s となるべきヘッダ位置が空になっています"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:806
+#, c-format
+msgid "Archive octal value %.*s is out of %s range; assuming two's complement"
+msgstr "8 進数値 %.*s は %s の範囲外です -- 2 の補数と見なします"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:817
+#, c-format
+msgid "Archive octal value %.*s is out of %s range"
+msgstr "8 進数値 %.*s は %s の範囲外です"
+
+#: src/list.c:838
+msgid "Archive contains obsolescent base-64 headers"
+msgstr "アーカイブに廃れた base-64 ヘッダが含まれています"
+
+#: src/list.c:852
+#, c-format
+msgid "Archive signed base-64 string %s is out of %s range"
+msgstr "符号付き base-64 文字列 %s は %s の範囲外です"
+
+#: src/list.c:883
+#, c-format
+msgid "Archive base-256 value is out of %s range"
+msgstr "base-256 値は %s の範囲外です"
+
+#. TRANSLATORS: Second %s is a type name (gid_t,uid_t,etc.)
+#: src/list.c:912
+#, c-format
+msgid "Archive contains %.*s where numeric %s value expected"
+msgstr "アーカイブに %.*s が含まれていますが、ここは数値 %s となるはずです"
+
+#. TRANSLATORS: Second %s is type name (gid_t,uid_t,etc.)
+#: src/list.c:934
+#, c-format
+msgid "Archive value %s is out of %s range %s..%s"
+msgstr "アーカイブの値 %s は %s の範囲 %s..%s 内にありません"
+
+#: src/list.c:1272
+#, c-format
+msgid " link to %s\n"
+msgstr " %s へのリンク\n"
+
+#: src/list.c:1280
+#, c-format
+msgid " unknown file type %s\n"
+msgstr " 不明なファイルタイプ %s\n"
+
+#: src/list.c:1298
+#, c-format
+msgid "--Long Link--\n"
+msgstr "--長いリンク--\n"
+
+#: src/list.c:1302
+#, c-format
+msgid "--Long Name--\n"
+msgstr "--長い名前--\n"
+
+#: src/list.c:1306
+#, c-format
+msgid "--Volume Header--\n"
+msgstr "--ボリュームヘッダ--\n"
+
+#: src/list.c:1314
+#, c-format
+msgid "--Continued at byte %s--\n"
+msgstr "--バイト %s で連続--\n"
+
+#: src/list.c:1377
+msgid "Creating directory:"
+msgstr "ディレクトリを作成:"
+
+#: src/misc.c:738
+#, c-format
+msgid "Renaming %s to %s\n"
+msgstr "名前を %s から %s に変更します\n"
+
+#: src/misc.c:747 src/misc.c:766
+#, c-format
+msgid "%s: Cannot rename to %s"
+msgstr "%s: 名前を %s に変更できません"
+
+#: src/misc.c:771
+#, c-format
+msgid "Renaming %s back to %s\n"
+msgstr "名前を %s から %s に戻します\n"
+
+#: src/misc.c:1134
+#, c-format
+msgid "%s: File removed before we read it"
+msgstr "%s: 読み込み以前に削除されました"
+
+#: src/misc.c:1148
+msgid "child process"
+msgstr "子プロセス"
+
+#: src/misc.c:1157
+msgid "interprocess channel"
+msgstr "プロセス間チャネル"
+
+#: src/names.c:69
+msgid "Local file name selection:"
+msgstr "ローカルファイル名選択:"
+
+#: src/names.c:72
+msgid "add given FILE to the archive (useful if its name starts with a dash)"
+msgstr "指定された FILE をアーカイブに追加 (ダッシュ ' で始まるファイル名の場合に便利)"
+
+#: src/names.c:73 src/tar.c:484
+msgid "DIR"
+msgstr "DIR"
+
+#: src/names.c:74
+msgid "change to directory DIR"
+msgstr "ディレクトリ DIR へ移動"
+
+#: src/names.c:76
+msgid "get names to extract or create from FILE"
+msgstr "抽出または作成する名前をファイル FILE から取得"
+
+#: src/names.c:78
+msgid "-T reads null-terminated names; implies --verbatim-files-from"
+msgstr "-T が null で終わる名前を読み込み; --verbatim-files-from を暗示"
+
+#: src/names.c:81
+msgid "disable the effect of the previous --null option"
+msgstr "前の --null オプションの効果を無効化"
+
+#: src/names.c:83
+msgid "unquote input file or member names (default)"
+msgstr "入力ファイルまたはメンバー名を引用終了する (標準)"
+
+#: src/names.c:85
+msgid "do not unquote input file or member names"
+msgstr "入力ファイルまたはメンバー名を引用終了しない"
+
+#: src/names.c:87
+msgid "-T reads file names verbatim (no escape or option handling)"
+msgstr "-T がファイル名を文字通りに読み込み (エスケープまたはオプション処理なし)"
+
+#: src/names.c:89
+msgid "-T treats file names starting with dash as options (default)"
+msgstr "-T がファイル名をダッシュで始まるオプションとして処理 (標準)"
+
+#: src/names.c:91 tests/genfile.c:140
+msgid "PATTERN"
+msgstr "PATTERN"
+
+#: src/names.c:92
+msgid "exclude files, given as a PATTERN"
+msgstr "PATTERN に一致するファイルを除外"
+
+#: src/names.c:94
+msgid "exclude patterns listed in FILE"
+msgstr "FILE に列挙されたパターンを除外"
+
+#: src/names.c:96
+msgid "exclude contents of directories containing CACHEDIR.TAG, except for the tag file itself"
+msgstr "タグファイル自身を除く CACHEDIR.TAG を含むディレクトリの内容を除外"
+
+#: src/names.c:99
+msgid "exclude everything under directories containing CACHEDIR.TAG"
+msgstr "CACHEDIR.TAG を含むディレクトリ以下の全てを除外"
+
+#: src/names.c:102
+msgid "exclude directories containing CACHEDIR.TAG"
+msgstr "CACHEDIR.TAG を含むディレクトリを除外"
+
+#: src/names.c:104
+msgid "exclude contents of directories containing FILE, except for FILE itself"
+msgstr "FILE 自身を除く FILE を含むディレクトリの内容を除外"
+
+#: src/names.c:107
+msgid "read exclude patterns for each directory from FILE, if it exists"
+msgstr "各ディレクトリの除外パターンをFILE (存在する場合) から読み取り"
+
+#: src/names.c:110
+msgid "read exclude patterns for each directory and its subdirectories from FILE, if it exists"
+msgstr "各ディレクトリおよびそのサブディレクトリの除外パターンをFILE (存在する場合) から読み取り"
+
+#: src/names.c:113
+msgid "exclude everything under directories containing FILE"
+msgstr "FILE を含むディレクトリ以下の全てを除外"
+
+#: src/names.c:115
+msgid "exclude directories containing FILE"
+msgstr "FILE を含むディレクトリを除外"
+
+#: src/names.c:117
+msgid "exclude version control system directories"
+msgstr "バージョン管理システムのディレクトリを除外"
+
+#: src/names.c:119
+msgid "read exclude patterns from the VCS ignore files"
+msgstr "除外パターンをVCS無視ファイルから読み取り"
+
+#: src/names.c:121
+msgid "exclude backup and lock files"
+msgstr "バックアップを除外してファイルをロック"
+
+#: src/names.c:123
+msgid "recurse into directories (default)"
+msgstr "ディレクトリを順繰りに下っていく (default)"
+
+#: src/names.c:125
+msgid "avoid descending automatically in directories"
+msgstr "ディレクトリを自動的に下っていかない"
+
+#: src/names.c:130
+msgid "File name matching options (affect both exclude and include patterns):"
+msgstr "ファイル名一致オプション (除外/包含の両パターンに作用):"
+
+#: src/names.c:133
+msgid "patterns match file name start"
+msgstr "ファイル名の先頭とパターンが一致"
+
+#: src/names.c:135
+msgid "patterns match after any '/' (default for exclusion)"
+msgstr "任意の '/' 以降にパターンが一致 (標準で除外)"
+
+#: src/names.c:137
+msgid "ignore case"
+msgstr "大文字小文字を無視"
+
+#: src/names.c:139
+msgid "case sensitive matching (default)"
+msgstr "大文字小文字を考慮して一致 (標準)"
+
+#: src/names.c:141
+msgid "use wildcards (default for exclusion)"
+msgstr "ワイルドカードを使用 (標準で除外)"
+
+#: src/names.c:143
+msgid "verbatim string matching"
+msgstr "逐語的文字列一致"
+
+#: src/names.c:145
+msgid "wildcards match '/' (default for exclusion)"
+msgstr "ワイルドカードが '/' に一致 (標準で除外)"
+
+#: src/names.c:147
+msgid "wildcards do not match '/'"
+msgstr "ワイルドカードが '/' に一致しない"
+
+#: src/names.c:733
+msgid "The following options were used after any non-optional arguments in archive create or update mode.  These options are positional and affect only arguments that follow them.  Please, rearrange them properly."
+msgstr "次のオプションをアーカイブ作成モードまたは更新モードでオプションでない引数の後で使用. これらのオプションはそれらに続く引数のみに影響するので位置を直してください."
+
+#: src/names.c:744
+#, c-format
+msgid "-C %s has no effect"
+msgstr "-C %s は効果なし"
+
+#: src/names.c:749
+#, c-format
+msgid "--%s %s has no effect"
+msgstr "--%s %s は効果なし"
+
+#: src/names.c:753
+#, c-format
+msgid "--%s has no effect"
+msgstr "--%s は効果なし"
+
+#: src/names.c:879
+msgid "command line"
+msgstr "コマンドライン"
+
+#: src/names.c:897
+#, c-format
+msgid "%s: file list requested from %s already read from %s"
+msgstr "%s: %s から要求されたファイル一覧は既に %s から読み込み済み"
+
+#: src/names.c:978 src/checkpoint.c:274
+#, c-format
+msgid "cannot split string '%s': %s"
+msgstr "文字列 '%s' を分割できません: %s"
+
+#: src/names.c:1025
+#, c-format
+msgid "%s: file name read contains nul character"
+msgstr "%s: 読み込まれたファイル名にヌル文字"
+
+#: src/names.c:1358
+msgid "Pattern matching characters used in file names"
+msgstr "パターンマッチの文字がファイル名に使われています"
+
+#: src/names.c:1360
+msgid "Use --wildcards to enable pattern matching, or --no-wildcards to suppress this warning"
+msgstr "パターンマッチを有効にするなら --wildcards, この警告を抑止するなら --no-wildcards を使ってください"
+
+#: src/names.c:1378 src/names.c:1394
+#, c-format
+msgid "%s: Not found in archive"
+msgstr "%s: アーカイブ内に見つかりません"
+
+#: src/names.c:1379
+#, c-format
+msgid "%s: Required occurrence not found in archive"
+msgstr "%s: アーカイブ内に見つかりません"
+
+#: src/names.c:1413
+#, c-format
+msgid "Archive label mismatch"
+msgstr "アーカイブラベルが一致しません"
+
+#: src/names.c:1717
+msgid "Using -C option inside file list is not allowed with --listed-incremental"
+msgstr "ファイルリスト内で -C オプションは --listed-incremental と一緒に使えません"
+
+#: src/names.c:1723
+msgid "Only one -C option is allowed with --listed-incremental"
+msgstr "-C オプションは 1つだけなら --listed-incremental と一緒に使えます"
+
+#: src/tar.c:88
+#, c-format
+msgid "Options '%s' and '%s' both want standard input"
+msgstr "オプション '%s' と '%s' はどちらも標準入力が必要です"
+
+#: src/tar.c:165
+#, c-format
+msgid "%s: Invalid archive format"
+msgstr "%s: 無効なアーカイブ形式"
+
+#: src/tar.c:197
+msgid "GNU features wanted on incompatible archive format"
+msgstr "GNU 特有の機能は、非互換な形式を必要とします"
+
+#: src/tar.c:265
+#, c-format
+msgid "Unknown quoting style '%s'. Try '%s --quoting-style=help' to get a list."
+msgstr "不明な引用形式 '%s', '%s --quoting-style=help' で一覧表示."
+
+#: src/tar.c:354
+msgid ""
+"GNU 'tar' saves many files together into a single tape or disk archive, and can restore individual files from the archive.\n"
+"\n"
+"Examples:\n"
+"  tar -cf archive.tar foo bar  # Create archive.tar from files foo and bar.\n"
+"  tar -tvf archive.tar         # List all files in archive.tar verbosely.\n"
+"  tar -xf archive.tar          # Extract all files from archive.tar.\n"
+msgstr ""
+"GNU 'tar' は多くのファイルを一つのテープやディスクのアーカイブにまとめ, 更に\n"
+"そこから個々のファイルを取り出すことができます.\n"
+"\n"
+"例:\n"
+"  tar -cf archive.tar foo bar  # ファイル foo と bar から archive.tar 作成.\n"
+"  tar -tvf archive.tar         # archive.tar 内の全ファイルを詳しく一覧表示.\n"
+"  tar -xf archive.tar          # archive.tar から全ファイルを取り出す.\n"
+
+#: src/tar.c:363
+msgid ""
+"The backup suffix is '~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.\n"
+"The version control may be set with --backup or VERSION_CONTROL, values are:\n"
+"\n"
+"  none, off       never make backups\n"
+"  t, numbered     make numbered backups\n"
+"  nil, existing   numbered if numbered backups exist, simple otherwise\n"
+"  never, simple   always make simple backups\n"
+msgstr ""
+"--suffix や SIMPLE_BACKUP_SUFFIX で指定されない限り, バックアップの接尾辞は\n"
+"'~' です. また, バージョン管理は --backup や VERSION_CONTROL に次のような\n"
+"値を指定することで設定できます.\n"
+"\n"
+"  none, off       バックアップを取らない\n"
+"  t, numbered     バックアップに番号をふる\n"
+"  nil, existing   番号がふられたバックアップがあれば番号をふり,\n"
+"                  そうでなければ単にバックアップを取る\n"
+"  never, simple   常に単純なバックアップを取る\n"
+
+#: src/tar.c:393
+msgid "Main operation mode:"
+msgstr "主操作モード:"
+
+#: src/tar.c:396
+msgid "list the contents of an archive"
+msgstr "アーカイブの内容を一覧表示"
+
+#: src/tar.c:398
+msgid "extract files from an archive"
+msgstr "アーカイブからファイルを抽出"
+
+#: src/tar.c:401
+msgid "create a new archive"
+msgstr "新しいアーカイブを作成"
+
+#: src/tar.c:403
+msgid "find differences between archive and file system"
+msgstr "アーカイブとファイルシステムとの違いを見付ける"
+
+#: src/tar.c:406
+msgid "append files to the end of an archive"
+msgstr "アーカイブの末尾にファイルを追加"
+
+#: src/tar.c:408
+msgid "only append files newer than copy in archive"
+msgstr "アーカイブ内にあるファイルより新しいファイルのみを追加"
+
+#: src/tar.c:410
+msgid "append tar files to an archive"
+msgstr "アーカイブに tar ファイルを追加"
+
+#: src/tar.c:413
+msgid "delete from the archive (not on mag tapes!)"
+msgstr "アーカイブから削除 (磁気テープ上ではダメ!)"
+
+#: src/tar.c:415
+msgid "test the archive volume label and exit"
+msgstr "アーカイブのボリュームラベルをテストして終了"
+
+#: src/tar.c:420
+msgid "Operation modifiers:"
+msgstr "操作オプションに対する付加機能:"
+
+#: src/tar.c:423
+msgid "handle sparse files efficiently"
+msgstr "まばらに存在するファイルを効果的に処理"
+
+#: src/tar.c:424
+msgid "TYPE"
+msgstr "TYPE"
+
+#: src/tar.c:425
+msgid "technique to detect holes"
+msgstr "穴を検知する技術"
+
+#: src/tar.c:426
+msgid "MAJOR[.MINOR]"
+msgstr "MAJOR[.MINOR]"
+
+#: src/tar.c:427
+msgid "set version of the sparse format to use (implies --sparse)"
+msgstr "まばら (sparse) 形式のバージョンを設定 (--sparse の意味を含む)"
+
+#: src/tar.c:429
+msgid "handle old GNU-format incremental backup"
+msgstr "古い GNU 形式のインクリメンタルバックアップを処理"
+
+#: src/tar.c:431
+msgid "handle new GNU-format incremental backup"
+msgstr "新しい GNU 形式のインクリメンタルバックアップを処理"
+
+#: src/tar.c:433
+msgid "dump level for created listed-incremental archive"
+msgstr "作られた listed-incremental アーカイブに対するダンプレベル"
+
+#: src/tar.c:435
+msgid "do not exit with nonzero on unreadable files"
+msgstr "読み込めないファイルにおいて非ゼロで終了しません"
+
+#: src/tar.c:437
+msgid "process only the NUMBERth occurrence of each file in the archive; this option is valid only in conjunction with one of the subcommands --delete, --diff, --extract or --list and when a list of files is given either on the command line or via the -T option; NUMBER defaults to 1"
+msgstr "アーカイブ中の各ファイルの NUMBER番目の存在のみ処理. このオプションはサブコマンド --delete, --diff, --extract または --list のうちの 1つと組み合わせて且つファイル一覧がコマンドラインか -T オプション経由のどちらかで指定された場合のみ有効. NUMBER は標準で 1."
+
+#: src/tar.c:443
+msgid "archive is seekable"
+msgstr "アーカイブは検索可能"
+
+#: src/tar.c:445
+msgid "archive is not seekable"
+msgstr "アーカイブは検索可能ではありません"
+
+#: src/tar.c:447
+msgid "do not check device numbers when creating incremental archives"
+msgstr "インクリメンタルアーカイブ作成時にデバイス番号をチェックしない"
+
+#: src/tar.c:450
+msgid "check device numbers when creating incremental archives (default)"
+msgstr "インクリメンタルアーカイブ作成時にデバイス番号をチェックする (標準)"
+
+#: src/tar.c:456
+msgid "Overwrite control:"
+msgstr "制御を上書き:"
+
+#: src/tar.c:459
+msgid "attempt to verify the archive after writing it"
+msgstr "アーカイブを書き出した後に検証"
+
+#: src/tar.c:461
+msgid "remove files after adding them to the archive"
+msgstr "ファイルをアーカイブに加えた後で削除"
+
+#: src/tar.c:463
+msgid "don't replace existing files when extracting, treat them as errors"
+msgstr "取り出す際に既存のファイルを置き換えず, エラーとして扱う"
+
+#: src/tar.c:466
+msgid "don't replace existing files when extracting, silently skip over them"
+msgstr "取り出す際に既存のファイルを置き換えず, そのままスキップする"
+
+#: src/tar.c:469
+msgid "don't replace existing files that are newer than their archive copies"
+msgstr "アーカイブコピーより新しい既存ファイルを置き換えない"
+
+#: src/tar.c:471
+msgid "overwrite existing files when extracting"
+msgstr "取り出す際に既存ファイルを上書き"
+
+#: src/tar.c:473
+msgid "remove each file prior to extracting over it"
+msgstr "各々のファイルを取り出して上書きする前に削除"
+
+#: src/tar.c:475
+msgid "empty hierarchies prior to extracting directory"
+msgstr "ディレクトリを取り出す前に階層を空に"
+
+#: src/tar.c:477
+msgid "preserve metadata of existing directories"
+msgstr "既存ディレクトリのメタデータを保存"
+
+#: src/tar.c:479
+msgid "overwrite metadata of existing directories when extracting (default)"
+msgstr "取り出す際に既存ディレクトリのメタデータを上書き (標準)"
+
+#: src/tar.c:482
+msgid "preserve existing symlinks to directories when extracting"
+msgstr "取り出す際にディレクトリへの既存シンボリックリンクを維持"
+
+#: src/tar.c:485
+msgid "create a subdirectory to avoid having loose files extracted"
+msgstr "loose fileを取り出せないようにするためにサブディレクトリを作成"
+
+#: src/tar.c:491
+msgid "Select output stream:"
+msgstr "出力ストリームを選択"
+
+#: src/tar.c:494
+msgid "extract files to standard output"
+msgstr "ファイルを取り出して標準出力に出力"
+
+#: src/tar.c:495 src/tar.c:588 src/tar.c:590 tests/genfile.c:195
+msgid "COMMAND"
+msgstr "COMMAND"
+
+#: src/tar.c:496
+msgid "pipe extracted files to another program"
+msgstr "ファイルを取り出して別のプログラムに出力"
+
+#: src/tar.c:498
+msgid "ignore exit codes of children"
+msgstr "子プロセスの終了コードを無視"
+
+#: src/tar.c:500
+msgid "treat non-zero exit codes of children as error"
+msgstr "子プロセスの非ゼロ終了コードをエラーとして処理"
+
+#: src/tar.c:505
+msgid "Handling of file attributes:"
+msgstr "ファイル属性の処理"
+
+#: src/tar.c:508
+msgid "force NAME as owner for added files"
+msgstr "加えたファイルの所有者を NAME に変更"
+
+#: src/tar.c:510
+msgid "force NAME as group for added files"
+msgstr "加えたファイルのグループを NAME に変更"
+
+#: src/tar.c:512
+msgid "use FILE to map file owner UIDs and names"
+msgstr "ファイル所有者 UID と名前をマップするのに FILE を使用"
+
+#: src/tar.c:514
+msgid "use FILE to map file owner GIDs and names"
+msgstr "ファイル所有者 GID と名前をマップするのに FILE を使用"
+
+#: src/tar.c:515 src/tar.c:700
+msgid "DATE-OR-FILE"
+msgstr "DATE-OR-FILE"
+
+#: src/tar.c:516
+msgid "set mtime for added files from DATE-OR-FILE"
+msgstr "DATE-OR-FILE から追加ファイルの mtime を設定"
+
+#: src/tar.c:518
+msgid "only set time when the file is more recent than what was given with --mtime"
+msgstr "ファイルが --mtime での指定より新しい場合に時刻設定するのみ"
+
+#: src/tar.c:519
+msgid "CHANGES"
+msgstr "CHANGES"
+
+#: src/tar.c:520
+msgid "force (symbolic) mode CHANGES for added files"
+msgstr "加えたファイルの (シンボリック) モードを CHANGES に変更"
+
+#: src/tar.c:522
+msgid "METHOD"
+msgstr "METHOD"
+
+#: src/tar.c:523
+msgid "preserve access times on dumped files, either by restoring the times after reading (METHOD='replace'; default) or by not setting the times in the first place (METHOD='system')"
+msgstr "最終アクセス時刻を, 読み込み後に復元する (METHOD='replace'; 標準) か最初に設定しない (METHOD='system') かのどちらかの方法でダンプファイル上で維持"
+
+#: src/tar.c:527
+msgid "don't extract file modified time"
+msgstr "ファイルの更新時刻を取り出さない"
+
+#: src/tar.c:529
+msgid "try extracting files with the same ownership as exists in the archive (default for superuser)"
+msgstr "アーカイブ内と同じ所有者のままでファイルを取り出してみる (スーパーユーザではデフォルト)"
+
+#: src/tar.c:531
+msgid "extract files as yourself (default for ordinary users)"
+msgstr "あなた自身のファイルとして取り出す (一般ユーザではデフォルト)"
+
+#: src/tar.c:533
+msgid "always use numbers for user/group names"
+msgstr "ユーザ名/グループ名として常に数字を使う"
+
+#: src/tar.c:535
+msgid "extract information about file permissions (default for superuser)"
+msgstr "ファイル属性についての情報を抽出 (superuser では標準)"
+
+#: src/tar.c:539
+msgid "apply the user's umask when extracting permissions from the archive (default for ordinary users)"
+msgstr "アーカイブから属性を抽出する際にユーザの umask を適用 (一般ユーザでは標準)"
+
+#: src/tar.c:541
+msgid "member arguments are listed in the same order as the files in the archive"
+msgstr "メンバー引数はアーカイブ内のファイルと同じ順番で並んでいます"
+
+#: src/tar.c:545
+msgid "delay setting modification times and permissions of extracted directories until the end of extraction"
+msgstr "抽出が終了するまで抽出されたディレクトリの最終更新時刻と属性の設定を遅らせる"
+
+#: src/tar.c:548
+msgid "cancel the effect of --delay-directory-restore option"
+msgstr "--delay-directory-restore オプションの効果を取り消し"
+
+#: src/tar.c:549
+msgid "ORDER"
+msgstr "順番"
+
+#: src/tar.c:551
+msgid "directory sorting order: none (default), name or inode"
+msgstr "ディレクトリ並び替え順: なし (標準), 名前またはiノード"
+
+#: src/tar.c:553
+msgid "directory sorting order: none (default) or name"
+msgstr "ディレクトリの並び替え順: なし (標準) または名前"
+
+#: src/tar.c:560
+msgid "Handling of extended file attributes:"
+msgstr "拡張ファイル属性の処理"
+
+#: src/tar.c:563
+msgid "Enable extended attributes support"
+msgstr "拡張属性対応を有効に"
+
+#: src/tar.c:565
+msgid "Disable extended attributes support"
+msgstr "拡張属性対応を無効に"
+
+#: src/tar.c:566 src/tar.c:568
+msgid "MASK"
+msgstr "MASK"
+
+#: src/tar.c:567
+msgid "specify the include pattern for xattr keys"
+msgstr "xattr キーに対する包含パターンを指定"
+
+#: src/tar.c:569
+msgid "specify the exclude pattern for xattr keys"
+msgstr "xattr キーに対する除外パターンを指定"
+
+#: src/tar.c:571
+msgid "Enable the SELinux context support"
+msgstr "SELinux コンテクスト対応を有効に"
+
+#: src/tar.c:573
+msgid "Disable the SELinux context support"
+msgstr "SELinux コンテクスト対応を無効に"
+
+#: src/tar.c:575
+msgid "Enable the POSIX ACLs support"
+msgstr "POSIX ACL 対応を有効に"
+
+#: src/tar.c:577
+msgid "Disable the POSIX ACLs support"
+msgstr "POSIX ACL 対応を無効に"
+
+#: src/tar.c:582
+msgid "Device selection and switching:"
+msgstr "デバイスの選択と切替:"
+
+#: src/tar.c:584
+msgid "ARCHIVE"
+msgstr "ARCHIVE"
+
+#: src/tar.c:585
+msgid "use archive file or device ARCHIVE"
+msgstr "アーカイブファイルまたはデバイス ARCHIVE を使用"
+
+#: src/tar.c:587
+msgid "archive file is local even if it has a colon"
+msgstr "アーカイブファイルはコロンを含んでいてもローカル"
+
+#: src/tar.c:589
+msgid "use given rmt COMMAND instead of rmt"
+msgstr "指定された rmt COMMAND を rmt の代わりに使用"
+
+#: src/tar.c:591
+msgid "use remote COMMAND instead of rsh"
+msgstr "rsh の代わりに COMMAND を使用"
+
+#: src/tar.c:595
+msgid "specify drive and density"
+msgstr "ドライブと密度を指定"
+
+#: src/tar.c:609
+msgid "create/list/extract multi-volume archive"
+msgstr "マルチボリュームのアーカイブを作成/一覧/抽出"
+
+#: src/tar.c:611
+msgid "change tape after writing NUMBER x 1024 bytes"
+msgstr "NUMBER x 1024 バイトを書き出した後でテープを変更"
+
+#: src/tar.c:613
+msgid "run script at end of each tape (implies -M)"
+msgstr "各々のテープの最後でスクリプトを実行 (-M 必須)"
+
+#: src/tar.c:616
+msgid "use/update the volume number in FILE"
+msgstr "FILE 中のボリューム番号を使用/更新"
+
+#: src/tar.c:621
+msgid "Device blocking:"
+msgstr "デバイスブロッキング:"
+
+#: src/tar.c:623
+msgid "BLOCKS"
+msgstr "BLOCKS"
+
+#: src/tar.c:624
+msgid "BLOCKS x 512 bytes per record"
+msgstr "レコードあたり BLOCKS x 512 バイト"
+
+#: src/tar.c:626
+msgid "NUMBER of bytes per record, multiple of 512"
+msgstr "レコードあたり NUMBER バイト. 512 の倍数"
+
+#: src/tar.c:628
+msgid "ignore zeroed blocks in archive (means EOF)"
+msgstr "アーカイブ中のゼロブロック (つまり EOF) を無視"
+
+#: src/tar.c:630
+msgid "reblock as we read (for 4.2BSD pipes)"
+msgstr "読み出したように再ブロック (4.2BSD パイプ用)"
+
+#: src/tar.c:635
+msgid "Archive format selection:"
+msgstr "アーカイブ形式の選択"
+
+#: src/tar.c:637 tests/genfile.c:158
+msgid "FORMAT"
+msgstr "FORMAT"
+
+#: src/tar.c:638
+msgid "create archive of the given format"
+msgstr "指定された形式のアーカイブを作成"
+
+#: src/tar.c:640
+msgid "FORMAT is one of the following:"
+msgstr "FORMAT は次のうちの 1つ:"
+
+#: src/tar.c:641
+msgid "old V7 tar format"
+msgstr "古い V7 tar 形式"
+
+#: src/tar.c:644
+msgid "GNU format as per tar <= 1.12"
+msgstr "GNU tar 1.12 以前の形式"
+
+#: src/tar.c:646
+msgid "GNU tar 1.13.x format"
+msgstr "GNU tar 1.13.x 形式"
+
+#: src/tar.c:648
+msgid "POSIX 1003.1-1988 (ustar) format"
+msgstr "POSIX 1003.1-1988 (ustar) 形式"
+
+#: src/tar.c:650
+msgid "POSIX 1003.1-2001 (pax) format"
+msgstr "POSIX 1003.1-2001 (pax) 形式"
+
+#: src/tar.c:651
+msgid "same as pax"
+msgstr "pax と同じ"
+
+#: src/tar.c:654
+msgid "same as --format=v7"
+msgstr "--format=v7 と同じ"
+
+#: src/tar.c:657
+msgid "same as --format=posix"
+msgstr "--format=posix と同じ"
+
+#: src/tar.c:658
+msgid "keyword[[:]=value][,keyword[[:]=value]]..."
+msgstr "keyword[[:]=value][,keyword[[:]=value]]..."
+
+#: src/tar.c:659
+msgid "control pax keywords"
+msgstr "pax キーワードを制御"
+
+#: src/tar.c:660
+msgid "TEXT"
+msgstr "TEXT"
+
+#: src/tar.c:661
+msgid "create archive with volume name TEXT; at list/extract time, use TEXT as a globbing pattern for volume name"
+msgstr "ボリューム名 TEXT のアーカイブを作成. 一覧/抽出時に TEXT をボリューム名に対する抽出パターンに使用"
+
+#: src/tar.c:666
+msgid "Compression options:"
+msgstr "圧縮オプション:"
+
+#: src/tar.c:668
+msgid "use archive suffix to determine the compression program"
+msgstr "圧縮プログラムを決めるのにアーカイブ接尾辞を使用する"
+
+#: src/tar.c:670
+msgid "do not use archive suffix to determine the compression program"
+msgstr "圧縮プログラムを決めるのにアーカイブ接尾辞を使用しない"
+
+#: src/tar.c:672
+msgid "PROG"
+msgstr "PROG"
+
+#: src/tar.c:673
+msgid "filter through PROG (must accept -d)"
+msgstr "PROG 経由でフィルタ (-d を受け付ける必要あり)"
+
+#: src/tar.c:689
+msgid "Local file selection:"
+msgstr "ローカルファイル選択:"
+
+#: src/tar.c:691
+msgid "stay in local file system when creating archive"
+msgstr "アーカイブ作成時にローカルファイルシステムに限定"
+
+#: src/tar.c:693
+msgid "don't strip leading '/'s from file names"
+msgstr "ファイル名から先頭の '/' を取り除かない"
+
+#: src/tar.c:695
+msgid "follow symlinks; archive and dump the files they point to"
+msgstr "シンボリックリンクをたどる; それらが指すファイルをアーカイブしてダンプ"
+
+#: src/tar.c:697
+msgid "follow hard links; archive and dump the files they refer to"
+msgstr "ハードリンクをたどる; それらが指すファイルをアーカイブしてダンプ"
+
+#: src/tar.c:698
+msgid "MEMBER-NAME"
+msgstr "MEMBER-NAME"
+
+#: src/tar.c:699
+msgid "begin at member MEMBER-NAME when reading the archive"
+msgstr "アーカイブの読み取り時にメンバー MEMBER-NAME で開始"
+
+#: src/tar.c:701
+msgid "only store files newer than DATE-OR-FILE"
+msgstr "DATE-OR-FILE よる新しいファイルのみを格納"
+
+#: src/tar.c:703
+msgid "DATE"
+msgstr "DATE"
+
+#: src/tar.c:704
+msgid "compare date and time when data changed only"
+msgstr "データが変更された時だけ日付および時刻を比較"
+
+#: src/tar.c:705
+msgid "CONTROL"
+msgstr "CONTROL"
+
+#: src/tar.c:706
+msgid "backup before removal, choose version CONTROL"
+msgstr "削除前にバージョン管理を CONTROL にしてバックアップ"
+
+#: src/tar.c:707 src/tar.c:766 src/tar.c:768 tests/genfile.c:174
+msgid "STRING"
+msgstr "STRING"
+
+#: src/tar.c:708
+msgid "backup before removal, override usual suffix ('~' unless overridden by environment variable SIMPLE_BACKUP_SUFFIX)"
+msgstr "削除前にバックアップ, 通常の接尾辞 (環境変数 SIMPLE_BACKUP_SUFFIX が未設定なら '~') を上書き"
+
+#: src/tar.c:713
+msgid "File name transformations:"
+msgstr "ファイル名変換:"
+
+#: src/tar.c:715
+msgid "strip NUMBER leading components from file names on extraction"
+msgstr "抽出時にファイル名から先頭の NUMBER 個のコンポネントを除去"
+
+#: src/tar.c:717
+msgid "EXPRESSION"
+msgstr "EXPRESSION"
+
+#: src/tar.c:718
+msgid "use sed replace EXPRESSION to transform file names"
+msgstr "ファイル名の変換に sed の置換 EXPRESSION を使用"
+
+#: src/tar.c:724
+msgid "Informative output:"
+msgstr "情報:"
+
+#: src/tar.c:727
+msgid "verbosely list files processed"
+msgstr "処理されているファイルの一覧を冗長に表示"
+
+#: src/tar.c:728
+msgid "KEYWORD"
+msgstr "KEYWORD"
+
+#: src/tar.c:729
+msgid "warning control"
+msgstr "警戒管制"
+
+#: src/tar.c:731
+msgid "display progress messages every NUMBERth record (default 10)"
+msgstr "NUMBER (標準 10) 番目の記録ごとに進捗メッセージを表示"
+
+#: src/tar.c:733
+msgid "ACTION"
+msgstr "ACTION"
+
+#: src/tar.c:734
+msgid "execute ACTION on each checkpoint"
+msgstr "各検問で ACTION を実行"
+
+#: src/tar.c:737
+msgid "print a message if not all links are dumped"
+msgstr "全てのリンクがダンプされない場合メッセージを表示"
+
+#: src/tar.c:738
+msgid "SIGNAL"
+msgstr "SIGNAL"
+
+#: src/tar.c:739
+msgid "print total bytes after processing the archive; with an argument - print total bytes when this SIGNAL is delivered; Allowed signals are: SIGHUP, SIGQUIT, SIGINT, SIGUSR1 and SIGUSR2; the names without SIG prefix are also accepted"
+msgstr "アーカイブの処理後に総バイト数を表示. 引数があれば - この SIGNAL が発せられる時に総バイト数を表示. 許可された SIGNAL は: SIGHUP, SIGQUIT, SIGINT, SIGUSR1 および SIGUSR2. SIG 接頭辞がない名前でも可"
+
+#: src/tar.c:744
+msgid "print file modification times in UTC"
+msgstr "ファイルの更新時刻を UTC で表示"
+
+#: src/tar.c:746
+msgid "print file time to its full resolution"
+msgstr "ファイルの時刻情報を完全形式で表示"
+
+#: src/tar.c:748
+msgid "send verbose output to FILE"
+msgstr "冗長出力を FILE に送信"
+
+#: src/tar.c:750
+msgid "show block number within archive with each message"
+msgstr "アーカイブ内のブロック数を各々メッセージ付きで表示"
+
+#: src/tar.c:752
+msgid "ask for confirmation for every action"
+msgstr "全ての動作を確認"
+
+#: src/tar.c:755
+msgid "show tar defaults"
+msgstr "tar の既定値を表示"
+
+#: src/tar.c:757
+msgid "show valid ranges for snapshot-file fields"
+msgstr "スナップショットファイルの領域の正当な範囲を表示"
+
+#: src/tar.c:759
+msgid "when listing or extracting, list each directory that does not match search criteria"
+msgstr "一覧や抽出時に, 検索基準に一致しないディレクトリを各々一覧表示"
+
+#: src/tar.c:761
+msgid "show file or archive names after transformation"
+msgstr "変換後にファイル名またはアーカイブ名を表示"
+
+#: src/tar.c:764
+msgid "STYLE"
+msgstr "STYLE"
+
+#: src/tar.c:765
+msgid "set name quoting style; see below for valid STYLE values"
+msgstr "名前引用形式を設定. 有効な STYLE 値は下記参照."
+
+#: src/tar.c:767
+msgid "additionally quote characters from STRING"
+msgstr "更に STRING から文字を引用"
+
+#: src/tar.c:769
+msgid "disable quoting for characters from STRING"
+msgstr "STRING からの文字引用を無効に"
+
+#: src/tar.c:774
+msgid "Compatibility options:"
+msgstr "互換オプション:"
+
+#: src/tar.c:777
+msgid "when creating, same as --old-archive; when extracting, same as --no-same-owner"
+msgstr "作成時は --old-archive と同じ. 抽出時は --no-same-owner と同じ"
+
+#: src/tar.c:782
+msgid "Other options:"
+msgstr "その他オプション:"
+
+#: src/tar.c:785
+msgid "disable use of some potentially harmful options"
+msgstr "潜在的に害になるオプションの使用を無効に"
+
+#. TRANSLATORS: Both %s in this statement are replaced with
+#. option names.
+#: src/tar.c:845
+#, c-format
+msgid "'%s' cannot be used with '%s'"
+msgstr "'%s' は '%s' と一緒に使えません"
+
+#: src/tar.c:933
+msgid "You may not specify more than one '-Acdtrux', '--delete' or  '--test-label' option"
+msgstr "'-Acdtrux', '--delete' または '--test-label' オプションのうち 2つ以上指定することはできません"
+
+#: src/tar.c:945
+msgid "Conflicting compression options"
+msgstr "圧縮オプションが食い違っています"
+
+#: src/tar.c:1004
+#, c-format
+msgid "Unknown signal name: %s"
+msgstr "未知のシグナル名: %s"
+
+#: src/tar.c:1028
+msgid "Date sample file not found"
+msgstr "日付サンプルファイルが見つかりません"
+
+#: src/tar.c:1036
+#, c-format
+msgid "Substituting %s for unknown date format %s"
+msgstr "未知の日付フォーマットの %2$s 代わりに %1$s とします"
+
+#: src/tar.c:1065
+#, c-format
+msgid "Option %s: Treating date '%s' as %s"
+msgstr "オプション %s: 日付 '%s' を %s として扱う"
+
+#: src/tar.c:1105 src/tar.c:1109 src/tar.c:1113 src/tar.c:1117 src/tar.c:1121
+#: src/tar.c:1125 src/tar.c:1129
+#, c-format
+msgid "filter the archive through %s"
+msgstr "%s 経由でアーカイブをフィルタ"
+
+#: src/tar.c:1137
+msgid "Valid arguments for the --quoting-style option are:"
+msgstr "--quoting-style オプションに対する有効な引数:"
+
+#: src/tar.c:1141
+msgid ""
+"\n"
+"*This* tar defaults to:\n"
+msgstr ""
+"\n"
+"「この」tar の規定値:\n"
+
+#: src/tar.c:1253
+msgid "Invalid owner or group ID"
+msgstr "無効な所有者またはグループID"
+
+#: src/tar.c:1347
+msgid "Invalid blocking factor"
+msgstr "無効なブロッキング因子"
+
+#: src/tar.c:1467
+msgid "Invalid tape length"
+msgstr "無効なテープの長さ"
+
+#: src/tar.c:1481
+msgid "Invalid incremental level value"
+msgstr "無効な増分レベル値"
+
+#: src/tar.c:1527
+msgid "More than one threshold date"
+msgstr "1つ以上の敷居となる日付"
+
+#: src/tar.c:1594 src/tar.c:1597
+msgid "Invalid sparse version value"
+msgstr "無効なまばら (sparse) バージョン値"
+
+#: src/tar.c:1661
+msgid "--atime-preserve='system' is not supported on this platform"
+msgstr "--atime-preserve='system' はこのプラットフォームでは実装されていません"
+
+#: src/tar.c:1686
+msgid "--checkpoint value is not an integer"
+msgstr "--checkpoint 値は整数ではありません"
+
+#: src/tar.c:1764
+msgid "Invalid mode given on option"
+msgstr "オプションで指定されたモードは無効です"
+
+#: src/tar.c:1797
+msgid "Invalid number"
+msgstr "無効な数"
+
+#: src/tar.c:1861
+msgid "Invalid record size"
+msgstr "無効な記録サイズ"
+
+#: src/tar.c:1864
+#, c-format
+msgid "Record size must be a multiple of %d."
+msgstr "記録サイズは %d の倍数でなければいけません"
+
+#: src/tar.c:1910
+msgid "Invalid number of elements"
+msgstr "無効なエレメント数"
+
+#: src/tar.c:1935
+msgid "Only one --to-command option allowed"
+msgstr "--to-command オプションは 1つだけ許可"
+
+#: src/tar.c:2023
+#, c-format
+msgid "Malformed density argument: %s"
+msgstr "不正形式の密度引数: %s"
+
+#: src/tar.c:2049
+#, c-format
+msgid "Unknown density: '%c'"
+msgstr "未知の密度: '%c'"
+
+#: src/tar.c:2066
+#, c-format
+msgid "Options '-[0-7][lmh]' not supported by *this* tar"
+msgstr "オプション '-[0-7][lmh]' は「この」tar では実装されていません"
+
+#: src/tar.c:2073
+#, c-format
+msgid "%s:%lu: location of the error"
+msgstr "%s:%lu: エラーの場所"
+
+#: src/tar.c:2076
+#, c-format
+msgid "error parsing %s"
+msgstr "%s の構文分析時にエラー"
+
+#: src/tar.c:2090
+msgid "[FILE]..."
+msgstr "[ファイル]..."
+
+#: src/tar.c:2181
+#, c-format
+msgid "non-option arguments in %s"
+msgstr "%s に非オプション引数"
+
+#: src/tar.c:2196
+#, c-format
+msgid "cannot split TAR_OPTIONS: %s"
+msgstr "TAR_OPTIONS を分割できません: %s"
+
+#: src/tar.c:2291
+#, c-format
+msgid "Old option '%c' requires an argument."
+msgstr "古いオプション '%c' は引数を必要とします"
+
+#: src/tar.c:2364
+msgid "--occurrence is meaningless without a file list"
+msgstr "--occurrence はファイル一覧がなければ無意味"
+
+#: src/tar.c:2390
+msgid "Multiple archive files require '-M' option"
+msgstr "複合型アーカイブファイルには '-M' オプションが必要です"
+
+#: src/tar.c:2407
+msgid "--level is meaningless without --listed-incremental"
+msgstr "--listed-incremental なしの --level は無意味です"
+
+#: src/tar.c:2424
+#, c-format
+msgid "%s: Volume label is too long (limit is %lu byte)"
+msgid_plural "%s: Volume label is too long (limit is %lu bytes)"
+msgstr[0] "%s: ボリュームラベルが長すぎます (%lu バイト制限)"
+msgstr[1] "%s: ボリュームラベルが長すぎます (%lu バイト制限)"
+
+#: src/tar.c:2437
+msgid "Cannot verify multi-volume archives"
+msgstr "マルチボリュームアーカイブを確認できません"
+
+#: src/tar.c:2439
+msgid "Cannot verify compressed archives"
+msgstr "圧縮されたアーカイブは確認できません"
+
+#: src/tar.c:2453
+msgid "Cannot use multi-volume compressed archives"
+msgstr "マルチボリュームに圧縮されたアーカイブは使えません"
+
+#: src/tar.c:2457
+msgid "Cannot concatenate compressed archives"
+msgstr "圧縮されたアーカイブは連結できません"
+
+#: src/tar.c:2464
+msgid "--clamp-mtime needs a date specified using --mtime"
+msgstr "--clamp-mtime は --mtime で指定された日時が必要です"
+
+#: src/tar.c:2474
+msgid "--pax-option can be used only on POSIX archives"
+msgstr "--pax-option は POSIX アーカイブでのみ使えます"
+
+#: src/tar.c:2481
+msgid "--acls can be used only on POSIX archives"
+msgstr "--acls は POSIX アーカイブでのみ使えます"
+
+#: src/tar.c:2486
+msgid "--selinux can be used only on POSIX archives"
+msgstr "--selinux は POSIX アーカイブでのみ使えます"
+
+#: src/tar.c:2491
+msgid "--xattrs can be used only on POSIX archives"
+msgstr "--xattrs は POSIX アーカイブでのみ使えます"
+
+#: src/tar.c:2540
+msgid "Cannot deduce top-level directory name; please set it explicitly with --one-top-level=DIR"
+msgstr "トップレベルディレクトリ名を推定不能; --one-top-level=DIR で明示的に指定してください"
+
+#: src/tar.c:2573
+msgid "Volume length cannot be less than record size"
+msgstr "ボリューム長はレコードサイズより小さくてはいけません"
+
+#: src/tar.c:2597
+msgid "Cowardly refusing to create an empty archive"
+msgstr "空のアーカイブ作成はご容赦願います"
+
+#: src/tar.c:2623
+msgid "Options '-Aru' are incompatible with '-f -'"
+msgstr "オプション '-Aru' と '-f -' とは相容れません"
+
+#: src/tar.c:2711
+msgid "You must specify one of the '-Acdtrux', '--delete' or '--test-label' options"
+msgstr "'-Acdtrux', '--delete' または '--test-label' オプションのうち、いずれか 1つを指定しなければなりません"
+
+#: src/tar.c:2768
+#, c-format
+msgid "Exiting with failure status due to previous errors"
+msgstr "前のエラーにより失敗ステータスで終了します"
+
+#: src/update.c:87
+#, c-format
+msgid "%s: File shrank by %s byte"
+msgid_plural "%s: File shrank by %s bytes"
+msgstr[0] "%s: ファイルが %s バイト小さくなっています"
+msgstr[1] "%s: ファイルが %s バイト小さくなっています"
+
+#: src/xheader.c:165
+#, c-format
+msgid "Keyword %s is unknown or not yet implemented"
+msgstr "キーワード %s は未知または未実装"
+
+#: src/xheader.c:174
+msgid "Time stamp is out of allowed range"
+msgstr "タイムスタンプが許可された範囲外です"
+
+#: src/xheader.c:205
+#, c-format
+msgid "Pattern %s cannot be used"
+msgstr "パターン %s は使えません"
+
+#: src/xheader.c:219
+#, c-format
+msgid "Keyword %s cannot be overridden"
+msgstr "キーワード %s は覆せません"
+
+#: src/xheader.c:668
+msgid "Malformed extended header: missing length"
+msgstr "不正形式の拡張ヘッダ: 長さの指定がありません"
+
+#: src/xheader.c:677
+#, c-format
+msgid "Extended header length %*s is out of range"
+msgstr "拡張ヘッダ長 %*s は範囲外です"
+
+#: src/xheader.c:689
+msgid "Malformed extended header: missing blank after length"
+msgstr "不正形式の拡張ヘッダ: 長さの後にブランクがありません"
+
+#: src/xheader.c:697
+msgid "Malformed extended header: missing equal sign"
+msgstr "不正形式の拡張ヘッダ: = (イコール) 記号がありません"
+
+#: src/xheader.c:703
+msgid "Malformed extended header: missing newline"
+msgstr "不正形式の拡張ヘッダ: 改行がありません"
+
+#: src/xheader.c:741
+#, c-format
+msgid "Ignoring unknown extended header keyword '%s'"
+msgstr "未知の拡張ヘッダキーワード '%s' を無視"
+
+#: src/xheader.c:1023
+#, c-format
+msgid "Generated keyword/value pair is too long (keyword=%s, length=%s)"
+msgstr "生成されたキーワードと値のペアが長過ぎます (キーワード=%s, 長さ=%s)"
+
+#. TRANSLATORS: The first %s is the pax extended header keyword
+#. (atime, gid, etc.).
+#: src/xheader.c:1053
+#, c-format
+msgid "Extended header %s=%s is out of range %s..%s"
+msgstr "拡張ヘッダ %s=%s は %s..%s の範囲内にありません"
+
+#: src/xheader.c:1104 src/xheader.c:1137 src/xheader.c:1487
+#, c-format
+msgid "Malformed extended header: invalid %s=%s"
+msgstr "不正形式の拡張ヘッダ: %s=%s は不正"
+
+#: src/xheader.c:1440 src/xheader.c:1465 src/xheader.c:1520
+#, c-format
+msgid "Malformed extended header: excess %s=%s"
+msgstr "不正形式の拡張ヘッダ: %s=%s は余分"
+
+#: src/xheader.c:1533
+#, c-format
+msgid "Malformed extended header: invalid %s: unexpected delimiter %c"
+msgstr "不正形式の拡張ヘッダ: %s は無効: 予期せぬ区切り文字 %c"
+
+#: src/xheader.c:1543
+#, c-format
+msgid "Malformed extended header: invalid %s: odd number of values"
+msgstr "不正形式の拡張ヘッダ: %s は無効: 奇数値"
+
+#: src/checkpoint.c:114
+#, c-format
+msgid "%s: not a valid timeout"
+msgstr "%s: 無効なタイムアウト"
+
+#: src/checkpoint.c:121
+#, c-format
+msgid "%s: unknown checkpoint action"
+msgstr "%s: 未知の検問処理"
+
+#: src/checkpoint.c:202
+msgid "write"
+msgstr "書き込み"
+
+#: src/checkpoint.c:202
+msgid "read"
+msgstr "読み出し"
+
+#. TRANSLATORS: This is a "checkpoint of write operation",
+#. *not* "Writing a checkpoint".
+#. E.g. in Spanish "Punto de comprobaci@'on de escritura",
+#. *not* "Escribiendo un punto de comprobaci@'on"
+#: src/checkpoint.c:218
+#, c-format
+msgid "Write checkpoint %u"
+msgstr "チェックポイント %u を書き出します"
+
+#. TRANSLATORS: This is a "checkpoint of read operation",
+#. *not* "Reading a checkpoint".
+#. E.g. in Spanish "Punto de comprobaci@'on de lectura",
+#. *not* "Leyendo un punto de comprobaci@'on"
+#: src/checkpoint.c:224
+#, c-format
+msgid "Read checkpoint %u"
+msgstr "チェックポイント %u を読み込みます"
+
+#: tests/genfile.c:115
+msgid ""
+"genfile manipulates data files for GNU paxutils test suite.\n"
+"OPTIONS are:\n"
+msgstr ""
+"genfile は GNU paxutils テストセットに対してデータファイルを操作します.\n"
+"オプションは:\n"
+
+#: tests/genfile.c:131
+msgid "File creation options:"
+msgstr "ファイル作成オプション:"
+
+#: tests/genfile.c:132 tests/genfile.c:143
+msgid "SIZE"
+msgstr "SIZE"
+
+#: tests/genfile.c:133
+msgid "Create file of the given SIZE"
+msgstr "指定された SIZE のファイルを作成"
+
+#: tests/genfile.c:135
+msgid "Write to file NAME, instead of standard output"
+msgstr "標準出力の代わりにファイル NAME に出力"
+
+#: tests/genfile.c:137
+msgid "Read file names from FILE"
+msgstr "FILE からファイル名を読み込み"
+
+#: tests/genfile.c:139
+msgid "-T reads null-terminated names"
+msgstr "-T は null で終わる名前を読み込みます"
+
+#: tests/genfile.c:141
+msgid "Fill the file with the given PATTERN. PATTERN is 'default' or 'zeros'"
+msgstr "指定された PATTERN でファイルを埋めます. PATTERN は 'default' または 'zeros'"
+
+#: tests/genfile.c:144
+msgid "Size of a block for sparse file"
+msgstr "まばらな (sparse) ファイルのブロックサイズ"
+
+#: tests/genfile.c:146
+msgid "Generate sparse file. Rest of the command line gives the file map."
+msgstr "まばらな (sparse) ファイルを生成. 残りのコマンドラインでファイルマップを指定."
+
+#: tests/genfile.c:148
+msgid "OFFSET"
+msgstr "オフセット"
+
+#: tests/genfile.c:149
+msgid "Seek to the given offset before writing data"
+msgstr "データを書き出す前に指定されたオフセットまで検索"
+
+#: tests/genfile.c:152
+msgid "Suppress non-fatal diagnostic messages"
+msgstr "致命的でない診断メッセージを抑制"
+
+#: tests/genfile.c:156
+msgid "File statistics options:"
+msgstr "ファイル統計オプション:"
+
+#: tests/genfile.c:159
+msgid "Print contents of struct stat for each given file. Default FORMAT is: "
+msgstr "各々の指定ファイルに対して struct stat の内容を表示. 標準 FORMAT は: "
+
+#: tests/genfile.c:166
+msgid "Synchronous execution options:"
+msgstr "同時実行オプション:"
+
+#: tests/genfile.c:168
+msgid "OPTION"
+msgstr "OPTION"
+
+#: tests/genfile.c:169
+msgid "Execute ARGS. Useful with --checkpoint and one of --cut, --append, --touch, --unlink"
+msgstr "ARGS を実行. --checkpoint および --cut, --append, --touch, --unlink の中の 1つとともに使用するとよい"
+
+#: tests/genfile.c:172
+msgid "Perform given action (see below) upon reaching checkpoint NUMBER"
+msgstr "チェックポイント NUMBER 到達時に指定されたアクション (下記参照) を実行"
+
+#: tests/genfile.c:175
+msgid "Set date for next --touch option"
+msgstr "次の --touch オプションで日付を設定"
+
+#: tests/genfile.c:178
+msgid "Display executed checkpoints and exit status of COMMAND"
+msgstr "実行されたチェックポイントと COMMAND の終了ステータスを表示"
+
+#: tests/genfile.c:183
+msgid "Synchronous execution actions. These are executed when checkpoint number given by --checkpoint option is reached."
+msgstr "同時実行アクション. これらは --checkpoint option で指定されたチェックポイント番号に到達したときに実行される."
+
+#: tests/genfile.c:186
+msgid "Truncate FILE to the size specified by previous --length option (or 0, if it is not given)"
+msgstr "FILE を --length オプション (または指定がなければ 0) で指定されたサイズに切り捨て"
+
+#: tests/genfile.c:190
+msgid "Append SIZE bytes to FILE. SIZE is given by previous --length option."
+msgstr "FILE に SIZE バイト追記. SIZE は前の --length オプションで指定."
+
+#: tests/genfile.c:193
+msgid "Update the access and modification times of FILE"
+msgstr "FILE の最終アクセス時刻と最終更新時刻を更新"
+
+#: tests/genfile.c:196
+msgid "Execute COMMAND"
+msgstr "COMMAND を実行"
+
+#: tests/genfile.c:199
+msgid "Delete FILE"
+msgstr "FILE を削除"
+
+#: tests/genfile.c:250
+#, c-format
+msgid "Invalid size: %s"
+msgstr "無効なサイズ: %s"
+
+#: tests/genfile.c:255
+#, c-format
+msgid "Number out of allowed range: %s"
+msgstr "番号が許可された範囲外: %s"
+
+#: tests/genfile.c:258
+#, c-format
+msgid "Negative size: %s"
+msgstr "負のサイズ: %s"
+
+#: tests/genfile.c:271 tests/genfile.c:642
+#, c-format
+msgid "stat(%s) failed"
+msgstr "stat(%s) 失敗"
+
+#: tests/genfile.c:274
+#, c-format
+msgid "requested file length %lu, actual %lu"
+msgstr "要求されたファイル長 %lu, 実際の値 %lu"
+
+#: tests/genfile.c:278
+#, c-format
+msgid "created file is not sparse"
+msgstr "作成されたファイルはスパースではありません"
+
+#: tests/genfile.c:375
+#, c-format
+msgid "Error parsing number near `%s'"
+msgstr "`%s' の近くで数字を構文分析時にエラー"
+
+#: tests/genfile.c:381
+#, c-format
+msgid "Unknown date format"
+msgstr "未知の日付形式"
+
+#: tests/genfile.c:405
+msgid "[ARGS...]"
+msgstr "[ARGS...]"
+
+#: tests/genfile.c:442 tests/genfile.c:482 tests/genfile.c:583
+#: tests/genfile.c:746 tests/genfile.c:760
+#, c-format
+msgid "cannot open `%s'"
+msgstr "`%s' を開けません"
+
+#: tests/genfile.c:448
+msgid "cannot seek"
+msgstr "捜し出せません"
+
+#: tests/genfile.c:465
+#, c-format
+msgid "file name contains null character"
+msgstr "ファイル名がヌル文字を含んでいます"
+
+#: tests/genfile.c:578
+#, c-format
+msgid "cannot generate sparse files on standard output, use --file option"
+msgstr "まばらな (sparse) ファイルを標準出力に書き出せません. --file オプションを使用"
+
+#: tests/genfile.c:669
+#, c-format
+msgid "incorrect mask (near `%s')"
+msgstr "不正なマスク (`%s' に近い)"
+
+#: tests/genfile.c:675 tests/genfile.c:708
+#, c-format
+msgid "Unknown field `%s'"
+msgstr "未知のフィールド `%s'"
+
+#: tests/genfile.c:735
+#, c-format
+msgid "cannot set time on `%s'"
+msgstr "`%s' に時刻を設定できません"
+
+#: tests/genfile.c:765
+#, c-format
+msgid "cannot truncate `%s'"
+msgstr "`%s' を truncate できません"
+
+#: tests/genfile.c:774
+#, c-format
+msgid "command failed: %s"
+msgstr "コマンド失敗: %s"
+
+#: tests/genfile.c:781
+#, c-format
+msgid "cannot stat `%s'"
+msgstr "`%s' を stat できません"
+
+#: tests/genfile.c:785
+#, c-format
+msgid "cannot remove directory `%s'"
+msgstr "ディレクトリ `%s' を削除できません"
+
+#: tests/genfile.c:788
+#, c-format
+msgid "cannot unlink `%s'"
+msgstr "`%s' を unlink できません"
+
+#: tests/genfile.c:918
+#, c-format
+msgid "Command exited successfully\n"
+msgstr "コマンドが正常終了\n"
+
+#: tests/genfile.c:920
+#, c-format
+msgid "Command failed with status %d\n"
+msgstr "コマンドがステータス %d で失敗\n"
+
+#: tests/genfile.c:924
+#, c-format
+msgid "Command terminated on signal %d\n"
+msgstr "コマンドがシグナル %d で終了\n"
+
+#: tests/genfile.c:926
+#, c-format
+msgid "Command stopped on signal %d\n"
+msgstr "コマンドがシグナル %d で停止\n"
+
+#: tests/genfile.c:929
+#, c-format
+msgid "Command dumped core\n"
+msgstr "コマンドがコアをダンプ\n"
+
+#: tests/genfile.c:932
+#, c-format
+msgid "Command terminated\n"
+msgstr "コマンドが終了\n"
+
+#: tests/genfile.c:964
+#, c-format
+msgid "--stat requires file names"
+msgstr "--stat にはファイル名が必要"
+
+#~ msgid "%.*s: ARGP_HELP_FMT parameter must be positive"
+#~ msgstr "%.*s: ARGP_HELP_FMT パラメータは正の値でなければなりません"
+
+#~ msgid "%s: option '--%s' doesn't allow an argument\n"
+#~ msgstr "%s: オプション '--%s' に引数はありません\n"
+
+#~ msgid "%s: unrecognized option '--%s'\n"
+#~ msgstr "%s: 未知のオプション '--%s'\n"
+
+#~ msgid "%s: option '-W %s' is ambiguous\n"
+#~ msgstr "%s: オプション '-W %s' はあいまいです\n"
+
+#~ msgid "%s: option '-W %s' doesn't allow an argument\n"
+#~ msgstr "%s: オプション '-W %s' に引数はありません\n"
+
+#~ msgid "%s: option '-W %s' requires an argument\n"
+#~ msgstr "%s: オプション '-W %s' には引数が必要です\n"
+
+#~ msgid "Unlink FILE"
+#~ msgstr "FILE を unlink"
+
+#~ msgid "same as both -p and -s"
+#~ msgstr "-p と -s の両方を指定したものと同じ"
+
+#~ msgid "The --preserve option is deprecated, use --preserve-permissions --preserve-order instead"
+#~ msgstr "--preserve オプションは廃止予定なので, 代わりに --preserve-permissions --preserve-order を使ってください"

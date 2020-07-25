@@ -1,0 +1,46 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# written by Paul Eggert
+
+# Check that delayed setting of directory metadata does not collide
+# with the -C option.  When setting a directory's permissions, time
+# stamps, etc., tar should apply the -C option that was in effect when
+# the directory was extracted, not the -C option that happens to be in
+# effect when the metadata are later set.
+
+AT_SETUP([-C and delayed setting of metadata])
+AT_KEYWORDS([extract extrac10 chdir])
+
+AT_TAR_CHECK([
+mkdir d x x/y
+echo foo >d/d1
+echo bar >e
+
+tar -cf archive.tar d e &&
+tar -xf archive.tar -C x d -C y e &&
+diff -r d x/d &&
+diff e x/y/e
+],
+[0],
+[],
+[],[],[],[gnu])
+
+AT_CLEANUP

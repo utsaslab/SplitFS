@@ -1,0 +1,49 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# This checks for the bug reported by Martin Weigel
+# <http://lists.gnu.org/archive/html/bug-tar/2010-11/msg00071.html>.
+# The test is derived from the ideas in Jean-Louis Martineau's followup email
+# <http://lists.gnu.org/archive/html/bug-tar/2010-11/msg00087.html>.
+
+AT_SETUP([--listed-incremental and --one-file-system])
+AT_KEYWORDS([listed incremental listed04])
+
+AT_TAR_CHECK([
+AT_CHECK_TIMESTAMP
+mkdir dir
+echo a >dir/a
+echo b >dir/b
+
+tar --one-file-system -cvf archive.tar -g archive.incr dir || exit
+tar -tf archive.tar || exit
+],
+[0],
+[dir/
+dir/a
+dir/b
+dir/
+dir/a
+dir/b
+],
+[tar: dir: Directory is new
+],[],[],[gnu])
+
+AT_CLEANUP

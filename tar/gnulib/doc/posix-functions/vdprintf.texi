@@ -1,0 +1,56 @@
+@node vdprintf
+@section @code{vdprintf}
+@findex vdprintf
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/functions/vdprintf.html}
+
+Gnulib module: vdprintf or vdprintf-posix
+
+Portability problems fixed by either Gnulib module @code{vdprintf} or @code{vdprintf-posix}:
+@itemize
+@item
+This function is missing on some platforms:
+Mac OS X 10.5, FreeBSD 6.0, NetBSD 5.0, OpenBSD 3.8, Minix 3.1.8, AIX 5.1, HP-UX 11, IRIX 6.5, OSF/1 5.1, Solaris 11.3, Cygwin 1.5.x, mingw, MSVC 14, Interix 3.5.
+@end itemize
+
+Portability problems fixed by Gnulib module @code{vdprintf-posix}:
+@itemize
+@item
+This function does not support size specifiers as in C99 (@code{hh}, @code{ll},
+@code{j}, @code{t}, @code{z}) on some platforms:
+BeOS.
+@item
+printf of @samp{long double} numbers is unsupported on some platforms:
+BeOS.
+@item
+This function does not support the @samp{a} and @samp{A} directives on some
+platforms:
+glibc-2.3.6, BeOS.
+@item
+This function does not support the @samp{F} directive on some platforms:
+BeOS.
+@item
+This function does not support format directives that access arguments in an
+arbitrary order, such as @code{"%2$s"}, on some platforms:
+BeOS.
+@item
+This function does not support precisions larger than 512 or 1024 in integer,
+floating-point and pointer output on some platforms:
+AIX 7.1, BeOS.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+Formatting noncanonical @samp{long double} numbers produces
+nonmeaningful results on some platforms:
+glibc and others, on x86, x86_64, IA-64 CPUs.
+@item
+When formatting an integer with grouping flag, this function inserts thousands
+separators even in the "C" locale on some platforms:
+NetBSD 5.1.
+@item
+On some platforms, this function does not set @code{errno} or the
+stream error indicator on attempts to write to a read-only stream:
+Cygwin 1.7.9.
+@end itemize

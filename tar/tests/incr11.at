@@ -1,0 +1,76 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Test suite for GNU tar.
+# Copyright 2015-2017 Free Software Foundation, Inc.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: Extraction from concatenated incremental archives
+# produced spurious error messages when trying to set file ownership
+# and permissions on renamed directories
+# Reported by: Alex Efros <powerman@powerman.name>
+# References: <20151129094003.GD18347@home.power>
+#             http://lists.gnu.org/archive/html/bug-tar/2015-11/msg00033.html
+
+AT_SETUP([concatenated incremental archives (renames)])
+AT_KEYWORDS([incremental concat cat incr11 chdir])
+
+AT_TAR_CHECK([
+AT_CHECK_TIMESTAMP
+AT_SORT_PREREQ
+AT_TAR_MKHIER([data/dir],[file])
+decho Level 0
+tar -cvf full.tar -g snap -C data .
+decho Level 1
+mv data/dir data/dir2
+tar -cvf incr.tar -g snap -C data .
+decho Concat
+cp full.tar full2.tar
+tar -A -f full2.tar incr.tar
+decho Extract
+mkdir out
+tar -xvf full2.tar -g /dev/null -C out
+decho List
+find out | sort
+],
+[0],
+[Level 0
+./
+./dir/
+./dir/file
+Level 1
+./
+./dir2/
+Concat
+Extract
+./
+./dir/
+./dir/file
+./
+./dir2/
+List
+out
+out/dir2
+out/dir2/file
+],
+[Level 0
+tar: .: Directory is new
+tar: ./dir: Directory is new
+Level 1
+tar: ./dir2: Directory has been renamed from './dir'
+Concat
+Extract
+List
+],[],[],[gnu])
+
+AT_CLEANUP

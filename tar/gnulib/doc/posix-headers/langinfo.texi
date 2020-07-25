@@ -1,0 +1,32 @@
+@node langinfo.h
+@section @file{langinfo.h}
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/basedefs/langinfo.h.html}
+
+Gnulib module: langinfo
+
+Portability problems fixed by Gnulib:
+@itemize
+@item
+This header file is missing on some platforms:
+Minix 3.1.8, mingw, MSVC 14, BeOS.
+@item
+The constant @code{CODESET} is not defined on some platforms:
+glibc 2.0.6, OpenBSD 3.8.
+@item
+The constants @code{ALTMON_1} to @code{ALTMON_12} are not defined on some
+platforms:
+glibc 2.26 and many others.
+@item
+The constants @code{ERA}, @code{ERA_D_FMT}, @code{ERA_D_T_FMT},
+@code{ERA_T_FMT}, @code{ALT_DIGITS} are not defined on some platforms:
+OpenBSD 3.8.
+@item
+The constants @code{T_FMT_AMPM}, @code{YESEXPR}, @code{NOEXPR} are not
+defined on some platforms:
+IRIX 5.3.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@end itemize

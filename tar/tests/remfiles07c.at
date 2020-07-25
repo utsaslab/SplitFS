@@ -1,0 +1,68 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+# Test suite for GNU tar.
+# Copyright 2013-2014, 2016-2017 Free Software Foundation, Inc.
+#
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Description: ensure tar correctly respects -C option when deleting
+# files due to the --remove-files option.
+#
+# This case checks the use of an absolute -C option followed by a relative -C,
+# in --append mode.
+#
+
+AT_SETUP([remove-files with -C:abs,rel in -r mode])
+AT_KEYWORDS([create append remove-files remfiles07 remfiles07c chdir])
+
+AT_TAR_CHECK([
+AT_SORT_PREREQ
+mkdir foo
+mkdir bar
+echo file > file
+echo foo/file > foo/file
+echo bar/file > bar/file
+DIR=`pwd`
+tar -cf foo.tar -C $DIR/foo file -C ../bar file
+decho A
+find . | sort
+decho B
+tar -rvf foo.tar --remove-files -C $DIR/foo file -C ../bar file
+decho C
+find . | sort
+],
+[0],
+[A
+.
+./bar
+./bar/file
+./file
+./foo
+./foo.tar
+./foo/file
+B
+file
+file
+C
+.
+./bar
+./file
+./foo
+./foo.tar
+],
+[A
+B
+C
+],[],[],[gnu])
+
+AT_CLEANUP

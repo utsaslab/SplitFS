@@ -1,0 +1,40 @@
+# Process this file with autom4te to create testsuite. -*- Autotest -*-
+
+# Test suite for GNU tar.
+# Copyright 2010, 2013-2014, 2016-2017 Free Software Foundation, Inc.
+
+# This file is part of GNU tar.
+
+# GNU tar is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+
+# GNU tar is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+AT_SETUP([multi-volume label])
+AT_KEYWORDS([label label02 multi-label multivolume multiv])
+
+AT_TAR_CHECK([
+exec <&-
+genfile --length 0 --file foo
+genfile --length 12288 --file bar
+genfile --length 12288 --file baz
+tar --label=Test -cM -L10 -f 1.tar -f 2.tar -f 3.tar -f 4.tar foo bar baz
+tar -Mt -f 1.tar -f 2.tar -f 3.tar -f 4.tar
+],
+[0],
+[Test Volume 1
+foo
+bar
+baz
+],
+[],[],[],[gnu,oldgnu,posix])
+
+AT_CLEANUP

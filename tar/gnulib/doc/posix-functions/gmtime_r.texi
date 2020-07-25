@@ -1,0 +1,25 @@
+@node gmtime_r
+@section @code{gmtime_r}
+@findex gmtime_r
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/functions/gmtime_r.html}
+
+Gnulib module: time_r
+
+Portability problems fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+mingw, MSVC 14.
+@item
+This function is not declared unless @code{_REENTRANT} is defined,
+on some platforms:
+HP-UX 11.
+@item
+Some platforms define a function of this name that is incompatible to POSIX:
+HP-UX 10.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@end itemize

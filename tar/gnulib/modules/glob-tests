@@ -1,0 +1,14 @@
+Files:
+tests/test-glob.c
+tests/signature.h
+tests/macros.h
+
+Depends-on:
+glob-c++-tests
+symlink
+
+configure.ac:
+
+Makefile.am:
+TESTS += test-glob
+check_PROGRAMS += test-glob

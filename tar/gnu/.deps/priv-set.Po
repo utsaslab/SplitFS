@@ -1,0 +1,7 @@
+priv-set.o: priv-set.c /usr/include/stdc-predef.h ../config.h priv-set.h
+
+/usr/include/stdc-predef.h:
+
+../config.h:
+
+priv-set.h:

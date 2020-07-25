@@ -1,0 +1,39 @@
+@node wctype.h
+@section @file{wctype.h}
+
+POSIX specification:@* @url{http://www.opengroup.org/onlinepubs/9699919799/basedefs/wctype.h.html}
+
+Gnulib module: wctype-h
+
+Portability problems fixed by Gnulib:
+@itemize
+@item
+This header file is missing on some platforms:
+HP-UX 11.00, BeOS.
+@item
+This header file is not self-contained on some platforms:
+Solaris 2.5, OSF/1 with Desktop Toolkit C, BSD/OS 4.0.1.
+@item
+The type @code{wint_t} and macro @code{WEOF} are missing on some platforms:
+IRIX 5.3.
+@item
+The type @code{wint_t} is incorrect on some platforms:
+MSVC 14.
+@item
+The functions @code{isw*} are missing on some platforms:
+FreeBSD 4.11.
+@item
+The function @code{iswblank} is declared but not defined on some platforms:
+IRIX 6.5.30.
+@item
+The functions @code{isw*} are actually defined as macros that don't work,
+on IRIX 5.3.
+@item
+This header file defines some identifiers, such as @code{multibyte}, as macros
+on some platforms:
+Solaris 2.6.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@end itemize

@@ -1,0 +1,26 @@
+@node sethostname
+@subsection @code{sethostname}
+@findex sethostname
+
+Gnulib module: sethostname
+
+Portability problems fixed by Gnulib:
+@itemize
+@item
+This function is missing on some platforms:
+Minix 3.1.8, Cygwin, mingw, MSVC 14, Interix 3.5, BeOS, Android 5.1.
+Note that the Gnulib replacement may fail with ENOSYS on some platforms.
+@item
+This function is not declared on some platforms:
+AIX 7.1, OSF/1 5.1, Solaris 10.
+@end itemize
+
+Portability problems not fixed by Gnulib:
+@itemize
+@item
+The first parameter is @code{char *} instead of @code{const char *}
+on some platforms: Solaris 11 2010-11.
+@item
+The second parameter is @code{int} instead of @code{size_t}
+on some platforms: Mac OS X 10.12, Solaris 11 2010-11.
+@end itemize
