@@ -85,7 +85,7 @@ int execv_done;
 
 #ifdef TRACE_FP_CALLS				
 
-#define ALLOPS_FINITEPARAMS_WPAREN (READ) (FREAD) (WRITE) (FWRITE) (FSEEK) (FTELL) (FTELLO) (CLOSE) (FCLOSE) (SEEK) (FTRUNC) (DUP) (DUP2) (FORK) (VFORK) (READV) (WRITEV) (PIPE) (SOCKETPAIR) OPS_FINITEPARAMS_64 (PREAD) (PWRITE) (FSYNC) (FDSYNC) (SOCKET) (ACCEPT) (UNLINK) (UNLINKAT)
+#define ALLOPS_FINITEPARAMS_WPAREN (READ) (FREAD) (CLEARERR) (FEOF) (FERROR) (WRITE) (FWRITE) (FSEEK) (FTELL) (FTELLO) (CLOSE) (FCLOSE) (SEEK) (FTRUNC) (DUP) (DUP2) (FORK) (VFORK) (READV) (WRITEV) (PIPE) (SOCKETPAIR) OPS_FINITEPARAMS_64 (PREAD) (PWRITE) (FSYNC) (FDSYNC) (SOCKET) (ACCEPT) (UNLINK) (UNLINKAT)
 //(POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (STAT) (STAT64) (FSTAT) (FSTAT64) (LSTAT) (LSTAT64)
 #define ALLOPS_WPAREN (OPEN) (OPENAT) (CREAT) (EXECVE) (EXECVP) (EXECV) (FOPEN) (FOPEN64) (IOCTL) (TRUNC) (MKNOD) (MKNODAT) ALLOPS_FINITEPARAMS_WPAREN
 #define SHM_WPAREN (SHM_COPY)
@@ -106,7 +106,7 @@ int execv_done;
 //(POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (FSTAT) (FSTAT64)
 
 #ifdef TRACE_FP_CALLS				
-#define FILEOPS_WITH_FP (FREAD) (FWRITE) (FSEEK) (FTELL) (FTELLO)
+#define FILEOPS_WITH_FP (FREAD) (CLEARERR) (FEOF) (FERROR) (FWRITE) (FSEEK) (FTELL) (FTELLO) 
 #endif
 	
 //(ACCEPT)
@@ -203,6 +203,9 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define ALIAS_FOPEN  fopen
 #define ALIAS_FOPEN64  fopen64
 #define ALIAS_FREAD  fread
+#define ALIAS_FEOF 	 feof
+#define ALIAS_FERROR ferror
+#define ALIAS_CLEARERR clearerr
 #define ALIAS_FWRITE fwrite
 #define ALIAS_FSEEK  fseek
 #define ALIAS_FTELL  ftell
@@ -287,6 +290,9 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 
 #define RETT_READ   ssize_t
 #define RETT_FREAD  size_t
+#define RETT_FEOF   int
+#define RETT_FERROR int
+#define RETT_CLEARERR void
 #define RETT_WRITE  ssize_t
 #define RETT_SEEK   off_t
 #define RETT_CLOSE  int
@@ -355,6 +361,9 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define INTF_FOPEN  const char* __restrict path, const char* __restrict mode
 #define INTF_FOPEN64  const char* __restrict path, const char* __restrict mode
 #define INTF_FREAD  void* __restrict buf, size_t length, size_t nmemb, FILE* __restrict fp
+#define INTF_CLEARERR FILE* fp
+#define INTF_FEOF   FILE* fp
+#define INTF_FERROR FILE* fp
 #define INTF_FWRITE const void* __restrict buf, size_t length, size_t nmemb, FILE* __restrict fp
 #define INTF_FSEEK  FILE* fp, long int offset, int whence
 #define INTF_FTELL  FILE* fp
@@ -430,6 +439,9 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define CALL_FOPEN  path, mode
 #define CALL_FOPEN64  path, mode
 #define CALL_FREAD  buf, length, nmemb, fp
+#define CALL_FEOF   fp
+#define CALL_FERROR fp
+#define CALL_CLEARERR fp
 #define CALL_FWRITE buf, length, nmemb, fp
 #define CALL_FSEEK  fp, offset, whence
 #define CALL_FTELL  fp
@@ -505,6 +517,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define PFFS_FOPEN  "%s, %s"
 #define PFFS_FOPEN64  "%s, %s"
 #define PFFS_FREAD  "%p, %i, %i, %p"
+#define PFFS_FOEF   "%p"
 #define PFFS_FWRITE "%p, %i, %i, %p"
 #define PFFS_FSEEK  "%p, %i, %i"
 #define PFFS_FTELL  "%p"
@@ -580,6 +593,10 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define STD_FOPEN  __fopen
 #define STD_FOPEN64  __fopen64
 #define STD_FREAD  __fread
+#define STD_FREAD_UNLOCKED  __fread_unlocked
+#define STD_FEOF   _IO_feof
+#define STD_FERROR _IO_ferror
+#define STD_CLEARERR _IO_CLEARERR
 #define STD_FWRITE __fwrite
 #define STD_FSEEK  __fseek
 #define STD_FTELL  __ftell

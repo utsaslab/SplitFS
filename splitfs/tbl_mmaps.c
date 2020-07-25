@@ -1111,7 +1111,7 @@ int read_tbl_mmap_entry(struct NVNode *node,
 	return 0;
 }
 
-int clear_tbl_mmap_entry(struct NVTable_maps *tbl)
+int clear_tbl_mmap_entry(struct NVTable_maps *tbl, int num_entries)
 {
 	int i = 0;
 	size_t len = 0;
@@ -1121,7 +1121,7 @@ int clear_tbl_mmap_entry(struct NVTable_maps *tbl)
 	if (tbl->tbl_mmap_index > 0) { 
 		deleted_size += tbl->tbl_mmaps[tbl->tbl_mmap_index-1].file_end_off;
 		DEBUG_FILE("%s: Total size deleted = %lu\n", __func__, deleted_size);
-		memset((void *)tbl->tbl_mmaps, 0, NUM_OVER_TBL_MMAP_ENTRIES*sizeof(struct table_mmaps));
+		memset((void *)tbl->tbl_mmaps, 0, num_entries*sizeof(struct table_mmaps));
 		tbl->tbl_mmap_index = 0;
 	}
 	
