@@ -2045,11 +2045,11 @@ struct NVNode * nvp_get_node(const char *path, struct stat *file_st, int result)
 		node->is_large_file = 0;
 	node->dr_mem_used = 0;
 	if (node->true_length == 0) {
-		clear_tbl_mmap_entry(&_nvp_tbl_mmaps[file_st->st_ino % APPEND_TBL_MAX]);
+		clear_tbl_mmap_entry(&_nvp_tbl_mmaps[file_st->st_ino % APPEND_TBL_MAX], NUM_APP_TBL_MMAP_ENTRIES);
 
 #if DATA_JOURNALING_ENABLED
 		
-		clear_tbl_mmap_entry(&_nvp_over_tbl_mmaps[file_st->st_ino % OVER_TBL_MAX]);
+		clear_tbl_mmap_entry(&_nvp_over_tbl_mmaps[file_st->st_ino % OVER_TBL_MAX], NUM_OVER_TBL_MMAP_ENTRIES);
 
 #endif // DATA_JOURNALING_ENABLED
 
@@ -4995,6 +4995,55 @@ RETT_EXECV _nvp_EXECV(INTF_EXECV) {
 }
 
 #ifdef TRACE_FP_CALLS
+RETT_FEOF _nvp_FEOF(INTF_FEOF)
+{
+	CHECK_RESOLVE_FILEOPS(_nvp_);
+	RETT_FEOF result;
+
+	struct NVFile* nvf = &_nvp_fd_lookup[fileno(fp)];
+
+	NVP_LOCK_NODE_WR(nvf);
+	NVP_LOCK_FD_WR(nvf);
+	result = (nvf->file_stream_flags & NVP_IO_EOF_SEEN) > 0;
+	NVP_UNLOCK_NODE_WR(nvf);
+	NVP_UNLOCK_FD_WR(nvf);
+	return result;
+}
+#endif
+
+#ifdef TRACE_FP_CALLS
+RETT_FERROR _nvp_FERROR(INTF_FERROR)
+{
+	CHECK_RESOLVE_FILEOPS(_nvp_);
+	RETT_FERROR result;
+
+	struct NVFile* nvf = &_nvp_fd_lookup[fileno(fp)];
+	NVP_LOCK_NODE_WR(nvf);
+	NVP_LOCK_FD_WR(nvf);
+	result = (nvf->file_stream_flags & NVP_IO_ERR_SEEN) > 0;
+	NVP_UNLOCK_NODE_WR(nvf);
+	NVP_UNLOCK_FD_WR(nvf);
+	return result;
+}
+#endif
+
+#ifdef TRACE_FP_CALLS
+RETT_CLEARERR _nvp_CLEARERR(INTF_CLEARERR)
+{
+	CHECK_RESOLVE_FILEOPS(_nvp_);
+	int fd = -1;
+
+	struct NVFile* nvf = &_nvp_fd_lookup[fileno(fp)];
+
+	NVP_LOCK_NODE_WR(nvf);
+	NVP_LOCK_FD_WR(nvf);
+	nvf->file_stream_flags &= ~(NVP_IO_ERR_SEEN | NVP_IO_EOF_SEEN);
+	NVP_UNLOCK_NODE_WR(nvf);
+	NVP_UNLOCK_FD_WR(nvf);
+}
+#endif
+
+#ifdef TRACE_FP_CALLS
 RETT_FCLOSE _nvp_FCLOSE(INTF_FCLOSE)
 {
 	CHECK_RESOLVE_FILEOPS(_nvp_);
@@ -5064,7 +5113,7 @@ RETT_FREAD _nvp_FREAD(INTF_FREAD)
 	result = _nvp_do_pread(fileno(fp),
 			       buf,
 			       length*nmemb, 
-			       __sync_fetch_and_add(nvf->offset, length),
+			       __sync_fetch_and_add(nvf->offset, (length*nmemb)),
 			       0,
 			       cpuid,
 			       nvf,
@@ -5081,19 +5130,24 @@ RETT_FREAD _nvp_FREAD(INTF_FREAD)
 		DEBUG("_nvp_READ: PREAD failed; not changing offset. "
 			"(returned %i)\n", result);		
 		//assert(0); // TODO: this is for testing only
-		__sync_fetch_and_sub(nvf->offset, length);
+		__sync_fetch_and_sub(nvf->offset, (length*nmemb));
+		if (result < 0)
+			nvf->file_stream_flags |= NVP_IO_ERR_SEEN;
+		else
+			nvf->file_stream_flags |= NVP_IO_EOF_SEEN;
 	} else {
 		DEBUG("_nvp_READ: PREAD failed; Not fully read. "
 			"(returned %i)\n", result);
 		// assert(0); // TODO: this is for testing only
-		__sync_fetch_and_sub(nvf->offset, length - result);
+		__sync_fetch_and_sub(nvf->offset, (length*nmemb) - result);
+		nvf->file_stream_flags |= NVP_IO_EOF_SEEN;
 	}
 
 	NVP_UNLOCK_FD_RD(nvf, cpuid);
 
 	num_read++;
 	read_size += result;
-
+	result = result/length;
 	return result;
 }
 #endif
@@ -5252,7 +5306,7 @@ RETT_FWRITE _nvp_FWRITE(INTF_FWRITE)
 	result = _nvp_do_pwrite(fileno(fp),
 				buf,
 				length*nmemb,
-				__sync_fetch_and_add(nvf->offset, length),
+				__sync_fetch_and_add(nvf->offset, (length*nmemb)),
 				0,
 				cpuid,
 				nvf,
@@ -5265,6 +5319,7 @@ RETT_FWRITE _nvp_FWRITE(INTF_FWRITE)
 		nvf->node->maplength);
 
 	write_size += result;
+	result = result/length;
 	return result;
 }
 #endif
@@ -5761,8 +5816,8 @@ RETT_FTRUNC64 _nvp_FTRUNC64(INTF_FTRUNC64)
 	if (nvf->node->true_length >= LARGE_FILE_THRESHOLD)
 		nvf->node->is_large_file = 1;
 	START_TIMING(clear_mmap_tbl_t, clear_mmap_tbl_time);
-	clear_tbl_mmap_entry(tbl_app);
-	clear_tbl_mmap_entry(tbl_over);
+	clear_tbl_mmap_entry(tbl_app, NUM_APP_TBL_MMAP_ENTRIES);
+	clear_tbl_mmap_entry(tbl_over, NUM_OVER_TBL_MMAP_ENTRIES);
 	END_TIMING(clear_mmap_tbl_t, clear_mmap_tbl_time);
 
 	if (tbl_over != NULL)	
@@ -6111,11 +6166,11 @@ RETT_UNLINK _nvp_UNLINK(INTF_UNLINK)
 		if (tbl_over != NULL)	{
 			TBL_ENTRY_LOCK_WR(tbl_over);
 		}
-		clear_tbl_mmap_entry(tbl_app);
+		clear_tbl_mmap_entry(tbl_app, NUM_APP_TBL_MMAP_ENTRIES);
 
 #if DATA_JOURNALING_ENABLED
 
-		clear_tbl_mmap_entry(tbl_over);
+		clear_tbl_mmap_entry(tbl_over, NUM_OVER_TBL_MMAP_ENTRIES);
 
 #endif // DATA_JOURNALING_ENABLED
 		

@@ -12,6 +12,8 @@
 #include "timers.h"
 
 #define ENV_NV_FOP "NVP_NV_FOP"
+#define NVP_IO_EOF_SEEN 0x0010
+#define NVP_IO_ERR_SEEN 0x0020
 
 /******************* Data Structures ********************/
 
@@ -33,6 +35,7 @@ struct NVFile
 	bool posix;
 	bool debug;
 	char padding[200];
+	int file_stream_flags;
 };
 
 struct free_dr_pool
