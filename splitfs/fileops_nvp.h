@@ -13,6 +13,8 @@
 // Declare the real_close function, as it will be called by bg thread
 RETT_CLOSE _nvp_REAL_CLOSE(INTF_CLOSE, ino_t serialno, int async_file_closing);
 size_t swap_extents(struct NVFile *nvf, int close);
+void perform_dynamic_remap(struct NVFile *nvf);
+void close_cloexec_files();
 
 /******************* Data Structures ********************/
 

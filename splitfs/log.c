@@ -141,13 +141,12 @@ void init_append_log() {
 		assert(0);
 	}
 
-	ret =  posix_fallocate(app_log_fd, 0, APPEND_LOG_SIZE);
+	ret =  _hub_find_fileop("posix")->POSIX_FALLOCATE(app_log_fd, 0, APPEND_LOG_SIZE);		
 	if (ret < 0) {
 		MSG("%s: posix_fallocate append long failed. Err = %s\n",
 		    __func__, strerror(errno));
 		assert(0);
 	}
-
 	app_log = (unsigned long) FSYNC_MMAP
 		(
 		 NULL,
