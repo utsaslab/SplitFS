@@ -111,7 +111,7 @@ The kernel patch for the implementation of relink() system call for linux v4.13 
 ## Limitations
 SplitFS is under active development.
 1. The current implementation of SplitFS handles the following system calls: `open, openat, close, read, pread64, write, pwrite64, fsync, unlink, ftruncate, fallocate, stat, fstat, lstat, dup, dup2, execve and clone`. The rest of the calls are passed through to the kernel.
-2. The current implementation of SplitFS works correctly for the following applictions: `LevelDB running YCSB, SQLite running TPCC, tar, git, rsync, fsstress`. This limitation is purely due to the state of the implementation, and we aim to increase the coverage of applications by supporting more system calls in the future.
+2. The current implementation of SplitFS works correctly for the following applictions: `LevelDB running YCSB, SQLite running TPCC, tar, git, rsync`. This limitation is purely due to the state of the implementation, and we aim to increase the coverage of applications by supporting more system calls in the future.
 
 ## Applications currently supported
 1. LevelDB (with YCSB)
@@ -120,7 +120,6 @@ SplitFS is under active development.
 3. git
 4. tar
 5. rsync
-6. fsstress
 
 ## Testing
 [PJD POSIX Test Suite](https://www.tuxera.com/community/posix-test-suite/) that tests primarily the metadata operations was run on SplitFS successfully. SplitFS passes all tests. 
