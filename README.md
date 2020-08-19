@@ -139,6 +139,18 @@ where `<mode>` is one of `posix`, `sync` or `strict`.  Example: `make -C tests p
 
 Tip: Redirect stderr for less verbose output: e.g `make test 2>/dev/null`
 
+**Running fsstress with splitfs**
+Compile fsstress
+```
+$ cd scripts/fsstress
+$ ./compile_fsstress.sh
+```
+To run tests with fasstress
+```
+$ ./run_fsstress.sh 100
+```
+Note: run_fsstress.sh takes one argument as number of operations to test using fsstress. In the above example, 100 operations are done on target directory /mnt/pmem_emul
+
 ## Implementation Notes
 1. Only regular files, block special files, and directories (only for consistency guarantees) are handled by SplitFS, the other file types are delegated to POSIX.  
 2. Only files in the persistent memory mount (`/mnt/pmem_emul/`) are handled by SplitFS, rest are delegated to POSIX.  
