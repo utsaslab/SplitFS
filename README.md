@@ -139,7 +139,7 @@ where `<mode>` is one of `posix`, `sync` or `strict`.  Example: `make -C tests p
 
 Tip: Redirect stderr for less verbose output: e.g `make test 2>/dev/null`
 
-**Running fsstress with splitfs**
+**Running fsstress with splitfs**  
 Compile fsstress
 ```
 $ cd scripts/fsstress
