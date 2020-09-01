@@ -146,7 +146,13 @@ struct full_dr {
 #define RAND_LIST 1
 #define DIRTY_TRACKING 0
 #define NUM_NODE_LISTS 1
+
+#if WORKLOAD_YCSB
+#define INIT_NUM_DR 10
+#else
 #define INIT_NUM_DR 2
+#endif
+
 #define INIT_NUM_DR_OVER 2
 #define BG_NUM_DR 2
 #define PRINT_CONTENTION_MSGS 0
@@ -175,9 +181,7 @@ struct full_dr {
 
 #if WORKLOAD_TPCC
 #define PER_REGION_TABLES (REGION_COVERAGE / 1024)
-#endif
-
-#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC
+#else
 #define PER_REGION_TABLES 100 // (REGION_COVERAGE / 1024)
 #endif
 

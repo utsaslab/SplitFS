@@ -618,7 +618,7 @@ void ledger_append_log_recovery() {
 			 NULL,
 			 ino_path_dr.file_size,
 			 PROT_READ | PROT_WRITE, //max_perms,
-			 MAP_PRIVATE | MAP_POPULATE,
+			 MAP_SHARED | MAP_POPULATE,
 			 dr_fd, //fd_with_max_perms,
 			 0
 			 );

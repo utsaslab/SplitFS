@@ -60,7 +60,7 @@ static void clean_dr_mmap() {
 				 NULL,
 				 DR_OVER_SIZE,
 				 PROT_READ | PROT_WRITE, //max_perms,
-				 MAP_PRIVATE | MAP_POPULATE,
+				 MAP_SHARED | MAP_POPULATE,
 				 dr_fd, //fd_with_max_perms,
 				 0
 				 );
@@ -70,7 +70,7 @@ static void clean_dr_mmap() {
 				 NULL,
 				 DR_SIZE,
 				 PROT_READ | PROT_WRITE, //max_perms,
-				 MAP_PRIVATE | MAP_POPULATE,
+				 MAP_SHARED | MAP_POPULATE,
 				 dr_fd, //fd_with_max_perms,
 				 0
 				 );
