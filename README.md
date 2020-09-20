@@ -89,6 +89,8 @@ $ rm -rf /mnt/pmem_emul/*
 10. `tpcc-sqlite/` contains TPCC source code
 11. `ycsb/` contains YCSB source code
 12. `tar/` contains tar source code
+13. `lmdb/` contains LMDB source code
+14. `filebench/` contains Filebench source code
 
 The [Experiments
 page](https://github.com/utsaslab/SplitFS/blob/master/experiments.md)
@@ -120,6 +122,8 @@ SplitFS is under active development.
 3. git
 4. tar
 5. rsync
+6. Filebench
+7. LMDB
 
 ## Testing
 [PJD POSIX Test Suite](https://www.tuxera.com/community/posix-test-suite/) that tests primarily the metadata operations was run on SplitFS successfully. SplitFS passes all tests. 

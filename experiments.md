@@ -38,14 +38,16 @@ We evaluate and benchmark on SplitFS using different application benchmarks like
 
 ### Experiment Setup
 
-1. SplitFS: `cd scripts/splitfs-setup; ./compile_splitfs.sh; cd ../..` -- This will compile splitfs strict
-2. LevelDB: `cd scripts/ycsb; ./compile_leveldb.sh; cd ../..` -- This will compile LevelDB
-3. YCSB: `cd scripts/ycsb; ./compile_ycsb.sh; cd ../..` -- This will compile YCSB workload
-4. SQLite: `cd scripts/tpcc; ./compile_sqlite.sh; cd ../..` -- This will compile SQLite3
-5. TPCC: `cd scripts/tpcc; ./compile_tpcc.sh; cd ../..` -- This will compile TPCC workload
-6. rsync: `cd scripts/rsync; ./compile_rsync.sh; cd ../..` -- This will compile rsync
-7. tar: `cd scripts/tar; ./compile_tar.sh; cd ../..` -- This will compile tar
-8. git: Does not require any compilation
+1.  SplitFS: `cd scripts/splitfs-setup; ./compile_splitfs.sh; cd ../..` -- This will compile splitfs strict
+2.  LevelDB: `cd scripts/ycsb; ./compile_leveldb.sh; cd ../..` -- This will compile LevelDB
+3.  YCSB: `cd scripts/ycsb; ./compile_ycsb.sh; cd ../..` -- This will compile YCSB workload
+4.  SQLite: `cd scripts/tpcc; ./compile_sqlite.sh; cd ../..` -- This will compile SQLite3
+5.  TPCC: `cd scripts/tpcc; ./compile_tpcc.sh; cd ../..` -- This will compile TPCC workload
+6.  rsync: `cd scripts/rsync; ./compile_rsync.sh; cd ../..` -- This will compile rsync
+7.  tar: `cd scripts/tar; ./compile_tar.sh; cd ../..` -- This will compile tar
+8.  git: Does not require any compilation
+9.  LMDB: `cd scripts/lmdb; ./compile_lmdb.sh; cd ../..` -- This will compile LMDB
+10. Filebench: `cd scripts/filebench; ./compile_filebench.sh; cd ../..` -- This will compile Filebench
 
 Note: The <num_threads> argument in the compilation scripts performs the compilation with the number of threads given as input to the script, to improve the speed of compilation. 
 
@@ -67,7 +69,15 @@ Note: The <num_threads> argument in the compilation scripts performs the compila
 2. TPCC: `cd scripts/tpcc; ./run_tpcc.sh; cd ../..` -- This will run the TPCC workload on SQLite3 with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS, SplitFS-POSIX`
 3. rsync: `cd scripts/rsync; ./run_rsync.sh; cd ../..` -- This will run the rsync workload with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS, SplitFS-sync`
 4. tar: `cd scripts/tar; ./run_tar.sh; cd ../..` -- This will run the tar workload with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS, SplitFS-POSIX, SplitFS-sync, SplitFS-strict`
-5. git: `cd scripts/git; ./run_git.sh; cd ../..` -- This will run the git workload with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS, SplitFS-POSIX, SplitFS-sync, SplitFS-strict`
+5. git: `cd scripts/git; ./run_git.sh; cd ../..` -- This will run the
+   git workload with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS,
+   SplitFS-POSIX, SplitFS-sync, SplitFS-strict`
+6. LMDB: `cd scripts/lmdb; ./run_lmdb.sh; cd ../..` -- This will run
+   the fillseqbatch workload with `ext4-DAX, NOVA strict, NOVA
+   Relaxed, PMFS, SplitFS-POSIX`
+7. Filebench: `cd scripts/filebench; ./run_filebench.sh; cd ../..` --
+   This will run the varmail workload with `ext4-DAX, NOVA strict,
+   NOVA Relaxed, PMFS, SplitFS-POSIX`
 
 ---
 

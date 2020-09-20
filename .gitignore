@@ -12,6 +12,7 @@ sqlite3-trace/.libs
 *output*
 *trace*
 *swp
+*cscope*
 
 rsync/workload/
 rsync/rsync

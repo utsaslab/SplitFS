@@ -613,6 +613,9 @@ static inline size_t dynamic_remap(int file_fd, struct NVNode *node, int close)
 	if (node->dr_info.start_addr == 0 && node->dr_over_info.start_addr == 0)
 		return 0;
 
+	if (node->dr_info.dr_offset_end - node->dr_info.dr_offset_start == 0)
+		return 0;
+
 	if (node->dr_info.start_addr != 0) {
 		app_start_addr = node->dr_info.start_addr;
 		app_start_off = node->dr_info.dr_offset_start;
@@ -5816,8 +5819,10 @@ RETT_FTRUNC64 _nvp_FTRUNC64(INTF_FTRUNC64)
 	if (nvf->node->true_length >= LARGE_FILE_THRESHOLD)
 		nvf->node->is_large_file = 1;
 	START_TIMING(clear_mmap_tbl_t, clear_mmap_tbl_time);
-	clear_tbl_mmap_entry(tbl_app, NUM_APP_TBL_MMAP_ENTRIES);
-	clear_tbl_mmap_entry(tbl_over, NUM_OVER_TBL_MMAP_ENTRIES);
+	if (tbl_app)
+		clear_tbl_mmap_entry(tbl_app, NUM_APP_TBL_MMAP_ENTRIES);
+	if (tbl_over)
+		clear_tbl_mmap_entry(tbl_over, NUM_OVER_TBL_MMAP_ENTRIES);
 	END_TIMING(clear_mmap_tbl_t, clear_mmap_tbl_time);
 
 	if (tbl_over != NULL)	

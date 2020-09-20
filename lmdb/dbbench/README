@@ -1,0 +1,11 @@
+DBbench - Embedded Database Benchmark
+
+This is a rewrite of Google LevelDB's dbbench tool in C, and ported
+to a wide variety of other embedded database engines. A framework has
+been created to minimize the amount of code that must be written for
+any particular DB engine. Adding support for a new engine just
+requires writing a small C wrapper providing DB open, close, read,
+and write routines, plus optional command line parameters as needed.
+
+
+
