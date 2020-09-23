@@ -52,7 +52,7 @@ static inline int return_zero(void)
 #if	USE_SINGLE_LOCK
 	#define NVP_NUM_LOCKS	2
 #else
-	#define NVP_NUM_LOCKS	16
+	#define NVP_NUM_LOCKS	32
 #endif
 
 // double the number of logical cores: each lock takes up half a cache line, so to

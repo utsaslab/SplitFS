@@ -24,3 +24,4 @@ linux-4.18.10.tar.gz
 !ycsb/tracerecorder
 !kernel/kbuild/Makefile.setup
 !sqlite3-trace/
+!cvar_trace.h
