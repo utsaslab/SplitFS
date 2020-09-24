@@ -3524,7 +3524,7 @@ RETT_PWRITE write_to_file_mmap(int file,
 	if (temp_fd < 0)
 		assert(0);
 
-	writeable = _nvp_fileops->READ(fd, (void *)mmap_addr, extent_length) == extent_length;
+	writeable = _nvp_fileops->READ(fd, (void *)mmap_addr, 1) == 1;
 
 	if (writeable) {
 		if(MEMCPY_NON_TEMPORAL((char *)mmap_addr, buf, extent_length) == NULL) {
