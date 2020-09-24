@@ -111,59 +111,43 @@ void persist_op_entry(uint32_t op_type,
 		char padstr[padding];
 		MEMCPY_NON_TEMPORAL((void *)op_log + log_off,
 				    padstr,
-				    padding);				    
+				    padding);
 #if NVM_DELAY
 		perfmodel_add_delay(0, padding);
 #endif
 	}
-	
-	_mm_sfence();	
+
+	_mm_sfence();
 }
 
-void init_logs() {
+void init_append_log() {
+
 	int i = 0, ret = 0;
 	unsigned long num_blocks = APPEND_LOG_SIZE / MMAP_PAGE_SIZE;
 	char prefault_buf[MMAP_PAGE_SIZE];
-	
-	clearing_app_log = 0;
-	clearing_op_log = 0;
-        app_log_tail = 0;
-	op_log_tail = 0;
-	app_log_lim = APPEND_LOG_SIZE;
-        op_log_lim = OP_LOG_SIZE;
-	app_log_fd = -1;
-	op_log_fd = -1;
-        app_log = 0;
-	op_log = 0;
 
-	MSG("%s: Initializing append and op log\n", __func__);
-	
-	app_log_fd = _hub_find_fileop("posix")->OPEN(APPEND_LOG_PATH, O_RDWR | O_CREAT, 0666);		
+	clearing_app_log = 0;
+        app_log_tail = 0;
+	app_log_lim = APPEND_LOG_SIZE;
+	app_log_fd = -1;
+        app_log = 0;
+
+	MSG("%s: Initializing append log\n", __func__);
+
+	app_log_fd = _hub_find_fileop("posix")->OPEN(APPEND_LOG_PATH, O_RDWR | O_CREAT, 0666);
 	if (app_log_fd < 0) {
 		MSG("%s: Creation of append log file failed. Err = %s\n",
 		    __func__, strerror(errno));
 		assert(0);
 	}
-	op_log_fd = _hub_find_fileop("posix")->OPEN(OP_LOG_PATH, O_RDWR | O_CREAT, 0666);		
-	if (op_log_fd < 0) {
-		MSG("%s: Creation of op log file failed. Err = %s\n",
-		    __func__, strerror(errno));
-		assert(0);
-	}
 
-	ret = posix_fallocate(app_log_fd, 0, APPEND_LOG_SIZE);		
+	ret =  posix_fallocate(app_log_fd, 0, APPEND_LOG_SIZE);
 	if (ret < 0) {
 		MSG("%s: posix_fallocate append long failed. Err = %s\n",
 		    __func__, strerror(errno));
 		assert(0);
 	}
-	ret = posix_fallocate(op_log_fd, 0, OP_LOG_SIZE);		
-	if (ret < 0) {
-		MSG("%s: posix_fallocate op log failed. Err = %s\n",
-		    __func__, strerror(errno));
-		assert(0);
-	}
-	
+
 	app_log = (unsigned long) FSYNC_MMAP
 		(
 		 NULL,
@@ -174,16 +158,6 @@ void init_logs() {
 		 0
 		 );
 
-	op_log = (unsigned long) FSYNC_MMAP
-		(
-		 NULL,
-		 OP_LOG_SIZE,
-		 PROT_READ | PROT_WRITE, //max_perms,
-		 MAP_SHARED | MAP_POPULATE,
-		 op_log_fd, //fd_with_max_perms,
-		 0
-		 );
-	
 	for (i = 0; i < MMAP_PAGE_SIZE; i++)
 		prefault_buf[i] = '0';
 
@@ -195,12 +169,6 @@ void init_logs() {
 			MSG("%s: non-temporal memcpy app log failed\n", __func__);
 			assert(0);
 		}
-		if(MEMCPY_NON_TEMPORAL((void *)op_log + i*MMAP_PAGE_SIZE,
-				       prefault_buf,
-				       MMAP_PAGE_SIZE) == NULL) {
-			MSG("%s: non-temporal memcpy op log failed\n", __func__);
-			assert(0);			
-		}
 #else // NON_TEMPORAL_WRITES
 		if(FSYNC_MEMCPY((char *)app_log + i*MMAP_PAGE_SIZE,
 				prefault_buf,
@@ -208,7 +176,59 @@ void init_logs() {
 			MSG("%s: temporal memcpy app log failed\n", __func__);
 			assert(0);
 		}
+#endif // NON_TEMPORAL_WRITES
+	}
+}
 
+void init_op_log() {
+
+	int i = 0, ret = 0;
+	unsigned long num_blocks = APPEND_LOG_SIZE / MMAP_PAGE_SIZE;
+	char prefault_buf[MMAP_PAGE_SIZE];
+
+	clearing_op_log = 0;
+	op_log_tail = 0;
+        op_log_lim = OP_LOG_SIZE;
+	op_log_fd = -1;
+	op_log = 0;
+
+
+	op_log_fd = _hub_find_fileop("posix")->OPEN(OP_LOG_PATH, O_RDWR | O_CREAT, 0666);
+	if (op_log_fd < 0) {
+		MSG("%s: Creation of op log file failed. Err = %s\n",
+		    __func__, strerror(errno));
+		assert(0);
+	}
+
+	ret =  posix_fallocate(op_log_fd, 0, OP_LOG_SIZE);
+	if (ret < 0) {
+		MSG("%s: posix_fallocate op log failed. Err = %s\n",
+		    __func__, strerror(errno));
+		assert(0);
+	}
+
+	op_log = (unsigned long) FSYNC_MMAP
+		(
+		 NULL,
+		 OP_LOG_SIZE,
+		 PROT_READ | PROT_WRITE, //max_perms,
+		 MAP_SHARED | MAP_POPULATE,
+		 op_log_fd, //fd_with_max_perms,
+		 0
+		 );
+
+	for (i = 0; i < MMAP_PAGE_SIZE; i++)
+		prefault_buf[i] = '0';
+
+	for (i = 0; i < num_blocks; i++) {
+#if NON_TEMPORAL_WRITES
+		if(MEMCPY_NON_TEMPORAL((void *)op_log + i*MMAP_PAGE_SIZE,
+				       prefault_buf,
+				       MMAP_PAGE_SIZE) == NULL) {
+			MSG("%s: non-temporal memcpy op log failed\n", __func__);
+			assert(0);
+		}
+#else // NON_TEMPORAL_WRITES
 		if(FSYNC_MEMCPY((char *)op_log + i*MMAP_PAGE_SIZE,
 				prefault_buf,
 				MMAP_PAGE_SIZE) == NULL) {
@@ -618,7 +638,7 @@ void ledger_append_log_recovery() {
 			 NULL,
 			 ino_path_dr.file_size,
 			 PROT_READ | PROT_WRITE, //max_perms,
-			 MAP_SHARED | MAP_POPULATE,
+			 MAP_PRIVATE | MAP_POPULATE,
 			 dr_fd, //fd_with_max_perms,
 			 0
 			 );

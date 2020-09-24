@@ -65,7 +65,8 @@ unsigned long app_log;
 unsigned long op_log;
 struct inode_path *ino_path_head;
 
-void init_logs();
+void init_append_log();
+void init_op_log();
 void persist_op_entry(uint32_t op_type,
 		      const char *fname1,
 		      const char *fname2,

@@ -1300,8 +1300,9 @@ void _nvp_init2(void)
 	MMAP_PAGE_SIZE = getpagesize();
 	MMAP_HUGEPAGE_SIZE = 2097152;
 
+	init_append_log();
 #if !POSIX_ENABLED
-	init_logs();
+	init_op_log();
 #endif
 	
 	struct free_dr_pool *free_pool_mmaps;
@@ -3554,8 +3555,6 @@ RETT_PWRITE write_to_file_mmap(int file,
 	NVP_UNLOCK_FD_RD(nvf, cpuid);
 	// Log the append
 
-#if !POSIX_ENABLED
-	
 	START_TIMING(append_log_entry_t, append_log_entry_time);
 	persist_append_entry(nvf->node->serialno,
 			     nvf->node->dr_info.dr_serialno,
@@ -3563,8 +3562,7 @@ RETT_PWRITE write_to_file_mmap(int file,
 			     offset_within_mmap,
 			     extent_length);
 	END_TIMING(append_log_entry_t, append_log_entry_time);
-#endif
-	
+
 #endif // SYSCALL APPENDS
 	
 	len_to_write -= extent_length;
@@ -4278,10 +4276,11 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 		instrumentation_type op_log_entry_time;
 		va_start(arg, oflag);
 		int mode = va_arg(arg, int);
-		va_end(arg);		
+		va_end(arg);
 		// Open system call is done here  
 		DEBUG_FILE("%s: calling open with path = %s, flag = %d, mode = %d, ino addr = %p, ino size addr = %p\n", __func__, path, oflag, mode, &file_st.st_ino, &file_st.st_size);
-		result = syscall(334, path, oflag & (~O_APPEND), mode, &file_st.st_ino, &file_st.st_size);
+		//result = syscall(334, path, oflag & (~O_APPEND), mode, &file_st.st_ino, &file_st.st_size);
+		result = _nvp_fileops->OPEN(path, oflag & (~O_APPEND), mode);
 #if !POSIX_ENABLED
 		if (result >= 0) {
 			START_TIMING(op_log_entry_t, op_log_entry_time);
@@ -4296,7 +4295,8 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 		//result = _nvp_fileops->OPEN(path, oflag & (~O_APPEND), mode);
 	} else { 
 		DEBUG_FILE("%s: calling open with path = %s, flag = %d, mode = 0666, ino addr = %p, ino size addr = %p\n", __func__, path, oflag, &file_st.st_ino, &file_st.st_size);
-		result = syscall(334, path, oflag & (~O_APPEND), 0666, &file_st.st_ino, &file_st.st_size);
+		//result = syscall(334, path, oflag & (~O_APPEND), 0666, &file_st.st_ino, &file_st.st_size);
+		result = _nvp_fileops->OPEN(path, oflag & (~O_APPEND), 0666);
 	}	
 	if(result<0)
 	{
@@ -4309,6 +4309,7 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
         DEBUG_FILE("_nvp_OPEN(%s), fd = %d\n", path, result);
 	SANITYCHECK(&_nvp_fd_lookup[result] != NULL);	
 	struct NVFile* nvf = NULL;
+	stat(path, &file_st);
 
 #if BG_CLOSING	
 	if (async_close_enable)

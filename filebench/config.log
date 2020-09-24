@@ -357,11 +357,11 @@ configure:12221: checking lex output file root
 configure:12235: result: lex.yy
 configure:12240: checking lex library
 configure:12254: gcc -o conftest -g -O2   conftest.c   >&5
-/tmp/ccvRuWPM.o: In function `input':
+/tmp/ccaqklUE.o: In function `input':
 /home/cc/temp/SplitFS/filebench/lex.yy.c:1200: undefined reference to `yywrap'
-/tmp/ccvRuWPM.o: In function `yylex':
+/tmp/ccaqklUE.o: In function `yylex':
 /home/cc/temp/SplitFS/filebench/lex.yy.c:894: undefined reference to `yywrap'
-/tmp/ccvRuWPM.o: In function `main':
+/tmp/ccaqklUE.o: In function `main':
 /home/cc/temp/SplitFS/filebench/conftest.l:18: undefined reference to `yywrap'
 collect2: error: ld returned 1 exit status
 configure:12254: $? = 1
@@ -2478,7 +2478,7 @@ configure:12876: $? = 0
 configure:12876: result: yes
 configure:12887: checking for gethrtime
 configure:12887: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/cc3JCwm9.o: In function `main':
+/tmp/cc1nkb0T.o: In function `main':
 /home/cc/temp/SplitFS/filebench/conftest.c:83: undefined reference to `gethrtime'
 collect2: error: ld returned 1 exit status
 configure:12887: $? = 1
@@ -2594,7 +2594,7 @@ configure:12942: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:76:6: warning: conflicting types for built-in function 'pow'
  char pow ();
       ^
-/tmp/cc7djbby.o: In function `main':
+/tmp/cc5lJB6i.o: In function `main':
 /home/cc/temp/SplitFS/filebench/conftest.c:87: undefined reference to `pow'
 collect2: error: ld returned 1 exit status
 configure:12942: $? = 1
@@ -2703,7 +2703,7 @@ configure:12975: gcc -o conftest -g -O2   conftest.c  >&5
 conftest.c:78:6: warning: conflicting types for built-in function 'sqrt'
  char sqrt ();
       ^
-/tmp/ccP6b6pP.o: In function `main':
+/tmp/ccVz87mv.o: In function `main':
 /home/cc/temp/SplitFS/filebench/conftest.c:89: undefined reference to `sqrt'
 collect2: error: ld returned 1 exit status
 configure:12975: $? = 1
@@ -2835,7 +2835,7 @@ configure:13030: $? = 0
 configure:13030: result: yes
 configure:13041: checking for strlcat
 configure:13041: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccgpiTp7.o: In function `main':
+/tmp/ccAthlKS.o: In function `main':
 /home/cc/temp/SplitFS/filebench/conftest.c:94: undefined reference to `strlcat'
 collect2: error: ld returned 1 exit status
 configure:13041: $? = 1
@@ -2940,7 +2940,7 @@ configure: failed program was:
 configure:13041: result: no
 configure:13052: checking for strlcpy
 configure:13052: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccyQCfrc.o: In function `main':
+/tmp/cckHAUHX.o: In function `main':
 /home/cc/temp/SplitFS/filebench/conftest.c:94: undefined reference to `strlcpy'
 collect2: error: ld returned 1 exit status
 configure:13052: $? = 1
@@ -3045,7 +3045,7 @@ configure: failed program was:
 configure:13052: result: no
 configure:13068: checking for fork1
 configure:13068: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccMkkxth.o: In function `main':
+/tmp/ccCOeWJ2.o: In function `main':
 /home/cc/temp/SplitFS/filebench/conftest.c:94: undefined reference to `fork1'
 collect2: error: ld returned 1 exit status
 configure:13068: $? = 1
@@ -3158,7 +3158,7 @@ configure:13082: $? = 0
 configure:13082: result: yes
 configure:13097: checking for sigsend
 configure:13097: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/cc0NH5bx.o: In function `main':
+/tmp/ccuwO7dg.o: In function `main':
 /home/cc/temp/SplitFS/filebench/conftest.c:96: undefined reference to `sigsend'
 collect2: error: ld returned 1 exit status
 configure:13097: $? = 1
@@ -3281,7 +3281,7 @@ configure:13127: $? = 0
 configure:13127: result: yes
 configure:13139: checking for cftime
 configure:13139: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/cc7zUBVN.o: In function `main':
+/tmp/ccs9xBnG.o: In function `main':
 /home/cc/temp/SplitFS/filebench/conftest.c:103: undefined reference to `cftime'
 collect2: error: ld returned 1 exit status
 configure:13139: $? = 1
@@ -3395,7 +3395,7 @@ configure: failed program was:
 configure:13139: result: no
 configure:13149: checking for _lwp_self
 configure:13149: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccT8bI5S.o: In function `main':
+/tmp/cccOH5mL.o: In function `main':
 /home/cc/temp/SplitFS/filebench/conftest.c:103: undefined reference to `_lwp_self'
 collect2: error: ld returned 1 exit status
 configure:13149: $? = 1
@@ -4071,7 +4071,7 @@ configure:14422: $? = 0
 configure:14422: result: yes
 configure:14428: checking for _doprnt
 configure:14428: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccEG7gDC.o: In function `main':
+/tmp/ccmrpqLm.o: In function `main':
 /home/cc/temp/SplitFS/filebench/conftest.c:124: undefined reference to `_doprnt'
 collect2: error: ld returned 1 exit status
 configure:14428: $? = 1
@@ -4214,7 +4214,7 @@ configure:14514: checking for aio_write in -lrt
 configure:14548: result: yes
 configure:14557: checking for aio_waitn in -lrt
 configure:14582: gcc -o conftest -g -O2   conftest.c -lrt  -lrt  >&5
-/tmp/ccIeikbJ.o: In function `main':
+/tmp/ccCmnS1v.o: In function `main':
 /home/cc/temp/SplitFS/filebench/conftest.c:103: undefined reference to `aio_waitn'
 collect2: error: ld returned 1 exit status
 configure:14582: $? = 1
@@ -5212,7 +5212,7 @@ configure:15572: $? = 0
 configure:15577: result: yes
 configure:15589: checking for directio
 configure:15589: gcc -o conftest -g -O2   conftest.c -ldl -lpthread -lm -lrt  >&5
-/tmp/cc86Wwoy.o: In function `main':
+/tmp/ccuOrtwl.o: In function `main':
 /home/cc/temp/SplitFS/filebench/conftest.c:161: undefined reference to `directio'
 collect2: error: ld returned 1 exit status
 configure:15589: $? = 1
