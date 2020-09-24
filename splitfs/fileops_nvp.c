@@ -764,8 +764,11 @@ static inline size_t dynamic_remap(int file_fd, struct NVNode *node, int close)
 		app_start_off = node->dr_info.dr_offset_start +
 			file_start_off - node->true_length;
 	       		
-		if (node->dr_info.dr_offset_start > node->dr_info.dr_offset_end)
+		if (node->dr_info.dr_offset_start > node->dr_info.dr_offset_end) {
+			MSG("%s: node->dr_info.dr_offset_start = %lu, node->dr_info.dr_offset_end = %lu\n",
+			    __func__, node->dr_info.dr_offset_start, node->dr_info.dr_offset_end);
 			assert(0);
+		}
 		if (app_start_off > node->dr_info.dr_offset_end)
 			assert(0);
 		if ((app_start_off % MMAP_PAGE_SIZE) != (file_start_off % MMAP_PAGE_SIZE))
