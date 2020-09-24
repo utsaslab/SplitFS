@@ -3513,14 +3513,11 @@ RETT_PWRITE write_to_file_mmap(int file,
 #if NON_TEMPORAL_WRITES
 
 	DEBUG_FILE("%s: memcpy args: buf = %p, mmap_addr = %p, length = %lu. File off = %lld. Inode = %lu\n", __func__, buf, (void *) mmap_addr, extent_length, write_offset, nvf->node->serialno);
-
-	/*
 	if(MEMCPY_NON_TEMPORAL((char *)mmap_addr, buf, extent_length) == NULL) {
 		printf("%s: non-temporal memcpy failed\n", __func__);
 		fflush(NULL);
 		assert(0);
 	}
-	*/
 	//_mm_sfence();
 	//num_mfence++;
 	num_write_nontemporal++;
