@@ -3518,11 +3518,11 @@ RETT_PWRITE write_to_file_mmap(int file,
 	DEBUG_FILE("%s: memcpy args: buf = %p, mmap_addr = %p, length = %lu. File off = %lld. Inode = %lu\n", __func__, buf, (void *) mmap_addr, extent_length, write_offset, nvf->node->serialno);
 
 
-	int temp_fd = open("/dev/zero", O_RDONLY);
+	int temp_fd = _nvp_fileops->OPEN("/dev/zero", O_RDONLY);
 	int writeable;
 
 	if (temp_fd < 0)
-		return -1;
+		assert(0);
 
 	writeable = _nvp_fileops->READ(fd, (void *)mmap_addr, extent_length) == extent_length;
 
@@ -3535,6 +3535,9 @@ RETT_PWRITE write_to_file_mmap(int file,
 	} else {
 		assert(0);
 	}
+
+	close(temp_fd);
+	
 	//_mm_sfence();
 	//num_mfence++;
 	num_write_nontemporal++;
