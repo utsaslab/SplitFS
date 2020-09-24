@@ -120,7 +120,7 @@ static inline size_t swap_extents(struct NVFile *nvf, off_t offset1)
 			if (offset_in_page != 0)
 				nvf->node->dr_info.valid_offset += offset_in_page;
 		}
-			
+
 		DEBUG_FILE("%s: Setting offset_start to DR_SIZE. FD = %d. Valid offset = %lu\n", __func__, nvf->fd, nvf->node->dr_info.valid_offset);
 		DEBUG_FILE("%s: -------------------------------\n", __func__);
 		nvf->node->dr_info.dr_offset_start = DR_SIZE;
@@ -144,9 +144,9 @@ static inline void create_dr_mmap(struct NVNode *node, int is_overwrite)
 	char dr_fname[256];
 	int dr_fd = 0, ret = 0;
 	num_mmap++;
-	
+
 	struct free_dr_pool *send_to_global = (struct free_dr_pool *) malloc(sizeof(struct free_dr_pool));
-       	
+
 	if (is_overwrite) {
 		_nvp_full_drs[full_dr_idx].dr_fd = node->dr_over_info.dr_fd;
 		_nvp_full_drs[full_dr_idx].start_addr = node->dr_over_info.start_addr;
@@ -158,11 +158,11 @@ static inline void create_dr_mmap(struct NVNode *node, int is_overwrite)
 		_nvp_full_drs[full_dr_idx].size = DR_SIZE;
 		full_dr_idx++;
 	}
-	
+
 	if (is_overwrite)
-		sprintf(dr_fname, "%s%s", NVMM_PATH, "DR-OVER-XXXXXX");		
+		sprintf(dr_fname, "%s%s", NVMM_PATH, "DR-OVER-XXXXXX");
 	else
-		sprintf(dr_fname, "%s%s", NVMM_PATH, "DR-XXXXXX");				
+		sprintf(dr_fname, "%s%s", NVMM_PATH, "DR-XXXXXX");
 	dr_fd = _hub_find_fileop("posix")->OPEN(mktemp(dr_fname), O_RDWR | O_CREAT, 0666);
 	if (dr_fd < 0) {
 		MSG("%s: mkstemp of DR file failed. Err = %s\n",
@@ -173,7 +173,7 @@ static inline void create_dr_mmap(struct NVNode *node, int is_overwrite)
 		ret = posix_fallocate(dr_fd, 0, DR_OVER_SIZE);
 	else
 		ret = posix_fallocate(dr_fd, 0, DR_SIZE);
-			
+
 	if (ret < 0) {
 		MSG("%s: posix_fallocate failed. Err = %s\n",
 		    __func__, strerror(errno));
@@ -192,7 +192,7 @@ static inline void create_dr_mmap(struct NVNode *node, int is_overwrite)
 			 MAP_SHARED | MAP_POPULATE,
 			 node->dr_over_info.dr_fd, //fd_with_max_perms,
 			 0
-			 );	
+			 );
 
 		if (node->dr_over_info.start_addr == 0) {
 			MSG("%s: mmap failed. Err = %s\n", __func__, strerror(errno));
@@ -213,7 +213,7 @@ static inline void create_dr_mmap(struct NVNode *node, int is_overwrite)
 			 MAP_SHARED | MAP_POPULATE,
 			 node->dr_info.dr_fd, //fd_with_max_perms,
 			 0
-			 );	
+			 );
 
 		if (node->dr_info.start_addr == 0) {
 			MSG("%s: mmap failed. Err = %s\n", __func__, strerror(errno));
@@ -224,7 +224,7 @@ static inline void create_dr_mmap(struct NVNode *node, int is_overwrite)
 		node->dr_info.dr_offset_end = node->dr_info.valid_offset;
 		node->dr_info.dr_serialno = stat_buf.st_ino;
 	}
-	
+
 	DEBUG_FILE("%s: Unmapped and mapped DR file again\n", __func__);
 }
 
@@ -232,11 +232,11 @@ static inline void change_dr_mmap(struct NVNode *node, int is_overwrite) {
 	struct free_dr_pool *temp_dr_mmap = NULL;
 	unsigned long offset_in_page = 0;
 
-	DEBUG_FILE("%s: Throwing away DR File FD = %d\n", __func__, node->dr_info.dr_fd);	
+	DEBUG_FILE("%s: Throwing away DR File FD = %d\n", __func__, node->dr_info.dr_fd);
 
 	if (is_overwrite) {
 		if( lfds711_queue_umm_dequeue(&qs_over, &qe_over) ) {
-			// Found addr in global pool		
+			// Found addr in global pool
 			struct free_dr_pool *temp_dr_info = NULL;
 			temp_dr_info = LFDS711_QUEUE_UMM_GET_VALUE_FROM_ELEMENT( *qe_over );
 			node->dr_over_info.start_addr = temp_dr_info->start_addr;
@@ -249,11 +249,11 @@ static inline void change_dr_mmap(struct NVNode *node, int is_overwrite) {
 				   __func__, temp_dr_info->dr_fd);
 		} else {
 			DEBUG_FILE("%s: Global queue empty\n", __func__);
-			memset((void *)&node->dr_info, 0, sizeof(struct free_dr_pool));				
+			memset((void *)&node->dr_info, 0, sizeof(struct free_dr_pool));
 		}
-	} else {	
+	} else {
 		if( lfds711_queue_umm_dequeue(&qs, &qe) ) {
-			// Found addr in global pool		
+			// Found addr in global pool
 			struct free_dr_pool *temp_dr_info = NULL;
 			temp_dr_info = LFDS711_QUEUE_UMM_GET_VALUE_FROM_ELEMENT( *qe );
 			node->dr_info.start_addr = temp_dr_info->start_addr;
@@ -266,17 +266,17 @@ static inline void change_dr_mmap(struct NVNode *node, int is_overwrite) {
 				   __func__, temp_dr_info->dr_fd);
 		} else {
 			DEBUG_FILE("%s: Global queue empty\n", __func__);
-			memset((void *)&node->dr_info, 0, sizeof(struct free_dr_pool));				
+			memset((void *)&node->dr_info, 0, sizeof(struct free_dr_pool));
 		}
 	}
-	
+
 	__atomic_fetch_sub(&num_drs_left, 1, __ATOMIC_SEQ_CST);
 
 	callBgCleaningThread(is_overwrite);
 }
 
 void perform_dynamic_remap(struct NVFile *nvf) {
-	
+
 	loff_t offset_in_page = 0;
 
 	DEBUG_FILE("%s: Syncing file %d\n", __func__, nvf->fd);
@@ -294,12 +294,12 @@ void perform_dynamic_remap(struct NVFile *nvf) {
 		if (offset_in_page != 0)
 			nvf->node->dr_info.valid_offset += offset_in_page;
 	}
-			
+
 	DEBUG_FILE("%s: Setting offset_start to DR_SIZE. FD = %d. Valid offset = %lu\n", __func__, nvf->fd, nvf->node->dr_info.valid_offset);
 	DEBUG_FILE("%s: -------------------------------\n", __func__);
 	nvf->node->dr_info.dr_offset_start = DR_SIZE;
 	nvf->node->dr_info.dr_offset_end = nvf->node->dr_info.valid_offset;
-	
+
 	if (nvf->node->dr_info.valid_offset > DR_SIZE)
 		assert(0);
 	if (nvf->node->dr_info.dr_offset_start > DR_SIZE)
@@ -561,7 +561,7 @@ static inline size_t dynamic_remap_large(int file_fd, struct NVNode *node, int c
 
 		if (len_written < len_to_swap) {
 			app_start_addr = node->dr_info.start_addr + app_start_off;
-			
+
 			DEBUG_FILE("%s: Dynamic remap args: file_fd = %d, app_dr fd = %d, file_start = %lld, app_dr start = %lld, app_dr start addr = %p, len_to_swap = %lu\n", __func__, file_fd, node->dr_info.dr_fd, file_start_off, app_start_off, (const char *) node->dr_info.start_addr, len_to_swap);
 			// Perform swap extents from append DR file
 			START_TIMING(swap_extents_t, swap_extents_time);
@@ -577,9 +577,9 @@ static inline size_t dynamic_remap_large(int file_fd, struct NVNode *node, int c
 #endif
 			if (len_swapped != len_to_swap)
 				assert(0);
-			
+
 			END_TIMING(swap_extents_t, swap_extents_time);
-			num_appendfsync++;		
+			num_appendfsync++;
 			START_TIMING(insert_tbl_mmap_t, insert_tbl_mmap_time);
 			insert_tbl_mmap_entry(node,
 					      file_start_off,
@@ -593,7 +593,7 @@ static inline size_t dynamic_remap_large(int file_fd, struct NVNode *node, int c
 	return len_written;
 }
 
-#endif // DATA_JOURNALING_ENABLED 
+#endif // DATA_JOURNALING_ENABLED
 
 static inline size_t dynamic_remap(int file_fd, struct NVNode *node, int close)
 {
@@ -609,11 +609,8 @@ static inline size_t dynamic_remap(int file_fd, struct NVNode *node, int close)
 
 	DEBUG_FILE("%s: START: file_fd = %d. dr start addr = %p, dr over start addr = %p, true_length = %lu, length = %lu, Inode number = %lu\n",
 		   __func__, file_fd, node->dr_info.start_addr, node->dr_over_info.start_addr, node->true_length, node->length, node->serialno);
-	
-	if (node->dr_info.start_addr == 0 && node->dr_over_info.start_addr == 0)
-		return 0;
 
-	if (node->dr_info.dr_offset_end - node->dr_info.dr_offset_start == 0)
+	if (node->dr_info.start_addr == 0 && node->dr_over_info.start_addr == 0)
 		return 0;
 
 	if (node->dr_info.start_addr != 0) {
@@ -622,10 +619,10 @@ static inline size_t dynamic_remap(int file_fd, struct NVNode *node, int close)
 	}
 
 #if DATA_JOURNALING_ENABLED
-	
+
 	if (node->is_large_file)
 		return dynamic_remap_large(file_fd, node, close);
-	
+
 	while (idx_in_over < tbl_over->tbl_mmap_index) {
 		get_lowest_tbl_elem(&over_file_start,
 				    &over_file_end,
@@ -650,7 +647,7 @@ static inline size_t dynamic_remap(int file_fd, struct NVNode *node, int close)
 			assert(0);
 		if (over_dr_start > node->dr_over_info.dr_offset_end)
 			assert(0);
-			
+
 		len_to_swap = over_file_end - over_file_start + 1;
 		START_TIMING(swap_extents_t, swap_extents_time);
 		DEBUG_FILE("%s: Dynamic remap args: file_fd = %d, over_dr fd = %d, file_start = %lld, over_dr start = %lld, over_dr start addr = %p, len_to_swap = %lu\n", __func__, file_fd, node->dr_over_info.dr_fd, over_file_start, over_dr_start, (const char *) node->dr_over_info.start_addr, len_to_swap);
@@ -659,17 +656,17 @@ static inline size_t dynamic_remap(int file_fd, struct NVNode *node, int close)
 				      over_file_start,
 				      over_dr_start,
 				      (const char *) node->dr_over_info.start_addr,
-				      len_to_swap);		
+				      len_to_swap);
 #if 0
 		len_swapped = _nvp_fileops->PWRITE(file_fd, (char *) (node->dr_over_info.start_addr + over_dr_start), len_to_swap, over_file_start);
 #endif
 
-		tbl_over->tbl_mmaps[idx_in_over].dr_end_off = 0;		
+		tbl_over->tbl_mmaps[idx_in_over].dr_end_off = 0;
 		END_TIMING(swap_extents_t, swap_extents_time);
 		num_appendfsync++;
 		idx_in_over++;
 	}
-	
+
 	while (idx_in_over < tbl_over->tbl_mmap_index) {
 		get_lowest_tbl_elem(&over_file_start,
 				    &over_file_end,
@@ -689,17 +686,17 @@ static inline size_t dynamic_remap(int file_fd, struct NVNode *node, int close)
 			assert(0);
 		if (over_dr_start > node->dr_over_info.dr_offset_end)
 			assert(0);
-		
+
 		if (file_start_off < over_file_start && app_start_addr != 0) {
 			len_to_swap = over_file_start - file_start_off + 1;
 			app_start_off = node->dr_info.dr_offset_start +
 				file_start_off - node->true_length;
 			app_start_addr = node->dr_info.start_addr +
 				app_start_off;
-			
+
 			if (app_start_off > node->dr_info.dr_offset_end)
 				assert(0);
-						
+
 			// Perform swap extents from append DR file
 			START_TIMING(swap_extents_t, swap_extents_time);
 			DEBUG_FILE("%s: Dynamic remap args: file_fd = %d, app_dr fd = %d, file_start = %lld, app_dr start = %lld, app_dr start addr = %p, len_to_swap = %lu\n", __func__, file_fd, node->dr_info.dr_fd, file_start_off, app_start_off, (const char *) node->dr_info.start_addr, len_to_swap);
@@ -734,7 +731,7 @@ static inline size_t dynamic_remap(int file_fd, struct NVNode *node, int close)
 			assert(0);
 		if (over_dr_start > node->dr_over_info.dr_offset_end)
 			assert(0);
-		
+
 		// Perform swap extents based on over file
 		START_TIMING(swap_extents_t, swap_extents_time);
 		len_to_swap = over_file_end - over_file_start + 1;
@@ -745,11 +742,11 @@ static inline size_t dynamic_remap(int file_fd, struct NVNode *node, int close)
 				      over_dr_start,
 				      (const char *) node->dr_over_info.start_addr,
 				      len_to_swap);
-#if 0		
+#if 0
 		len_swapped = _nvp_fileops->PWRITE(file_fd, (char *) (node->dr_over_info.start_addr + over_dr_start), len_to_swap, over_file_start);
 #endif
 
-		tbl_over->tbl_mmaps[idx_in_over].dr_end_off = 0;		
+		tbl_over->tbl_mmaps[idx_in_over].dr_end_off = 0;
 		END_TIMING(swap_extents_t, swap_extents_time);
 		num_appendfsync++;
 		file_start_off += len_swapped;
@@ -759,26 +756,27 @@ static inline size_t dynamic_remap(int file_fd, struct NVNode *node, int close)
 	}
 
 #endif // DATA_JOURNALING_ENABLED
-	
+
+	if (node->dr_info.dr_offset_end - node->dr_info.dr_offset_start == 0)
+		return len_written;
+
+	if (node->dr_info.dr_offset_end < node->dr_info.dr_offset_start)
+		return len_written;
+
 	if (app_start_addr != 0) {
 		app_start_off = node->dr_info.dr_offset_start +
 			file_start_off - node->true_length;
-	       		
-		if (node->dr_info.dr_offset_start > node->dr_info.dr_offset_end) {
-			MSG("%s: node->dr_info.dr_offset_start = %lu, node->dr_info.dr_offset_end = %lu\n",
-			    __func__, node->dr_info.dr_offset_start, node->dr_info.dr_offset_end);
-			assert(0);
-		}
+
 		if (app_start_off > node->dr_info.dr_offset_end)
 			assert(0);
 		if ((app_start_off % MMAP_PAGE_SIZE) != (file_start_off % MMAP_PAGE_SIZE))
 			assert(0);
-		
+
 		len_to_swap = node->dr_info.dr_offset_end - app_start_off;
 
 		if (len_written < len_to_swap) {
 			app_start_addr = node->dr_info.start_addr + app_start_off;
-			
+
 			DEBUG_FILE("%s: Dynamic remap args: file_fd = %d, app_dr fd = %d, file_start = %lld, app_dr start = %lld, app_dr start addr = %p, len_to_swap = %lu\n", __func__, file_fd, node->dr_info.dr_fd, file_start_off, app_start_off, (const char *) node->dr_info.start_addr, len_to_swap);
 			// Perform swap extents from append DR file
 			len_swapped = syscall(335, file_fd,
@@ -797,9 +795,9 @@ static inline size_t dynamic_remap(int file_fd, struct NVNode *node, int close)
 				}
 				assert(0);
 			}
-			
+
 			END_TIMING(swap_extents_t, swap_extents_time);
-			num_appendfsync++;		
+			num_appendfsync++;
 			START_TIMING(insert_tbl_mmap_t, insert_tbl_mmap_time);
 			insert_tbl_mmap_entry(node,
 					      file_start_off,
@@ -825,7 +823,7 @@ static inline void copy_appends_to_file(struct NVFile* nvf, int close, int fdsyn
 
 	if (close && nvf->node->reference > 1)
 		goto out;
-	
+
 	dynamic_remap(nvf->fd, nvf->node, close);
 
 	if (nvf->node->dr_info.start_addr != 0) {
@@ -1271,7 +1269,7 @@ void _nvp_init2(void)
 			// Allocating and Initializing merkle tree roots associated with NVNode 
 			_nvp_node_lookup[i][j].merkle_root = malloc(1024 * sizeof(unsigned long));			
 			memset((void *)_nvp_node_lookup[i][j].merkle_root, 0, 1024 * sizeof(unsigned long));
-			
+
 			// Allocating and Initializing the dirty mmap cache associated with NVNode
 			_nvp_node_lookup[i][j].root_dirty_cache = malloc(20 * sizeof(unsigned long));
 			memset((void *)_nvp_node_lookup[i][j].root_dirty_cache, 0, 20 * sizeof(unsigned long));
@@ -1285,7 +1283,7 @@ void _nvp_init2(void)
 			_nvp_backup_roots[i][j].root = _nvp_node_lookup[i][j].root;
 			_nvp_backup_roots[i][j].merkle_root = _nvp_node_lookup[i][j].merkle_root;
 			_nvp_backup_roots[i][j].root_dirty_cache = _nvp_node_lookup[i][j].root_dirty_cache;
-			
+
 		}
 	}
 
@@ -1295,11 +1293,11 @@ void _nvp_init2(void)
 	lfds711_queue_umm_init_valid_on_current_logical_core( &qs, &qe_dummy, NULL );
 
 #if DATA_JOURNALING_ENABLED
-	
-	lfds711_queue_umm_init_valid_on_current_logical_core( &qs_over, &qe_dummy_over, NULL );	
+
+	lfds711_queue_umm_init_valid_on_current_logical_core( &qs_over, &qe_dummy_over, NULL );
 
 #endif
-	
+
 	MMAP_PAGE_SIZE = getpagesize();
 	MMAP_HUGEPAGE_SIZE = 2097152;
 
@@ -1307,7 +1305,7 @@ void _nvp_init2(void)
 #if !POSIX_ENABLED
 	init_op_log();
 #endif
-	
+
 	struct free_dr_pool *free_pool_mmaps;
 	char prefault_buf[MMAP_PAGE_SIZE];
 	char dr_fname[256];
@@ -1318,16 +1316,16 @@ void _nvp_init2(void)
 	free_pool_mmaps = (struct free_dr_pool *) malloc(sizeof(struct free_dr_pool)*INIT_NUM_DR);
 	for (i = 0; i < MMAP_PAGE_SIZE; i++)
 		prefault_buf[i] = '0';
-	
+
 	for (i = 0; i < INIT_NUM_DR; i++) {
-		sprintf(dr_fname, "%s%s", NVMM_PATH, "DR-XXXXXX");		
-		dr_fd = _hub_find_fileop("posix")->OPEN(mktemp(dr_fname), O_RDWR | O_CREAT, 0666);		
+		sprintf(dr_fname, "%s%s", NVMM_PATH, "DR-XXXXXX");
+		dr_fd = _hub_find_fileop("posix")->OPEN(mktemp(dr_fname), O_RDWR | O_CREAT, 0666);
 		if (dr_fd < 0) {
 			MSG("%s: mkstemp of DR file failed. Err = %s\n",
 			    __func__, strerror(errno));
 			assert(0);
 		}
-		ret = posix_fallocate(dr_fd, 0, DR_SIZE);		
+		ret = posix_fallocate(dr_fd, 0, DR_SIZE);
 		if (ret < 0) {
 			MSG("%s: posix_fallocate failed. Err = %s\n",
 			    __func__, strerror(errno));
@@ -1358,7 +1356,7 @@ void _nvp_init2(void)
 				MSG("%s: non-temporal memcpy failed\n", __func__);
 				assert(0);
 			}
-			
+
 #else
 
 			if(FSYNC_MEMCPY((char *)free_pool_mmaps[i].start_addr + j*MMAP_PAGE_SIZE, prefault_buf, MMAP_PAGE_SIZE) == NULL) {
@@ -1373,12 +1371,12 @@ void _nvp_init2(void)
 			perfmodel_add_delay(0, MMAP_PAGE_SIZE);
 
 #endif //NVM_DELAY
-			
+
 		}
-			
+
 		LFDS711_QUEUE_UMM_SET_VALUE_IN_ELEMENT(free_pool_mmaps[i].qe,
 						       &free_pool_mmaps[i] );
-		
+
 		lfds711_queue_umm_enqueue( &qs, &free_pool_mmaps[i].qe );
 		MSG("%s: dr fd = %d, start addr = %p\n", __func__, dr_fd,
 			   free_pool_mmaps[i].start_addr);
@@ -1387,7 +1385,7 @@ void _nvp_init2(void)
 	}
 
 #if DATA_JOURNALING_ENABLED
-	
+
 	int num_dr_over_blocks = DR_OVER_SIZE / MMAP_PAGE_SIZE;
 	free_pool_mmaps = NULL;
 	free_pool_mmaps = (struct free_dr_pool *) malloc(sizeof(struct free_dr_pool)*INIT_NUM_DR_OVER);
