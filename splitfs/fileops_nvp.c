@@ -3536,8 +3536,8 @@ RETT_PWRITE write_to_file_mmap(int file,
 		assert(0);
 	}
 
-	close(temp_fd);
-	
+	_nvp_fileops->CLOSE(temp_fd);
+
 	//_mm_sfence();
 	//num_mfence++;
 	num_write_nontemporal++;
