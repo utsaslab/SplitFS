@@ -162,7 +162,7 @@ static inline int return_zero(void)
 			;						\
 	}								\
 	DEBUG("NVP_WRLOCK acquired on cpu %i, lock %p\n", GET_CPUID(), &lock); \
-	}								
+	}
 
 #define NVP_LOCK_UNLOCK_WR(lock) { int iter; \
 	DEBUG("NVP_WRLOCK releasing on cpu %i, lock %p\n", GET_CPUID(), &lock); \

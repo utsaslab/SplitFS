@@ -251,13 +251,15 @@ void sync_and_clear_app_log() {
 		NVP_LOCK_FD_RD(nvf, cpuid);
 		DEBUG_FILE("%s: Calling dynamic remap, because app log is full\n", __func__);
 		if (nvf->fd > 0 && nvf->valid && !nvf->posix && nvf->node) {
+
 			NVP_LOCK_NODE_WR(nvf);
 			/* [TODO] Do Some checks to see if 
 			 * there are appends, and if there are,
 			 * perform the dynamic remap system call.
 			 */
 			if (nvf->node->true_length != nvf->node->length)
-				perform_dynamic_remap(nvf);
+				swap_extents(nvf, 0);
+
 			NVP_UNLOCK_NODE_WR(nvf);
 		}
 		DEBUG_FILE("%s: File %i synced. OPEN_MAX = %i\n", __func__, i, OPEN_MAX);

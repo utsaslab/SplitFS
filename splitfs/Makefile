@@ -13,6 +13,8 @@ NVP_NON_TEMPORAL=non_temporal.o
 NVP_DELAY=perf_delay/add_delay.o
 NVP_TIMER=timers.o
 NVP_TBL_MMAP=tbl_mmaps.o
+NVP_UTILS=utils.o
+NVP_LFQUEUE=lfq.c
 
 all: sofiles $(COMMON_OBJ)
 #$(NVP_STACK) $(NVP_LOG) $(NVP_LRU_CACHE)
@@ -28,7 +30,7 @@ sofiles: $(COMMON_OBJ) $(NVP_SOFILES)
 
 # The only .so which doesn't follow the naming convention for its underlying file.
 libnvp.so: fileops_hub.o $(COMMON_OBJ)
-	$(CC) $(CLFAGS) -shared -Wl,-soname,$@ -o $@ $^ -ldl -funroll-loops -L. -llfds711 -lrt
+	$(CC) $(CLFAGS) -shared -Wl,-soname,$@ -o $@ $^ -ldl -funroll-loops -L. -lrt
 
 # Lives in a different directory.
 #libmoneta.so:
@@ -41,8 +43,8 @@ libnvp.so: fileops_hub.o $(COMMON_OBJ)
 #libfileops_nvp.so: fileops_nvp.o $(COMMON_OBJ) copy_user_nocache.o
 #	$(CC) $(CFLAGS) -shared -Wl,-soname,$@ -o $@ $< $(COMMON_OBJ) copy_user_nocache.o -ldl 
 
-libfileops_nvp.so: fileops_nvp.o $(COMMON_OBJ) $(NVP_NON_TEMPORAL) $(NVP_DELAY) $(NVP_STACK) $(NVP_TBL_MMAP) $(NVP_LOG) $(NVP_LRU_CACHE) $(NVP_TIMER)
-	$(CC) $(CFLAGS) -shared -Wl,-soname,$@ -o $@ $< $(COMMON_OBJ) $(NVP_NON_TEMPORAL) $(NVP_DELAY) $(NVP_STACK) $(NVP_TBL_MMAP) $(NVP_LOG) $(NVP_LRU_CACHE) $(NVP_TIMER) -ldl -funroll-loops -L. -llfds711 -lrt
+libfileops_nvp.so: fileops_nvp.o $(COMMON_OBJ) $(NVP_LFQUEUE) $(NVP_UTILS) $(NVP_NON_TEMPORAL) $(NVP_DELAY) $(NVP_STACK) $(NVP_TBL_MMAP) $(NVP_LOG) $(NVP_LRU_CACHE) $(NVP_TIMER)
+	$(CC) $(CFLAGS) -shared -Wl,-soname,$@ -o $@ $< $(COMMON_OBJ) $(NVP_LFQUEUE) $(NVP_UTILS) $(NVP_NON_TEMPORAL) $(NVP_DELAY) $(NVP_STACK) $(NVP_TBL_MMAP) $(NVP_LOG) $(NVP_LRU_CACHE) $(NVP_TIMER) -ldl -funroll-loops -L. -lrt
 
 BANKSHOT2_OBJ=nvp_printf.o fileops_bankshot2_extent.o rbtree.o
 libfileops_bankshot2.so: fileops_bankshot2.o $(BANKSHOT2_OBJ) 
