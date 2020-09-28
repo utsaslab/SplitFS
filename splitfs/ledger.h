@@ -8,7 +8,9 @@
 #include "nvp_lock.h"
 #include "non_temporal.h"
 #include "perf_delay/add_delay.h"
-#include "liblfds711/inc/liblfds711.h"
+//#include "liblfds711/inc/liblfds711.h"
+#include "lfq.h"
+#include "utils.h"
 #include "timers.h"
 
 #define ENV_NV_FOP "NVP_NV_FOP"
@@ -17,8 +19,10 @@
 
 /******************* Data Structures ********************/
 
-struct lfds711_queue_umm_element *qe, *qe_over, qe_dummy, qe_dummy_over;
-struct lfds711_queue_umm_state qs, qs_over;
+//struct lfds711_queue_umm_element *qe, *qe_over, qe_dummy, qe_dummy_over;
+//struct lfds711_queue_umm_state qs, qs_over;
+struct lfq_ctx staging_mmap_queue_ctx;
+struct lfq_ctx staging_over_mmap_queue_ctx;
 
 struct NVFile
 {
@@ -40,7 +44,7 @@ struct NVFile
 
 struct free_dr_pool
 {
-	struct lfds711_queue_umm_element qe;
+	//struct lfds711_queue_umm_element qe;
 	unsigned long start_addr;
 	int dr_fd;
 	ino_t dr_serialno;
@@ -105,7 +109,7 @@ struct NVNode
 	int isRootSet;
 	int index_in_free_list;
 	int is_large_file;
-	
+
 	// DR stuff
 	struct free_dr_pool dr_info;
 	struct free_dr_pool dr_over_info;
@@ -298,7 +302,7 @@ volatile int async_close_enable;
 
 #endif
 #define NODE_LOCKING 1
-#if NODE_LOCKING	
+#if NODE_LOCKING
 
 #define NVP_LOCK_NODE_RD(nvf, cpuid)	NVP_LOCK_RD(nvf->node->lock, cpuid)
 #define NVP_UNLOCK_NODE_RD(nvf, cpuid)	NVP_LOCK_UNLOCK_RD(nvf->node->lock, cpuid)
@@ -317,10 +321,10 @@ volatile int async_close_enable;
 #define TBL_MMAP_LOCKING 1
 #if TBL_MMAP_LOCKING
 
-#define TBL_ENTRY_LOCK_RD(tbl, cpuid)    NVP_LOCK_RD(tbl->lock, cpuid)
-#define TBL_ENTRY_UNLOCK_RD(tbl, cpuid)  NVP_LOCK_UNLOCK_RD(tbl->lock, cpuid)
-#define TBL_ENTRY_LOCK_WR(tbl)           NVP_LOCK_WR(tbl->lock)
-#define TBL_ENTRY_UNLOCK_WR(tbl)         NVP_LOCK_UNLOCK_WR(tbl->lock)
+#define TBL_ENTRY_LOCK_RD(tbl, cpuid)    {if (tbl) {NVP_LOCK_RD(tbl->lock, cpuid);}}
+#define TBL_ENTRY_UNLOCK_RD(tbl, cpuid)  {if (tbl) {NVP_LOCK_UNLOCK_RD(tbl->lock, cpuid);}}
+#define TBL_ENTRY_LOCK_WR(tbl)           {if (tbl) {NVP_LOCK_WR(tbl->lock);}}
+#define TBL_ENTRY_UNLOCK_WR(tbl)         {if (tbl) {NVP_LOCK_UNLOCK_WR(tbl->lock);}}
 
 #else
 
