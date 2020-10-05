@@ -586,7 +586,6 @@ static inline size_t dynamic_remap_large(int file_fd, struct NVNode *node, int c
 	return len_written;
 }
 
-#endif // DATA_JOURNALING_ENABLED
 
 static inline size_t dynamic_remap_updates(int file_fd, struct NVNode *node, int close, off_t *file_start_off)
 {
@@ -745,6 +744,7 @@ static inline size_t dynamic_remap_updates(int file_fd, struct NVNode *node, int
 		idx_in_over++;
 	}
 }
+#endif // DATA_JOURNALING_ENABLED
 
 static inline size_t dynamic_remap(int file_fd, struct NVNode *node, int close)
 {
@@ -6779,34 +6779,48 @@ RETT_FALLOCATE _nvp_FALLOCATE(INTF_FALLOCATE)
 	return result;
 }
 
-/* sync_file_range guarantees data durability only for overwrites on certain filesystems.
- * It does not guarantee metadata durability on any filesystem.
- * 
- * In case of POSIX mode of SplitFS too, we guarantee data durability and not metadata durability.
- * The data durability is guaranteed by virtue of doing non temporal writes to the memory mapped file, so we don't really need to do anything here.
- * 
- * In case of Sync and Strict mode in SplitFS, this is guaranteed by the filesystem itself and sync_file_range is not required for durability.
- * 
- * A typical use case of sync_file_range is for database logging where the file is fallocated to a certain size and sync_file_range is used to ensure it 
- * is an overwrite.
-*/
-RETT_SYNC_FILE_RANGE _nvp_SYNC_FILE_RANGE(INTF_SYNC_FILE_RANGE) {
-	RETT_SYNC_FILE_RANGE result = 0;
+// Strictly for use with POSIX mode only.
+// We try to find where the data is corresponding to the offset. If it is not mmapped we call the underlying posix call for sync_file_range.
+// We return the number of bytes argument if successful otherwise we return -1
+int sync_from_file_mmap(int sync_offset_within_true_length, int cpuid, struct NVFile *nvf, int nbytes, int flags) {
+	int ret = 0, ret_get_addr = 0;
+	unsigned long mmap_addr = 0, bitmap_root = 0;
+	off_t offset_within_mmap = 0;
+	size_t extent_length = 0, read_count = 0, posix_sync_file_range = 0;
+	instrumentation_type copy_overread_time, get_mmap_time;
 
-	struct NVFile *nvf = &_nvp_fd_lookup[file];
+	struct NVTable_maps *tbl_app = &_nvp_tbl_mmaps[nvf->node->serialno % APPEND_TBL_MAX];
 
-	NVP_CHECK_NVF_VALID(nvf);
+	// We are in posix mode, hence null.
+	struct NVTable_maps *tbl_over = NULL;
+	
+	START_TIMING(get_mmap_t, get_mmap_time);
+	ret = nvp_get_mmap_address(nvf,
+				   sync_offset_within_true_length,
+				   read_count,
+				   &mmap_addr,
+				   &bitmap_root,
+				   &offset_within_mmap,
+				   &extent_length,
+				   0,
+				   cpuid,
+				   tbl_app,
+				   tbl_over);
+	END_TIMING(get_mmap_t, get_mmap_time);
 
-	if(nvf->posix) {
-		return _nvp_fileops->SYNC_FILE_RANGE(CALL_SYNC_FILE_RANGE);
+	switch (ret) {
+	case 0: // Mmaped. Do nothing.
+		break;
+	case 1: // Not mmaped. Calling Posix sync_file_range.
+		posix_sync_file_range = _nvp_fileops->SYNC_FILE_RANGE(nvf->fd, sync_offset_within_true_length, nbytes, flags);
+		ret = posix_sync_file_range == 0 ? nbytes : -1;
+		return ret;
+	default:
+		break;
 	}
-
-#if POSIX_ENABLED
-	return _nvp_posix_sync_file_range(CALL_SYNC_FILE_RANGE, nvf);
-#endif
-
-	return result;
+	return nbytes;
 }
+
 
 /**
  * File contents are spread across 4 different places
@@ -6866,44 +6880,32 @@ int _nvp_posix_sync_file_range(INTF_SYNC_FILE_RANGE, struct NVFile *nvf) {
 	return 0;
 }
 
-// Strictly for use with POSIX mode only.
-// We try to find where the data is corresponding to the offset. If it is not mmapped we call the underlying posix call for sync_file_range.
-// We return the number of bytes argument if successful otherwise we return -1
-int sync_from_file_mmap(int sync_offset_within_true_length, int cpuid, struct NVFile *nvf, int nbytes, int flags) {
-	int ret = 0, ret_get_addr = 0;
-	unsigned long mmap_addr = 0, bitmap_root = 0;
-	off_t offset_within_mmap = 0;
-	size_t extent_length = 0, read_count = 0, posix_sync_file_range = 0;
-	instrumentation_type copy_overread_time, get_mmap_time;
+/* sync_file_range guarantees data durability only for overwrites on certain filesystems.
+ * It does not guarantee metadata durability on any filesystem.
+ * 
+ * In case of POSIX mode of SplitFS too, we guarantee data durability and not metadata durability.
+ * The data durability is guaranteed by virtue of doing non temporal writes to the memory mapped file, so we don't really need to do anything here.
+ * 
+ * In case of Sync and Strict mode in SplitFS, this is guaranteed by the filesystem itself and sync_file_range is not required for durability.
+ * 
+ * A typical use case of sync_file_range is for database logging where the file is fallocated to a certain size and sync_file_range is used to ensure it 
+ * is an overwrite.
+*/
+RETT_SYNC_FILE_RANGE _nvp_SYNC_FILE_RANGE(INTF_SYNC_FILE_RANGE) {
+	RETT_SYNC_FILE_RANGE result = 0;
 
-	struct NVTable_maps *tbl_app = &_nvp_tbl_mmaps[nvf->node->serialno % APPEND_TBL_MAX];
+	struct NVFile *nvf = &_nvp_fd_lookup[file];
 
-	// We are in posix mode, hence null.
-	struct NVTable_maps *tbl_over = NULL;
-	
-	START_TIMING(get_mmap_t, get_mmap_time);
-	ret = nvp_get_mmap_address(nvf,
-				   sync_offset_within_true_length,
-				   read_count,
-				   &mmap_addr,
-				   &bitmap_root,
-				   &offset_within_mmap,
-				   &extent_length,
-				   0,
-				   cpuid,
-				   tbl_app,
-				   tbl_over);
-	END_TIMING(get_mmap_t, get_mmap_time);
+	NVP_CHECK_NVF_VALID(nvf);
 
-	switch (ret) {
-	case 0: // Mmaped. Do nothing.
-		break;
-	case 1: // Not mmaped. Calling Posix sync_file_range.
-		posix_sync_file_range = _nvp_fileops->SYNC_FILE_RANGE(nvf->fd, sync_offset_within_true_length, nbytes, flags);
-		ret = posix_sync_file_range == 0 ? nbytes : -1;
-		return ret;
-	default:
-		break;
+	if(nvf->posix) {
+		return _nvp_fileops->SYNC_FILE_RANGE(CALL_SYNC_FILE_RANGE);
 	}
-	return nbytes;
+
+#if POSIX_ENABLED
+	return _nvp_posix_sync_file_range(CALL_SYNC_FILE_RANGE, nvf);
+#endif
+
+	return result;
 }
+

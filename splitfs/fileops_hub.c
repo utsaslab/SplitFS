@@ -9,13 +9,15 @@
 
 #include "nv_common.h"
 #include "ledger.h"
+#undef fread_unlocked
 
 #define ENV_HUB_FOP "NVP_HUB_FOP"
 
 #define ENV_TREE_FILE "NVP_TREE_FILE"
 
 //#define LIBC_SO_LOC "/lib64/libc-2.5.so"
-#define LIBC_SO_LOC "/lib/x86_64-linux-gnu/libc.so.6"
+//#define LIBC_SO_LOC "/lib/x86_64-linux-gnu/libc.so.6"
+#define LIBC_SO_LOC "/lib64/libc.so.6"
 
 // for a given file descriptor (index), stores the fileops to use on that fd
 // all vlaues initialized to the posix ops
@@ -273,6 +275,9 @@ RETT_FOPEN  _hub_FOPEN(INTF_FOPEN);
 
 RETT_FOPEN64 ALIAS_FOPEN64(INTF_FOPEN64) WEAK_ALIAS("_hub_FOPEN64");
 RETT_FOPEN64  _hub_FOPEN64(INTF_FOPEN64);
+
+RETT_FREAD_UNLOCKED ALIAS_FREAD_UNLOCKED(INTF_FREAD_UNLOCKED) WEAK_ALIAS("_hub_FREAD_UNLOCKED");
+RETT_FREAD_UNLOCKED _hub_FREAD_UNLOCKED(INTF_FREAD_UNLOCKED);
 #endif
 
 RETT_IOCTL ALIAS_IOCTL(INTF_IOCTL) WEAK_ALIAS("_hub_IOCTL");
@@ -1097,6 +1102,28 @@ RETT_FOPEN _hub_FOPEN(INTF_FOPEN)
 RETT_FOPEN64 _hub_FOPEN64(INTF_FOPEN64) {
 
 	return _hub_FOPEN(CALL_FOPEN64);
+}
+
+RETT_FREAD_UNLOCKED _hub_FREAD_UNLOCKED(INTF_FREAD_UNLOCKED) {
+
+    HUB_CHECK_RESOLVE_FILEOPS(_hub_, FREAD_UNLOCKED);
+    if(fileno(fp) >= OPEN_MAX) 
+    { 
+        errno = EBADF; 
+        return (RETT_FREAD_UNLOCKED) -1;
+    }
+
+    if(fileno(fp) < 0) {
+        errno = EBADF; 
+        return (RETT_FREAD_UNLOCKED) -1; 
+    }
+
+    if(_hub_fd_lookup[fileno(fp)] == NULL) {
+        errno = EBADF;
+        return -1;
+    }
+
+    return (RETT_FREAD_UNLOCKED) _hub_fd_lookup[fileno(fp)]->FREAD_UNLOCKED( CALL_FREAD_UNLOCKED );
 }
 
 #endif // TRACE_FP_CALLS

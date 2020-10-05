@@ -31,7 +31,7 @@ void close_cloexec_files();
 		if(UNLIKELY(!nvf->valid)) {				\
 			DEBUG("Invalid file descriptor: %i\n", file);	\
 			errno = 0;					\
-			return -1;					\
+            return -1;					\
 		}							\
 		else							\
 			{						\
