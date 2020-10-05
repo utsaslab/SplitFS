@@ -21,6 +21,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <stdint.h>
+#include <execinfo.h>
 #include "debug.h"
 
 FILE * _xil_printf_file;
@@ -211,6 +212,26 @@ static int getnum( charptr* linep)
     *linep = cp;
     return(n);
 }
+
+print_trace (void)
+{
+  void *array[10];
+  char **strings;
+  int size, i;
+
+  size = backtrace (array, 10);
+  strings = backtrace_symbols (array, size);
+  if (strings != NULL)
+  {
+
+    printf ("Obtained %d stack frames.\n", size);
+    for (i = 0; i < size; i++)
+      printf ("%s\n", strings[i]);
+  }
+
+  free (strings);
+}
+
 
 /*---------------------------------------------------*/
 /*                                                   */

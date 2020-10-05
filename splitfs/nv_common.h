@@ -41,7 +41,13 @@
 #define LIKELY(x)       __builtin_expect((x),1)
 #define UNLIKELY(x)     __builtin_expect((x),0)
 
-#define assert(x) if(UNLIKELY(!(x))) { printf("ASSERT FAILED ROHAN\n"); fflush(NULL); ERROR("NVP_ASSERT("#x") failed!\n"); exit(100); }
+#define assert(x)							\
+	if(UNLIKELY(!(x))) {						\
+		PRINTTRACE();						\
+		fflush(NULL);						\
+		ERROR("NVP_ASSERT("#x") failed!\n");			\
+		exit(100);						\
+	}
 
 // places quotation marks around arg (eg, MK_STR(stuff) becomes "stuff")
 #define MK_STR(arg) #arg
@@ -80,14 +86,14 @@ int execv_done;
 
 // BOOST_PP only support parenthesis-delimited lists...
 // I would have implemented this with BOOST_PP, but <see previous line>
-#define OPS_FINITEPARAMS_64 (FTRUNC64) (SEEK64)
+#define OPS_FINITEPARAMS_64 (FTRUNC64) (SEEK64) (PREAD64)
 #define OPS_64 OPS_FINITEPARAMS (OPEN64)
 
 #ifdef TRACE_FP_CALLS
-
-#define ALLOPS_FINITEPARAMS_WPAREN (READ) (FREAD) (CLEARERR) (FEOF) (FERROR) (WRITE) (FWRITE) (FSEEK) (FTELL) (FTELLO) (CLOSE) (FCLOSE) (SEEK) (FTRUNC) (DUP) (DUP2) (FORK) (VFORK) (READV) (WRITEV) (PIPE) (SOCKETPAIR) OPS_FINITEPARAMS_64 (PREAD) (PWRITE) (FSYNC) (FDSYNC) (SOCKET) (ACCEPT) (UNLINK) (UNLINKAT)
+#define ALLOPS_FINITEPARAMS_WPAREN (POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (READ) (FREAD) (CLEARERR) (FEOF) (FERROR) (FREAD_UNLOCKED) (WRITE) (FWRITE) (FSEEK) (FTELL) (FTELLO) (CLOSE) (FCLOSE) (SEEK) (FTRUNC) (DUP) (DUP2) (FORK) (VFORK) (READV) (WRITEV) (PIPE) (SOCKETPAIR) OPS_FINITEPARAMS_64 (PREAD) (PWRITE) (FSYNC) (FDSYNC) (SOCKET) (ACCEPT) (UNLINK) (UNLINKAT) (SYNC_FILE_RANGE)
 //(POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (STAT) (STAT64) (FSTAT) (FSTAT64) (LSTAT) (LSTAT64)
-#define ALLOPS_WPAREN (OPEN) (OPENAT) (CREAT) (EXECVE) (EXECVP) (EXECV) (FOPEN) (FOPEN64) (IOCTL) (TRUNC) (MKNOD) (MKNODAT) ALLOPS_FINITEPARAMS_WPAREN
+
+#define ALLOPS_WPAREN (OPEN) (OPENAT) (CREAT) (EXECVE) (EXECVP) (EXECV) (FOPEN) (FOPEN64) (IOCTL) (TRUNC) (MKNOD) (MKNODAT) (FCNTL) ALLOPS_FINITEPARAMS_WPAREN
 #define SHM_WPAREN (SHM_COPY)
 // NOTE: clone is missing on purpose.(MMAP) (MUNMAP) (MSYNC) (CLONE) (MMAP64)
 #define METAOPS (MKDIR) (RENAME) (LINK) (SYMLINK) (RMDIR) (SYMLINKAT) (MKDIRAT)
@@ -102,11 +108,11 @@ int execv_done;
 
 #endif
 
-#define FILEOPS_WITH_FD (READ) (WRITE) (SEEK) (READV) (WRITEV) (FTRUNC) (FTRUNC64) (SEEK64) (PREAD) (PWRITE) (FSYNC) (FDSYNC)
+#define FILEOPS_WITH_FD (READ) (WRITE) (SEEK) (READV) (WRITEV) (FTRUNC) (FTRUNC64) (SEEK64) (PREAD) (PREAD64) (PWRITE) (FSYNC) (FDSYNC) (POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (SYNC_FILE_RANGE)
 //(POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (FSTAT) (FSTAT64)
 
 #ifdef TRACE_FP_CALLS
-#define FILEOPS_WITH_FP (FREAD) (CLEARERR) (FEOF) (FERROR) (FWRITE) (FSEEK) (FTELL) (FTELLO) 
+#define FILEOPS_WITH_FP (FREAD) (FREAD_UNLOCKED) (CLEARERR) (FEOF) (FERROR) (FWRITE) (FSEEK) (FTELL) (FTELLO) 
 #endif
 
 //(ACCEPT)
@@ -160,7 +166,7 @@ int execv_done;
 	int PREFIX##resolve_fileops(char*);				\
 	void PREFIX##init(void) __attribute__((constructor));		\
 	void PREFIX##init(void) {					\
-		DEBUG("Initializing " NAME "_init\n");			\
+		MSG("Initializing " NAME "_init\n");			\
 		PREFIX##fileops = NULL;					\
 		INIT_FILEOPS_P(NAME, PREFIX);				\
 		if(OPEN_MAX<1) {					\
@@ -205,6 +211,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define ALIAS_FREAD  fread
 #define ALIAS_FEOF 	 feof
 #define ALIAS_FERROR ferror
+#define ALIAS_FREAD_UNLOCKED  fread_unlocked
 #define ALIAS_CLEARERR clearerr
 #define ALIAS_FWRITE fwrite
 #define ALIAS_FSEEK  fseek
@@ -221,6 +228,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define ALIAS_TRUNC  truncate
 #define ALIAS_DUP    dup
 #define ALIAS_DUP2   dup2
+#define ALIAS_FCNTL fcntl
 #define ALIAS_FORK   fork
 #define ALIAS_VFORK  vfork
 #define ALIAS_MMAP   mmap
@@ -232,10 +240,12 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define ALIAS_MUNMAP munmap
 #define ALIAS_MSYNC  msync
 #define ALIAS_CLONE  __clone
-#define ALIAS_PREAD  pread64
+#define ALIAS_PREAD  pread
+#define ALIAS_PREAD64 pread64
 #define ALIAS_PWRITE pwrite64
 //#define ALIAS_PWRITESYNC pwrite64_sync
 #define ALIAS_FSYNC  fsync
+#define ALIAS_SYNC_FILE_RANGE sync_file_range
 #define ALIAS_FDSYNC fdatasync
 #define ALIAS_FTRUNC64 ftruncate64
 #define ALIAS_OPEN64  open64
@@ -292,6 +302,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define RETT_FREAD  size_t
 #define RETT_FEOF   int
 #define RETT_FERROR int
+#define RETT_FREAD_UNLOCKED size_t
 #define RETT_CLEARERR void
 #define RETT_WRITE  ssize_t
 #define RETT_SEEK   off_t
@@ -300,6 +311,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define RETT_TRUNC  int
 #define RETT_DUP    int
 #define RETT_DUP2   int
+#define RETT_FCNTL  int
 #define RETT_FORK   pid_t
 #define RETT_VFORK  pid_t
 #define RETT_MMAP   void*
@@ -312,9 +324,11 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define RETT_MSYNC  int
 #define RETT_CLONE  int
 #define RETT_PREAD  ssize_t
+#define RETT_PREAD64 ssize_t
 #define RETT_PWRITE ssize_t
 //#define RETT_PWRITESYNC ssize_t
 #define RETT_FSYNC  int
+#define RETT_SYNC_FILE_RANGE int
 #define RETT_FDSYNC int
 #define RETT_FTRUNC64 int
 #define RETT_OPEN64  int
@@ -364,6 +378,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define INTF_CLEARERR FILE* fp
 #define INTF_FEOF   FILE* fp
 #define INTF_FERROR FILE* fp
+#define INTF_FREAD_UNLOCKED  void* __restrict buf, size_t length, size_t nmemb, FILE* __restrict fp
 #define INTF_FWRITE const void* __restrict buf, size_t length, size_t nmemb, FILE* __restrict fp
 #define INTF_FSEEK  FILE* fp, long int offset, int whence
 #define INTF_FTELL  FILE* fp
@@ -377,6 +392,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define INTF_CLOSE  int file
 #define INTF_FTRUNC int file, off_t length
 #define INTF_TRUNC  const char* path, off_t length
+#define INTF_FCNTL  int file, int cmd, ...
 #define INTF_DUP    int file
 #define INTF_DUP2   int file, int fd2
 #define INTF_FORK   void
@@ -391,9 +407,11 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define INTF_MSYNC  void *addr, size_t len, int flags
 #define INTF_CLONE  int (*fn)(void *a), void *child_stack, int flags, void *arg
 #define INTF_PREAD  int file,       void *buf, size_t count, off_t offset
+#define INTF_PREAD64  int file,       void *buf, size_t count, off_t offset
 #define INTF_PWRITE int file, const void *buf, size_t count, off_t offset
 //#define INTF_PWRITESYNC int file, const void *buf, size_t count, off_t offset
 #define INTF_FSYNC  int file
+#define INTF_SYNC_FILE_RANGE int file, off_t offset, off_t nbytes, unsigned int flags
 #define INTF_FDSYNC int file
 #define INTF_FTRUNC64 int file, off64_t length
 #define INTF_OPEN64  const char* path, int oflag, ...
@@ -441,6 +459,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define CALL_FREAD  buf, length, nmemb, fp
 #define CALL_FEOF   fp
 #define CALL_FERROR fp
+#define CALL_FREAD_UNLOCKED  buf, length, nmemb, fp
 #define CALL_CLEARERR fp
 #define CALL_FWRITE buf, length, nmemb, fp
 #define CALL_FSEEK  fp, offset, whence
@@ -458,6 +477,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define CALL_TRUNC  path, length
 #define CALL_DUP    file
 #define CALL_DUP2   file, fd2
+#define CALL_FCNTL file, cmd
 #define CALL_FORK   
 #define CALL_VFORK
 #define CALL_MMAP   addr, len, prot, flags, file, off
@@ -469,9 +489,11 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define CALL_MSYNC  addr, len, flags
 #define CALL_CLONE  fn, child_stack, flags, arg
 #define CALL_PREAD  file, buf, count, offset
+#define CALL_PREAD64  file, buf, count, offset
 #define CALL_PWRITE file, buf, count, offset
 //#define CALL_PWRITESYNC file, buf, count, offset
 #define CALL_FSYNC  file
+#define CALL_SYNC_FILE_RANGE file, offset, nbytes, flags
 #define CALL_FDSYNC file
 #define CALL_FTRUNC64 CALL_FTRUNC
 #define CALL_OPEN64  CALL_OPEN
@@ -518,6 +540,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define PFFS_FOPEN64  "%s, %s"
 #define PFFS_FREAD  "%p, %i, %i, %p"
 #define PFFS_FOEF   "%p"
+#define PFFS_FREAD_UNLOCKED  "%p, %i, %i, %p"
 #define PFFS_FWRITE "%p, %i, %i, %p"
 #define PFFS_FSEEK  "%p, %i, %i"
 #define PFFS_FTELL  "%p"
@@ -533,6 +556,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define PFFS_TRUNC  "%s, %i"
 #define PFFS_DUP    "%i"
 #define PFFS_DUP2   "%i, %i"
+#define PFFS_FCNTL  "%d, %d"
 #define PFFS_FORK   ""
 #define PFFS_FORK   ""
 #define PFFS_MMAP   "%p, %i, %i, %i, %i"
@@ -545,6 +569,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define PFFS_MSYNC  "%p, %i, %i"
 #define PFFS_CLONE  "%p, %p, %i, %p"
 #define PFFS_PREAD  "%i, %p, %i, %i"
+#define PFFS_PREAD64  "%i, %p, %i, %i"
 #define PFFS_PWRITE "%i, %p, %i, %i"
 //#define PFFS_PWRITESYNC "%i, %p, %i, %i"
 #define PFFS_FSYNC  "%i"
@@ -615,6 +640,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define STD_FTRUNC64 __ftruncate64
 #define STD_DUP    __dup
 #define STD_DUP2   __dup2
+#define STD_FCNTL  __libc_fcntl
 #define STD_FORK   __fork
 #define STD_VFORK  __vfork
 #define STD_MMAP   __mmap
@@ -628,6 +654,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define STD_MSYNC  __libc_msync
 #define STD_CLONE  __clone
 #define STD_PREAD  __pread
+#define STD_PREAD64 __pread64
 #define STD_PWRITE __pwrite64
 //#define STD_PWRITESYNC __pwrite64_sync
 #define STD_FSYNC  __fsync
@@ -638,6 +665,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define STD_POSIX_FALLOCATE __posix_fallocate
 #define STD_POSIX_FALLOCATE64 __posix_fallocate64
 #define STD_FALLOCATE __fallocate
+#define STD_SYNC_FILE_RANGE sync_file_range
 #define STD_STAT __xstat
 #define STD_STAT64 __xstat64
 #define STD_FSTAT __fxstat

@@ -33,7 +33,9 @@ int hub_check_resolve_fileops(char* tree);
 void _hub_init2(void);
 
 #define HUB_CHECK_RESOLVE_FILEOPS(NAME, FUNCT)  \
-	assert( _hub_managed_fileops != NULL ); \
+	if (_hub_managed_fileops == NULL && _hub_fileops == NULL)	\
+		_hub_init();						\
+	assert( _hub_managed_fileops != NULL );				\
 	assert( _hub_fileops         != NULL );
 
 #define HUB_ADD_FUNCTP(SOFILE, FUNCT)					\
@@ -265,16 +267,19 @@ RETT_MKNODAT  _hub_MKNODAT(INTF_MKNODAT);
 
 RETT_SHM_COPY _hub_SHM_COPY();
 
-#ifdef TRACE_FP_CALLS				 
-RETT_FOPEN ALIAS_FOPEN(INTF_FOPEN) WEAK_ALIAS("_hub_FOPEN"); 
-RETT_FOPEN  _hub_FOPEN(INTF_FOPEN); 
+#ifdef TRACE_FP_CALLS
+RETT_FOPEN ALIAS_FOPEN(INTF_FOPEN) WEAK_ALIAS("_hub_FOPEN");
+RETT_FOPEN  _hub_FOPEN(INTF_FOPEN);
 
 RETT_FOPEN64 ALIAS_FOPEN64(INTF_FOPEN64) WEAK_ALIAS("_hub_FOPEN64");
-RETT_FOPEN64  _hub_FOPEN64(INTF_FOPEN64);									    
-#endif 
+RETT_FOPEN64  _hub_FOPEN64(INTF_FOPEN64);
+#endif
 
 RETT_IOCTL ALIAS_IOCTL(INTF_IOCTL) WEAK_ALIAS("_hub_IOCTL");
 RETT_IOCTL  _hub_IOCTL(INTF_IOCTL);
+
+RETT_FCNTL ALIAS_FCNTL(INTF_FCNTL) WEAK_ALIAS("_hub_FCNTL");
+RETT_FCNTL  _hub_FCNTL(INTF_FCNTL);
 
 RETT_OPEN64 ALIAS_OPEN64(INTF_OPEN64) WEAK_ALIAS("_hub_OPEN64");
 RETT_OPEN64  _hub_OPEN64(INTF_OPEN64);
@@ -327,11 +332,11 @@ void _hub_init2(void)
 		ERROR("%s\n", dlerror());
 		assert(0);
 	}
-	
+
 	HUB_INIT_POSIX_FILEOPS_P("posix");
 
 	_hub_fd_lookup = (struct Fileops_p**) calloc(OPEN_MAX, sizeof(struct Fileops_p*));
-	
+
 	assert(_hub_find_fileop("hub")!=NULL);
 	_hub_find_fileop("hub")->resolve = hub_check_resolve_fileops;
 
@@ -340,7 +345,7 @@ void _hub_init2(void)
 
 	DEBUG("Currently printing on stderr\n");
 
-	_nvp_print_fd = fdopen(_hub_find_fileop("posix")->DUP(2), "a"); 
+	_nvp_print_fd = fdopen(_hub_find_fileop("posix")->DUP(2), "a");
         debug_fd = _hub_find_fileop("posix")->FOPEN("/tmp/ledger_dbg.tmp", "a");
 	DEBUG("Now printing on fd %p\n", _nvp_print_fd);
 	assert(_nvp_print_fd >= 0);
@@ -349,7 +354,7 @@ void _hub_init2(void)
 		_hub_SHM_COPY();
  out:
 	execv_done = 0;
-	
+
 	//_nvp_debug_handoff();
 	MSG("%s: END\n", __func__);
 }
@@ -565,8 +570,9 @@ void _hub_add_fileop(struct Fileops_p* fo)
 	{
 		if(!strcmp(_hub_fileops_lookup[i]->name, fo->name))
 		{
-			ERROR("Can't add fileop %s: one with the same name already exists at index %i\n", fo->name, i);
-			assert(0);
+			MSG("Can't add fileop %s: one with the same name already exists at index %i\n", fo->name, i);
+			//assert(0);
+			return;
 		}
 	}
 		
@@ -588,7 +594,7 @@ void _hub_add_fileop(struct Fileops_p* fo)
 struct Fileops_p* _hub_find_fileop(const char* name)
 {
 	if(name == NULL) {
-		DEBUG("Name was null; using default: \"posix\"\n");
+		MSG("Name was null; using default: \"posix\"\n");
 		name = "posix";
 		assert(0);
 	}
@@ -603,19 +609,8 @@ struct Fileops_p* _hub_find_fileop(const char* name)
 		}
 	}
 
-	DEBUG("Fileops_p \"%s\" not found; resolving to \"posix\"\n", name);
+	MSG("Fileops_p \"%s\" not found; resolving to \"posix\"\n", name);
 	name = "posix";
-	assert(0);
-
-	for(i=0; i<_hub_fileops_count; i++)
-	{
-		if(_hub_fileops_lookup[i] == NULL) { break; }
-		if(strcmp(name, _hub_fileops_lookup[i]->name)==0)
-		{
-			return _hub_fileops_lookup[i];
-		}
-	}
-
 	assert(0);
 
 	return NULL;
@@ -656,9 +651,9 @@ RETT_OPEN _hub_OPEN(INTF_OPEN)
 
 #endif
 
-		/* In case of absoulate path specified, check if it belongs to the persistent memory 
-	 	* mount and only then use SplitFS, else redirect to POSIX
-		*/
+	/* In case of absoulate path specified, check if it belongs to the persistent memory 
+	 * mount and only then use SplitFS, else redirect to POSIX
+	 */
 	if(path[0] == '/') {
 		int len = strlen(NVMM_PATH);
 		char dest[len + 1];
@@ -715,11 +710,11 @@ RETT_OPEN _hub_OPEN(INTF_OPEN)
 			      _hub_fileops->name);
 			op_to_use = _hub_fileops;
 		}
-		
+
 	}
-	
-	
-	// op_to_use = _hub_managed_fileops;	
+
+
+	// op_to_use = _hub_managed_fileops;
 	assert(op_to_use != NULL);
 
  opening:
@@ -728,15 +723,15 @@ RETT_OPEN _hub_OPEN(INTF_OPEN)
 		va_list arg;
 		va_start(arg, oflag);
 		int mode = va_arg(arg, int);
-		
+
 		va_end(arg);
 		result = op_to_use->OPEN(path, oflag, mode);
-		
+
 #if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC
 		if (op_to_use == _hub_fileops)
 			_hub_find_fileop("posix")->FSYNC(result);
 #endif // WORKLOAD_TAR
-		
+
 	} else {
 		result = op_to_use->OPEN(path, oflag);
 	}
@@ -751,9 +746,9 @@ RETT_OPEN _hub_OPEN(INTF_OPEN)
 	{
 		DEBUG("_hub_OPEN->%s_OPEN failed; not assigning fileop. Path = %s, flag = %d, Err = %s\n", op_to_use->name, path, oflag, strerror(errno));
 	}
-	
+
 	DEBUG_FILE("%s: Return = %d\n", __func__, result);
-				
+
 	return result;
 }
 
@@ -1000,7 +995,7 @@ RETT_SHM_COPY _hub_SHM_COPY() {
 	unsigned long offset_in_map = 0;
 	int pid = getpid();
 	char exec_hub_filename[BUF_SIZE];
-	
+
 	sprintf(exec_hub_filename, "exec-hub-%d", pid);
 	exec_hub_fd = shm_open(exec_hub_filename, O_RDONLY, 0666);
 	if (exec_hub_fd == -1) {
@@ -1030,22 +1025,23 @@ RETT_SHM_COPY _hub_SHM_COPY() {
 
         munmap(shm_area, 1024*1024);
 	shm_unlink(exec_hub_filename);
-	
+
 	return _hub_managed_fileops->SHM_COPY();
 }
 
 
-#ifdef TRACE_FP_CALLS				
+#ifdef TRACE_FP_CALLS
 RETT_FOPEN _hub_FOPEN(INTF_FOPEN)
 {
 	HUB_CHECK_RESOLVE_FILEOPS(_hub_, FOPEN);
+	//_hub_find_fileop("posix")->FOPEN(CALL_FOPEN);
 
 	DEBUG_FILE("CALL: _hub_FOPEN for %s\n", path);
-	
-	FILE *fp = NULL;	
+
+	FILE *fp = NULL;
 	int fd = -1, oflag = 0;
 	int num_mode_chars = 0;
-	
+
 	if ((mode[0] == 'w' || mode[0] == 'a') && mode[1] == '+') {
 		oflag |= O_RDWR;
 		oflag |= O_CREAT;
@@ -1058,7 +1054,7 @@ RETT_FOPEN _hub_FOPEN(INTF_FOPEN)
 	else if (mode[0] == 'w' || mode[0] == 'a') {
 		oflag |= O_WRONLY;
 		oflag |= O_CREAT;
-		num_mode_chars += 2;		
+		num_mode_chars += 2;
 	}
 	else if (mode[0] == 'r') {
 		oflag |= O_RDONLY;
@@ -1068,7 +1064,6 @@ RETT_FOPEN _hub_FOPEN(INTF_FOPEN)
 		assert(0);
 	}
 
-	
 	if (mode[0] == 'a') {
 		oflag |= O_APPEND;
 		num_mode_chars++;
@@ -1095,7 +1090,7 @@ RETT_FOPEN _hub_FOPEN(INTF_FOPEN)
 		DEBUG("%s: fdopen failed! error = %s, fd = %d, mode = %s\n", __func__, strerror(errno), fd, mode);
 		//assert(0);
 	}
-	
+
 	return fp;
 }
 
@@ -1109,18 +1104,18 @@ RETT_FOPEN64 _hub_FOPEN64(INTF_FOPEN64) {
 RETT_MKSTEMP _hub_MKSTEMP(INTF_MKSTEMP)
 {
 	HUB_CHECK_RESOLVE_FILEOPS(_hub_, MKSTEMP);
-	
+
 	DEBUG_FILE("Called _hub_mkstemp with template %s; making a new filename...\n", file);
 
 	char *suffix = file + strlen(file) - 6;
-	
+
 	if(suffix == NULL) {
 		DEBUG("Invalid template string (%s) passed to mkstemp\n", file);
 		errno = EINVAL;
 
 		return -1;
 	}
-	
+
 	RETT_OPEN result = -1;
 
 	int i;
@@ -1397,6 +1392,21 @@ RETT_UNLINK _hub_UNLINK(INTF_UNLINK)
 
 	DEBUG_FILE("%s: Return = %d\n", __func__, result);
 	return result;
+}
+
+RETT_FCNTL _hub_FCNTL(INTF_FCNTL)
+{
+	CHECK_RESOLVE_FILEOPS(_hub_);
+
+	DEBUG("CALL: _hub_FCNTL\n");
+
+	va_list ap;
+	void * arg;
+	va_start (ap, cmd);
+	arg = va_arg (ap, void*);
+	va_end (ap);
+
+	return _hub_managed_fileops->FCNTL(CALL_FCNTL, arg);
 }
 
 RETT_UNLINKAT _hub_UNLINKAT(INTF_UNLINKAT)
