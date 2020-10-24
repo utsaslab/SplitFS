@@ -3,8 +3,8 @@ Some of the implementation details of intercepted calls in SplitFS
 - `fallocate, posix_fallocate`  
   - We pass this to the kernel.  
   - But before we pass this on to the kernel we fsync (relink) the file so that the kernel and SplitFS both see the file contents and metadata consistently.  
-  - We also clear the mmap table in SplitFS because they might get stale after the system call.
   - We update the file size after the system call accordingly in SplitFS before returning to the application.
+  - TODO: Figure out if ext4 implementation of fallocate will move the existing blocks to a new location (maybe to make it contiguous?). If yes, we will also have clear the mmap table in SplitFS because they might get stale after the system call.
 - `sync_file_range`  
   - sync_file_range guarantees data durability only for overwrites on certain filesystems. It does not guarantee metadata durability on any filesystem.  
   - In case of POSIX mode of SplitFS too, we guarantee data durability and not metadata durability, i.e we want to provide the same guarantees as posix.

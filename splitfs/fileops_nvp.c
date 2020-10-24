@@ -6601,6 +6601,13 @@ RETT_FSTAT64 _nvp_FSTAT64(INTF_FSTAT64)
 	return result;
 }
 */
+
+/* Before doing an fallocate we do an fsync 
+ * 
+ * We do an fsync (relink) because we want be consistent with how the kernel and SplitFS sees the file.
+ * 
+ * TODO: Figure out if ext4 implementation will re-allocate the existing blocks (for e.g to make it contiguous)
+*/
 RETT_POSIX_FALLOCATE _nvp_POSIX_FALLOCATE(INTF_POSIX_FALLOCATE)
 {
 	CHECK_RESOLVE_FILEOPS(_nvp_);
@@ -6626,13 +6633,6 @@ RETT_POSIX_FALLOCATE _nvp_POSIX_FALLOCATE(INTF_POSIX_FALLOCATE)
 	_nvp_FSYNC(file);
 	NVP_LOCK_NODE_WR(nvf);
 
-	// Doing because our mmaps maybe stale after fallocate
-	clear_tbl_mmap_entry(tbl_app, NUM_APP_TBL_MMAP_ENTRIES);
-
-#if DATA_JOURNALING_ENABLED
-	clear_tbl_mmap_entry(tbl_over, NUM_OVER_TBL_MMAP_ENTRIES);
-#endif
-
 	result = _nvp_fileops->POSIX_FALLOCATE(CALL_POSIX_FALLOCATE);
 
 	int ret = fstat(file, &sbuf);
@@ -6644,6 +6644,12 @@ RETT_POSIX_FALLOCATE _nvp_POSIX_FALLOCATE(INTF_POSIX_FALLOCATE)
 	return result;
 }
 
+/* Before doing an fallocate we do an fsync 
+ * 
+ * We do an fsync (relink) because we want be consistent with how the kernel and SplitFS sees the file.
+ * 
+ * TODO: Figure out if ext4 implementation will re-allocate the existing blocks (for e.g to make it contiguous)
+*/
 RETT_POSIX_FALLOCATE64 _nvp_POSIX_FALLOCATE64(INTF_POSIX_FALLOCATE64)
 {
 	CHECK_RESOLVE_FILEOPS(_nvp_);
@@ -6669,13 +6675,6 @@ RETT_POSIX_FALLOCATE64 _nvp_POSIX_FALLOCATE64(INTF_POSIX_FALLOCATE64)
 	_nvp_FSYNC(file);
 	NVP_LOCK_NODE_WR(nvf);
 
-	// Doing because our mmaps maybe stale after fallocate
-	clear_tbl_mmap_entry(tbl_app, NUM_APP_TBL_MMAP_ENTRIES);
-
-#if DATA_JOURNALING_ENABLED
-	clear_tbl_mmap_entry(tbl_over, NUM_OVER_TBL_MMAP_ENTRIES);
-#endif
-
 	result = _nvp_fileops->POSIX_FALLOCATE64(CALL_POSIX_FALLOCATE64);
 
 	int ret = fstat(file, &sbuf);
@@ -6687,12 +6686,11 @@ RETT_POSIX_FALLOCATE64 _nvp_POSIX_FALLOCATE64(INTF_POSIX_FALLOCATE64)
 	return result;
 }
 
-/* Before doing an fallocate we do an fsync and then clear the memory map table. 
+/* Before doing an fallocate we do an fsync 
  * 
  * We do an fsync (relink) because we want be consistent with how the kernel and SplitFS sees the file.
  * 
- * We clear the memory map table because when fallocate system call is made, it might move the existing pieces
- * to a different block, thus making the data mmapped stale.
+ * TODO: Figure out if ext4 implementation will re-allocate the existing blocks (for e.g to make it contiguous)
 */
 RETT_FALLOCATE _nvp_FALLOCATE(INTF_FALLOCATE)
 {
@@ -6718,13 +6716,6 @@ RETT_FALLOCATE _nvp_FALLOCATE(INTF_FALLOCATE)
 
 	_nvp_FSYNC(file);
 	NVP_LOCK_NODE_WR(nvf);
-
-	// Doing because our mmaps maybe stale after fallocate
-	clear_tbl_mmap_entry(tbl_app, NUM_APP_TBL_MMAP_ENTRIES);
-
-#if DATA_JOURNALING_ENABLED
-	clear_tbl_mmap_entry(tbl_over, NUM_OVER_TBL_MMAP_ENTRIES);
-#endif
 
 	result = _nvp_fileops->FALLOCATE(CALL_FALLOCATE);
 
