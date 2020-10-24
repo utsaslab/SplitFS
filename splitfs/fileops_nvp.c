@@ -1667,7 +1667,7 @@ void nvp_free_dr_mmaps()
 		_nvp_fileops->UNLINK(new_path);
 		__atomic_fetch_sub(&num_drs_left, 1, __ATOMIC_SEQ_CST);
 	}
-	lfds711_queue_umm_cleanup( &qs_over, NULL );
+	// lfds711_queue_umm_cleanup( &qs_over, NULL );
 
 	for (i = 0; i < full_dr_idx; i++) {
 		addr = _nvp_full_drs[i].start_addr;
@@ -4316,7 +4316,7 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 		nvf->canWrite = 1;
 	} else if(oflag&O_WRONLY) {
 
-#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC | WORKLOAD_TPCC
+#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC | WORKLOAD_ROCKSDB
 
 		nvf->posix = 0;
 		nvf->canRead = 1;
@@ -5013,7 +5013,6 @@ RETT_FCNTL _nvp_FCNTL(INTF_FCNTL)
 	DEBUG("CALL: _nvp_FCNTL\n");
 
 	struct NVFile* nvf = &_nvp_fd_lookup[file];
-	NVP_CHECK_NVF_VALID(nvf);
 
 	va_list ap;
 	void* arg;
@@ -6658,11 +6657,11 @@ RETT_POSIX_FALLOCATE64 _nvp_POSIX_FALLOCATE64(INTF_POSIX_FALLOCATE64)
 
 	struct NVFile *nvf = &_nvp_fd_lookup[file];
 
-	NVP_CHECK_NVF_VALID_WR(nvf);
-
 	if(nvf->posix) {
 		return _nvp_fileops->POSIX_FALLOCATE64(CALL_POSIX_FALLOCATE64);
 	}
+
+	NVP_CHECK_NVF_VALID_WR(nvf);
 
 	int cpuid = GET_CPUID();
 
@@ -6700,11 +6699,11 @@ RETT_FALLOCATE _nvp_FALLOCATE(INTF_FALLOCATE)
 
 	struct NVFile *nvf = &_nvp_fd_lookup[file];
 
-	NVP_CHECK_NVF_VALID(nvf);
-
 	if(nvf->posix) {
 		return _nvp_fileops->FALLOCATE(CALL_FALLOCATE);
 	}
+
+	NVP_CHECK_NVF_VALID(nvf);
 
 	int cpuid = GET_CPUID();
 
@@ -6740,15 +6739,16 @@ RETT_FALLOCATE _nvp_FALLOCATE(INTF_FALLOCATE)
  * is an overwrite.
 */
 RETT_SYNC_FILE_RANGE _nvp_SYNC_FILE_RANGE(INTF_SYNC_FILE_RANGE) {
+	CHECK_RESOLVE_FILEOPS(_nvp_);
 	RETT_SYNC_FILE_RANGE result = 0;
 
 	struct NVFile *nvf = &_nvp_fd_lookup[file];
 
-	NVP_CHECK_NVF_VALID(nvf);
-
 	if(nvf->posix) {
 		return _nvp_fileops->SYNC_FILE_RANGE(CALL_SYNC_FILE_RANGE);
 	}
+
+	NVP_CHECK_NVF_VALID(nvf);
 
 #if POSIX_ENABLED
 	return _nvp_posix_sync_file_range(CALL_SYNC_FILE_RANGE, nvf);
