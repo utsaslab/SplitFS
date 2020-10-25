@@ -819,16 +819,16 @@ static inline size_t dynamic_remap(int file_fd, struct NVNode *node, int close)
 				   app_start_off, len_to_swap);
 
 			// Perform swap extents from append DR file
-#if 0
 			len_swapped = syscall(335, file_fd,
 					      node->dr_info.dr_fd,
 					      file_start_off,
 					      app_start_off,
 					      (const char *) node->dr_info.start_addr,
 					      len_to_swap);
-#endif
 			
+#if 0
 			len_swapped = _nvp_fileops->PWRITE(file_fd, (char *) (node->dr_info.start_addr + app_start_off), len_to_swap, file_start_off);
+#endif
 			if (len_swapped != len_to_swap) {
 				MSG("%s: len_swapped = %lu. Len to swap = %lu\n", __func__, len_swapped, len_to_swap);
 				if (len_swapped == -1) {
@@ -3189,7 +3189,6 @@ RETT_PWRITE write_to_file_mmap(int file,
     return data_written;
 } 
 
- 
  RETT_PREAD _nvp_do_pread(INTF_PREAD, int wr_lock, int cpuid,
 			  struct NVFile *nvf, struct NVTable_maps *tbl_app,
 			  struct NVTable_maps *tbl_over)
@@ -5220,6 +5219,8 @@ RETT_FREAD _nvp_FREAD(INTF_FREAD)
 	DEBUG("_nvp_READ %d\n", fileno(fp));
 	RETT_READ result;
 
+	//return _nvp_fileops->FREAD(CALL_FREAD);
+	
 #if PASS_THROUGH_CALLS
 	num_read++;
 	result = _nvp_fileops->FREAD(CALL_FREAD);
@@ -5311,6 +5312,8 @@ RETT_READ _nvp_READ(INTF_READ)
 	RETT_READ result;
 	instrumentation_type read_time;
 
+	//return _nvp_fileops->READ(CALL_READ);
+
 	START_TIMING(read_t, read_time);
 	GLOBAL_LOCK_WR();
 
@@ -5400,6 +5403,8 @@ RETT_FWRITE _nvp_FWRITE(INTF_FWRITE)
 	DEBUG_FILE("_nvp_WRITE %d\n", fileno(fp));
 	num_write++;
 	RETT_FWRITE result;
+
+	//return _nvp_fileops->FWRITE(CALL_FWRITE);
 
 #if PASS_THROUGH_CALLS
 	result = _nvp_fileops->FWRITE(CALL_FWRITE);
@@ -5517,6 +5522,7 @@ RETT_WRITE _nvp_WRITE(INTF_WRITE)
 	RETT_WRITE result;
 	instrumentation_type write_time;
 
+	//return _nvp_fileops->WRITE(CALL_WRITE);
 	START_TIMING(write_t, write_time);
 
 	GLOBAL_LOCK_WR();
@@ -5626,6 +5632,8 @@ RETT_PREAD _nvp_PREAD(INTF_PREAD)
 	instrumentation_type read_time;
 	RETT_PREAD result;
 
+	//return _nvp_fileops->PREAD(CALL_PREAD);
+
 	START_TIMING(pread_t, read_time);
 	GLOBAL_LOCK_WR();
 
@@ -5696,6 +5704,8 @@ RETT_PWRITE _nvp_PWRITE(INTF_PWRITE)
 	num_write++;
 	instrumentation_type write_time;
 	RETT_PWRITE result;
+
+	//return _nvp_fileops->PWRITE(CALL_PWRITE);
 
 	START_TIMING(pwrite_t, write_time);
 	GLOBAL_LOCK_WR();
@@ -6721,7 +6731,8 @@ RETT_STAT _nvp_STAT(INTF_STAT)
 
 	  NVP_LOCK_NODE_RD(nvf, cpuid);
 	  if (nvf->node->serialno == buf->st_ino) {
-	    buf->st_size = nvf->node->length;
+	    if (buf->st_size < nvf->node->length)
+	      buf->st_size = nvf->node->length;
 	  }
 	  NVP_UNLOCK_NODE_RD(nvf, cpuid);
 	  NVP_UNLOCK_FD_RD(nvf, cpuid);
@@ -6753,7 +6764,8 @@ RETT_STAT64 _nvp_STAT64(INTF_STAT64)
 
 	  NVP_LOCK_NODE_RD(nvf, cpuid);
 	  if (nvf->node->serialno == buf->st_ino) {
-	    buf->st_size = nvf->node->length;
+	    if (buf->st_size < nvf->node->length)
+	      buf->st_size = nvf->node->length;
 	  }
 	  NVP_UNLOCK_NODE_RD(nvf, cpuid);
 	  NVP_UNLOCK_FD_RD(nvf, cpuid);
@@ -6792,7 +6804,8 @@ RETT_FSTAT _nvp_FSTAT(INTF_FSTAT)
 
 	  NVP_LOCK_NODE_RD(nvf, cpuid);
 	  if (nvf->node->serialno == buf->st_ino) {
-	    buf->st_size = nvf->node->length;
+	    if (buf->st_size < nvf->node->length)
+	      buf->st_size = nvf->node->length;
 	  }
 	  NVP_UNLOCK_NODE_RD(nvf, cpuid);
 	  NVP_UNLOCK_FD_RD(nvf, cpuid);
@@ -6821,7 +6834,8 @@ RETT_FSTAT64 _nvp_FSTAT64(INTF_FSTAT64)
 
 	  NVP_LOCK_NODE_RD(nvf, cpuid);
 	  if (nvf->node->serialno == buf->st_ino) {
-	    buf->st_size = nvf->node->length;
+	    if (buf->st_size < nvf->node->length)
+	      buf->st_size = nvf->node->length;
 	  }
 	  NVP_UNLOCK_NODE_RD(nvf, cpuid);
 	  NVP_UNLOCK_FD_RD(nvf, cpuid);
@@ -6859,12 +6873,14 @@ RETT_POSIX_FALLOCATE _nvp_POSIX_FALLOCATE(INTF_POSIX_FALLOCATE)
 
 	swap_extents(nvf, 0);
 
+	/*
 	// Doing because our mmaps maybe stale after fallocate
 	clear_tbl_mmap_entry(tbl_app, NUM_APP_TBL_MMAP_ENTRIES);
 
 #if DATA_JOURNALING_ENABLED
 	clear_tbl_mmap_entry(tbl_over, NUM_OVER_TBL_MMAP_ENTRIES);
 #endif
+	*/
 
 	result = _nvp_fileops->POSIX_FALLOCATE(CALL_POSIX_FALLOCATE);
 
@@ -6909,11 +6925,13 @@ RETT_POSIX_FALLOCATE64 _nvp_POSIX_FALLOCATE64(INTF_POSIX_FALLOCATE64)
 	swap_extents(nvf, 0);
 
 	// Doing because our mmaps maybe stale after fallocate
+	/*
 	clear_tbl_mmap_entry(tbl_app, NUM_APP_TBL_MMAP_ENTRIES);
 
 #if DATA_JOURNALING_ENABLED
 	clear_tbl_mmap_entry(tbl_over, NUM_OVER_TBL_MMAP_ENTRIES);
 #endif
+	*/
 
 	result = _nvp_fileops->POSIX_FALLOCATE64(CALL_POSIX_FALLOCATE64);
 
@@ -6967,11 +6985,13 @@ RETT_FALLOCATE _nvp_FALLOCATE(INTF_FALLOCATE)
 	swap_extents(nvf, 0);
 
 	// Doing because our mmaps maybe stale after fallocate
+	/*
 	clear_tbl_mmap_entry(tbl_app, NUM_APP_TBL_MMAP_ENTRIES);
 
 #if DATA_JOURNALING_ENABLED
 	clear_tbl_mmap_entry(tbl_over, NUM_OVER_TBL_MMAP_ENTRIES);
 #endif
+	*/
 
 	result = _nvp_fileops->FALLOCATE(CALL_FALLOCATE);
 
