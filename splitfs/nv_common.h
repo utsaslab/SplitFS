@@ -86,12 +86,11 @@ int execv_done;
 
 // BOOST_PP only support parenthesis-delimited lists...
 // I would have implemented this with BOOST_PP, but <see previous line>
-#define OPS_FINITEPARAMS_64 (FTRUNC64) (SEEK64) (PREAD64)
+#define OPS_FINITEPARAMS_64 (FTRUNC64) (SEEK64) (PREAD64) (PWRITE64)
 #define OPS_64 OPS_FINITEPARAMS (OPEN64)
 
 #ifdef TRACE_FP_CALLS
-#define ALLOPS_FINITEPARAMS_WPAREN (POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (READ) (FREAD) (CLEARERR) (FEOF) (FERROR)  (WRITE) (FWRITE) (FSEEK) (FTELL) (FTELLO) (CLOSE) (FCLOSE) (SEEK) (FTRUNC) (DUP) (DUP2) (FORK) (VFORK) (READV) (WRITEV) (PIPE) (SOCKETPAIR) OPS_FINITEPARAMS_64 (PREAD) (PWRITE) (FSYNC) (FDSYNC) (SOCKET) (ACCEPT) (UNLINK) (UNLINKAT) (SYNC_FILE_RANGE)
-//(POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (STAT) (STAT64) (FSTAT) (FSTAT64) (LSTAT) (LSTAT64)
+#define ALLOPS_FINITEPARAMS_WPAREN (POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (READ) (FREAD) (CLEARERR) (FEOF) (FERROR)  (WRITE) (FWRITE) (FSEEK) (FTELL) (FTELLO) (CLOSE) (FCLOSE) (SEEK) (FTRUNC) (DUP) (DUP2) (FORK) (VFORK) (READV) (WRITEV) (PIPE) (SOCKETPAIR) OPS_FINITEPARAMS_64 (PREAD) (PWRITE) (FSYNC) (FDSYNC) (SOCKET) (ACCEPT) (UNLINK) (UNLINKAT) (SYNC_FILE_RANGE) (STAT) (STAT64) (FSTAT) (FSTAT64) (LSTAT) (LSTAT64)
 
 #define ALLOPS_WPAREN (OPEN) (OPENAT) (CREAT) (EXECVE) (EXECVP) (EXECV) (FOPEN) (FOPEN64) (FREAD_UNLOCKED) (IOCTL) (TRUNC) (MKNOD) (MKNODAT) (FCNTL) ALLOPS_FINITEPARAMS_WPAREN
 #define SHM_WPAREN (SHM_COPY)
@@ -102,15 +101,14 @@ int execv_done;
 
 #else
 
-#define ALLOPS_FINITEPARAMS_WPAREN (READ) (WRITE) (CLOSE) (SEEK) (FTRUNC) (DUP) (DUP2) (FORK) (VFORK) (READV) (WRITEV) (PIPE) (SOCKETPAIR) OPS_FINITEPARAMS_64 (PREAD) (PWRITE) (FSYNC) (FDSYNC) (SOCKET) (ACCEPT) (UNLINK) (UNLINKAT)
-//(POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (STAT) (STAT64) (FSTAT) (FSTAT64) (LSTAT) (LSTAT64)
+#define ALLOPS_FINITEPARAMS_WPAREN (READ) (WRITE) (CLOSE) (SEEK) (FTRUNC) (DUP) (DUP2) (FORK) (VFORK) (READV) (WRITEV) (PIPE) (SOCKETPAIR) OPS_FINITEPARAMS_64 (PREAD) (PWRITE) (FSYNC) (FDSYNC) (SOCKET) (ACCEPT) (UNLINK) (UNLINKAT) (STAT) (STAT64) (FSTAT) (FSTAT64) (LSTAT) (LSTAT64)
 #define ALLOPS_WPAREN (OPEN) (OPENAT) (CREAT) (EXECVE) (EXECVP) (EXECV) (IOCTL) (TRUNC) (MKNOD) (MKNODAT) ALLOPS_FINITEPARAMS_WPAREN
 #define SHM_WPAREN (SHM_COPY)
 #define METAOPS (MKDIR) (RENAME) (LINK) (SYMLINK) (RMDIR) (SYMLINKAT) (MKDIRAT)
 
 #endif
 
-#define FILEOPS_WITH_FD (READ) (WRITE) (SEEK) (READV) (WRITEV) (FTRUNC) (FTRUNC64) (SEEK64) (PREAD) (PREAD64) (PWRITE) (FSYNC) (FDSYNC) (POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (SYNC_FILE_RANGE)
+#define FILEOPS_WITH_FD (READ) (WRITE) (SEEK) (READV) (WRITEV) (FTRUNC) (FTRUNC64) (SEEK64) (PREAD) (PREAD64) (PWRITE) (PWRITE64) (FSYNC) (FDSYNC) (POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (SYNC_FILE_RANGE) (FSTAT) (FSTAT64)
 //(POSIX_FALLOCATE) (POSIX_FALLOCATE64) (FALLOCATE) (FSTAT) (FSTAT64)
 
 //(ACCEPT)
@@ -240,7 +238,8 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define ALIAS_CLONE  __clone
 #define ALIAS_PREAD  pread
 #define ALIAS_PREAD64 pread64
-#define ALIAS_PWRITE pwrite64
+#define ALIAS_PWRITE pwrite
+#define ALIAS_PWRITE64 pwrite64
 //#define ALIAS_PWRITESYNC pwrite64_sync
 #define ALIAS_FSYNC  fsync
 #define ALIAS_SYNC_FILE_RANGE sync_file_range
@@ -324,6 +323,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define RETT_PREAD  ssize_t
 #define RETT_PREAD64 ssize_t
 #define RETT_PWRITE ssize_t
+#define RETT_PWRITE64 ssize_t
 //#define RETT_PWRITESYNC ssize_t
 #define RETT_FSYNC  int
 #define RETT_SYNC_FILE_RANGE int
@@ -407,6 +407,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define INTF_PREAD  int file,       void *buf, size_t count, off_t offset
 #define INTF_PREAD64  int file,       void *buf, size_t count, off_t offset
 #define INTF_PWRITE int file, const void *buf, size_t count, off_t offset
+#define INTF_PWRITE64 int file, const void *buf, size_t count, off_t offset
 //#define INTF_PWRITESYNC int file, const void *buf, size_t count, off_t offset
 #define INTF_FSYNC  int file
 #define INTF_SYNC_FILE_RANGE int file, off_t offset, off_t nbytes, unsigned int flags
@@ -489,6 +490,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define CALL_PREAD  file, buf, count, offset
 #define CALL_PREAD64  file, buf, count, offset
 #define CALL_PWRITE file, buf, count, offset
+#define CALL_PWRITE64 file, buf, count, offset
 //#define CALL_PWRITESYNC file, buf, count, offset
 #define CALL_FSYNC  file
 #define CALL_SYNC_FILE_RANGE file, offset, nbytes, flags
@@ -569,6 +571,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define PFFS_PREAD  "%i, %p, %i, %i"
 #define PFFS_PREAD64  "%i, %p, %i, %i"
 #define PFFS_PWRITE "%i, %p, %i, %i"
+#define PFFS_PWRITE64 "%i, %p, %i, %i"
 //#define PFFS_PWRITESYNC "%i, %p, %i, %i"
 #define PFFS_FSYNC  "%i"
 #define PFFS_FDSYNC "%i"
@@ -654,6 +657,7 @@ struct Fileops_p* default_resolve_fileops(char* tree, char* name);
 #define STD_PREAD  __pread
 #define STD_PREAD64 __pread64
 #define STD_PWRITE __pwrite64
+#define STD_PWRITE64 __pwrite64
 //#define STD_PWRITESYNC __pwrite64_sync
 #define STD_FSYNC  __fsync
 #define STD_FDSYNC __fdsync

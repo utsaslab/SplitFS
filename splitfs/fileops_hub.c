@@ -16,8 +16,8 @@
 #define ENV_TREE_FILE "NVP_TREE_FILE"
 
 //#define LIBC_SO_LOC "/lib64/libc-2.5.so"
-//#define LIBC_SO_LOC "/lib/x86_64-linux-gnu/libc.so.6"
-#define LIBC_SO_LOC "/lib64/libc.so.6"
+#define LIBC_SO_LOC "/lib/x86_64-linux-gnu/libc.so.6"
+//#define LIBC_SO_LOC "/lib64/libc.so.6"
 
 // for a given file descriptor (index), stores the fileops to use on that fd
 // all vlaues initialized to the posix ops
@@ -694,7 +694,7 @@ RETT_OPEN _hub_OPEN(INTF_OPEN)
 	} else {// file exists
 		struct stat file_st;
 		
-		if(stat(path, &file_st)) {
+		if(_hub_find_fileop("posix")->STAT(_STAT_VER, path, &file_st)) {
 			DEBUG("_hub: failed to get device stats for \"%s\" (error: %s).  Using unmanaged fileops (%s)\n",
 				path, strerror(errno), _hub_fileops->name);
 			op_to_use = _hub_fileops;
@@ -1528,7 +1528,6 @@ RETT_TRUNC _hub_TRUNC(INTF_TRUNC)
 	return result;	
 }
 
-/*
 RETT_STAT _hub_STAT(INTF_STAT)
 {
 	CHECK_RESOLVE_FILEOPS(_hub_);
@@ -1560,7 +1559,6 @@ RETT_LSTAT64 _hub_LSTAT64(INTF_LSTAT64)
 	result = _hub_managed_fileops->LSTAT64(CALL_LSTAT64);	
 	return result;
 }
-*/
 
 /*
 RETT_CLONE _hub_CLONE(INTF_CLONE)

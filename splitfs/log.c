@@ -658,6 +658,7 @@ void ledger_append_log_recovery() {
 		}
 		
 		// Do dynamic remap between file X and DR file or simply copy data.
+		/*
 		ret = syscall(335, file_fd,
 			      dr_fd,
 			      app_entry.file_offset,
@@ -668,7 +669,8 @@ void ledger_append_log_recovery() {
 			MSG("%s: Dynamic remap called failed. Err = %s\n",
 			    __func__, strerror(errno));
 			assert(0);
-		}		
+		}
+		*/		
 		
 		// Close file X and DR file.
 		ret = munmap((void *) dr_addr, ino_path_dr.file_size);

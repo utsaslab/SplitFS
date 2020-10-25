@@ -45,7 +45,7 @@ static void clean_dr_mmap() {
 			assert(0);
 		}
 
-        ret = _hub_find_fileop("posix")->POSIX_FALLOCATE(dr_fd, 0, mmap_size);
+		ret = _hub_find_fileop("posix")->POSIX_FALLOCATE(dr_fd, 0, mmap_size);
 		if (ret < 0) {
 			MSG("%s: posix_fallocate failed. Err = %s\n",
 			    __func__, strerror(errno));
