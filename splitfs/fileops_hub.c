@@ -1512,7 +1512,7 @@ RETT_TRUNC _hub_TRUNC(INTF_TRUNC)
 	return result;	
 }
 
-/*
+
 RETT_STAT _hub_STAT(INTF_STAT)
 {
 	CHECK_RESOLVE_FILEOPS(_hub_);
@@ -1544,7 +1544,23 @@ RETT_LSTAT64 _hub_LSTAT64(INTF_LSTAT64)
 	result = _hub_managed_fileops->LSTAT64(CALL_LSTAT64);	
 	return result;
 }
-*/
+
+RETT_LSTAT64 _hub_FSTAT64(INTF_FSTAT64)
+{
+	CHECK_RESOLVE_FILEOPS(_hub_);
+	RETT_LSTAT64 result;
+	result = _hub_managed_fileops->FSTAT64(CALL_FSTAT64);	
+	return result;
+}
+
+RETT_LSTAT64 _hub_FSTAT(INTF_FSTAT)
+{
+	CHECK_RESOLVE_FILEOPS(_hub_);
+	RETT_LSTAT64 result;
+	result = _hub_managed_fileops->FSTAT(CALL_FSTAT);	
+	return result;
+}
+
 
 /*
 RETT_CLONE _hub_CLONE(INTF_CLONE)

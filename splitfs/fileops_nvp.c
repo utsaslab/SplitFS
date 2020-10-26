@@ -202,7 +202,7 @@ static inline void create_dr_mmap(struct NVNode *node, int is_overwrite)
 		assert(0);
 	}
 
-	fstat(dr_fd, &stat_buf);
+	_nvp_fileops->STAT(_STAT_VER, dr_fd, &stat_buf);
 
 	if (is_overwrite) {
 		node->dr_over_info.dr_fd = dr_fd;
@@ -1325,7 +1325,7 @@ void _nvp_init2(void)
 			 dr_fd, //fd_with_max_perms,
 			 0
 			 );
-		fstat(dr_fd, &stat_buf);
+		_hub_find_fileop("posix")->FSTAT(_STAT_VER, dr_fd, &stat_buf);
 		free_pool_mmaps[i].dr_serialno = stat_buf.st_ino;
 		free_pool_mmaps[i].dr_fd = dr_fd;
 	        free_pool_mmaps[i].valid_offset = 0;
@@ -1403,7 +1403,7 @@ void _nvp_init2(void)
 			 dr_fd, //fd_with_max_perms,
 			 0
 			 );
-		fstat(dr_fd, &stat_buf);
+		_hub_find_fileop("posix")->FSTAT(_STAT_VER, dr_fd, &stat_buf);
 		free_pool_mmaps[i].dr_serialno = stat_buf.st_ino;
 		free_pool_mmaps[i].dr_fd = dr_fd;
 	        free_pool_mmaps[i].valid_offset = 0;
@@ -2591,7 +2591,7 @@ not_found:
 
 		DEBUG_FILE("%s: Setting offset_start to DR_SIZE. FD = %d\n",
 			   __func__, nvf->fd);
-		fstat(dr_fd, &stat_buf);
+		_nvp_fileops->FSTAT(_STAT_VER, dr_fd, &stat_buf);
 		nvf->node->dr_over_info.dr_serialno = stat_buf.st_ino;
 		nvf->node->dr_over_info.dr_fd = dr_fd;
 		nvf->node->dr_over_info.valid_offset = 0;
@@ -2831,7 +2831,7 @@ not_found:
 
 		DEBUG_FILE("%s: Setting offset_start to DR_SIZE. FD = %d\n",
 			   __func__, nvf->fd);
-		fstat(dr_fd, &stat_buf);
+		_nvp_fileops->STAT(_STAT_VER, dr_fd, &stat_buf);
 		nvf->node->dr_info.dr_serialno = stat_buf.st_ino;
 		nvf->node->dr_info.dr_fd = dr_fd;
 		nvf->node->dr_info.valid_offset = 0;
@@ -4018,6 +4018,18 @@ RETT_CLOSE _nvp_REAL_CLOSE(INTF_CLOSE, ino_t serialno, int async_file_closing) {
 	NVP_LOCK_NODE_WR(nvf);
 	nvf->node->reference--;
 	NVP_UNLOCK_NODE_WR(nvf);
+
+	// FIXME: This is a workaround for corner case bug in relink.
+#if WORKLOAD_ROCKSDB
+	struct stat sbuf;
+	if(_nvp_fileops->FSTAT(_STAT_VER, file, &sbuf) != 0) {
+		perror("Failed to stat file");
+	}
+	if(sbuf.st_size != nvf->node->length) {
+		MSG("File size mismatch. Expected = %d; Actual = %d. Truncating explicitly as a workaround\n", nvf->node->length, sbuf.st_size);
+		_nvp_FTRUNC(file, nvf->node->length);
+	}
+#endif
 
 	if (nvf->node->reference == 0) {
 		nvf->node->serialno = 0;
@@ -5737,6 +5749,16 @@ RETT_FTRUNC64 _nvp_FTRUNC64(INTF_FTRUNC64)
 		TBL_ENTRY_UNLOCK_WR(tbl_app);
 		NVP_UNLOCK_NODE_WR(nvf);
 		NVP_UNLOCK_FD_RD(nvf, cpuid);
+#if WORKLOAD_ROCKSDB
+		struct stat sbuf;
+		if(_nvp_fileops->FSTAT(_STAT_VER, file, &sbuf) != 0) {
+			perror("Failed to stat file");
+		}
+		if(sbuf.st_size != nvf->node->length) {
+			MSG("FTRUNC: File size mismatch. Expected = %d; Actual = %d. Truncating explicitly as a workaround\n", nvf->node->length, sbuf.st_size);
+			_nvp_fileops->FTRUNC(file, nvf->node->length);
+		} 
+#endif
 		return 0;
 	}
 
@@ -6498,7 +6520,7 @@ RETT_MKDIRAT _nvp_MKDIRAT(INTF_MKDIRAT)
 }
 
 
-/*
+
 RETT_STAT _nvp_STAT(INTF_STAT)
 {
 	RETT_STAT result = 0;
@@ -6532,7 +6554,6 @@ RETT_STAT64 _nvp_STAT64(INTF_STAT64)
 	result = _nvp_fileops->STAT64(CALL_STAT64);
 	struct NVFile *nvf = NULL;
 	int cpuid = GET_CPUID();
-	assert(0);
 	pthread_spin_lock(&node_lookup_lock[0]);
 	if (_nvp_ino_lookup[buf->st_ino % 1024] != 0) {
 		int fd = _nvp_ino_lookup[buf->st_ino % 1024];
@@ -6561,14 +6582,13 @@ RETT_LSTAT64 _nvp_LSTAT64(INTF_LSTAT64)
 {
 	return _nvp_STAT64(CALL_STAT64);
 }
- 
+
 RETT_FSTAT _nvp_FSTAT(INTF_FSTAT)
 {
 	RETT_FSTAT result = 0;
 	result = _nvp_fileops->FSTAT(CALL_FSTAT);
 	struct NVFile *nvf = NULL;
 	int cpuid = GET_CPUID();
-	assert(0);
 	nvf = &_nvp_fd_lookup[file];
 	NVP_LOCK_FD_RD(nvf, cpuid);
 	if (nvf->posix) {
@@ -6599,7 +6619,7 @@ RETT_FSTAT64 _nvp_FSTAT64(INTF_FSTAT64)
 	NVP_UNLOCK_FD_RD(nvf, cpuid);
 	return result;
 }
-*/
+
 
 /* Before doing an fallocate we do an fsync 
  * 
@@ -6634,7 +6654,7 @@ RETT_POSIX_FALLOCATE _nvp_POSIX_FALLOCATE(INTF_POSIX_FALLOCATE)
 
 	result = _nvp_fileops->POSIX_FALLOCATE(CALL_POSIX_FALLOCATE);
 
-	int ret = fstat(file, &sbuf);
+	int ret = _nvp_fileops->FSTAT(_STAT_VER, file, &sbuf);
 	assert(ret == 0);
 	nvf->node->true_length = sbuf.st_size;
 	nvf->node->length = nvf->node->true_length;
@@ -6676,7 +6696,7 @@ RETT_POSIX_FALLOCATE64 _nvp_POSIX_FALLOCATE64(INTF_POSIX_FALLOCATE64)
 
 	result = _nvp_fileops->POSIX_FALLOCATE64(CALL_POSIX_FALLOCATE64);
 
-	int ret = fstat(file, &sbuf);
+	int ret = _nvp_fileops->FSTAT(_STAT_VER, file, &sbuf);
 	assert(ret == 0);
 	nvf->node->true_length = sbuf.st_size;
 	nvf->node->length = nvf->node->true_length;
@@ -6694,7 +6714,7 @@ RETT_POSIX_FALLOCATE64 _nvp_POSIX_FALLOCATE64(INTF_POSIX_FALLOCATE64)
 RETT_FALLOCATE _nvp_FALLOCATE(INTF_FALLOCATE)
 {
 	CHECK_RESOLVE_FILEOPS(_nvp_);
-	RETT_FALLOCATE result = 0;
+	RETT_FALLOCATE result = -1;
 	struct stat sbuf;
 
 	struct NVFile *nvf = &_nvp_fd_lookup[file];
@@ -6718,7 +6738,7 @@ RETT_FALLOCATE _nvp_FALLOCATE(INTF_FALLOCATE)
 
 	result = _nvp_fileops->FALLOCATE(CALL_FALLOCATE);
 
-	int ret = fstat(file, &sbuf);
+	int ret = _nvp_fileops->FSTAT(_STAT_VER, file, &sbuf);
 	assert(ret == 0);
 	nvf->node->true_length = sbuf.st_size;
 	nvf->node->length = nvf->node->true_length;
