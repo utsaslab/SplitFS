@@ -126,6 +126,7 @@ SplitFS is under active development.
 6. Filebench
 7. LMDB
 8. FIO
+9. RocksDB (with YCSB)
 
 ## Testing
 [PJD POSIX Test Suite](https://www.tuxera.com/community/posix-test-suite/) that tests primarily the metadata operations was run on SplitFS successfully. SplitFS passes all tests. 
