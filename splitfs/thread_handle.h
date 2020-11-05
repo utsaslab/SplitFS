@@ -43,7 +43,7 @@ static void bgCloseFiles(int main_thread) {
 	GLOBAL_LOCK_CLOSE_WR();
 
 #if SEQ_LIST	
-	for (i = 0; i < 1024; i++) {		
+	for (i = 0; i < OPEN_MAX; i++) {		
 		if (!num_files_closed)
 			break;
 
@@ -87,7 +87,7 @@ static void bgCloseFiles(int main_thread) {
 	}
 #else	
 	while (num_files_closed) {		
-		hash_index = lru_tail_serialno % 1024;
+		hash_index = lru_tail_serialno % OPEN_MAX;
 		tbl = &inode_to_closed_file[hash_index];
 		NVP_LOCK_HASH_TABLE_WR(tbl);
 

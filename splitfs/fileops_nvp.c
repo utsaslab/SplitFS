@@ -72,7 +72,7 @@ extern long copy_user_nocache(void *dst, const void *src, unsigned size, int zer
 */
 void close_cloexec_files() {
 	// TODO: Handle the execv failure case scenario
-	for (int i = 0; i < 1024; i++) {
+	for (int i = 0; i < OPEN_MAX; i++) {
 		if(_nvp_fd_lookup[i].cloexec == true && !_nvp_fd_lookup[i].posix) {
 			DEBUG("CLOEXEC of %d\n", i);
 			int ret = _nvp_CLOSE(i);
@@ -1036,30 +1036,30 @@ void _nvp_SHM_COPY() {
 		assert(0);
 	}
 
-	if (memcpy(_nvp_fd_lookup, shm_area + offset_in_map, 1024 * sizeof(struct NVFile)) == NULL) {
+	if (memcpy(_nvp_fd_lookup, shm_area + offset_in_map, OPEN_MAX * sizeof(struct NVFile)) == NULL) {
 		printf("%s: memcpy of fd lookup failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(struct NVFile));
+	offset_in_map += (OPEN_MAX * sizeof(struct NVFile));
 
-	if (memcpy(execve_fd_passing, shm_area + offset_in_map, 1024 * sizeof(int)) == NULL) {
+	if (memcpy(execve_fd_passing, shm_area + offset_in_map, OPEN_MAX * sizeof(int)) == NULL) {
 		printf("%s: memcpy of offset passing failed. Err = %s\n", __func__, strerror(errno));
 	}
 
-	offset_in_map += (1024 * sizeof(int));
+	offset_in_map += (OPEN_MAX * sizeof(int));
 
-	for (i = 0; i < 1024; i++) {
+	for (i = 0; i < OPEN_MAX; i++) {
 		_nvp_fd_lookup[i].offset = (size_t*)calloc(1, sizeof(int));
 		*(_nvp_fd_lookup[i].offset) = execve_fd_passing[i];
 	}
 
-	if (memcpy(_nvp_node_lookup[0], shm_area + offset_in_map, 1024*sizeof(struct NVNode)) == NULL) {
+	if (memcpy(_nvp_node_lookup[0], shm_area + offset_in_map, OPEN_MAX*sizeof(struct NVNode)) == NULL) {
 		printf("%s: memcpy of node lookup failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	for (i = 0; i < 1024; i++) {
+	for (i = 0; i < OPEN_MAX; i++) {
 		_nvp_fd_lookup[i].node = NULL;
 		_nvp_node_lookup[0][i].root_dirty_num = 0;
 		_nvp_node_lookup[0][i].total_dirty_mmaps = 0;
@@ -1071,11 +1071,11 @@ void _nvp_SHM_COPY() {
 		_nvp_node_lookup[0][i].merkle_root = _nvp_backup_roots[0][i].merkle_root;
 	}
 
-	offset_in_map += (1024*sizeof(struct NVNode));
+	offset_in_map += (OPEN_MAX*sizeof(struct NVNode));
 
-	for (i = 0; i < 1024; i++) {
+	for (i = 0; i < OPEN_MAX; i++) {
 		if (_nvp_fd_lookup[i].fd != -1) {
-			for (j = 0; j < 1024; j++) {
+			for (j = 0; j < OPEN_MAX; j++) {
 				if (_nvp_fd_lookup[i].serialno == _nvp_node_lookup[0][j].serialno) {
 					_nvp_fd_lookup[i].node = &_nvp_node_lookup[0][j];
 					break;
@@ -1084,14 +1084,14 @@ void _nvp_SHM_COPY() {
 		}
 	}
 
-	if (memcpy(_nvp_ino_lookup, shm_area + offset_in_map, 1024 * sizeof(int)) == NULL) {
+	if (memcpy(_nvp_ino_lookup, shm_area + offset_in_map, OPEN_MAX * sizeof(int)) == NULL) {
 		printf("%s: memcpy of ino lookup failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(int));
+	offset_in_map += (OPEN_MAX * sizeof(int));
 
-	if (memcpy(_nvp_free_node_list[0], shm_area + offset_in_map, 1024*sizeof(struct StackNode)) == NULL) {
+	if (memcpy(_nvp_free_node_list[0], shm_area + offset_in_map, OPEN_MAX*sizeof(struct StackNode)) == NULL) {
 		printf("%s: memcpy of free node list failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
@@ -1737,7 +1737,7 @@ void nvp_add_to_inode_mapping(struct NVNode *node, ino_t serialno)
 {
 	struct InodeToMapping *mappingToBeAdded;
 	
-	int index = serialno % 1024;
+	int index = serialno % OPEN_MAX;
 	int i, dirty_index;
 
 	if (serialno == 0)
@@ -1786,7 +1786,7 @@ int nvp_retrieve_inode_mapping(struct NVNode *node)
 {
 
 	struct InodeToMapping *mappingToBeRetrieved;
-	int index = node->serialno % 1024;
+	int index = node->serialno % OPEN_MAX;
 	int dirty_index, i;
 	
 	DEBUG("Cleanup: root 0x%x, height %u\n", root, height);
@@ -1931,7 +1931,7 @@ void nvp_init_node(struct NVNode *node)
 	if(!node->root_dirty_cache) {
 		node->root_dirty_cache = malloc(20 * sizeof(unsigned long));
 		memset((void *)node->root_dirty_cache, 0, 20 * sizeof(unsigned long));
-	}					
+	}
 }
 
 struct NVNode * nvp_allocate_node(int list_idx)
@@ -1952,7 +1952,7 @@ struct NVNode * nvp_allocate_node(int list_idx)
 	 * 0, meaning that there is no thread that has this file open, 
 	 * it can be used for holding info of the new file
 	 */	
-	for (i = 0; i < 1024; i++) {
+	for (i = 0; i < OPEN_MAX; i++) {
 		if (_nvp_node_lookup[list_idx][i].serialno == 0) {
 			DEBUG("Allocate unused node %d\n", i);
 			_nvp_free_node_list[list_idx][i].free_bit = 0;
@@ -1990,7 +1990,7 @@ struct NVNode * nvp_get_node(const char *path, struct stat *file_st, int result)
 	 *  Checking to see if the file is already open by another thread. In this case, the same NVNode can be used by this thread            
 	 *  too. But it will have its own separate NVFile, since the fd is unique per thread 
 	 */
-	index = file_st->st_ino % 1024;
+	index = file_st->st_ino % OPEN_MAX;
 	if (_nvp_ino_lookup[index]) {
 		i = _nvp_ino_lookup[index];
 		if ( _nvp_fd_lookup[i].node &&
@@ -2026,7 +2026,7 @@ struct NVNode * nvp_get_node(const char *path, struct stat *file_st, int result)
 			assert(0);
 		}
 	}
-	index = file_st->st_ino % 1024;
+	index = file_st->st_ino % OPEN_MAX;
 	if (_nvp_ino_lookup[index] == 0)
 		_nvp_ino_lookup[index] = result;
 	
@@ -4018,7 +4018,7 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 	NVP_UNLOCK_NODE_WR(nvf);
 	if (node->reference == 0) {
 		NVP_LOCK_NODE_WR(nvf);
-		int index = nvf->serialno % 1024;
+		int index = nvf->serialno % OPEN_MAX;
 		_nvp_ino_lookup[index] = 0;
 		// FIXME: Also munmap?
 		nvp_cleanup_node(nvf->node, 0, 1);
@@ -4151,7 +4151,7 @@ RETT_CLOSE _nvp_REAL_CLOSE(INTF_CLOSE, ino_t serialno, int async_file_closing) {
 		NVP_UNLOCK_NODE_WR(nvf);
 		if (nvf->node->reference == 0) {
 			nvf->node->serialno = 0;
-			int index = nvf->serialno % 1024;
+			int index = nvf->serialno % OPEN_MAX;
 			_nvp_ino_lookup[index] = 0;
 		}
 		nvf->serialno = 0;
@@ -4224,7 +4224,7 @@ RETT_CLOSE _nvp_REAL_CLOSE(INTF_CLOSE, ino_t serialno, int async_file_closing) {
 	if (nvf->node->reference == 0) {
 		nvp_add_to_inode_mapping(nvf->node, nvf->serialno);
 		nvf->node->backup_serialno = 0;
-		int index = nvf->serialno % 1024;
+		int index = nvf->serialno % OPEN_MAX;
 		_nvp_ino_lookup[index] = 0;
 		DEBUG("Close Cleanup node for %d\n", file);
 		if(nvf->node->dr_info.start_addr != 0 || nvf->node->dr_over_info.start_addr != 0) {
@@ -4756,7 +4756,7 @@ RETT_CLOSE _nvp_CLOSE(INTF_CLOSE)
 		NVP_UNLOCK_NODE_WR(nvf);
 		if (nvf->node->reference == 0) {
 			nvf->node->serialno = 0;
-			int index = nvf->serialno % 1024;
+			int index = nvf->serialno % OPEN_MAX;
 			_nvp_ino_lookup[index] = 0;
 		}
 		nvf->serialno = 0;
@@ -4867,7 +4867,7 @@ RETT_EXECVE _nvp_EXECVE(INTF_EXECVE) {
 
 	close_cloexec_files();
 
-	for (i = 0; i < 1024; i++) {
+	for (i = 0; i < OPEN_MAX; i++) {
 		if (_nvp_fd_lookup[i].offset != NULL)
 			execve_fd_passing[i] = *(_nvp_fd_lookup[i].offset);
 		else
@@ -4893,42 +4893,42 @@ RETT_EXECVE _nvp_EXECVE(INTF_EXECVE) {
 		assert(0);
 	}
 
-	if (memcpy(shm_area + offset_in_map, _nvp_fd_lookup, 1024 * sizeof(struct NVFile)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, _nvp_fd_lookup, OPEN_MAX * sizeof(struct NVFile)) == NULL) {
 		printf("%s: memcpy of fd lookup failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(struct NVFile));
+	offset_in_map += (OPEN_MAX * sizeof(struct NVFile));
 
-	if (memcpy(shm_area + offset_in_map, execve_fd_passing, 1024 * sizeof(int)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, execve_fd_passing, OPEN_MAX * sizeof(int)) == NULL) {
 		printf("%s: memcpy of execve offset failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(int));
+	offset_in_map += (OPEN_MAX * sizeof(int));
 
 
-	if (memcpy(shm_area + offset_in_map, _nvp_node_lookup[0], 1024*sizeof(struct NVNode)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, _nvp_node_lookup[0], OPEN_MAX*sizeof(struct NVNode)) == NULL) {
 		printf("%s: memcpy of node lookup failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024*sizeof(struct NVNode));
+	offset_in_map += (OPEN_MAX*sizeof(struct NVNode));
 
-	if (memcpy(shm_area + offset_in_map, _nvp_ino_lookup, 1024 * sizeof(int)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, _nvp_ino_lookup, OPEN_MAX * sizeof(int)) == NULL) {
 		printf("%s: memcpy of ino lookup failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(int));
+	offset_in_map += (OPEN_MAX * sizeof(int));
 
-	if (memcpy(shm_area + offset_in_map, _nvp_free_node_list[0], 1024*sizeof(struct StackNode)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, _nvp_free_node_list[0], OPEN_MAX*sizeof(struct StackNode)) == NULL) {
 		printf("%s: memcpy of free node list failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
 	nvp_free_dr_mmaps();
-	offset_in_map += (1024 * sizeof(struct StackNode));
+	offset_in_map += (OPEN_MAX * sizeof(struct StackNode));
 
 	return _nvp_fileops->EXECVE(CALL_EXECVE);
 }
@@ -4942,7 +4942,7 @@ RETT_EXECVP _nvp_EXECVP(INTF_EXECVP) {
 
 	close_cloexec_files();
 
-	for (i = 0; i < 1024; i++) {
+	for (i = 0; i < OPEN_MAX; i++) {
 		if (_nvp_fd_lookup[i].offset != NULL)
 			execve_fd_passing[i] = *(_nvp_fd_lookup[i].offset);
 		else
@@ -4973,40 +4973,40 @@ RETT_EXECVP _nvp_EXECVP(INTF_EXECVP) {
 		assert(0);
 	}
 
-	if (memcpy(shm_area + offset_in_map, _nvp_fd_lookup, 1024 * sizeof(struct NVFile)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, _nvp_fd_lookup, OPEN_MAX * sizeof(struct NVFile)) == NULL) {
 		printf("%s: memcpy of fd lookup failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(struct NVFile));
+	offset_in_map += (OPEN_MAX * sizeof(struct NVFile));
 
-	if (memcpy(shm_area + offset_in_map, execve_fd_passing, 1024 * sizeof(int)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, execve_fd_passing, OPEN_MAX * sizeof(int)) == NULL) {
 		printf("%s: memcpy of execve offset failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(int));
+	offset_in_map += (OPEN_MAX * sizeof(int));
 
-	if (memcpy(shm_area + offset_in_map, _nvp_node_lookup[0], 1024*sizeof(struct NVNode)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, _nvp_node_lookup[0], OPEN_MAX*sizeof(struct NVNode)) == NULL) {
 		printf("%s: memcpy of node lookup failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024*sizeof(struct NVNode));
+	offset_in_map += (OPEN_MAX*sizeof(struct NVNode));
 
-	if (memcpy(shm_area + offset_in_map, _nvp_ino_lookup, 1024 * sizeof(int)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, _nvp_ino_lookup, OPEN_MAX * sizeof(int)) == NULL) {
 		printf("%s: memcpy of ino lookup failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(int));
+	offset_in_map += (OPEN_MAX * sizeof(int));
 
-	if (memcpy(shm_area + offset_in_map, _nvp_free_node_list[0], 1024*sizeof(struct StackNode)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, _nvp_free_node_list[0], OPEN_MAX*sizeof(struct StackNode)) == NULL) {
 		printf("%s: memcpy of free node list failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(struct StackNode));
+	offset_in_map += (OPEN_MAX * sizeof(struct StackNode));
 
 	nvp_free_dr_mmaps();
 	return _nvp_fileops->EXECVP(CALL_EXECVP);
@@ -5021,7 +5021,7 @@ RETT_EXECV _nvp_EXECV(INTF_EXECV) {
 
 	close_cloexec_files();
 
-	for (i = 0; i < 1024; i++) {
+	for (i = 0; i < OPEN_MAX; i++) {
 		if (_nvp_fd_lookup[i].offset != NULL)
 			execve_fd_passing[i] = *(_nvp_fd_lookup[i].offset);
 		else
@@ -5052,40 +5052,40 @@ RETT_EXECV _nvp_EXECV(INTF_EXECV) {
 		assert(0);
 	}
 
-	if (memcpy(shm_area + offset_in_map, _nvp_fd_lookup, 1024 * sizeof(struct NVFile)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, _nvp_fd_lookup, OPEN_MAX * sizeof(struct NVFile)) == NULL) {
 		printf("%s: memcpy of fd lookup failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(struct NVFile));
+	offset_in_map += (OPEN_MAX * sizeof(struct NVFile));
 
-	if (memcpy(shm_area + offset_in_map, execve_fd_passing, 1024 * sizeof(int)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, execve_fd_passing, OPEN_MAX * sizeof(int)) == NULL) {
 		printf("%s: memcpy of execve offset failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(int));
+	offset_in_map += (OPEN_MAX * sizeof(int));
 
-	if (memcpy(shm_area + offset_in_map, _nvp_node_lookup[0], 1024*sizeof(struct NVNode)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, _nvp_node_lookup[0], OPEN_MAX*sizeof(struct NVNode)) == NULL) {
 		printf("%s: memcpy of node lookup failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024*sizeof(struct NVNode));
+	offset_in_map += (OPEN_MAX*sizeof(struct NVNode));
 
-	if (memcpy(shm_area + offset_in_map, _nvp_ino_lookup, 1024 * sizeof(int)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, _nvp_ino_lookup, OPEN_MAX * sizeof(int)) == NULL) {
 		printf("%s: memcpy of ino lookup failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(int));
+	offset_in_map += (OPEN_MAX * sizeof(int));
 
-	if (memcpy(shm_area + offset_in_map, _nvp_free_node_list[0], 1024*sizeof(struct StackNode)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, _nvp_free_node_list[0], OPEN_MAX*sizeof(struct StackNode)) == NULL) {
 		printf("%s: memcpy of free node list failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(struct StackNode));
+	offset_in_map += (OPEN_MAX * sizeof(struct StackNode));
 
 	nvp_free_dr_mmaps();
 	return _nvp_fileops->EXECV(CALL_EXECV);
@@ -5877,7 +5877,7 @@ RETT_TRUNC _nvp_TRUNC(INTF_TRUNC)
 	if (_nvp_fileops->STAT(_STAT_VER, path, &stat_buf) == -1)
 		return -1;
 
-	fd = _nvp_ino_lookup[stat_buf.st_ino % 1024];
+	fd = _nvp_ino_lookup[stat_buf.st_ino % OPEN_MAX];
 	if (fd <= 0) {
 		return _nvp_fileops->TRUNC(CALL_TRUNC);
 	}

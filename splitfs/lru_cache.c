@@ -53,7 +53,7 @@ int insert_in_lru_list(int fd, ino_t serialno, ino_t *stale_serialno) {
 			lru_head = node->index_in_free_list;
 		}
 
-		hash_index = serialno % 1024;
+		hash_index = serialno % OPEN_MAX;
 
 		if (inode_to_closed_file[hash_index].index != -1) {
 			node_to_be_removed = (struct ClosedFiles *)&_nvp_closed_files[inode_to_closed_file[hash_index].index];
@@ -78,7 +78,7 @@ int remove_from_lru_list_hash(ino_t serialno, int lock_held) {
 	struct ClosedFiles *node = NULL, *prev_node = NULL, *next_node = NULL;
 	int lock_set = 0;
 	
-	hash_index = serialno % 1024;
+	hash_index = serialno % OPEN_MAX;
 
 	if (!lock_held) {
 		LRU_LOCK_HEAD_WR();
@@ -155,7 +155,7 @@ int remove_from_lru_list_policy(ino_t *serialno) {
 	node = (struct ClosedFiles *)&_nvp_closed_files[lru_tail];
 
 	local_serialno = node->serialno;
-	hash_index = local_serialno % 1024;
+	hash_index = local_serialno % OPEN_MAX;
 		
 	lru_tail = node->prev_closed_file;
 	if (lru_tail != -1) {

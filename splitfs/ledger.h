@@ -404,9 +404,9 @@ int MMAP_HUGEPAGE_SIZE;
 void* _nvp_zbuf; // holds all zeroes.  used for aligned file extending. TODO: does sharing this hurt performance?
 pthread_spinlock_t	node_lookup_lock[NUM_NODE_LISTS];
 struct NVFile* _nvp_fd_lookup;
-int execve_fd_passing[1024];
+int execve_fd_passing[32768];
 int _nvp_free_list_head;
-int _nvp_ino_lookup[1024];
+int _nvp_ino_lookup[32768];
 struct full_dr* _nvp_full_drs;
 int full_dr_idx;
 struct NVTable_maps *_nvp_tbl_mmaps;

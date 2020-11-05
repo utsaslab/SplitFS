@@ -844,10 +844,10 @@ RETT_EXECVE _hub_EXECVE(INTF_EXECVE) {
 
         struct Fileops_p* op_to_use = NULL;
         int result = -1, exec_hub_fd = -1, i = 0;
-        int hub_ops[1024];
+        int hub_ops[OPEN_MAX];
         unsigned long offset_in_map = 0;
 
-        for (i = 0; i < 1024; i++) {
+        for (i = 0; i < OPEN_MAX; i++) {
 		if (_hub_fd_lookup[i] == NULL)
 			hub_ops[i] = 0;
 		if (_hub_fd_lookup[i] == _hub_fileops)
@@ -875,12 +875,12 @@ RETT_EXECVE _hub_EXECVE(INTF_EXECVE) {
 		assert(0);
 	}
 
-        if (memcpy(shm_area + offset_in_map, hub_ops, 1024 * sizeof(int)) == NULL) {
+        if (memcpy(shm_area + offset_in_map, hub_ops, OPEN_MAX * sizeof(int)) == NULL) {
 		printf("%s: memcpy of hub ops failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-        offset_in_map += (1024 * sizeof(int));
+        offset_in_map += (OPEN_MAX * sizeof(int));
 
         op_to_use = _hub_managed_fileops;
         result = op_to_use->EXECVE(CALL_EXECVE);
@@ -896,10 +896,10 @@ RETT_EXECVP _hub_EXECVP(INTF_EXECVP) {
 
 	struct Fileops_p* op_to_use = NULL;
 	int result = -1, exec_hub_fd = -1, i = 0;
-	int hub_ops[1024];
+	int hub_ops[OPEN_MAX];
 	unsigned long offset_in_map = 0;
 	
-	for (i = 0; i < 1024; i++) {
+	for (i = 0; i < OPEN_MAX; i++) {
 		if (_hub_fd_lookup[i] == NULL)
 			hub_ops[i] = 0;
 		if (_hub_fd_lookup[i] == _hub_fileops)
@@ -927,12 +927,12 @@ RETT_EXECVP _hub_EXECVP(INTF_EXECVP) {
 		assert(0);
 	}
 
-	if (memcpy(shm_area + offset_in_map, hub_ops, 1024 * sizeof(int)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, hub_ops, OPEN_MAX * sizeof(int)) == NULL) {
 		printf("%s: memcpy of hub ops failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(int));
+	offset_in_map += (OPEN_MAX * sizeof(int));
 	
 	op_to_use = _hub_managed_fileops;
 	result = op_to_use->EXECVP(CALL_EXECVP);
@@ -948,10 +948,10 @@ RETT_EXECV _hub_EXECV(INTF_EXECV) {
 
 	struct Fileops_p* op_to_use = NULL;
 	int result = -1, exec_hub_fd = -1, i = 0;
-	int hub_ops[1024];
+	int hub_ops[OPEN_MAX];
 	unsigned long offset_in_map = 0;
 	
-	for (i = 0; i < 1024; i++) {
+	for (i = 0; i < OPEN_MAX; i++) {
 		if (_hub_fd_lookup[i] == NULL)
 			hub_ops[i] = 0;
 		if (_hub_fd_lookup[i] == _hub_fileops)
@@ -979,12 +979,12 @@ RETT_EXECV _hub_EXECV(INTF_EXECV) {
 		assert(0);
 	}
 
-	if (memcpy(shm_area + offset_in_map, hub_ops, 1024 * sizeof(int)) == NULL) {
+	if (memcpy(shm_area + offset_in_map, hub_ops, OPEN_MAX * sizeof(int)) == NULL) {
 		printf("%s: memcpy of hub ops failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	offset_in_map += (1024 * sizeof(int));
+	offset_in_map += (OPEN_MAX * sizeof(int));
 	
 	op_to_use = _hub_managed_fileops;
 	result = op_to_use->EXECV(CALL_EXECV);
@@ -996,7 +996,7 @@ RETT_SHM_COPY _hub_SHM_COPY() {
 
 	HUB_CHECK_RESOLVE_FILEOPS(_hub_, SHM_COPY);
 	int exec_hub_fd = -1, i = 0;
-	int hub_ops[1024];
+	int hub_ops[OPEN_MAX];
 	unsigned long offset_in_map = 0;
 	int pid = getpid();
 	char exec_hub_filename[BUF_SIZE];
@@ -1014,12 +1014,12 @@ RETT_SHM_COPY _hub_SHM_COPY() {
 		assert(0);
 	}
 
-	if (memcpy(hub_ops, shm_area + offset_in_map, 1024 * sizeof(int)) == NULL) {
+	if (memcpy(hub_ops, shm_area + offset_in_map, OPEN_MAX * sizeof(int)) == NULL) {
 		printf("%s: memcpy of hub ops failed. Err = %s\n", __func__, strerror(errno));
 		assert(0);
 	}
 
-	for (i = 0; i < 1024; i++) {
+	for (i = 0; i < OPEN_MAX; i++) {
 		if (hub_ops[i] == 0)
 			_hub_fd_lookup[i] = NULL;
 		if (hub_ops[i] == 1)

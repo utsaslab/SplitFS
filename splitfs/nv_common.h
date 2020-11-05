@@ -166,7 +166,7 @@ int execv_done;
 		INIT_FILEOPS_P(NAME, PREFIX);				\
 		if(OPEN_MAX<1) {					\
 			OPEN_MAX = sysconf(_SC_OPEN_MAX);		\
-			OPEN_MAX = 1024;				\
+			OPEN_MAX = 32768;				\
 			DEBUG("Maximum simultaneous open files: %i\n", OPEN_MAX); \
 		}							\
 		__VA_ARGS__						\
