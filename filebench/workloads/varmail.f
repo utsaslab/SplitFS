@@ -24,7 +24,7 @@
 #
 
 set $dir=/mnt/pmem_emul
-set $nfiles=1000000
+set $nfiles=10000
 set $meandirwidth=1000000
 set $cnt=500000
 set $filesize=cvar(type=cvar-gamma,parameters=mean:16384;gamma:1.5)

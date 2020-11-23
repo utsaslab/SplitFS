@@ -2,6 +2,7 @@
 
 current_dir=$(pwd)
 setup_dir=`readlink -f ../configs`
+source_dir=`readlink -f ../../splitfs`
 pmem_dir=/mnt/pmem_emul
 
 run_filebench()
@@ -10,7 +11,7 @@ run_filebench()
     for run in 1 2 3
     do
         sudo rm -rf $pmem_dir/*
-        sudo taskset -c 0-7 ./run_fs.sh $fs $run
+        sudo taskset -c 0-15 ./run_fs.sh $fs $run
         sleep 5
     done
 }
@@ -41,6 +42,13 @@ cd $current_dir
 run_filebench pmfs
 
 echo "-- SplitFS POSIX --"
-make splitfs.posix
+cd $source_dir
+export LEDGER_DATAJ=0
+export LEDGER_POSIX=1
+export LEDGER_YCSB=0
+export LEDGER_TPCC=1 
+make clean
+make -e
 sudo $setup_dir/dax_config.sh
+cd $current_dir
 run_filebench splitfs-posix

@@ -28,7 +28,7 @@ set $nfiles=10000
 set $meandirwidth=20
 set $cnt=500000
 set $filesize=cvar(type=cvar-gamma,parameters=mean:131072;gamma:1.5)
-set $nthreads=1
+set $nthreads=50
 set $iosize=1m
 set $meanappendsize=16k
 set $runtime=20
@@ -58,4 +58,4 @@ define process name=filereader,instances=1
 
 echo  "File-server Version 3.0 personality successfully loaded"
 
-run 30
+run 60
