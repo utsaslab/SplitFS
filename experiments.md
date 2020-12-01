@@ -48,6 +48,7 @@ We evaluate and benchmark on SplitFS using different application benchmarks like
 8.  git: Does not require any compilation
 9.  LMDB: `cd scripts/lmdb; ./compile_lmdb.sh; cd ../..` -- This will compile LMDB
 10. Filebench: `cd scripts/filebench; ./compile_filebench.sh; cd ../..` -- This will compile Filebench
+11. FIO: `cd scripts/fio; ./compile_fio.sh; cd ../..` -- This will compile FIO
 
 Note: The <num_threads> argument in the compilation scripts performs the compilation with the number of threads given as input to the script, to improve the speed of compilation. 
 
@@ -78,6 +79,8 @@ Note: The <num_threads> argument in the compilation scripts performs the compila
 7. Filebench: `cd scripts/filebench; ./run_filebench.sh; cd ../..` --
    This will run the varmail workload with `ext4-DAX, NOVA strict,
    NOVA Relaxed, PMFS, SplitFS-POSIX`
+8. FIO: `cd scripts/fio; ./run_fio.sh; cd ../..` --
+   This will run the random read-write workload with 50:50 reads and writes with `ext4-DAX, NOVA strict, NOVA Relaxed, PMFS, SplitFS-POSIX`
 
 ---
 

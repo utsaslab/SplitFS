@@ -91,6 +91,7 @@ $ rm -rf /mnt/pmem_emul/*
 12. `tar/` contains tar source code
 13. `lmdb/` contains LMDB source code
 14. `filebench/` contains Filebench source code
+15. `fio/` contains FIO source code
 
 The [Experiments
 page](https://github.com/utsaslab/SplitFS/blob/master/experiments.md)
@@ -124,6 +125,7 @@ SplitFS is under active development.
 5. rsync
 6. Filebench
 7. LMDB
+8. FIO
 
 ## Testing
 [PJD POSIX Test Suite](https://www.tuxera.com/community/posix-test-suite/) that tests primarily the metadata operations was run on SplitFS successfully. SplitFS passes all tests. 
