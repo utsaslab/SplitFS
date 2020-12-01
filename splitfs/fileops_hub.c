@@ -33,7 +33,9 @@ int hub_check_resolve_fileops(char* tree);
 void _hub_init2(void);
 
 #define HUB_CHECK_RESOLVE_FILEOPS(NAME, FUNCT)  \
-	assert( _hub_managed_fileops != NULL ); \
+	if (_hub_managed_fileops == NULL && _hub_fileops == NULL) \
+		_hub_init();					  \
+	assert( _hub_managed_fileops != NULL );			  \
 	assert( _hub_fileops         != NULL );
 
 #define HUB_ADD_FUNCTP(SOFILE, FUNCT)					\
@@ -559,24 +561,25 @@ void _hub_add_fileop(struct Fileops_p* fo)
 
 	DEBUG("Registering Fileops_p \"%s\" at index %i\n",
 		fo->name, _hub_fileops_count);
-	
+
 	int i=0;
 	for(i=0; i<_hub_fileops_count; i++)
 	{
 		if(!strcmp(_hub_fileops_lookup[i]->name, fo->name))
 		{
-			ERROR("Can't add fileop %s: one with the same name already exists at index %i\n", fo->name, i);
-			assert(0);
+			MSG("Can't add fileop %s: one with the same name already exists at index %i\n", fo->name, i);
+			//assert(0);
+			return;
 		}
 	}
-		
+
 	if(_hub_fileops_count >= MAX_FILEOPS) {
 		ERROR("_hub_fileops_lookup is full: too many Fileops_p!\n");
 		ERROR("Maximum supported: %i\n", MAX_FILEOPS);
 		ERROR("Check fileops_compareharness.c to increase\n");
 		return;
 	}
-	
+
 	_hub_fileops_lookup[_hub_fileops_count] = fo;
 	_hub_fileops_count++;
 }
@@ -1030,22 +1033,22 @@ RETT_SHM_COPY _hub_SHM_COPY() {
 
         munmap(shm_area, 1024*1024);
 	shm_unlink(exec_hub_filename);
-	
+
 	return _hub_managed_fileops->SHM_COPY();
 }
 
 
-#ifdef TRACE_FP_CALLS				
+#ifdef TRACE_FP_CALLS
 RETT_FOPEN _hub_FOPEN(INTF_FOPEN)
 {
 	HUB_CHECK_RESOLVE_FILEOPS(_hub_, FOPEN);
 
 	DEBUG_FILE("CALL: _hub_FOPEN for %s\n", path);
-	
-	FILE *fp = NULL;	
+
+	FILE *fp = NULL;
 	int fd = -1, oflag = 0;
 	int num_mode_chars = 0;
-	
+
 	if ((mode[0] == 'w' || mode[0] == 'a') && mode[1] == '+') {
 		oflag |= O_RDWR;
 		oflag |= O_CREAT;
@@ -1058,7 +1061,7 @@ RETT_FOPEN _hub_FOPEN(INTF_FOPEN)
 	else if (mode[0] == 'w' || mode[0] == 'a') {
 		oflag |= O_WRONLY;
 		oflag |= O_CREAT;
-		num_mode_chars += 2;		
+		num_mode_chars += 2;
 	}
 	else if (mode[0] == 'r') {
 		oflag |= O_RDONLY;
@@ -1068,7 +1071,7 @@ RETT_FOPEN _hub_FOPEN(INTF_FOPEN)
 		assert(0);
 	}
 
-	
+
 	if (mode[0] == 'a') {
 		oflag |= O_APPEND;
 		num_mode_chars++;
