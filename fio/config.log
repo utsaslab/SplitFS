@@ -1,339 +1,339 @@
-# FIO configure log Tue Dec  1 04:14:57 UTC 2020
+# FIO configure log Tue Dec  1 05:43:52 UTC 2020
 # Configured with: './configure'
 #
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -c -o /tmp/fio-conf--62968-.o /tmp/fio-conf--62968-.c
-/tmp/fio-conf--62968-.c:2:2: error: #error __ANDROID__ not defined
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -c -o /tmp/fio-conf--5880-.o /tmp/fio-conf--5880-.c
+/tmp/fio-conf--5880-.c:2:2: error: #error __ANDROID__ not defined
  #error __ANDROID__ not defined
   ^~~~~
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -c -o /tmp/fio-conf--62968-.o /tmp/fio-conf--62968-.c
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -c -o /tmp/fio-conf--62968-.o /tmp/fio-conf--62968-.c
-/tmp/fio-conf--62968-.c:2:2: error: #error __i386__ not defined
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -c -o /tmp/fio-conf--5880-.o /tmp/fio-conf--5880-.c
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -c -o /tmp/fio-conf--5880-.o /tmp/fio-conf--5880-.c
+/tmp/fio-conf--5880-.c:2:2: error: #error __i386__ not defined
  #error __i386__ not defined
   ^~~~~
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -c -o /tmp/fio-conf--62968-.o /tmp/fio-conf--62968-.c
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -c -o /tmp/fio-conf--5880-.o /tmp/fio-conf--5880-.c
 Compiling test case cross
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c
 Compiling test case endian
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c
 Compiling test case C11 atomics
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c
 Compiling test case wordsize
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -DWORDSIZE=32 -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c
-/tmp/fio-conf--62968-.c: In function ‘main’:
-/tmp/fio-conf--62968-.c:2:51: error: size of unnamed array is negative
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -DWORDSIZE=32 -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c
+/tmp/fio-conf--5880-.c: In function ‘main’:
+/tmp/fio-conf--5880-.c:2:51: error: size of unnamed array is negative
  #define BUILD_BUG_ON(condition) ((void)sizeof(char[1 - 2*!!(condition)]))
                                                    ^
-/tmp/fio-conf--62968-.c:5:3: note: in expansion of macro ‘BUILD_BUG_ON’
+/tmp/fio-conf--5880-.c:5:3: note: in expansion of macro ‘BUILD_BUG_ON’
    BUILD_BUG_ON(sizeof(long)*CHAR_BIT != WORDSIZE);
    ^~~~~~~~~~~~
 Compiling test case wordsize
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -DWORDSIZE=64 -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -DWORDSIZE=64 -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c
 Compiling test case zlib
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lz
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lz
 Compiling test case libaio
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -laio -lz
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -laio -lz
 Compiling test case libaio rw flags
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lz
-/tmp/fio-conf--62968-.c: In function ‘main’:
-/tmp/fio-conf--62968-.c:5:3: error: implicit declaration of function ‘io_prep_preadv2’; did you mean ‘io_prep_preadv’? [-Werror=implicit-function-declaration]
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lz
+/tmp/fio-conf--5880-.c: In function ‘main’:
+/tmp/fio-conf--5880-.c:5:3: error: implicit declaration of function ‘io_prep_preadv2’; did you mean ‘io_prep_preadv’? [-Werror=implicit-function-declaration]
    io_prep_preadv2(NULL, 0, NULL, 0, 0, 0);
    ^~~~~~~~~~~~~~~
    io_prep_preadv
-/tmp/fio-conf--62968-.c:6:3: error: implicit declaration of function ‘io_prep_pwritev2’; did you mean ‘io_prep_pwritev’? [-Werror=implicit-function-declaration]
+/tmp/fio-conf--5880-.c:6:3: error: implicit declaration of function ‘io_prep_pwritev2’; did you mean ‘io_prep_pwritev’? [-Werror=implicit-function-declaration]
    io_prep_pwritev2(NULL, 0, NULL, 0, 0, 0);
    ^~~~~~~~~~~~~~~~
    io_prep_pwritev
 cc1: some warnings being treated as errors
 Compiling test case posixaio
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lz
-/tmp/cchsLfTa.o: In function `main':
-fio-conf--62968-.c:(.text+0x25): undefined reference to `aio_read'
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lz
+/tmp/ccdpZmK0.o: In function `main':
+fio-conf--5880-.c:(.text+0x25): undefined reference to `aio_read'
 collect2: error: ld returned 1 exit status
 Compiling test case posixaio -lrt
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz
 Compiling test case posix_aio_fsync
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lrt -lz
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lrt -lz
 Compiling test case posix_pshared
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lrt -lz
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lrt -lz
 Compiling test case pthread_condattr_setclock
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lrt -lz
-/tmp/ccMJGNgl.o: In function `main':
-fio-conf--62968-.c:(.text+0x24): undefined reference to `pthread_condattr_setclock'
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lrt -lz
+/tmp/ccJqwVEj.o: In function `main':
+fio-conf--5880-.c:(.text+0x24): undefined reference to `pthread_condattr_setclock'
 collect2: error: ld returned 1 exit status
 Compiling test case pthread_condattr_setclock
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread -lrt -lz
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread -lrt -lz
 Compiling test case pthread_sigmask
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread -lrt -lz -lpthread
 Compiling test case solarisaio
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -laio -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c:2:10: fatal error: sys/asynch.h: No such file or directory
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -laio -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c:2:10: fatal error: sys/asynch.h: No such file or directory
  #include <sys/asynch.h>
           ^~~~~~~~~~~~~~
 compilation terminated.
 Compiling test case __sync_fetch_and_add()
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case __sync_synchronize()
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case __sync_val_compare_and_swap()
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case libverbs
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -libverbs -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -libverbs -lrt -lz -lpthread
 Compiling test case rdma
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrdmacm -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c:2:10: fatal error: rdma/rdma_cma.h: No such file or directory
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrdmacm -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c:2:10: fatal error: rdma/rdma_cma.h: No such file or directory
  #include <rdma/rdma_cma.h>
           ^~~~~~~~~~~~~~~~~
 compilation terminated.
 Compiling test case have_asprintf
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case have_vasprintf
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case linux_fallocate
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case posix_fadvise
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case posix_fallocate
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case sched_setaffinity(,,)
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case clock_gettime
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case clock monotonic
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread -lrt -lz -lpthread
 Compiling test case clockid_t
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread -lrt -lz -lpthread
 Compiling test case gettimeofday
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case fdatasync
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case pipe
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case pipe2
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case pread
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case sync_file_range
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case ext4 move extent
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c: In function ‘main’:
-/tmp/fio-conf--62968-.c:5:22: error: storage size of ‘me’ isn’t known
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c: In function ‘main’:
+/tmp/fio-conf--5880-.c:5:22: error: storage size of ‘me’ isn’t known
    struct move_extent me;
                       ^~
-/tmp/fio-conf--62968-.c:6:19: error: ‘EXT4_IOC_MOVE_EXT’ undeclared (first use in this function)
+/tmp/fio-conf--5880-.c:6:19: error: ‘EXT4_IOC_MOVE_EXT’ undeclared (first use in this function)
    return ioctl(0, EXT4_IOC_MOVE_EXT, &me);
                    ^~~~~~~~~~~~~~~~~
-/tmp/fio-conf--62968-.c:6:19: note: each undeclared identifier is reported only once for each function it appears in
+/tmp/fio-conf--5880-.c:6:19: note: each undeclared identifier is reported only once for each function it appears in
 Compiling test case linux splice
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrt -lz -lpthread
 Compiling test case libnuma
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case libnuma api
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case strsep
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case strcasestr
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case strlcat
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c: In function ‘main’:
-/tmp/fio-conf--62968-.c:7:3: error: implicit declaration of function ‘strlcat’; did you mean ‘strncat’? [-Werror=implicit-function-declaration]
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c: In function ‘main’:
+/tmp/fio-conf--5880-.c:7:3: error: implicit declaration of function ‘strlcat’; did you mean ‘strncat’? [-Werror=implicit-function-declaration]
    strlcat(dst, string, sizeof(dst));
    ^~~~~~~
    strncat
 cc1: some warnings being treated as errors
 Compiling test case getopt_long_only
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case inet_aton
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case socklen_t
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case __thread
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case RUSAGE_THREAD
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case SCHED_IDLE
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case TCP_NODELAY
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case SO_SNDBUF
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case TCP_MAXSEG
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case RLIMIT_MEMLOCK
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case pwritev
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case pwritev2
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case ipv6
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case curl-new-ssl
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lcurl -lssl -lcrypto -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lcurl -lssl -lcrypto -lnuma -lrt -lz -lpthread
 Compiling test case rados
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrados -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c:1:10: fatal error: rados/librados.h: No such file or directory
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrados -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c:1:10: fatal error: rados/librados.h: No such file or directory
  #include <rados/librados.h>
           ^~~~~~~~~~~~~~~~~~
 compilation terminated.
 Compiling test case rbd
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lrbd -lrados -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c:1:10: fatal error: rbd/librbd.h: No such file or directory
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lrbd -lrados -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c:1:10: fatal error: rbd/librbd.h: No such file or directory
  #include <rbd/librbd.h>
           ^~~~~~~~~~~~~~
 compilation terminated.
 Compiling test case setvbuf
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case gfapi
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lgfapi -lglusterfs -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c:1:10: fatal error: glusterfs/api/glfs.h: No such file or directory
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lgfapi -lglusterfs -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c:1:10: fatal error: glusterfs/api/glfs.h: No such file or directory
  #include <glusterfs/api/glfs.h>
           ^~~~~~~~~~~~~~~~~~~~~~
 compilation terminated.
 Compiling test case s390_z196_facilities
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c: Assembler messages:
-/tmp/fio-conf--62968-.c:7: Error: unknown pseudo-op: `.machine'
-/tmp/fio-conf--62968-.c:8: Error: unknown pseudo-op: `.machine'
-/tmp/fio-conf--62968-.c:9: Error: no such instruction: `stfle %rcx'
-/tmp/fio-conf--62968-.c:10: Error: unknown pseudo-op: `.machine'
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c: Assembler messages:
+/tmp/fio-conf--5880-.c:7: Error: unknown pseudo-op: `.machine'
+/tmp/fio-conf--5880-.c:8: Error: unknown pseudo-op: `.machine'
+/tmp/fio-conf--5880-.c:9: Error: no such instruction: `stfle %rcx'
+/tmp/fio-conf--5880-.c:10: Error: unknown pseudo-op: `.machine'
 Compiling test case mtd
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case libpmem
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lpmem -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c: In function ‘main’:
-/tmp/fio-conf--62968-.c:6:27: warning: passing argument 2 of ‘pmem_is_pmem’ makes integer from pointer without a cast [-Wint-conversion]
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lpmem -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c: In function ‘main’:
+/tmp/fio-conf--5880-.c:6:27: warning: passing argument 2 of ‘pmem_is_pmem’ makes integer from pointer without a cast [-Wint-conversion]
    rc = pmem_is_pmem(NULL, NULL);
                            ^~~~
-In file included from /tmp/fio-conf--62968-.c:1:0:
+In file included from /tmp/fio-conf--5880-.c:1:0:
 /usr/include/libpmem.h:92:5: note: expected ‘size_t {aka long unsigned int}’ but argument is of type ‘void *’
  int pmem_is_pmem(const void *addr, size_t len);
      ^~~~~~~~~~~~
 Compiling test case libpmem1_5
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lpmem -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c: In function ‘main’:
-/tmp/fio-conf--62968-.c:5:3: error: implicit declaration of function ‘pmem_memcpy’; did you mean ‘pmem_unmap’? [-Werror=implicit-function-declaration]
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lpmem -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c: In function ‘main’:
+/tmp/fio-conf--5880-.c:5:3: error: implicit declaration of function ‘pmem_memcpy’; did you mean ‘pmem_unmap’? [-Werror=implicit-function-declaration]
    pmem_memcpy(NULL, NULL, NULL, NULL);
    ^~~~~~~~~~~
    pmem_unmap
 cc1: some warnings being treated as errors
 Compiling test case libpmemblk
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lpmemblk -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c:1:10: fatal error: libpmemblk.h: No such file or directory
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lpmemblk -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c:1:10: fatal error: libpmemblk.h: No such file or directory
  #include <libpmemblk.h>
           ^~~~~~~~~~~~~~
 compilation terminated.
 Compiling test case libime
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -I/include -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -L/lib -lim_client -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c:1:10: fatal error: ime_native.h: No such file or directory
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -I/include -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -L/lib -lim_client -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c:1:10: fatal error: ime_native.h: No such file or directory
  #include <ime_native.h>
           ^~~~~~~~~~~~~~
 compilation terminated.
 Compiling test case flex
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lfl -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lfl -lnuma -lrt -lz -lpthread
 /usr/bin/ld: cannot find -lfl
 collect2: error: ld returned 1 exit status
 Compiling test case lex
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -ll -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -ll -lnuma -lrt -lz -lpthread
 /usr/bin/ld: cannot find -ll
 collect2: error: ld returned 1 exit status
 Compiling test case getmntent
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case getmntinfo
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -Werror -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c: In function ‘main’:
-/tmp/fio-conf--62968-.c:7:10: error: implicit declaration of function ‘getmntinfo’; did you mean ‘getline’? [-Werror=implicit-function-declaration]
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -Werror -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c: In function ‘main’:
+/tmp/fio-conf--5880-.c:7:10: error: implicit declaration of function ‘getmntinfo’; did you mean ‘getline’? [-Werror=implicit-function-declaration]
    return getmntinfo(&st, MNT_NOWAIT);
           ^~~~~~~~~~
           getline
-/tmp/fio-conf--62968-.c:7:26: error: ‘MNT_NOWAIT’ undeclared (first use in this function); did you mean ‘MNT_DETACH’?
+/tmp/fio-conf--5880-.c:7:26: error: ‘MNT_NOWAIT’ undeclared (first use in this function); did you mean ‘MNT_DETACH’?
    return getmntinfo(&st, MNT_NOWAIT);
                           ^~~~~~~~~~
                           MNT_DETACH
-/tmp/fio-conf--62968-.c:7:26: note: each undeclared identifier is reported only once for each function it appears in
+/tmp/fio-conf--5880-.c:7:26: note: each undeclared identifier is reported only once for each function it appears in
 cc1: all warnings being treated as errors
 Compiling test case getmntinfo_statvfs
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -Werror -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c: In function ‘main’:
-/tmp/fio-conf--62968-.c:6:10: error: implicit declaration of function ‘getmntinfo’; did you mean ‘getline’? [-Werror=implicit-function-declaration]
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -Werror -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c: In function ‘main’:
+/tmp/fio-conf--5880-.c:6:10: error: implicit declaration of function ‘getmntinfo’; did you mean ‘getline’? [-Werror=implicit-function-declaration]
    return getmntinfo(&st, MNT_NOWAIT);
           ^~~~~~~~~~
           getline
-/tmp/fio-conf--62968-.c:6:26: error: ‘MNT_NOWAIT’ undeclared (first use in this function); did you mean ‘ST_NOSUID’?
+/tmp/fio-conf--5880-.c:6:26: error: ‘MNT_NOWAIT’ undeclared (first use in this function); did you mean ‘ST_NOSUID’?
    return getmntinfo(&st, MNT_NOWAIT);
                           ^~~~~~~~~~
                           ST_NOSUID
-/tmp/fio-conf--62968-.c:6:26: note: each undeclared identifier is reported only once for each function it appears in
+/tmp/fio-conf--5880-.c:6:26: note: each undeclared identifier is reported only once for each function it appears in
 cc1: all warnings being treated as errors
 Compiling test case static_assert
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case bool
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case strndup
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case valgrind_dev
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case linux_blkzoned
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case blkzoned report capacity
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c: In function ‘main’:
-/tmp/fio-conf--62968-.c:4:10: error: ‘BLK_ZONE_REP_CAPACITY’ undeclared (first use in this function); did you mean ‘BLK_ZONE_COND_EMPTY’?
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c: In function ‘main’:
+/tmp/fio-conf--5880-.c:4:10: error: ‘BLK_ZONE_REP_CAPACITY’ undeclared (first use in this function); did you mean ‘BLK_ZONE_COND_EMPTY’?
    return BLK_ZONE_REP_CAPACITY;
           ^~~~~~~~~~~~~~~~~~~~~
           BLK_ZONE_COND_EMPTY
-/tmp/fio-conf--62968-.c:4:10: note: each undeclared identifier is reported only once for each function it appears in
+/tmp/fio-conf--5880-.c:4:10: note: each undeclared identifier is reported only once for each function it appears in
 Compiling test case libzbc
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lzbc -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c:1:10: fatal error: libzbc/zbc.h: No such file or directory
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lzbc -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c:1:10: fatal error: libzbc/zbc.h: No such file or directory
  #include <libzbc/zbc.h>
           ^~~~~~~~~~~~~~
 compilation terminated.
 Compiling test case march=native
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -march=native -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -march=native -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case CUnit
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lcunit -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c:1:10: fatal error: CUnit/CUnit.h: No such file or directory
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lcunit -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c:1:10: fatal error: CUnit/CUnit.h: No such file or directory
  #include <CUnit/CUnit.h>
           ^~~~~~~~~~~~~~~
 compilation terminated.
 Compiling test case __kernel_rwf_t
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case -Wimplicit-fallthrough=2
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -Wimplicit-fallthrough=2 -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -Wimplicit-fallthrough=2 -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case thp
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case gettid
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c: In function ‘main’:
-/tmp/fio-conf--62968-.c:4:10: error: implicit declaration of function ‘gettid’; did you mean ‘getgid’? [-Werror=implicit-function-declaration]
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c: In function ‘main’:
+/tmp/fio-conf--5880-.c:4:10: error: implicit declaration of function ‘gettid’; did you mean ‘getgid’? [-Werror=implicit-function-declaration]
    return gettid();
           ^~~~~~
           getgid
 cc1: some warnings being treated as errors
 Compiling test case statx
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
-/tmp/fio-conf--62968-.c: In function ‘main’:
-/tmp/fio-conf--62968-.c:6:15: error: storage size of ‘st’ isn’t known
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
+/tmp/fio-conf--5880-.c: In function ‘main’:
+/tmp/fio-conf--5880-.c:6:15: error: storage size of ‘st’ isn’t known
   struct statx st;
                ^~
-/tmp/fio-conf--62968-.c:7:9: error: implicit declaration of function ‘statx’; did you mean ‘stat’? [-Werror=implicit-function-declaration]
+/tmp/fio-conf--5880-.c:7:9: error: implicit declaration of function ‘statx’; did you mean ‘stat’? [-Werror=implicit-function-declaration]
   return statx(-1, *argv, 0, 0, &st);
          ^~~~~
          stat
 cc1: some warnings being treated as errors
 Compiling test case statx_syscall
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case pdb
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -g -gcodeview -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -fuse-ld=lld -Wl,-pdb,/tmp/fio-conf--62968-.o -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -g -gcodeview -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -fuse-ld=lld -Wl,-pdb,/tmp/fio-conf--5880-.o -lnuma -lrt -lz -lpthread
 gcc: error: unrecognized debug output level ‘codeview’
 Compiling test case timerfd_create
-gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -lnuma -lrt -lz -lpthread
 Compiling test case tcmalloc
-gcc -D_GNU_SOURCE -include config-host.h -Wimplicit-fallthrough -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -ltcmalloc -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Wimplicit-fallthrough -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -ltcmalloc -lnuma -lrt -lz -lpthread
 /usr/bin/ld: cannot find -ltcmalloc
 collect2: error: ld returned 1 exit status
 Compiling test case tcmalloc_minimal4
-gcc -D_GNU_SOURCE -include config-host.h -Wimplicit-fallthrough -Werror-implicit-function-declaration -o /tmp/fio-conf--62968-.exe /tmp/fio-conf--62968-.c -l:libtcmalloc_minimal.so.4 -lnuma -lrt -lz -lpthread
+gcc -D_GNU_SOURCE -include config-host.h -Wimplicit-fallthrough -Werror-implicit-function-declaration -o /tmp/fio-conf--5880-.exe /tmp/fio-conf--5880-.c -l:libtcmalloc_minimal.so.4 -lnuma -lrt -lz -lpthread
 /usr/bin/ld: cannot find -l:libtcmalloc_minimal.so.4
 collect2: error: ld returned 1 exit status
