@@ -50,6 +50,7 @@ If you face any dependency issues, please refer the [doc](https://github.com/uts
 9.  LMDB: `cd scripts/lmdb; ./compile_lmdb.sh; cd ../..` -- This will compile LMDB
 10. Filebench: `cd scripts/filebench; ./compile_filebench.sh; cd ../..` -- This will compile Filebench
 11. FIO: `cd scripts/fio; ./compile_fio.sh; cd ../..` -- This will compile FIO
+12. Rocksdb: `cd scripts/ycsb_rocksdb; ./compile_rocksdb.sh; cd ../..` -- This will compile RocksDB
 
 Note: The <num_threads> argument in the compilation scripts performs the compilation with the number of threads given as input to the script, to improve the speed of compilation. 
 
