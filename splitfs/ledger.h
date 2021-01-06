@@ -33,6 +33,8 @@ struct NVFile
 	bool canRead;
 	bool canWrite;
 	bool append;
+	// flag to indicate if close on exec is set for the file.
+	bool cloexec;
 	bool aligned;
 	ino_t serialno; // duplicated so that iterating doesn't require following every node*
 	struct NVNode* node;

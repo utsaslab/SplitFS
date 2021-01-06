@@ -64,6 +64,23 @@ BOOST_PP_SEQ_FOR_EACH(NVP_WRAP_NO_FD_IWRAP, placeholder, (PIPE) (FORK) (SOCKET) 
 
 extern long copy_user_nocache(void *dst, const void *src, unsigned size, int zerorest);
 
+// TODO: Handle execv failure scenarios.
+/* We close the files whose close-on-exec flag is set.
+ * We do this in the wrapper function, and we do not currently handle the scenario where the execve call fails.
+ * 
+ * We are calling close here since the close executed by system call will not call the SplitFS' close.
+*/
+void close_cloexec_files() {
+	// TODO: Handle the execv failure case scenario
+	for (int i = 0; i < 1024; i++) {
+		if(_nvp_fd_lookup[i].cloexec == true && !_nvp_fd_lookup[i].posix) {
+			DEBUG("CLOEXEC of %d\n", i);
+			int ret = _nvp_CLOSE(i);
+			assert(ret == 0);
+		}
+	}
+}
+
 static inline int copy_from_user_inatomic_nocache(void *dst, const void *src, unsigned size) {
 	return copy_user_nocache(dst, src, size, 0);
 }
@@ -175,17 +192,17 @@ static inline void create_dr_mmap(struct NVNode *node, int is_overwrite)
 		assert(0);
 	}
 	if (is_overwrite)
-		ret = posix_fallocate(dr_fd, 0, DR_OVER_SIZE);
+		ret = _nvp_fileops->POSIX_FALLOCATE(dr_fd, 0, DR_OVER_SIZE);
 	else
-		ret = posix_fallocate(dr_fd, 0, DR_SIZE);
-
+		ret = _nvp_fileops->POSIX_FALLOCATE(dr_fd, 0, DR_SIZE);
+			
 	if (ret < 0) {
 		MSG("%s: posix_fallocate failed. Err = %s\n",
 		    __func__, strerror(errno));
 		assert(0);
 	}
 
-	fstat(dr_fd, &stat_buf);
+	_nvp_fileops->STAT(_STAT_VER, dr_fd, &stat_buf);
 
 	if (is_overwrite) {
 		node->dr_over_info.dr_fd = dr_fd;
@@ -1291,7 +1308,7 @@ void _nvp_init2(void)
 			    __func__, strerror(errno));
 			assert(0);
 		}
-		ret = posix_fallocate(dr_fd, 0, DR_SIZE);
+		ret = _hub_find_fileop("posix")->POSIX_FALLOCATE(dr_fd, 0, DR_SIZE);		
 		if (ret < 0) {
 			MSG("%s: posix_fallocate failed. Err = %s\n",
 			    __func__, strerror(errno));
@@ -1308,7 +1325,7 @@ void _nvp_init2(void)
 			 dr_fd, //fd_with_max_perms,
 			 0
 			 );
-		fstat(dr_fd, &stat_buf);
+		_hub_find_fileop("posix")->FSTAT(_STAT_VER, dr_fd, &stat_buf);
 		free_pool_mmaps[i].dr_serialno = stat_buf.st_ino;
 		free_pool_mmaps[i].dr_fd = dr_fd;
 	        free_pool_mmaps[i].valid_offset = 0;
@@ -1369,7 +1386,7 @@ void _nvp_init2(void)
 			    __func__, strerror(errno));
 			assert(0);
 		}
-		ret = posix_fallocate(dr_fd, 0, DR_OVER_SIZE);
+		ret = _hub_find_fileop("posix")->POSIX_FALLOCATE(dr_fd, 0, DR_OVER_SIZE);
 		if (ret < 0) {
 			MSG("%s: posix_fallocate failed. Err = %s\n",
 			    __func__, strerror(errno));
@@ -1386,7 +1403,7 @@ void _nvp_init2(void)
 			 dr_fd, //fd_with_max_perms,
 			 0
 			 );
-		fstat(dr_fd, &stat_buf);
+		_hub_find_fileop("posix")->FSTAT(_STAT_VER, dr_fd, &stat_buf);
 		free_pool_mmaps[i].dr_serialno = stat_buf.st_ino;
 		free_pool_mmaps[i].dr_fd = dr_fd;
 	        free_pool_mmaps[i].valid_offset = 0;
@@ -1650,7 +1667,7 @@ void nvp_free_dr_mmaps()
 		_nvp_fileops->UNLINK(new_path);
 		__atomic_fetch_sub(&num_drs_left, 1, __ATOMIC_SEQ_CST);
 	}
-	lfds711_queue_umm_cleanup( &qs_over, NULL );
+	// lfds711_queue_umm_cleanup( &qs_over, NULL );
 
 	for (i = 0; i < full_dr_idx; i++) {
 		addr = _nvp_full_drs[i].start_addr;
@@ -2558,8 +2575,8 @@ not_found:
 			    __func__, strerror(errno));
 			assert(0);
 		}
-		posix_fallocate(dr_fd, 0, DR_SIZE);
-		num_mmap++;
+		_nvp_fileops->POSIX_FALLOCATE(dr_fd, 0, DR_SIZE);		
+		num_mmap++;		
 		num_drs++;
 		num_drs_critical_path++;
 		nvf->node->dr_over_info.start_addr = (unsigned long) FSYNC_MMAP
@@ -2574,7 +2591,7 @@ not_found:
 
 		DEBUG_FILE("%s: Setting offset_start to DR_SIZE. FD = %d\n",
 			   __func__, nvf->fd);
-		fstat(dr_fd, &stat_buf);
+		_nvp_fileops->FSTAT(_STAT_VER, dr_fd, &stat_buf);
 		nvf->node->dr_over_info.dr_serialno = stat_buf.st_ino;
 		nvf->node->dr_over_info.dr_fd = dr_fd;
 		nvf->node->dr_over_info.valid_offset = 0;
@@ -2798,8 +2815,8 @@ not_found:
 			    __func__, strerror(errno));
 			assert(0);
 		}
-		posix_fallocate(dr_fd, 0, DR_SIZE);
-		num_mmap++;
+		_nvp_fileops->POSIX_FALLOCATE(dr_fd, 0, DR_SIZE);		
+		num_mmap++;		
 		num_drs++;
 		num_drs_critical_path++;
 		nvf->node->dr_info.start_addr = (unsigned long) FSYNC_MMAP
@@ -2814,7 +2831,7 @@ not_found:
 
 		DEBUG_FILE("%s: Setting offset_start to DR_SIZE. FD = %d\n",
 			   __func__, nvf->fd);
-		fstat(dr_fd, &stat_buf);
+		_nvp_fileops->STAT(_STAT_VER, dr_fd, &stat_buf);
 		nvf->node->dr_info.dr_serialno = stat_buf.st_ino;
 		nvf->node->dr_info.dr_fd = dr_fd;
 		nvf->node->dr_info.valid_offset = 0;
@@ -4002,6 +4019,18 @@ RETT_CLOSE _nvp_REAL_CLOSE(INTF_CLOSE, ino_t serialno, int async_file_closing) {
 	nvf->node->reference--;
 	NVP_UNLOCK_NODE_WR(nvf);
 
+	// FIXME: This is a workaround for corner case bug in relink.
+#if WORKLOAD_ROCKSDB
+	struct stat sbuf;
+	if(_nvp_fileops->FSTAT(_STAT_VER, file, &sbuf) != 0) {
+		perror("Failed to stat file");
+	}
+	if(sbuf.st_size != nvf->node->length) {
+		MSG("File size mismatch. Expected = %d; Actual = %d. Truncating explicitly as a workaround\n", nvf->node->length, sbuf.st_size);
+		_nvp_FTRUNC(file, nvf->node->length);
+	}
+#endif
+
 	if (nvf->node->reference == 0) {
 		nvf->node->serialno = 0;
 		push_in_stack(1, 0, nvf->node->index_in_free_list, node_list_idx);
@@ -4046,6 +4075,8 @@ RETT_CLOSE _nvp_REAL_CLOSE(INTF_CLOSE, ino_t serialno, int async_file_closing) {
 		nvp_cleanup_node(nvf->node, 0, 0);
 	}
 	nvf->serialno = 0;
+	nvf->cloexec = false;
+	nvf->file_stream_flags = 0;
 
 	NVP_UNLOCK_NODE_WR(nvf);
 	NVP_UNLOCK_FD_WR(nvf);
@@ -4297,7 +4328,7 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 		nvf->canWrite = 1;
 	} else if(oflag&O_WRONLY) {
 
-#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC
+#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC | WORKLOAD_ROCKSDB
 
 		nvf->posix = 0;
 		nvf->canRead = 1;
@@ -4330,6 +4361,10 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 		assert(0);
 	}
 
+	if(FLAGS_INCLUDE(oflag, O_CLOEXEC)) {
+		nvf->cloexec = true;
+	}
+	
 	if(FLAGS_INCLUDE(oflag, O_APPEND)) {
 		nvf->append = 1;
 	} else {
@@ -4669,6 +4704,8 @@ RETT_EXECVE _nvp_EXECVE(INTF_EXECVE) {
 	int pid = getpid();
 	char exec_nvp_filename[BUF_SIZE];
 
+	close_cloexec_files();
+
 	for (i = 0; i < 1024; i++) {
 		if (_nvp_fd_lookup[i].offset != NULL)
 			execve_fd_passing[i] = *(_nvp_fd_lookup[i].offset);
@@ -4741,6 +4778,8 @@ RETT_EXECVP _nvp_EXECVP(INTF_EXECVP) {
 	unsigned long offset_in_map = 0;
 	int pid = getpid();
 	char exec_nvp_filename[BUF_SIZE];
+
+	close_cloexec_files();
 
 	for (i = 0; i < 1024; i++) {
 		if (_nvp_fd_lookup[i].offset != NULL)
@@ -4818,6 +4857,8 @@ RETT_EXECV _nvp_EXECV(INTF_EXECV) {
 	unsigned long offset_in_map = 0;
 	int pid = getpid();
 	char exec_nvp_filename[BUF_SIZE];
+
+	close_cloexec_files();
 
 	for (i = 0; i < 1024; i++) {
 		if (_nvp_fd_lookup[i].offset != NULL)
@@ -4913,6 +4954,13 @@ RETT_FERROR _nvp_FERROR(INTF_FERROR)
 	RETT_FERROR result;
 
 	struct NVFile* nvf = &_nvp_fd_lookup[fileno(fp)];
+
+	NVP_CHECK_NVF_VALID(nvf);
+
+	if(nvf->posix) {
+		return _nvp_fileops->FERROR(CALL_FERROR);
+	}
+
 	NVP_LOCK_NODE_WR(nvf);
 	NVP_LOCK_FD_WR(nvf);
 	result = (nvf->file_stream_flags & NVP_IO_ERR_SEEN) > 0;
@@ -4923,12 +4971,25 @@ RETT_FERROR _nvp_FERROR(INTF_FERROR)
 #endif
 
 #ifdef TRACE_FP_CALLS
+RETT_FREAD_UNLOCKED _nvp_FREAD_UNLOCKED(INTF_FREAD_UNLOCKED) 
+{
+	// TODO: This implementation still uses locks. Implement without locks.
+	return _nvp_FREAD(CALL_FREAD);
+}
+#endif
+
+#ifdef TRACE_FP_CALLS
 RETT_CLEARERR _nvp_CLEARERR(INTF_CLEARERR)
 {
 	CHECK_RESOLVE_FILEOPS(_nvp_);
 	int fd = -1;
 
 	struct NVFile* nvf = &_nvp_fd_lookup[fileno(fp)];
+	NVP_CHECK_NVF_VALID(nvf);
+
+	if(nvf->posix) {
+		return _nvp_fileops->CLEARERR(CALL_CLEARERR);
+	}
 
 	NVP_LOCK_NODE_WR(nvf);
 	NVP_LOCK_FD_WR(nvf);
@@ -4955,6 +5016,38 @@ RETT_FCLOSE _nvp_FCLOSE(INTF_FCLOSE)
 	return result;
 }
 #endif
+
+// Currently handles only CLOEXEC
+RETT_FCNTL _nvp_FCNTL(INTF_FCNTL)
+{
+	CHECK_RESOLVE_FILEOPS(_nvp_);
+
+	DEBUG("CALL: _nvp_FCNTL\n");
+
+	struct NVFile* nvf = &_nvp_fd_lookup[file];
+
+	va_list ap;
+	void* arg;
+
+	if(nvf->posix) {
+		return _nvp_fileops->FCNTL(file, cmd, arg);
+	}
+
+	va_start (ap, cmd);
+	arg = va_arg (ap, void*);
+	va_end (ap);
+
+	if(cmd == F_SETFD && ((int)arg | FD_CLOEXEC) && !nvf->posix) {
+		nvf->cloexec = true;
+	} else {
+		nvf->cloexec = false;
+	}
+
+	RETT_FCNTL result = _nvp_fileops->FCNTL(file, cmd, arg);
+
+	DEBUG("%s: Return = %d\n", __func__, result);
+	return result;
+}
 
 
 #ifdef TRACE_FP_CALLS
@@ -5349,6 +5442,10 @@ RETT_WRITE _nvp_WRITE(INTF_WRITE)
 	return result;
 }
 
+RETT_PREAD64 _nvp_PREAD64(INTF_PREAD64) {
+	return _nvp_PREAD(CALL_PREAD64);
+}
+
 RETT_PREAD _nvp_PREAD(INTF_PREAD)
 {
 	CHECK_RESOLVE_FILEOPS(_nvp_);
@@ -5652,6 +5749,16 @@ RETT_FTRUNC64 _nvp_FTRUNC64(INTF_FTRUNC64)
 		TBL_ENTRY_UNLOCK_WR(tbl_app);
 		NVP_UNLOCK_NODE_WR(nvf);
 		NVP_UNLOCK_FD_RD(nvf, cpuid);
+#if WORKLOAD_ROCKSDB
+		struct stat sbuf;
+		if(_nvp_fileops->FSTAT(_STAT_VER, file, &sbuf) != 0) {
+			perror("Failed to stat file");
+		}
+		if(sbuf.st_size != nvf->node->length) {
+			MSG("FTRUNC: File size mismatch. Expected = %d; Actual = %d. Truncating explicitly as a workaround\n", nvf->node->length, sbuf.st_size);
+			_nvp_fileops->FTRUNC(file, nvf->node->length);
+		} 
+#endif
 		return 0;
 	}
 
@@ -6413,7 +6520,7 @@ RETT_MKDIRAT _nvp_MKDIRAT(INTF_MKDIRAT)
 }
 
 
-/*
+
 RETT_STAT _nvp_STAT(INTF_STAT)
 {
 	RETT_STAT result = 0;
@@ -6447,7 +6554,6 @@ RETT_STAT64 _nvp_STAT64(INTF_STAT64)
 	result = _nvp_fileops->STAT64(CALL_STAT64);
 	struct NVFile *nvf = NULL;
 	int cpuid = GET_CPUID();
-	assert(0);
 	pthread_spin_lock(&node_lookup_lock[0]);
 	if (_nvp_ino_lookup[buf->st_ino % 1024] != 0) {
 		int fd = _nvp_ino_lookup[buf->st_ino % 1024];
@@ -6476,14 +6582,13 @@ RETT_LSTAT64 _nvp_LSTAT64(INTF_LSTAT64)
 {
 	return _nvp_STAT64(CALL_STAT64);
 }
- 
+
 RETT_FSTAT _nvp_FSTAT(INTF_FSTAT)
 {
 	RETT_FSTAT result = 0;
 	result = _nvp_fileops->FSTAT(CALL_FSTAT);
 	struct NVFile *nvf = NULL;
 	int cpuid = GET_CPUID();
-	assert(0);
 	nvf = &_nvp_fd_lookup[file];
 	NVP_LOCK_FD_RD(nvf, cpuid);
 	if (nvf->posix) {
@@ -6515,76 +6620,259 @@ RETT_FSTAT64 _nvp_FSTAT64(INTF_FSTAT64)
 	return result;
 }
 
+
+/* Before doing an fallocate we do an fsync 
+ * 
+ * We do an fsync (relink) because we want be consistent with how the kernel and SplitFS sees the file.
+ * 
+ * TODO: Figure out if ext4 implementation will re-allocate the existing blocks (for e.g to make it contiguous)
+*/
 RETT_POSIX_FALLOCATE _nvp_POSIX_FALLOCATE(INTF_POSIX_FALLOCATE)
 {
+	CHECK_RESOLVE_FILEOPS(_nvp_);
 	RETT_POSIX_FALLOCATE result = 0;
-	struct NVFile *nvf = NULL;
 	struct stat sbuf;
-	int cpuid = GET_CPUID();
-	return _nvp_fileops->POSIX_FALLOCATE(CALL_POSIX_FALLOCATE);
-	assert(0);
-	nvf = &_nvp_fd_lookup[file];
-	NVP_LOCK_FD_RD(nvf, cpuid);
-	if (nvf->posix) {
-		result = _nvp_fileops->POSIX_FALLOCATE(CALL_POSIX_FALLOCATE);
-		return result;
+
+	struct NVFile *nvf = &_nvp_fd_lookup[file];
+
+	NVP_CHECK_NVF_VALID_WR(nvf);
+
+	if(nvf->posix) {
+		return _nvp_fileops->POSIX_FALLOCATE(CALL_POSIX_FALLOCATE);
 	}
+
+	int cpuid = GET_CPUID();
+
+	struct NVTable_maps *tbl_app = &_nvp_tbl_mmaps[nvf->node->serialno % APPEND_TBL_MAX];
+	
+#if DATA_JOURNALING_ENABLED
+	struct NVTable_maps *tbl_over = &_nvp_over_tbl_mmaps[nvf->node->serialno % OVER_TBL_MAX];
+#endif
+
+	_nvp_FSYNC(file);
 	NVP_LOCK_NODE_WR(nvf);
+
 	result = _nvp_fileops->POSIX_FALLOCATE(CALL_POSIX_FALLOCATE);
-	_nvp_fileops->FSTAT(_STAT_VER, file, &sbuf);
+
+	int ret = _nvp_fileops->FSTAT(_STAT_VER, file, &sbuf);
+	assert(ret == 0);
 	nvf->node->true_length = sbuf.st_size;
 	nvf->node->length = nvf->node->true_length;
+
 	NVP_UNLOCK_NODE_WR(nvf);
-	NVP_UNLOCK_FD_RD(nvf, cpuid);
 	return result;
 }
 
+/* Before doing an fallocate we do an fsync 
+ * 
+ * We do an fsync (relink) because we want be consistent with how the kernel and SplitFS sees the file.
+ * 
+ * TODO: Figure out if ext4 implementation will re-allocate the existing blocks (for e.g to make it contiguous)
+*/
 RETT_POSIX_FALLOCATE64 _nvp_POSIX_FALLOCATE64(INTF_POSIX_FALLOCATE64)
 {
+	CHECK_RESOLVE_FILEOPS(_nvp_);
 	RETT_POSIX_FALLOCATE64 result = 0;
-	struct NVFile *nvf = NULL;
 	struct stat sbuf;
-	return _nvp_fileops->POSIX_FALLOCATE64(CALL_POSIX_FALLOCATE64);
-	assert(0);
-	int cpuid = GET_CPUID();
-	nvf = &_nvp_fd_lookup[file];
-	NVP_LOCK_FD_RD(nvf, cpuid);
-	if (nvf->posix) {
-		result = _nvp_fileops->POSIX_FALLOCATE64(CALL_POSIX_FALLOCATE64);
-		return result;
+
+	struct NVFile *nvf = &_nvp_fd_lookup[file];
+
+	if(nvf->posix) {
+		return _nvp_fileops->POSIX_FALLOCATE64(CALL_POSIX_FALLOCATE64);
 	}
+
+	NVP_CHECK_NVF_VALID_WR(nvf);
+
+	int cpuid = GET_CPUID();
+
+	struct NVTable_maps *tbl_app = &_nvp_tbl_mmaps[nvf->node->serialno % APPEND_TBL_MAX];
+	
+#if DATA_JOURNALING_ENABLED
+	struct NVTable_maps *tbl_over = &_nvp_over_tbl_mmaps[nvf->node->serialno % OVER_TBL_MAX];
+#endif
+
+	_nvp_FSYNC(file);
 	NVP_LOCK_NODE_WR(nvf);
-	result = _nvp_fileops->POSIX_FALLOCATE64(CALL_POSIX_FALLOCATE);
-	_nvp_fileops->FSTAT(_STAT_VER, file, &sbuf);
+
+	result = _nvp_fileops->POSIX_FALLOCATE64(CALL_POSIX_FALLOCATE64);
+
+	int ret = _nvp_fileops->FSTAT(_STAT_VER, file, &sbuf);
+	assert(ret == 0);
 	nvf->node->true_length = sbuf.st_size;
 	nvf->node->length = nvf->node->true_length;
+
 	NVP_UNLOCK_NODE_WR(nvf);
-	NVP_UNLOCK_FD_RD(nvf, cpuid);
 	return result;
 }
 
+/* Before doing an fallocate we do an fsync 
+ * 
+ * We do an fsync (relink) because we want be consistent with how the kernel and SplitFS sees the file.
+ * 
+ * TODO: Figure out if ext4 implementation will re-allocate the existing blocks (for e.g to make it contiguous)
+*/
 RETT_FALLOCATE _nvp_FALLOCATE(INTF_FALLOCATE)
 {
-	RETT_FALLOCATE result = 0;
-	struct NVFile *nvf = NULL;
+	CHECK_RESOLVE_FILEOPS(_nvp_);
+	RETT_FALLOCATE result = -1;
 	struct stat sbuf;
-	int cpuid = GET_CPUID();
-	return _nvp_fileops->FALLOCATE(CALL_FALLOCATE);
-	assert(0);
-	nvf = &_nvp_fd_lookup[file];
-	NVP_LOCK_FD_RD(nvf, cpuid);
-	if (nvf->posix) {
-		result = _nvp_fileops->FALLOCATE(CALL_FALLOCATE);
-		return result;
+
+	struct NVFile *nvf = &_nvp_fd_lookup[file];
+
+	if(nvf->posix) {
+		return _nvp_fileops->FALLOCATE(CALL_FALLOCATE);
 	}
+
+	NVP_CHECK_NVF_VALID(nvf);
+
+	int cpuid = GET_CPUID();
+
+	struct NVTable_maps *tbl_app = &_nvp_tbl_mmaps[nvf->node->serialno % APPEND_TBL_MAX];
+
+#if DATA_JOURNALING_ENABLED
+	struct NVTable_maps *tbl_over = &_nvp_over_tbl_mmaps[nvf->node->serialno % OVER_TBL_MAX];
+#endif
+
+	_nvp_FSYNC(file);
 	NVP_LOCK_NODE_WR(nvf);
+
 	result = _nvp_fileops->FALLOCATE(CALL_FALLOCATE);
-	_nvp_fileops->FSTAT(_STAT_VER, file, &sbuf);
+
+	int ret = _nvp_fileops->FSTAT(_STAT_VER, file, &sbuf);
+	assert(ret == 0);
 	nvf->node->true_length = sbuf.st_size;
 	nvf->node->length = nvf->node->true_length;
+
 	NVP_UNLOCK_NODE_WR(nvf);
-	NVP_UNLOCK_FD_RD(nvf, cpuid);
 	return result;
 }
-*/
 
+/* sync_file_range guarantees data durability only for overwrites on certain filesystems.
+ * It does not guarantee metadata durability on any filesystem.
+ * 
+ * In case of POSIX mode of SplitFS too, we guarantee data durability and not metadata durability.
+ * The data durability is guaranteed by virtue of doing non temporal writes to the memory mapped file, so we don't really need to do anything here.
+ * 
+ * In case of Sync and Strict mode in SplitFS, this is guaranteed by the filesystem itself and sync_file_range is not required for durability.
+ * 
+ * A typical use case of sync_file_range is for database logging where the file is fallocated to a certain size and sync_file_range is used to ensure it 
+ * is an overwrite.
+*/
+RETT_SYNC_FILE_RANGE _nvp_SYNC_FILE_RANGE(INTF_SYNC_FILE_RANGE) {
+	CHECK_RESOLVE_FILEOPS(_nvp_);
+	RETT_SYNC_FILE_RANGE result = 0;
+
+	struct NVFile *nvf = &_nvp_fd_lookup[file];
+
+	if(nvf->posix) {
+		return _nvp_fileops->SYNC_FILE_RANGE(CALL_SYNC_FILE_RANGE);
+	}
+
+	NVP_CHECK_NVF_VALID(nvf);
+
+#if POSIX_ENABLED
+	return _nvp_posix_sync_file_range(CALL_SYNC_FILE_RANGE, nvf);
+#endif
+
+	return result;
+}
+
+/**
+ * File contents are spread across 4 different places
+ * 1. MMAP table (after fsync)
+ * 2. MMAP of the existing file (this is for pre-existing ext4 content)
+ * 3. Current Staging File (This is for the data currently being appended)
+ * 4. Underlying posix layer (generally for pre-existing ext4 content smaller than MAX_MMAP_SIZE).
+ * 
+ * For the content handled by the underlying posix layer, we should pass it on to the underlying posix layer.
+ * Which is what we do here.
+*/
+int _nvp_posix_sync_file_range(INTF_SYNC_FILE_RANGE, struct NVFile *nvf) {
+	int sync_offset_within_true_length;
+	int len_to_sync_within_true_length;
+	unsigned long mmap_addr = 0;
+	size_t extent_length;
+	int cpuid = GET_CPUID();
+	
+	// The data handled by posix will be within the true length and a subset of it.
+	sync_offset_within_true_length = (offset > nvf->node->true_length) ? -1 : offset;
+		
+	if(sync_offset_within_true_length == -1)
+		len_to_sync_within_true_length = 0;
+	else {
+		len_to_sync_within_true_length = (nbytes + offset > nvf->node->true_length) ? (nvf->node->true_length - offset) : nbytes;
+	}
+
+	while (len_to_sync_within_true_length > 0) {
+		// Get the file backed mmap address from which the read is to be performed. 
+		read_tbl_mmap_entry(nvf->node,
+				    sync_offset_within_true_length,
+				    len_to_sync_within_true_length,
+				    &mmap_addr,
+				    &extent_length,
+				    1);
+		
+		DEBUG_FILE("%s: addr to read = %p, size to read = %lu. Inode = %lu\n", __func__, mmap_addr, extent_length, nvf->node->serialno);
+		DEBUG("Pread: get_mmap_address returned %d, length %llu\n",
+			ret, extent_length);
+
+		// else do nothing
+		if (mmap_addr == 0) {
+			extent_length = sync_from_file_mmap(sync_offset_within_true_length,
+							    cpuid,
+							    nvf,
+							    len_to_sync_within_true_length,
+							    flags);
+			// If we encounter any error return -1
+			if(extent_length == -1) {
+				return -1;
+			}
+
+		}
+		len_to_sync_within_true_length -= extent_length;
+		sync_offset_within_true_length += extent_length;
+	}
+	return 0;
+}
+
+// Strictly for use with POSIX mode only.
+// We try to find where the data is corresponding to the offset. If it is not mmapped we call the underlying posix call for sync_file_range.
+// We return the number of bytes argument if successful otherwise we return -1
+int sync_from_file_mmap(int sync_offset_within_true_length, int cpuid, struct NVFile *nvf, int nbytes, int flags) {
+	int ret = 0, ret_get_addr = 0;
+	unsigned long mmap_addr = 0, bitmap_root = 0;
+	off_t offset_within_mmap = 0;
+	size_t extent_length = 0, read_count = 0, posix_sync_file_range = 0;
+	instrumentation_type copy_overread_time, get_mmap_time;
+
+	struct NVTable_maps *tbl_app = &_nvp_tbl_mmaps[nvf->node->serialno % APPEND_TBL_MAX];
+
+	// We are in posix mode, hence null.
+	struct NVTable_maps *tbl_over = NULL;
+	
+	START_TIMING(get_mmap_t, get_mmap_time);
+	ret = nvp_get_mmap_address(nvf,
+				   sync_offset_within_true_length,
+				   read_count,
+				   &mmap_addr,
+				   &bitmap_root,
+				   &offset_within_mmap,
+				   &extent_length,
+				   0,
+				   cpuid,
+				   tbl_app,
+				   tbl_over);
+	END_TIMING(get_mmap_t, get_mmap_time);
+
+	switch (ret) {
+	case 0: // Mmaped. Do nothing.
+		break;
+	case 1: // Not mmaped. Calling Posix sync_file_range.
+		posix_sync_file_range = _nvp_fileops->SYNC_FILE_RANGE(nvf->fd, sync_offset_within_true_length, nbytes, flags);
+		ret = posix_sync_file_range == 0 ? nbytes : -1;
+		return ret;
+	default:
+		break;
+	}
+	return nbytes;
+}

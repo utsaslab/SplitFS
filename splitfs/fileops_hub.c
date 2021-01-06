@@ -278,6 +278,9 @@ RETT_FOPEN64  _hub_FOPEN64(INTF_FOPEN64);
 RETT_IOCTL ALIAS_IOCTL(INTF_IOCTL) WEAK_ALIAS("_hub_IOCTL");
 RETT_IOCTL  _hub_IOCTL(INTF_IOCTL);
 
+RETT_FCNTL ALIAS_FCNTL(INTF_FCNTL) WEAK_ALIAS("_hub_FCNTL");
+RETT_FCNTL  _hub_FCNTL(INTF_FCNTL);
+
 RETT_OPEN64 ALIAS_OPEN64(INTF_OPEN64) WEAK_ALIAS("_hub_OPEN64");
 RETT_OPEN64  _hub_OPEN64(INTF_OPEN64);
 
@@ -1402,6 +1405,21 @@ RETT_UNLINK _hub_UNLINK(INTF_UNLINK)
 	return result;
 }
 
+RETT_FCNTL _hub_FCNTL(INTF_FCNTL)
+{
+	CHECK_RESOLVE_FILEOPS(_hub_);
+
+	DEBUG("CALL: _hub_FCNTL\n");
+
+	va_list ap;
+	void * arg;
+	va_start (ap, cmd);
+	arg = va_arg (ap, void*);
+	va_end (ap);
+
+	return _hub_managed_fileops->FCNTL(CALL_FCNTL, arg);
+}
+
 RETT_UNLINKAT _hub_UNLINKAT(INTF_UNLINKAT)
 {
 	CHECK_RESOLVE_FILEOPS(_hub_);
@@ -1494,7 +1512,7 @@ RETT_TRUNC _hub_TRUNC(INTF_TRUNC)
 	return result;	
 }
 
-/*
+
 RETT_STAT _hub_STAT(INTF_STAT)
 {
 	CHECK_RESOLVE_FILEOPS(_hub_);
@@ -1526,7 +1544,23 @@ RETT_LSTAT64 _hub_LSTAT64(INTF_LSTAT64)
 	result = _hub_managed_fileops->LSTAT64(CALL_LSTAT64);	
 	return result;
 }
-*/
+
+RETT_LSTAT64 _hub_FSTAT64(INTF_FSTAT64)
+{
+	CHECK_RESOLVE_FILEOPS(_hub_);
+	RETT_LSTAT64 result;
+	result = _hub_managed_fileops->FSTAT64(CALL_FSTAT64);	
+	return result;
+}
+
+RETT_LSTAT64 _hub_FSTAT(INTF_FSTAT)
+{
+	CHECK_RESOLVE_FILEOPS(_hub_);
+	RETT_LSTAT64 result;
+	result = _hub_managed_fileops->FSTAT(CALL_FSTAT);	
+	return result;
+}
+
 
 /*
 RETT_CLONE _hub_CLONE(INTF_CLONE)
