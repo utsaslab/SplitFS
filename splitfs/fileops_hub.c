@@ -627,9 +627,10 @@ struct Fileops_p* _hub_find_fileop(const char* name)
 
 RETT_OPEN _hub_OPEN(INTF_OPEN)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, OPEN);
 	int access_result;
 
+	MSG("_hub_OPEN = %s\n", path);
 	access_result = access(path, F_OK);
 	/**
 	 * We need to check if 'path' is a valid pointer, but not crash it 
@@ -648,20 +649,9 @@ RETT_OPEN _hub_OPEN(INTF_OPEN)
 
 	op_to_use = _hub_managed_fileops;	
 
-#if WORKLOAD_TPCC	
-
-	/*
-	if (strcmp("/mnt/pmem_emul/tpcc.db-wal",path) && strcmp("/mnt/pmem_emul/tpcc.db",path)) {
-		op_to_use = _hub_fileops;
-		goto opening;
-	}
-	*/
-
-#endif
-
-		/* In case of absoulate path specified, check if it belongs to the persistent memory 
-	 	* mount and only then use SplitFS, else redirect to POSIX
-		*/
+	/* In case of absoulate path specified, check if it belongs to the persistent memory 
+	 * mount and only then use SplitFS, else redirect to POSIX
+	 */
 	if(path[0] == '/') {
 		int len = strlen(NVMM_PATH);
 		char dest[len + 1];
@@ -762,7 +752,7 @@ RETT_OPEN _hub_OPEN(INTF_OPEN)
 
 RETT_MKNOD _hub_MKNOD(INTF_MKNOD)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, MKNOD);
         DEBUG_FILE("CALL: _hub_MKNOD for (%s)\n", path);
 	struct Fileops_p* op_to_use = NULL;
 	int result;
@@ -774,7 +764,7 @@ RETT_MKNOD _hub_MKNOD(INTF_MKNOD)
 
 RETT_MKNODAT _hub_MKNODAT(INTF_MKNODAT)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, MKNODAT);
         DEBUG_FILE("CALL: _hub_MKNODAT for (%s)\n", path);
 
 	struct Fileops_p* op_to_use = NULL;
@@ -787,7 +777,7 @@ RETT_MKNODAT _hub_MKNODAT(INTF_MKNODAT)
 
 RETT_CREAT _hub_CREAT(INTF_CREAT)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, CREAT);
         DEBUG_FILE("CALL: _hub_CREAT for (%s)\n", path);
 
 	return _hub_OPEN(path, O_CREAT | O_WRONLY | O_TRUNC, mode);
@@ -795,7 +785,7 @@ RETT_CREAT _hub_CREAT(INTF_CREAT)
 
 RETT_OPENAT _hub_OPENAT(INTF_OPENAT)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, OPENAT);
 
 	DEBUG("CALL: _hub_OPEN for %s\n", path);
 
@@ -1043,7 +1033,7 @@ RETT_FOPEN _hub_FOPEN(INTF_FOPEN)
 {
 	HUB_CHECK_RESOLVE_FILEOPS(_hub_, FOPEN);
 
-	DEBUG_FILE("CALL: _hub_FOPEN for %s\n", path);
+	DEBUG("CALL: _hub_FOPEN for %s\n", path);
 
 	FILE *fp = NULL;
 	int fd = -1, oflag = 0;
@@ -1326,7 +1316,7 @@ RETT_DUP2 _hub_DUP2(INTF_DUP2)
 
 RETT_IOCTL _hub_IOCTL(INTF_IOCTL)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, IOCTL);
 
 	DEBUG_FILE("CALL: _hub_IOCTL\n");
 	
@@ -1341,7 +1331,7 @@ RETT_IOCTL _hub_IOCTL(INTF_IOCTL)
 
 RETT_OPEN64 _hub_OPEN64(INTF_OPEN64)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, OPEN64);
 
 	DEBUG("CALL: _hub_OPEN64\n");
 	if (FLAGS_INCLUDE(oflag, O_CREAT))
@@ -1358,7 +1348,7 @@ RETT_OPEN64 _hub_OPEN64(INTF_OPEN64)
 
 RETT_SOCKET _hub_SOCKET(INTF_SOCKET)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, SOCKET);
 
 	DEBUG("CALL: _hub_SOCKET\n");
 
@@ -1374,7 +1364,7 @@ RETT_SOCKET _hub_SOCKET(INTF_SOCKET)
 
 RETT_ACCEPT _hub_ACCEPT(INTF_ACCEPT)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, ACCEPT);
 
         //pthread_spin_lock(&global_lock);			
 	DEBUG("CALL: _hub_ACCEPT\n");
@@ -1392,7 +1382,7 @@ RETT_ACCEPT _hub_ACCEPT(INTF_ACCEPT)
 
 RETT_UNLINK _hub_UNLINK(INTF_UNLINK)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, UNLINK);
 
 	DEBUG_FILE("CALL: _hub_UNLINK\n");
 
@@ -1404,7 +1394,7 @@ RETT_UNLINK _hub_UNLINK(INTF_UNLINK)
 
 RETT_UNLINKAT _hub_UNLINKAT(INTF_UNLINKAT)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, UNLINKAT);
 
 	DEBUG_FILE("CALL: _hub_UNLINKAT\n");
 
@@ -1416,7 +1406,7 @@ RETT_UNLINKAT _hub_UNLINKAT(INTF_UNLINKAT)
 
 RETT_MKDIR _hub_MKDIR(INTF_MKDIR)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, MKDIR);
 	DEBUG_FILE("CALL: _hub_MKDIR\n");
 	RETT_MKDIR result = _hub_managed_fileops->MKDIR(CALL_MKDIR);
 	// Write to op log
@@ -1426,7 +1416,7 @@ RETT_MKDIR _hub_MKDIR(INTF_MKDIR)
 
 RETT_RENAME _hub_RENAME(INTF_RENAME)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, RENAME);
 	DEBUG_FILE("CALL: _hub_RENAME\n");
 	RETT_RENAME result = _hub_managed_fileops->RENAME(CALL_RENAME);
 	// Write to op log
@@ -1436,7 +1426,7 @@ RETT_RENAME _hub_RENAME(INTF_RENAME)
 
 RETT_LINK _hub_LINK(INTF_LINK)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, LINK);
 	DEBUG_FILE("CALL: _hub_LINK\n");
 	RETT_LINK result = _hub_managed_fileops->LINK(CALL_LINK);
 	// Write to op log
@@ -1446,7 +1436,7 @@ RETT_LINK _hub_LINK(INTF_LINK)
 
 RETT_SYMLINK _hub_SYMLINK(INTF_SYMLINK)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, SYMLINK);
 	DEBUG_FILE("CALL: _hub_SYMLINK\n");
 	RETT_SYMLINK result = _hub_managed_fileops->SYMLINK(CALL_SYMLINK);
 	// Write to op log
@@ -1456,7 +1446,7 @@ RETT_SYMLINK _hub_SYMLINK(INTF_SYMLINK)
 
 RETT_RMDIR _hub_RMDIR(INTF_RMDIR)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, RMDIR);
 	DEBUG_FILE("CALL: _hub_RMDIR\n");
 	RETT_RMDIR result = _hub_managed_fileops->RMDIR(CALL_RMDIR);
 	// Write to op log
@@ -1466,7 +1456,7 @@ RETT_RMDIR _hub_RMDIR(INTF_RMDIR)
 
 RETT_SYMLINKAT _hub_SYMLINKAT(INTF_SYMLINKAT)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, SYMLINKAT);
 	DEBUG_FILE("CALL: _hub_SYMLINKAT\n");
 	RETT_SYMLINKAT result = _hub_managed_fileops->SYMLINKAT(CALL_SYMLINKAT);
 	// Write to op log
@@ -1476,7 +1466,7 @@ RETT_SYMLINKAT _hub_SYMLINKAT(INTF_SYMLINKAT)
 
 RETT_MKDIRAT _hub_MKDIRAT(INTF_MKDIRAT)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, MKDIRAT);
 	DEBUG_FILE("CALL: _hub_MKDIRAT\n");
 	RETT_MKDIRAT result = _hub_managed_fileops->MKDIRAT(CALL_MKDIRAT);
 	// Write to op log
@@ -1486,7 +1476,7 @@ RETT_MKDIRAT _hub_MKDIRAT(INTF_MKDIRAT)
 
 RETT_TRUNC _hub_TRUNC(INTF_TRUNC)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, TRUNC);
 	DEBUG_FILE("CALL: _hub_TRUNC\n");
 	RETT_TRUNC result = _hub_managed_fileops->TRUNC(CALL_TRUNC);
 	// Write to op log

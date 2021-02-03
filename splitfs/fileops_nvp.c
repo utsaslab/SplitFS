@@ -4060,6 +4060,7 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 {
 	int result;
 	instrumentation_type open_time, clf_lock_time, nvnode_lock_time;
+	int new_flags = oflag;
 #if BG_CLOSING
 	int closed_filedesc = -1, fd = -1, hash_index = -1;
 #if SEQ_LIST || RAND_LIST
@@ -4163,6 +4164,10 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 	 * If creation of the file is involved, 3 parameters must be passed to open(). 
 	 * Otherwise, 2 parameters must be passed
 	 */
+	if (oflag & O_WRONLY) {
+		new_flags = new_flags & (~O_WRONLY);
+		new_flags = new_flags | O_RDWR;
+	}
 	if (FLAGS_INCLUDE(oflag,O_CREAT))
 	{
 		va_list arg;
@@ -4173,7 +4178,7 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 		// Open system call is done here  
 		DEBUG_FILE("%s: calling open with path = %s, flag = %d, mode = %d, ino addr = %p, ino size addr = %p\n", __func__, path, oflag, mode, &file_st.st_ino, &file_st.st_size);
 		//result = syscall(334, path, oflag & (~O_APPEND), mode, &file_st.st_ino, &file_st.st_size);
-		result = _nvp_fileops->OPEN(path, oflag & (~O_APPEND), mode);
+		result = _nvp_fileops->OPEN(path, new_flags & (~O_APPEND), mode);
 #if !POSIX_ENABLED
 		if (result >= 0) {
 			START_TIMING(op_log_entry_t, op_log_entry_time);
@@ -4189,7 +4194,7 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 	} else { 
 		DEBUG_FILE("%s: calling open with path = %s, flag = %d, mode = 0666, ino addr = %p, ino size addr = %p\n", __func__, path, oflag, &file_st.st_ino, &file_st.st_size);
 		//result = syscall(334, path, oflag & (~O_APPEND), 0666, &file_st.st_ino, &file_st.st_size);
-		result = _nvp_fileops->OPEN(path, oflag & (~O_APPEND), 0666);
+		result = _nvp_fileops->OPEN(path, new_flags & (~O_APPEND), 0666);
 	}
 	if(result<0)
 	{
@@ -4297,7 +4302,7 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 		nvf->canWrite = 1;
 	} else if(oflag&O_WRONLY) {
 
-#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC
+#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC | WORKLOAD_FIO
 
 		nvf->posix = 0;
 		nvf->canRead = 1;
@@ -4521,7 +4526,7 @@ RETT_CLOSE _nvp_CLOSE(INTF_CLOSE)
 	START_TIMING(close_t, close_time);
 
 	GLOBAL_LOCK_WR();
-	DEBUG_FILE("_nvp_CLOSE(%i)\n", file);
+	DEBUG("_nvp_CLOSE(%i)\n", file);
 
 #if PASS_THROUGH_CALLS
 	num_close++;
@@ -5655,6 +5660,7 @@ RETT_FTRUNC64 _nvp_FTRUNC64(INTF_FTRUNC64)
 		return 0;
 	}
 
+	_nvp_fileops->FSYNC(file);
 	int result = _nvp_fileops->FTRUNC64(CALL_FTRUNC64);
 	_nvp_fileops->FSYNC(file);
 
