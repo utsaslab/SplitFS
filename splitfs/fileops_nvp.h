@@ -6,6 +6,7 @@
 #include "nv_common.h"
 #include "ledger.h"
 #include "nvp_lock.h"
+#include "queue_impl.h"
 #include "liblfds711/inc/liblfds711.h"
 
 #define _NVP_USE_DEFAULT_FILEOPS NULL

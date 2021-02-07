@@ -7,6 +7,7 @@
 # Common to all lib*.so
 COMMON_OBJ=nvp_printf.o
 NVP_LRU_CACHE=lru_cache.o
+#NVP_STAGING_QUEUE=queue_impl.o
 NVP_STACK=stack.o
 NVP_LOG=log.o
 NVP_NON_TEMPORAL=non_temporal.o
@@ -15,6 +16,7 @@ NVP_TIMER=timers.o
 NVP_TBL_MMAP=tbl_mmaps.o
 NVP_UTILS=utils.o
 NVP_LFQUEUE=lfq.c
+#NVP_STAGING_QUEUE=queue_impl.c
 
 all: sofiles $(COMMON_OBJ)
 #$(NVP_STACK) $(NVP_LOG) $(NVP_LRU_CACHE)

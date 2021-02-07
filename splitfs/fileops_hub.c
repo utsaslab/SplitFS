@@ -630,7 +630,7 @@ RETT_OPEN _hub_OPEN(INTF_OPEN)
 	HUB_CHECK_RESOLVE_FILEOPS(_hub_, OPEN);
 	int access_result;
 
-	MSG("_hub_OPEN = %s\n", path);
+	DEBUG_FILE("_hub_OPEN = %s\n", path);
 	access_result = access(path, F_OK);
 	/**
 	 * We need to check if 'path' is a valid pointer, but not crash it 

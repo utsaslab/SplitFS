@@ -67,6 +67,10 @@ static void clean_dr_mmap() {
 			assert(0);
 		}
 
+		if (!clean_overwrite) {
+			__atomic_fetch_add(&num_drs_allocated, 1, __ATOMIC_SEQ_CST);
+		}
+
 		for (j = 0; j < num_blocks; j++) {
 #if NON_TEMPORAL_WRITES
 			if(MEMCPY_NON_TEMPORAL((char *)temp_dr_good_info->start_addr + j*MMAP_PAGE_SIZE, prefault_buf, MMAP_PAGE_SIZE) == NULL) {

@@ -170,7 +170,7 @@ struct full_dr {
 #define NUM_APP_TBL_MMAP_ENTRIES 1024
 #endif
 
-#if WORKLOAD_TPCC | WORKLOAD_REDIS | WORKLOAD_FIO
+#if WORKLOAD_TPCC | WORKLOAD_REDIS | WORKLOAD_FIO | WORKLOAD_FILEBENCH
 #define NUM_OVER_TBL_MMAP_ENTRIES 32768
 #define NUM_APP_TBL_MMAP_ENTRIES 10240
 #endif
@@ -183,7 +183,7 @@ struct full_dr {
 #define REGION_COVERAGE (40*1024)
 #define LARGE_TBL_REGIONS (512*1024*1024 / REGION_COVERAGE)
 
-#if WORKLOAD_TPCC | WORKLOAD_FIO
+#if WORKLOAD_TPCC | WORKLOAD_FIO | WORKLOAD_FILEBENCH
 #define PER_REGION_TABLES (REGION_COVERAGE / 1024)
 #else
 #define PER_REGION_TABLES 100 // (REGION_COVERAGE / 1024)
@@ -335,6 +335,22 @@ volatile int async_close_enable;
 
 #endif
 
+pthread_spinlock_t staging_mmap_lock;
+pthread_spinlock_t staging_over_mmap_lock;
+
+#define QUEUE_LOCKING 0
+#if QUEUE_LOCKING
+
+#define QUEUE_LOCK_WR(queue_lock)    {pthread_spin_lock(queue_lock);}
+#define QUEUE_UNLOCK_WR(queue_lock)  {pthread_spin_unlock(queue_lock);}
+
+#else
+
+#define QUEUE_LOCK_WR(queue_lock)           {(void)(queue_lock);}
+#define QUEUE_UNLOCK_WR(queue_lock)         {(void)(queue_lock);}
+
+#endif
+
 /******************* MMAP ********************/
 
 #define IS_ERR(x) ((unsigned long)(x) >= (unsigned long)-4095)
@@ -387,8 +403,14 @@ volatile int async_close_enable;
 #define ANON_MAX_MMAP_SIZE 536870912
 #endif
 
+#if WORKLOAD_FILEBENCH
+#define DR_SIZE (16*1024*1024)
+#define DR_OVER_SIZE (2*1024*1024)
+#else
 #define DR_SIZE (256*1024*1024)
 #define DR_OVER_SIZE (256*1024*1024)
+#endif
+
 #define NVMM_PATH "/mnt/pmem_emul/"
 #define DR_APPEND_PATH "/mnt/pmem_emul/DR-XXXXXX"
 #define DR_OVER_PATH "/mnt/pmem_emul/DR-OVER-XXXXXX"

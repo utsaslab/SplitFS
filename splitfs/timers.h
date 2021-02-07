@@ -45,6 +45,8 @@ unsigned long long deleted_size;
 volatile size_t _nvp_wr_extended;
 volatile size_t _nvp_wr_total;
 atomic_uint_fast64_t num_drs_left;
+atomic_uint_fast64_t num_drs_allocated;
+atomic_uint_fast64_t num_drs_freed;
 
 void nvp_print_io_stats(void);
 

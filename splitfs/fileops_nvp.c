@@ -185,6 +185,12 @@ static inline void create_dr_mmap(struct NVNode *node, int is_overwrite)
 		assert(0);
 	}
 
+	if (!is_overwrite) {
+		__atomic_fetch_add(&num_drs_allocated, 1, __ATOMIC_SEQ_CST);
+	}
+
+	__atomic_fetch_add(&num_drs_left, 1, __ATOMIC_SEQ_CST);
+
 	fstat(dr_fd, &stat_buf);
 
 	if (is_overwrite) {
@@ -241,6 +247,7 @@ static inline void change_dr_mmap(struct NVNode *node, int is_overwrite) {
 
 	if (is_overwrite) {
 		struct free_dr_pool *temp_dr_info = lfq_dequeue(&staging_over_mmap_queue_ctx);
+		//struct free_dr_pool *temp_dr_info = dequeue(over_staging_mmap_queue);
 		if (temp_dr_info != 0) {
 		//if( lfds711_queue_umm_dequeue(&qs_over, &qe_over) ) {
 			// Found addr in global pool
@@ -260,6 +267,7 @@ static inline void change_dr_mmap(struct NVNode *node, int is_overwrite) {
 		}
 	} else {
 		struct free_dr_pool *temp_dr_info = lfq_dequeue(&staging_mmap_queue_ctx);
+		//struct free_dr_pool *temp_dr_info = dequeue(append_staging_mmap_queue);
 		if (temp_dr_info != 0) {
 			//if( lfds711_queue_umm_dequeue(&qs, &qe) ) {
 			// Found addr in global pool
@@ -280,6 +288,7 @@ static inline void change_dr_mmap(struct NVNode *node, int is_overwrite) {
 	}
 
 	__atomic_fetch_sub(&num_drs_left, 1, __ATOMIC_SEQ_CST);
+	__atomic_fetch_add(&num_drs_freed, 1, __ATOMIC_SEQ_CST);
 
 	callBgCleaningThread(is_overwrite);
 }
@@ -1256,11 +1265,15 @@ void _nvp_init2(void)
 	*/
 	//lfds711_queue_umm_init_valid_on_current_logical_core( &qs, &qe_dummy, NULL );
 	lfq_init(&staging_mmap_queue_ctx, NVP_NUM_LOCKS/2);
+	//append_staging_mmap_queue = (concurrent_queue *) calloc(1, sizeof(concurrent_queue));
+	//queue_initialize(append_staging_mmap_queue);
 
 #if DATA_JOURNALING_ENABLED
 
 	//lfds711_queue_umm_init_valid_on_current_logical_core( &qs_over, &qe_dummy_over, NULL );
 	lfq_init(&staging_over_mmap_queue_ctx, NVP_NUM_LOCKS/2);
+	//over_staging_mmap_queue = (concurrent_queue *) calloc(1, sizeof(concurrent_queue));
+	//queue_initialize(over_staging_mmap_queue);
 
 #endif
 
@@ -1297,6 +1310,7 @@ void _nvp_init2(void)
 			    __func__, strerror(errno));
 			assert(0);
 		}
+		__atomic_fetch_add(&num_drs_allocated, 1, __ATOMIC_SEQ_CST);
 		num_mmap++;
 		num_drs++;
 		free_pool_mmaps[i].start_addr = (unsigned long) FSYNC_MMAP
@@ -1346,6 +1360,7 @@ void _nvp_init2(void)
 		//lfds711_queue_umm_enqueue( &qs, &free_pool_mmaps[i].qe );
 		if (lfq_enqueue(&staging_mmap_queue_ctx, &(free_pool_mmaps[i])) != 0)
 			assert(0);
+		//enqueue(append_staging_mmap_queue, &(free_pool_mmaps[i]));
 
 		MSG("%s: dr fd = %d, start addr = %p\n", __func__, dr_fd,
 			   free_pool_mmaps[i].start_addr);
@@ -1424,6 +1439,7 @@ void _nvp_init2(void)
 
 		if (lfq_enqueue(&staging_over_mmap_queue_ctx, &(free_pool_mmaps[i])) != 0)
 			assert(0);
+		//enqueue(over_staging_mmap_queue, &free_pool_of_mmaps[i]);
 		//lfds711_queue_umm_enqueue( &qs_over, &free_pool_mmaps[i].qe );
 
 		MSG("%s: dr fd = %d, start addr = %p\n", __func__, dr_fd,
@@ -1562,6 +1578,7 @@ void nvp_transfer_to_free_dr_pool(struct NVNode *node)
 		//lfds711_queue_umm_enqueue( &qs_over, &(free_pool_of_dr_mmap->qe) );
 		if (lfq_enqueue(&staging_over_mmap_queue_ctx, free_pool_of_dr_mmap) != 0)
 			assert(0);
+		//enqueue(over_staging_mmap_queue, free_pool_of_dr_mmap);
 
 		memset((void *)&node->dr_over_info, 0, sizeof(struct free_dr_pool));
 		__atomic_fetch_sub(&dr_mem_allocated, DR_OVER_SIZE, __ATOMIC_SEQ_CST);
@@ -1587,6 +1604,7 @@ void nvp_transfer_to_free_dr_pool(struct NVNode *node)
 		//lfds711_queue_umm_enqueue( &qs, &(free_pool_of_dr_mmap->qe) );
 		if (lfq_enqueue(&staging_mmap_queue_ctx, free_pool_of_dr_mmap) != 0)
 			assert(0);
+		//enqueue(append_staging_mmap_queue, free_pool_of_dr_mmap);
 
 		memset((void *)&node->dr_info, 0, sizeof(struct free_dr_pool));
 		__atomic_fetch_sub(&dr_mem_allocated, DR_SIZE, __ATOMIC_SEQ_CST);
@@ -1604,7 +1622,9 @@ void nvp_free_dr_mmaps()
 	int i = 0;
 	ssize_t file_name_size = 0;
 
-	while ((temp_free_pool_of_dr_mmaps = lfq_dequeue(&staging_mmap_queue_ctx)) != 0) {
+	while ((temp_free_pool_of_dr_mmaps = lfq_dequeue(&staging_mmap_queue_ctx)) != 0)
+	//while ((temp_free_pool_of_dr_mmaps = dequeue(append_staging_mmap_queue)) != NULL)
+	  {
 		//while( lfds711_queue_umm_dequeue(&qs, &qe) ) {
 		//temp_free_pool_of_dr_mmaps = LFDS711_QUEUE_UMM_GET_VALUE_FROM_ELEMENT( *qe );
 		addr = temp_free_pool_of_dr_mmaps->start_addr;
@@ -1624,12 +1644,15 @@ void nvp_free_dr_mmaps()
 		// Remove the file.
 		_nvp_fileops->UNLINK(new_path);
 		__atomic_fetch_sub(&num_drs_left, 1, __ATOMIC_SEQ_CST);
+		__atomic_fetch_add(&num_drs_freed, 1, __ATOMIC_SEQ_CST);
 	}
 	//lfds711_queue_umm_cleanup( &qs, NULL );
 
 #if DATA_JOURNALING_ENABLED
 
-	while ((temp_free_pool_of_dr_mmaps = lfq_dequeue(&staging_over_mmap_queue_ctx)) != 0) {
+	while ((temp_free_pool_of_dr_mmaps = lfq_dequeue(&staging_over_mmap_queue_ctx)) != 0)
+	//while ((temp_free_pool_of_dr_mmaps = dequeue(over_staging_mmap_queue)) != NULL)
+	  {
 		//while( lfds711_queue_umm_dequeue(&qs_over, &qe_over) ) {
 		//temp_free_pool_of_dr_mmaps = LFDS711_QUEUE_UMM_GET_VALUE_FROM_ELEMENT( *qe_over );
 		addr = temp_free_pool_of_dr_mmaps->start_addr;
@@ -2078,7 +2101,11 @@ static unsigned int calculate_new_height(off_t offset)
 	return height;
 }
 
-static int nvp_get_mmap_address(struct NVFile *nvf, off_t offset, size_t count, unsigned long *mmap_addr, unsigned long *bitmap_root, off_t *offset_within_mmap, size_t *extent_length, int wr_lock, int cpuid, struct NVTable_maps *tbl_app, struct NVTable_maps *tbl_over)
+static int nvp_get_mmap_address(struct NVFile *nvf, off_t offset,
+		size_t count, unsigned long *mmap_addr,
+		unsigned long *bitmap_root, off_t *offset_within_mmap,
+		size_t *extent_length, int wr_lock, int cpuid,
+		struct NVTable_maps *tbl_app, struct NVTable_maps *tbl_over)
 {
 	int i;
 	int index;
@@ -2141,7 +2168,7 @@ static int nvp_get_mmap_address(struct NVFile *nvf, off_t offset, size_t count, 
 		assert(0);
 	}
 
-        (*mmap_addr) = (start_addr + (offset % MAX_MMAP_SIZE));
+  (*mmap_addr) = (start_addr + (offset % MAX_MMAP_SIZE));
 	*offset_within_mmap = offset % MAX_MMAP_SIZE;
 
 #if !NON_TEMPORAL_WRITES	
@@ -2163,6 +2190,15 @@ not_found:
 		return 1;
 	}
 
+	start_offset = ALIGN_MMAP_DOWN(offset);	
+	if (start_offset + MAX_MMAP_SIZE > nvf->node->true_length) {
+		ERROR("File length smaller than offset: "
+			"length 0x%lx, offset 0x%lx\n",
+			nvf->node->length, offset);
+		MSG("%s: file length smaller than offset\n", __func__);
+		return 1;
+	}
+
 	if (!wr_lock) {
 		TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
 		TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
@@ -2174,17 +2210,7 @@ not_found:
 		TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
 		TBL_ENTRY_LOCK_RD(tbl_over, cpuid);
 
-	        END_TIMING(nvnode_lock_t, nvnode_lock_time);
-	}
-
-	start_offset = ALIGN_MMAP_DOWN(offset);	
-		
-	if (start_offset + MAX_MMAP_SIZE > nvf->node->true_length) {
-		ERROR("File length smaller than offset: "
-			"length 0x%lx, offset 0x%lx\n",
-			nvf->node->length, offset);
-		MSG("%s: file length smaller than offset\n", __func__);
-		return 1;
+    END_TIMING(nvnode_lock_t, nvnode_lock_time);
 	}
 
 	START_TIMING(file_mmap_t, file_mmap_time);	
@@ -2362,7 +2388,7 @@ static void nvp_manage_dr_memory(struct NVFile *nvf, uint64_t *extent_length,
 				 int index)
 {
 	int i;
-	unsigned long offset_within_mmap = 0;
+	off_t offset_within_mmap = 0;
 	/* 
 	 * Check if the reads are being served from DR. If yes, then all the future reads should
 	 * be performed through the file backed memory, for the appended and fsync()ed region. 
@@ -2383,24 +2409,31 @@ static void nvp_manage_dr_memory(struct NVFile *nvf, uint64_t *extent_length,
 			nvf->node->dr_info.dr_offset_end = offset_within_mmap + len_to_write;
 	} else {
 		// It is a large write. So finish writing to this mmap. 
-		if(nvf->node->dr_info.dr_offset_end < (offset_within_mmap + *extent_length))
-			nvf->node->dr_info.dr_offset_end = DR_SIZE;
+	  nvf->node->dr_info.dr_offset_end = DR_SIZE;
 	}
 
 	DEBUG_FILE("%s END: dr_offset_start = %lu, dr_offset_end = %lu, offset_within_mmap = %lu\n",
 		   __func__, nvf->node->dr_info.dr_offset_start, nvf->node->dr_info.dr_offset_end,
 		   offset_within_mmap);
 
-	if (nvf->node->dr_info.dr_offset_start < nvf->node->dr_info.valid_offset)
+	if (nvf->node->dr_info.dr_offset_start < nvf->node->dr_info.valid_offset) {
+        MSG("%s: dr_offset_start = %lld, valid_offset = %lld, true_length = %lu, length = %lu\n",
+                __func__, nvf->node->dr_info.dr_offset_start, nvf->node->dr_info.valid_offset,
+                nvf->node->true_length, nvf->node->length);
 		assert(0);
+  }
 	if (nvf->node->dr_info.valid_offset > DR_SIZE)
 		assert(0);
 	if (nvf->node->dr_info.dr_offset_start > DR_SIZE)
 		assert(0);
 	if (nvf->node->dr_info.dr_offset_end > DR_SIZE)
 		assert(0);
-	if (nvf->node->dr_info.dr_offset_end < nvf->node->dr_info.dr_offset_start)
-		assert(0);
+  if (nvf->node->dr_info.dr_offset_end < nvf->node->dr_info.dr_offset_start) {
+        MSG("%s: dr_offset_start = %lld, valid_offset = %lld, offset_within_mmap = %lld, dr_offset_end = %lld, true_length = %lu, length = %lu\n",
+                __func__, nvf->node->dr_info.dr_offset_start, nvf->node->dr_info.valid_offset, offset_within_mmap,
+                nvf->node->dr_info.dr_offset_end, nvf->node->true_length, nvf->node->length);
+    assert(0);
+  }
 }
 
 #if DATA_JOURNALING_ENABLED 
@@ -2526,6 +2559,7 @@ not_found:
 	START_TIMING(dr_mem_queue_t, dr_mem_queue_time);
 
 	struct free_dr_pool *temp_dr_info = lfq_dequeue(&staging_over_mmap_queue_ctx);
+	//struct free_dr_pool *temp_dr_info = dequeue(over_staging_mmap_queue);
 	if (temp_dr_info != 0) {
 		//if( lfds711_queue_umm_dequeue(&qs_over, &qe_over) ) {
 		// Found addr in global pool
@@ -2587,6 +2621,7 @@ not_found:
 	__atomic_fetch_add(&dr_mem_allocated, DR_OVER_SIZE,
 			   __ATOMIC_SEQ_CST);
 	nvf->node->dr_mem_used += DR_OVER_SIZE;
+    __atomic_fetch_add(&num_drs_left, 1, __ATOMIC_SEQ_CST);
 
 	END_TIMING(dr_mem_queue_t, dr_mem_queue_time);
 	if (IS_ERR(start_addr) || start_addr == 0)
@@ -2661,6 +2696,10 @@ static int nvp_get_dr_mmap_address(struct NVFile *nvf, off_t offset,
 	struct stat stat_buf;
 	instrumentation_type nvnode_lock_time, dr_mem_queue_time;
 
+
+    DEBUG_FILE("%s: Start. offset = %lu, len_to_write = %lu, nvf->node->length = %lu, nvf->node->true_length = %lu\n",
+            __func__, offset, len_to_write, nvf->node->length, nvf->node->true_length);
+
 	DEBUG("Get mmap address: offset 0x%lx, height %u\n",
 	      offset, height);
 	/* The index of the mmap in the global DR pool.
@@ -2709,30 +2748,9 @@ static int nvp_get_dr_mmap_address(struct NVFile *nvf, off_t offset,
 	 * in this section.
 	 */
 
-	if (!wr_lock) {
-		TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
-		TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
-		NVP_UNLOCK_NODE_RD(nvf, cpuid);
-
-		START_TIMING(nvnode_lock_t, nvnode_lock_time);
-		NVP_LOCK_NODE_WR(nvf);
-		TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
-		TBL_ENTRY_LOCK_RD(tbl_over, cpuid);
-		END_TIMING(nvnode_lock_t, nvnode_lock_time);
-	}
 	if(iswrite) {
 		nvp_manage_dr_memory(nvf, extent_length, len_to_write,
 				     start_offset, index);
-	}
-
-	if (!wr_lock && !iswrite) {
-		TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
-		TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
-		NVP_UNLOCK_NODE_WR(nvf);
-
-		NVP_LOCK_NODE_RD(nvf, cpuid);
-		TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
-		TBL_ENTRY_LOCK_RD(tbl_over, cpuid);
 	}
 
 	return 0;
@@ -2741,21 +2759,11 @@ not_found:
 	/* The mmap for that index was not found. Performing mmap
 	 * in this section.
 	 */
-	if (!wr_lock) {
-		TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
-		TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
-		NVP_UNLOCK_NODE_RD(nvf, cpuid);
-
-		START_TIMING(nvnode_lock_t, nvnode_lock_time);
-		NVP_LOCK_NODE_WR(nvf);
-		TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
-		TBL_ENTRY_LOCK_RD(tbl_over, cpuid);
-		END_TIMING(nvnode_lock_t, nvnode_lock_time);
-	}
 
 	START_TIMING(dr_mem_queue_t, dr_mem_queue_time);
 
 	struct free_dr_pool *temp_dr_info = lfq_dequeue(&staging_mmap_queue_ctx);
+	//struct free_dr_pool *temp_dr_info = dequeue(append_staging_mmap_queue);
 	if (temp_dr_info != 0) {
 		//if( lfds711_queue_umm_dequeue(&qs, &qe) ) {
 		// Found addr in global pool
@@ -2780,7 +2788,12 @@ not_found:
 			   __func__, nvf->node->dr_info.dr_serialno, nvf->node->dr_info.valid_offset);
 
 	} else {
-		DEBUG_FILE("%s: Allocating new DR\n", __func__);
+	        DEBUG_FILE("%s: Allocating new DR\n", __func__);
+
+		if (num_drs_allocated - num_drs_freed > 200) {
+			goto not_found;
+		}
+
 		// Nothing in global pool
 		int dr_fd = 0;
 		int i = 0;
@@ -2812,6 +2825,7 @@ not_found:
 			 0
 			 );
 
+		__atomic_fetch_add(&num_drs_allocated, 1, __ATOMIC_SEQ_CST);
 		DEBUG_FILE("%s: Setting offset_start to DR_SIZE. FD = %d\n",
 			   __func__, nvf->fd);
 		fstat(dr_fd, &stat_buf);
@@ -2830,6 +2844,7 @@ not_found:
 	__atomic_fetch_add(&dr_mem_allocated, DR_SIZE,
 			   __ATOMIC_SEQ_CST);
 	nvf->node->dr_mem_used += DR_SIZE;
+  __atomic_fetch_add(&num_drs_left, 1, __ATOMIC_SEQ_CST);
 
 	END_TIMING(dr_mem_queue_t, dr_mem_queue_time);
 	if (IS_ERR(start_addr) || start_addr == 0)
@@ -2851,25 +2866,11 @@ not_found:
 	*offset_within_mmap = start_offset;
 	*extent_length = DR_SIZE - start_offset;
 
-	DEBUG_FILE("%s: Will do manage DR memory if it is a write\n",
-		   __func__);
-	if(iswrite) 
-		nvp_manage_dr_memory(nvf, extent_length,
-				     len_to_write, start_offset, index);
-
-	if (!wr_lock && !iswrite) {
-		TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
-		TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
-		NVP_UNLOCK_NODE_WR(nvf);
-
-		NVP_LOCK_NODE_RD(nvf, cpuid);
-		TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
-		TBL_ENTRY_LOCK_RD(tbl_over, cpuid);
-	}
+	nvp_manage_dr_memory(nvf, extent_length,
+			 len_to_write, start_offset, index);
 
 	return 0;
 }
-
  RETT_PREAD _nvp_read_beyond_true_length(INTF_PREAD, int wr_lock, int cpuid, struct NVFile *nvf, struct NVTable_maps *tbl_app, struct NVTable_maps *tbl_over)
 {
 	size_t len_to_read, extent_length, read_count;
@@ -3028,17 +3029,21 @@ RETT_PWRITE write_to_file_mmap(int file,
 
     while(len_to_write_within_true_length > 0) {
         START_TIMING(get_mmap_t, get_mmap_time);
-        ret = nvp_get_mmap_address(nvf,
-                write_offset_within_true_length,
-                write_count,
-                &mmap_addr,
-                &bitmap_root,
-                &offset_within_mmap,
-                &extent_length,
-                wr_lock,
-                cpuid,
-                NULL,
-                NULL);
+        if (nvf->node->length < MAX_MMAP_SIZE) {
+            ret = 1;
+        } else {
+          ret = nvp_get_mmap_address(nvf,
+              write_offset_within_true_length,
+              len_to_write_within_true_length,
+              &mmap_addr,
+              &bitmap_root,
+              &offset_within_mmap,
+              &extent_length,
+              wr_lock,
+              cpuid,
+              NULL,
+              NULL);
+        }
         END_TIMING(get_mmap_t, get_mmap_time);
 
         switch (ret) {
@@ -3332,6 +3337,14 @@ RETT_PWRITE write_to_file_mmap(int file,
 	/* This is used mostly to check if the write is not an append,
 	 * but is way beyond the length of the file. 
 	 */
+    if (write_offset < nvf->node->true_length) {
+        extent_length = _nvp_fileops->PWRITE(nvf->fd, buf, (nvf->node->true_length - write_offset), write_offset);
+        len_to_write -= extent_length;
+        write_offset += extent_length;
+        write_count  += extent_length;
+        buf += extent_length;
+    }
+
 	write_offset_wrt_true_length = write_offset - nvf->node->true_length;
 	DEBUG_FILE("%s: write offset = %lu, true length = %lu\n", __func__, write_offset, nvf->node->true_length);
 	// The address to perform the memcpy to is got from this function. 
@@ -3366,8 +3379,10 @@ RETT_PWRITE write_to_file_mmap(int file,
 			   extent_length,
 			   len_to_write);
 #if BG_CLEANING
+		_nvp_fileops->CLOSE(nvf->node->dr_info.dr_fd);
 		change_dr_mmap(nvf->node, 0);
 #else
+		_nvp_fileops->CLOSE(nvf->node->dr_info.dr_fd);
 		create_dr_mmap(nvf->node, 0);
 #endif
 		END_TIMING(clear_dr_t, clear_dr_time);
@@ -3389,14 +3404,6 @@ RETT_PWRITE write_to_file_mmap(int file,
 			   __func__, nvf->node->dr_info.dr_fd, nvf->node->dr_info.start_addr, nvf->node->dr_info.valid_offset,
 			   nvf->node->dr_info.dr_offset_start, nvf->node->dr_info.dr_offset_end);
 
-		TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
-		TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
-		NVP_UNLOCK_NODE_WR(nvf);
-
-		NVP_LOCK_NODE_RD(nvf, cpuid);
-		TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
-		TBL_ENTRY_LOCK_RD(tbl_over, cpuid);
-
 		goto get_addr;
 	}
 
@@ -3405,36 +3412,19 @@ RETT_PWRITE write_to_file_mmap(int file,
 	if((extent_length + write_offset) > nvf->node->length)
 		extension_with_node_length = extent_length + write_offset - nvf->node->length;
 
-	if ((mmap_addr % MMAP_PAGE_SIZE) != (nvf->node->length % MMAP_PAGE_SIZE)) {
-		MSG("%s: mmap_addr = %lu, nvf->node->length = %lu, nvf->node->true_length = %lu\n",
-		    __func__, mmap_addr, nvf->node->length, nvf->node->true_length);
-		assert(0);
-	}
-
 	nvf->node->length += extension_with_node_length;
 
 	memcpy_write_size += extent_length;
 	append_write_size += extent_length;
 
-	if (!wr_lock) {
-		TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
-		TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
-
-		NVP_UNLOCK_NODE_WR(nvf);
-		NVP_LOCK_NODE_RD(nvf, cpuid);
-
-		TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
-		TBL_ENTRY_LOCK_RD(tbl_over, cpuid);
-	}
-
 #if SYSCALL_APPENDS
 
 	offset_within_mmap = write_offset - nvf->node->true_length;
 	_nvp_fileops->PWRITE(nvf->node->dr_info.dr_fd, buf, extent_length, offset_within_mmap);
-	_nvp_fileops->FSYNC(nvf->fd);
+	copy_appends_to_file(nvf, 0, 0);
+	//_nvp_fileops->FSYNC(nvf->fd);
 
 #else // SYSCALL APPENDS
-
 	// Write to anonymous DRAM. No dirty tracking to be performed here. 
 	START_TIMING(copy_appendwrite_t, copy_appendwrite_time);
 
@@ -3474,11 +3464,7 @@ RETT_PWRITE write_to_file_mmap(int file,
 	TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
 	TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
 
-	if (!wr_lock) {
-		NVP_UNLOCK_NODE_RD(nvf, cpuid);	
-	} else {
-		NVP_UNLOCK_NODE_WR(nvf);
-	}
+	NVP_UNLOCK_NODE_WR(nvf);
 	NVP_UNLOCK_FD_RD(nvf, cpuid);
 	// Log the append
 
@@ -3501,6 +3487,348 @@ RETT_PWRITE write_to_file_mmap(int file,
 	return write_count;
 }
 
+RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
+			   int wr_lock,
+			   int cpuid,
+			   struct NVFile *nvf,
+			   struct NVTable_maps *tbl_app,
+			   struct NVTable_maps *tbl_over)
+{
+	CHECK_RESOLVE_FILEOPS(_nvp_);
+	off_t write_offset, offset_within_mmap;
+	size_t write_count, extent_length;
+	size_t posix_write;
+	unsigned long mmap_addr = 0;
+	unsigned long bitmap_root = 0;
+	uint64_t extendFileReturn;
+	instrumentation_type appends_time, read_tbl_mmap_time,
+	  copy_overwrite_time, get_dr_mmap_time,
+	  append_log_entry_time, clear_dr_time, insert_tbl_mmap_time;
+
+	DEBUG_FILE("_nvp_do_pwrite. fd = %d, "
+		   "offset = %lu, count = %lu\n",
+		   file, offset, count);
+	_nvp_wr_total++;
+
+
+	 SANITYCHECKNVF(nvf);
+	 if(UNLIKELY(!nvf->canWrite)) {
+		 DEBUG_FILE("FD not open for writing: %i\n", file);
+		 errno = EBADF;
+
+		 TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
+		 TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
+		 NVP_UNLOCK_NODE_RD(nvf, cpuid);
+		 NVP_UNLOCK_FD_RD(nvf, cpuid);
+		 return -1;
+	 }
+	 if(nvf->aligned)
+		 {
+			 DEBUG_FILE("FD = %i, This write must be aligned.  Checking alignment.\n", file);
+			 if(UNLIKELY(count % 512))
+				 {
+					 errno = EINVAL;
+
+					 TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
+					 TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
+					 NVP_UNLOCK_NODE_RD(nvf, cpuid);
+					 NVP_UNLOCK_FD_RD(nvf, cpuid);
+					 return -1;
+				 }
+			 if(UNLIKELY(offset % 512))
+				 {
+					 DEBUG_FILE("offset was not aligned to 512 "
+					       "(offset was %li). FD = %i\n", offset, file);
+					 errno = EINVAL;
+
+					 TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
+					 TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
+					 NVP_UNLOCK_NODE_RD(nvf, cpuid);
+					 NVP_UNLOCK_FD_RD(nvf, cpuid);
+					 return -1;
+				 }
+
+			 if(UNLIKELY(((long long int)buf & (512-1)) != 0))
+				 {
+					 DEBUG_FILE("buffer was not aligned to 512 (buffer was %p, "
+					       "mod 512 = %li). FD = %i\n", buf,
+					       (long long int)buf % 512, file);
+					 errno = EINVAL;
+
+					 TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
+					 TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
+					 NVP_UNLOCK_NODE_RD(nvf, cpuid);
+					 NVP_UNLOCK_FD_RD(nvf, cpuid);
+					 return -1;
+				 }
+		 }
+	 if(nvf->append)
+		 {
+			 DEBUG("this fd (%i) is O_APPEND; setting offset from the "
+			       "passed value (%li) to the end of the file (%li) "
+			       "prior to writing anything\n", nvf->fd, offset,
+			       nvf->node->length);
+			 offset = nvf->node->length;
+		 }
+
+	 ssize_t len_to_write;
+	 size_t over_len_to_write = 0;
+	 ssize_t extension_with_read_length;
+	 DEBUG_FILE("time for a Pwrite. fd = %i, file length %li, "
+	       "offset %li, count %li\n",
+	       file, nvf->node->length, offset, count);
+
+	 len_to_write = count;
+
+	 SANITYCHECK(nvf->valid);
+	 SANITYCHECK(nvf->node != NULL);
+	 SANITYCHECK(buf > 0);
+	 SANITYCHECK(count >= 0);
+
+	 write_count = 0;
+	 write_offset = offset;
+
+	 TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
+	 TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
+	 NVP_UNLOCK_NODE_RD(nvf, cpuid);
+
+	 NVP_LOCK_NODE_WR(nvf);
+	 TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
+	 TBL_ENTRY_LOCK_RD(tbl_over, cpuid);
+	 while (len_to_write > 0) {	 
+
+	   if (write_offset >= nvf->node->length + 1) {
+	     DEBUG_FILE("%s: Hole getting created. "
+			"Doing Write system call. "
+			"write_offset = %lu, "
+			"nvf->node->length = %lu\n",
+			__func__, write_offset,
+			nvf->node->length);
+
+	     swap_extents(nvf, 0);
+	     nvp_transfer_to_free_dr_pool(nvf->node);
+	     posix_write = _nvp_fileops->PWRITE(file, buf, count, write_offset);
+	     _nvp_fileops->FSYNC(file);
+	     num_posix_write++;
+	     posix_write_size += posix_write;
+	     if (write_offset + count <= nvf->node->length) {
+	       DEBUG_FILE("%s: offset fault. "
+			  "Offset of write = %lu, "
+			  "count = %lu, node length = %lu\n",
+			  __func__, write_offset,
+			  count, nvf->node->length);
+	       assert(0);
+	     }
+
+	     nvf->node->length = write_offset + count;
+	     nvf->node->true_length = nvf->node->length;
+	     if (nvf->node->true_length >= LARGE_FILE_THRESHOLD)
+	       nvf->node->is_large_file = 1;
+
+	     TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
+	     TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
+	     NVP_UNLOCK_NODE_WR(nvf);
+	     NVP_UNLOCK_FD_RD(nvf, cpuid);
+	     return posix_write;
+	   }
+
+	   if (write_offset >= nvf->node->true_length)
+	     goto appends;
+
+	   if (write_offset + len_to_write > nvf->node->true_length)
+           over_len_to_write = nvf->node->true_length - write_offset;
+       else
+            over_len_to_write = len_to_write;
+
+
+#if DATA_JOURNALING_ENABLED
+
+	   TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
+	   TBL_ENTRY_LOCK_WR(tbl_over);
+
+	   // Get the file backed mmap address to which the write is to be performed. 
+	 get_addr:
+	   START_TIMING(get_dr_mmap_t, get_dr_mmap_time);
+
+	   nvp_get_over_dr_address(nvf, write_offset, over_len_to_write,
+				   &mmap_addr, &offset_within_mmap,
+				   &extent_length, wr_lock, cpuid,
+				   tbl_app, tbl_over);
+	   DEBUG_FILE("%s: extent_length = %lu, len_to_write = %lu\n",
+		      __func__, extent_length, over_len_to_write);
+	   END_TIMING(get_dr_mmap_t, get_dr_mmap_time);
+
+	   if (extent_length < over_len_to_write) {
+	     size_t len_swapped = swap_extents(nvf, nvf->node->true_length);
+	     off_t offset_in_page = 0;
+	     START_TIMING(clear_dr_t, clear_dr_time);
+	     DEBUG_FILE("%s: EXTENT_LENGTH < LEN_TO_WRITE, "
+			"EXTENT FD = %d, extent_length = %lu, "
+			"len_to_write = %lu\n",
+			__func__,
+			nvf->node->dr_info.dr_fd,
+			extent_length,
+			over_len_to_write);
+#if BG_CLEANING
+	     change_dr_mmap(nvf->node, 1);
+#else
+	     create_dr_mmap(nvf->node, 1);
+#endif
+	     END_TIMING(clear_dr_t, clear_dr_time);
+
+	     DEBUG_FILE("%s: RECEIVED OTHER EXTENT. "
+			"dr over fd = %d, dr over addr = %p, "
+			"dr over start off = %lu, "
+			"dr over end off = %lu\n",
+			__func__, nvf->node->dr_over_info.dr_fd,
+			nvf->node->dr_over_info.start_addr,
+			nvf->node->dr_over_info.dr_offset_start,
+			nvf->node->dr_over_info.dr_offset_end);
+
+	     goto get_addr;
+	   }
+
+#else // DATA_JOURNALING_ENABLED
+
+	   START_TIMING(read_tbl_mmap_t, read_tbl_mmap_time);
+	   read_tbl_mmap_entry(nvf->node, write_offset,
+			       over_len_to_write, &mmap_addr,
+			       &extent_length, 1);
+	   END_TIMING(read_tbl_mmap_t, read_tbl_mmap_time);
+ 
+	   if (mmap_addr == 0) {
+#if WORKLOAD_FILEBENCH
+           extent_length = _nvp_fileops->PWRITE(nvf->fd, buf, over_len_to_write, write_offset);
+           goto post_write;
+#else
+           extent_length = write_to_file_mmap(file, write_offset,
+                   over_len_to_write, 1,
+                   cpuid, buf, 
+                   nvf);
+           goto post_write;
+#endif
+	   }
+
+#endif // DATA_JOURNALING_ENABLED
+
+	   if (extent_length > over_len_to_write)
+	     extent_length = over_len_to_write;
+
+	   // The write is performed to file backed mmap
+	   START_TIMING(copy_overwrite_t, copy_overwrite_time);
+
+#if NON_TEMPORAL_WRITES
+
+	   DEBUG_FILE("%s: memcpy args: buf = %p, "
+		      "mmap_addr = %p, length = %lu. "
+		      "File off = %lld. Inode = %lu\n",
+		      __func__, buf, (void *) mmap_addr,
+		      extent_length, write_offset, nvf->node->serialno);
+
+	   if(MEMCPY_NON_TEMPORAL((char *)mmap_addr, buf, extent_length) == NULL) {
+	     printf("%s: non-temporal memcpy failed\n", __func__);
+	     fflush(NULL);
+	     assert(0);
+	   }
+	   _mm_sfence();
+	   num_mfence++;
+	   num_write_nontemporal++;
+	   non_temporal_write_size += extent_length;
+
+#else //NON_TEMPORAL_WRITES
+
+	   if(FSYNC_MEMCPY((char *)mmap_addr, buf, extent_length) != (char *)mmap_addr) {
+	     printf("%s: memcpy failed\n", __func__);
+	     fflush(NULL);
+	     assert(0);
+	   }
+
+#if DIRTY_TRACKING
+
+	   modifyBmap((struct merkleBtreeNode *)bitmap_root,
+		      offset_within_mmap, extent_length);
+
+#endif //DIRTY_TRACKING
+
+	   num_memcpy_write++;
+
+#endif //NON_TEMPORAL_WRITES
+
+#if NVM_DELAY
+	   perfmodel_add_delay(0, extent_length);
+#endif
+
+	   END_TIMING(copy_overwrite_t, copy_overwrite_time);
+
+#if DATA_JOURNALING_ENABLED
+ 
+	   START_TIMING(insert_tbl_mmap_t, insert_tbl_mmap_time);
+	   insert_over_tbl_mmap_entry(nvf->node,
+				      write_offset,
+				      offset_within_mmap,
+				      extent_length,
+				      mmap_addr);
+	   END_TIMING(insert_tbl_mmap_t, insert_tbl_mmap_time);
+
+#endif // DATA_JOURNALING_ENABLED
+ 
+	 post_write:
+	   memcpy_write_size += extent_length;
+	   len_to_write -= extent_length;
+	   write_offset += extent_length;
+	   write_count  += extent_length;
+	   buf += extent_length;
+
+#if DATA_JOURNALING_ENABLED
+ 
+	   START_TIMING(append_log_entry_t, append_log_entry_time);
+	   persist_append_entry(nvf->node->serialno,
+				nvf->node->dr_over_info.dr_serialno,
+				write_offset,
+				offset_within_mmap,
+				extent_length);
+	   END_TIMING(append_log_entry_t, append_log_entry_time);
+
+#endif // DATA_JOURNALING_ENABLED
+
+	 }
+
+	 TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
+	 TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
+
+	 NVP_UNLOCK_NODE_WR(nvf);
+	 NVP_UNLOCK_FD_RD(nvf, cpuid);
+
+	 return write_count;
+
+	 // If we need to append data, we should call _nvp_extend_write to write to anonymous mmap. 
+ appends:
+
+	START_TIMING(appends_t, appends_time);
+	extendFileReturn = _nvp_extend_write(file, buf,
+					     len_to_write,
+					     write_offset,
+					     wr_lock, cpuid,
+					     nvf,
+					     tbl_app,
+					     tbl_over);
+
+	 END_TIMING(appends_t, appends_time);
+	 len_to_write -= extendFileReturn;
+	 write_count += extendFileReturn;
+	 write_offset += extendFileReturn;
+	 buf += extendFileReturn;
+
+	 DEBUG_FILE("About to return from "
+		    "_nvp_do_pwrite with ret val %li. "
+		    "file len: %li, inode %lu\n",
+		    write_count, nvf->node->length,
+		    nvf->node->serialno);
+
+	 return write_count;
+ }
+
+#if 0
 RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 			   int wr_lock,
 			   int cpuid,
@@ -3596,45 +3924,58 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 	 write_count = 0;
 	 write_offset = offset;		
 
-	 if (write_offset >= nvf->node->length + 1) {
-		 DEBUG_FILE("%s: Hole getting created. Doing Write system call\n", __func__);
-		 posix_write = _nvp_fileops->PWRITE(file, buf, count, write_offset);
-		 _nvp_fileops->FSYNC(file);
-		 num_posix_write++;
-		 posix_write_size += posix_write;
-		 if (!wr_lock) {
-			 TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
-			 TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
-			 NVP_UNLOCK_NODE_RD(nvf, cpuid);
+	 while (len_to_write > 0) {	 
+         if (!wr_lock) {
+             TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
+             TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
+             NVP_UNLOCK_NODE_RD(nvf, cpuid);
 
-			 NVP_LOCK_NODE_WR(nvf);
-			 TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
-			 TBL_ENTRY_LOCK_RD(tbl_over, cpuid);
-		 }
-		 if (write_offset + count <= nvf->node->length) {
-			 DEBUG_FILE("%s: offset fault. Offset of write = %lu, count = %lu, node length = %lu\n", __func__, write_offset, count, nvf->node->length);
-			 assert(0);
-		 }
+             NVP_LOCK_NODE_WR(nvf);
+             TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
+             TBL_ENTRY_LOCK_RD(tbl_over, cpuid);
+         }
+         if (write_offset >= nvf->node->length + 1) {
+             DEBUG_FILE("%s: Hole getting created. Doing Write system call\n", __func__);
+             posix_write = _nvp_fileops->PWRITE(file, buf, count, write_offset);
+             _nvp_fileops->FSYNC(file);
+             num_posix_write++;
+             posix_write_size += posix_write;
+             if (write_offset + count <= nvf->node->length) {
+                 DEBUG_FILE("%s: offset fault. Offset of write = %lu, count = %lu, node length = %lu\n", __func__, write_offset, count, nvf->node->length);
+                 assert(0);
+             }
 
-		 nvf->node->length = write_offset + count;
-		 nvf->node->true_length = nvf->node->length;
-		 if (nvf->node->true_length >= LARGE_FILE_THRESHOLD)
-			 nvf->node->is_large_file = 1;
+             nvf->node->length = write_offset + count;
+             nvf->node->true_length = nvf->node->length;
+             if (nvf->node->true_length >= LARGE_FILE_THRESHOLD)
+                 nvf->node->is_large_file = 1;
 
-		 TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
-		 TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
-		 NVP_UNLOCK_NODE_WR(nvf);
-		 NVP_UNLOCK_FD_RD(nvf, cpuid);
-		 return posix_write;
-	 }
+             TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
+             TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
+             NVP_UNLOCK_NODE_WR(nvf);
+             NVP_UNLOCK_FD_RD(nvf, cpuid);
+             return posix_write;
+         }
 
-	 if (write_offset == nvf->node->length)
-		 goto appends;
+         if (write_offset <= nvf->node->length && write_offset >= nvf->node->true_length)
+             goto appends;
 
-	 if (write_offset >= nvf->node->true_length) {
-		 MSG("%s: write_offset = %lu, true_length = %lu\n", __func__, write_offset, nvf->node->true_length);
-		 assert(0);
-	 }
+         /*
+         if (!wr_lock) {
+             TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
+             TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
+             NVP_UNLOCK_NODE_WR(nvf);
+
+             NVP_LOCK_NODE_RD(nvf, cpuid);
+             TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
+             TBL_ENTRY_LOCK_RD(tbl_over, cpuid);
+         }
+         */
+
+         if (write_offset + len_to_write > nvf->node->true_length)
+             len_to_write = nvf->node->true_length - write_offset;
+         //extent_length = _nvp_fileops->PWRITE(file, buf, len_to_write, offset);
+         //goto post_write;
 
 #if DATA_JOURNALING_ENABLED
 
@@ -3671,6 +4012,7 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 
 		 DEBUG_FILE("%s: RECEIVED OTHER EXTENT. dr over fd = %d, dr over addr = %p, dr over start off = %lu, dr over end off = %lu\n", __func__, nvf->node->dr_over_info.dr_fd, nvf->node->dr_over_info.start_addr, nvf->node->dr_over_info.dr_offset_start, nvf->node->dr_over_info.dr_offset_end);
 
+             /*
 		 TBL_ENTRY_UNLOCK_WR(tbl_over);
 		 TBL_ENTRY_UNLOCK_WR(tbl_app);
 		 NVP_UNLOCK_NODE_WR(nvf);
@@ -3678,9 +4020,11 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 
 		 TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
 		 TBL_ENTRY_LOCK_WR(tbl_over);
+		 */
 		 goto get_addr;
 	 }
 
+	 /*
 	 TBL_ENTRY_UNLOCK_WR(tbl_over);
 	 TBL_ENTRY_UNLOCK_WR(tbl_app);
 	 NVP_UNLOCK_NODE_WR(nvf);
@@ -3688,6 +4032,7 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 
 	 TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
 	 TBL_ENTRY_LOCK_RD(tbl_over, cpuid);
+	 */
 
 #else // DATA_JOURNALING_ENABLED
 
@@ -3763,19 +4108,14 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 	 END_TIMING(insert_tbl_mmap_t, insert_tbl_mmap_time);
 
 #endif // DATA_JOURNALING_ENABLED
- 
- post_write:
-	 memcpy_write_size += extent_length;
-	 len_to_write -= extent_length;
-	 write_offset += extent_length;
-	 write_count  += extent_length;
-	 buf += extent_length;
 
-	 TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
-	 TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
+post_write:
+         memcpy_write_size += extent_length;
+         len_to_write -= extent_length;
+         write_offset += extent_length;
+         write_count  += extent_length;
+         buf += extent_length;
 
-	 NVP_UNLOCK_NODE_RD(nvf, cpuid);
-	 NVP_UNLOCK_FD_RD(nvf, cpuid);
 
 #if DATA_JOURNALING_ENABLED
  
@@ -3789,6 +4129,14 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 
 #endif // DATA_JOURNALING_ENABLED
 
+     }
+
+     TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
+     TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
+
+     NVP_UNLOCK_NODE_RD(nvf, cpuid);
+     NVP_UNLOCK_FD_RD(nvf, cpuid);
+
 	 return write_count;
 
 	 // If we need to append data, we should call _nvp_extend_write to write to anonymous mmap. 
@@ -3801,6 +4149,18 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 					      nvf,
 					      tbl_app,
 					      tbl_over);
+#if 0
+     extendFileReturn = _nvp_fileops->PWRITE(file, buf, len_to_write, write_offset);
+     struct stat sbuf;
+     fstat(file, &sbuf);
+     nvf->node->length = nvf->node->true_length = sbuf.st_size;
+
+     TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
+     TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
+     NVP_UNLOCK_NODE_WR(nvf);
+     NVP_UNLOCK_FD_RD(nvf, cpuid);
+#endif
+
 	 END_TIMING(appends_t, appends_time);
 	 len_to_write -= extendFileReturn;
 	 write_count += extendFileReturn;
@@ -3813,6 +4173,7 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 		 nvf->node->maplength, nvf->node);
 	 return write_count;
  }
+#endif
 
  void _nvp_test_invalidate_node(struct NVFile* nvf)
 {
@@ -4257,6 +4618,10 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 	GLOBAL_UNLOCK_CLOSE_WR();
 #endif	// BG_CLOSING
 	// Retrieving the NVFile corresponding to the file descriptor returned by open() system call
+    if (result >= OPEN_MAX) {
+        MSG("OPEN returned fd = %d\n", result);
+        assert(0);
+    }
 	nvf = &_nvp_fd_lookup[result];
 	DEBUG("_nvp_OPEN succeeded for path %s: fd %i returned. "
 		"filling in file info\n", path, result);
@@ -4526,7 +4891,7 @@ RETT_CLOSE _nvp_CLOSE(INTF_CLOSE)
 	START_TIMING(close_t, close_time);
 
 	GLOBAL_LOCK_WR();
-	DEBUG("_nvp_CLOSE(%i)\n", file);
+	DEBUG_FILE("_nvp_CLOSE(%i)\n", file);
 
 #if PASS_THROUGH_CALLS
 	num_close++;
@@ -5660,7 +6025,6 @@ RETT_FTRUNC64 _nvp_FTRUNC64(INTF_FTRUNC64)
 		return 0;
 	}
 
-	_nvp_fileops->FSYNC(file);
 	int result = _nvp_fileops->FTRUNC64(CALL_FTRUNC64);
 	_nvp_fileops->FSYNC(file);
 
@@ -6080,7 +6444,9 @@ RETT_UNLINK _nvp_UNLINK(INTF_UNLINK)
 #endif //BG_CLOSING
 		mappingToBeRemoved = &_nvp_ino_mapping[index];
 		if(file_st.st_ino == mappingToBeRemoved->serialno && mappingToBeRemoved->root_dirty_num) {
-			nvp_free_btree(mappingToBeRemoved->root, mappingToBeRemoved->merkle_root, mappingToBeRemoved->height, mappingToBeRemoved->root_dirty_cache, mappingToBeRemoved->root_dirty_num, mappingToBeRemoved->total_dirty_mmaps);
+			nvp_free_btree(mappingToBeRemoved->root, mappingToBeRemoved->merkle_root,
+                    mappingToBeRemoved->height, mappingToBeRemoved->root_dirty_cache,
+                    mappingToBeRemoved->root_dirty_num, mappingToBeRemoved->total_dirty_mmaps);
 			mappingToBeRemoved->serialno = 0;
 		}
 	}
