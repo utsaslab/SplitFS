@@ -20,5 +20,6 @@
 
 size_t align_next_page(size_t address);
 size_t align_cur_page(size_t address);
+off_t align_page_offset(off_t cur_offset, off_t target_offset);
 
 #endif

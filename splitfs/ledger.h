@@ -33,6 +33,8 @@ struct NVFile
 	bool canRead;
 	bool canWrite;
 	bool append;
+	// flag to indicate if close on exec is set for the file.
+	bool cloexec;
 	bool aligned;
 	ino_t serialno; // duplicated so that iterating doesn't require following every node*
 	struct NVNode* node;
@@ -151,7 +153,7 @@ struct full_dr {
 #define DIRTY_TRACKING 0
 #define NUM_NODE_LISTS 1
 
-#if WORKLOAD_YCSB
+#if WORKLOAD_YCSB | WORKLOAD_ROCKSDB
 #define INIT_NUM_DR 10
 #else
 #define INIT_NUM_DR 2
@@ -168,6 +170,11 @@ struct full_dr {
 #if WORKLOAD_YCSB
 #define NUM_OVER_TBL_MMAP_ENTRIES 1024
 #define NUM_APP_TBL_MMAP_ENTRIES 1024
+#endif
+
+#if WORKLOAD_ROCKSDB
+#define NUM_OVER_TBL_MMAP_ENTRIES 1024
+#define NUM_APP_TBL_MMAP_ENTRIES 8192
 #endif
 
 #if WORKLOAD_TPCC | WORKLOAD_REDIS | WORKLOAD_FIO | WORKLOAD_FILEBENCH
@@ -424,9 +431,17 @@ int MMAP_HUGEPAGE_SIZE;
 void* _nvp_zbuf; // holds all zeroes.  used for aligned file extending. TODO: does sharing this hurt performance?
 pthread_spinlock_t	node_lookup_lock[NUM_NODE_LISTS];
 struct NVFile* _nvp_fd_lookup;
+#if WORKLOAD_ROCKSDB
+int execve_fd_passing[32768];
+int _nvp_ino_lookup[32768];
+#elif WORKLOAD_FILEBENCH
+int execve_fd_passing[16384];
+int _nvp_ino_lookup[16384];
+#else
 int execve_fd_passing[1024];
-int _nvp_free_list_head;
 int _nvp_ino_lookup[1024];
+#endif
+int _nvp_free_list_head;
 struct full_dr* _nvp_full_drs;
 int full_dr_idx;
 struct NVTable_maps *_nvp_tbl_mmaps;

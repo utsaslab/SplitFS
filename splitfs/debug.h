@@ -33,6 +33,7 @@ extern FILE* _nvp_print_fd;
 
 typedef char* charptr;
 void xil_printf(FILE* f, const charptr c, ...);
+void print_trace();
 //static inline void _nvp_debug_handoff(void)
 
 /*
@@ -66,7 +67,7 @@ void xil_printf(FILE* f, const charptr c, ...);
 // also used in fileops_wrap
 //#define PRINTFUNC fprintf 
 #define PRINTFUNC xil_printf 
-
+#define PRINTTRACE print_trace
 
 #define MSG(format, ...) do{PRINTFUNC(NVP_PRINT_FD, "NVP_MSG (%i): " format, getpid(), ##__VA_ARGS__); fflush(NVP_PRINT_FD); }while(0)
 //#define MSG(format, ...) do{PRINTFUNC(NVP_PRINT_FD, "MSG: "); PRINTFUNC (NVP_PRINT_FD, format, ##__VA_ARGS__); fflush(NVP_PRINT_FD); }while(0)
