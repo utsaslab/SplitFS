@@ -413,6 +413,9 @@ pthread_spinlock_t staging_over_mmap_lock;
 #if WORKLOAD_FILEBENCH
 #define DR_SIZE (16*1024*1024)
 #define DR_OVER_SIZE (2*1024*1024)
+#elif WORKLOAD_ROCKSDB
+#define DR_SIZE (128*1024*1024)
+#define DR_OVER_SIZE (128*1024*1024)
 #else
 #define DR_SIZE (256*1024*1024)
 #define DR_OVER_SIZE (256*1024*1024)
