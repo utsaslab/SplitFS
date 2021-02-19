@@ -216,13 +216,12 @@ static inline void create_dr_mmap(struct NVNode *node, int is_overwrite)
 		assert(0);
 	}
 
+	_nvp_fileops->STAT(_STAT_VER, dr_fd, &stat_buf);
 	if (!is_overwrite) {
 		__atomic_fetch_add(&num_drs_allocated, 1, __ATOMIC_SEQ_CST);
 	}
 
 	__atomic_fetch_add(&num_drs_left, 1, __ATOMIC_SEQ_CST);
-
-	fstat(dr_fd, &stat_buf);
 
 	if (is_overwrite) {
 		node->dr_over_info.dr_fd = dr_fd;
@@ -1310,7 +1309,7 @@ void _nvp_init2(void)
 			 dr_fd, //fd_with_max_perms,
 			 0
 			 );
-		fstat(dr_fd, &stat_buf);
+		_hub_find_fileop("posix")->FSTAT(_STAT_VER, dr_fd, &stat_buf);
 		free_pool_mmaps[i].dr_serialno = stat_buf.st_ino;
 		free_pool_mmaps[i].dr_fd = dr_fd;
 	        free_pool_mmaps[i].valid_offset = 0;
@@ -1389,7 +1388,7 @@ void _nvp_init2(void)
 			 dr_fd, //fd_with_max_perms,
 			 0
 			 );
-		fstat(dr_fd, &stat_buf);
+		_hub_find_fileop("posix")->FSTAT(_STAT_VER, dr_fd, &stat_buf);
 		free_pool_mmaps[i].dr_serialno = stat_buf.st_ino;
 		free_pool_mmaps[i].dr_fd = dr_fd;
 	        free_pool_mmaps[i].valid_offset = 0;
@@ -2655,7 +2654,7 @@ not_found:
 
 		DEBUG_FILE("%s: Setting offset_start to DR_SIZE. FD = %d\n",
 			   __func__, nvf->fd);
-		fstat(dr_fd, &stat_buf);
+		_nvp_fileops->FSTAT(_STAT_VER, dr_fd, &stat_buf);
 		nvf->node->dr_over_info.dr_serialno = stat_buf.st_ino;
 		nvf->node->dr_over_info.dr_fd = dr_fd;
 		nvf->node->dr_over_info.valid_offset = 0;
@@ -2898,7 +2897,7 @@ not_found:
 		__atomic_fetch_add(&num_drs_allocated, 1, __ATOMIC_SEQ_CST);
 		DEBUG_FILE("%s: Setting offset_start to DR_SIZE. FD = %d\n",
 			   __func__, nvf->fd);
-		fstat(dr_fd, &stat_buf);
+		_nvp_fileops->STAT(_STAT_VER, dr_fd, &stat_buf);
 		nvf->node->dr_info.dr_serialno = stat_buf.st_ino;
 		nvf->node->dr_info.dr_fd = dr_fd;
 		nvf->node->dr_info.valid_offset = 0;
@@ -4110,7 +4109,7 @@ RETT_CLOSE _nvp_REAL_CLOSE(INTF_CLOSE, ino_t serialno, int async_file_closing) {
 	}
 	if(sbuf.st_size != nvf->node->length) {
 		DEBUG_FILE("File size mismatch. Expected = %d; Actual = %d. Truncating explicitly as a workaround\n", nvf->node->length, sbuf.st_size);
-		_nvp_fileops->FTRUNC(file, nvf->node->length);
+		_nvp_FTRUNC(file, nvf->node->length);
 	}
 #endif
 
@@ -4128,19 +4127,9 @@ RETT_CLOSE _nvp_REAL_CLOSE(INTF_CLOSE, ino_t serialno, int async_file_closing) {
 	NVP_LOCK_NODE_WR(nvf);
 
 	// setting valid to 0 means that this fd is not open. So can be used for a subsequent open of same or different file.
-	if(nvf->valid == 0) {
-		NVP_UNLOCK_NODE_WR(nvf);
-		NVP_UNLOCK_FD_WR(nvf);
-		result = _nvp_fileops->CLOSE(CALL_CLOSE);
-		return result;
-	}
-	if(nvf->node->reference < 0) {
-		NVP_UNLOCK_NODE_WR(nvf);
-		NVP_UNLOCK_FD_WR(nvf);
-		result = _nvp_fileops->CLOSE(CALL_CLOSE);
-		return result;
-	}
-	if(nvf->serialno != serialno) {
+	if(nvf->valid == 0 ||
+	   nvf->node->reference < 0 ||
+	   nvf->serialno != serialno) {
 		NVP_UNLOCK_NODE_WR(nvf);
 		NVP_UNLOCK_FD_WR(nvf);
 		result = _nvp_fileops->CLOSE(CALL_CLOSE);
@@ -4324,7 +4313,7 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
         DEBUG_FILE("_nvp_OPEN(%s), fd = %d\n", path, result);
 	SANITYCHECK(&_nvp_fd_lookup[result] != NULL);
 	struct NVFile* nvf = NULL;
-	_nvp_fileops->STAT(_STAT_VER, path, &file_st);
+	stat(path, &file_st);
 
 #if BG_CLOSING
 	if (async_close_enable)
@@ -5770,7 +5759,7 @@ RETT_TRUNC _nvp_TRUNC(INTF_TRUNC)
 
 	DEBUG("_nvp_TRUNC\n");
 
-	if (_nvp_fileops->STAT(_STAT_VER, path, &stat_buf) == -1)
+	if (stat(path, &stat_buf) == -1)
 		return -1;
 
 	fd = _nvp_ino_lookup[stat_buf.st_ino % OPEN_MAX];
@@ -5836,6 +5825,16 @@ RETT_FTRUNC64 _nvp_FTRUNC64(INTF_FTRUNC64)
 		TBL_ENTRY_UNLOCK_WR(tbl_app);
 		NVP_UNLOCK_NODE_WR(nvf);
 		NVP_UNLOCK_FD_RD(nvf, cpuid);
+#if WORKLOAD_ROCKSDB
+		struct stat sbuf;
+		if(_nvp_fileops->FSTAT(_STAT_VER, file, &sbuf) != 0) {
+			perror("Failed to stat file");
+		}
+		if(sbuf.st_size != nvf->node->length) {
+			DEBUG_FILE("FTRUNC: File size mismatch. Expected = %d; Actual = %d. Truncating explicitly as a workaround\n", nvf->node->length, sbuf.st_size);
+			_nvp_fileops->FTRUNC(file, nvf->node->length);
+		} 
+#endif
 		return 0;
 	}
 
@@ -6199,7 +6198,7 @@ RETT_UNLINK _nvp_UNLINK(INTF_UNLINK)
 	CHECK_RESOLVE_FILEOPS(_nvp_);
 	DEBUG("CALL: _nvp_UNLINK\n");
 
-	if (_nvp_fileops->STAT(_STAT_VER, path, &file_st) == 0) {
+	if (stat(path, &file_st) == 0) {
 		index = file_st.st_ino % OPEN_MAX;
 		tbl_mmap_idx = file_st.st_ino % APPEND_TBL_MAX;
 		struct NVTable_maps *tbl_app = &_nvp_tbl_mmaps[tbl_mmap_idx];
