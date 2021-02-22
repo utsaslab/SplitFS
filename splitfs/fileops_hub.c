@@ -574,10 +574,14 @@ int _hub_add_fileop(struct Fileops_p* fo)
 	{
 		if(!strcmp(_hub_fileops_lookup[i]->name, fo->name))
 		{
-			MSG("Can't add fileop %s: one with the same name already exists at index %i\n", fo->name, i);
-            free(fo);
-			//assert(0);
-			return -1;
+      MSG("Can't add fileop %s: one with the same name already exists at index %i\n", fo->name, i);
+      free(fo);
+      //assert(0);
+#if WORKLOAD_ROCKSDB
+      return 0;
+#else
+      return -1;
+#endif
 		}
 	}
 

@@ -169,6 +169,8 @@ int execv_done;
 		PREFIX##fileops = NULL;					\
     int already_initialized = -1;           \
 		INIT_FILEOPS_P(NAME, PREFIX, &already_initialized);				\
+    if (already_initialized)      \
+      return;                     \
 		if(OPEN_MAX<1) {					\
 			OPEN_MAX = sysconf(_SC_OPEN_MAX);		\
 			OPEN_MAX = 1024;				\
