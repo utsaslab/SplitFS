@@ -563,7 +563,7 @@ struct Fileops_p** resolve_n_fileops(char* tree, char* name, int count)
 
 
 // registers a module to be searched later
-void _hub_add_fileop(struct Fileops_p* fo)
+int _hub_add_fileop(struct Fileops_p* fo)
 {
 
 	DEBUG("Registering Fileops_p \"%s\" at index %i\n",
@@ -575,8 +575,9 @@ void _hub_add_fileop(struct Fileops_p* fo)
 		if(!strcmp(_hub_fileops_lookup[i]->name, fo->name))
 		{
 			MSG("Can't add fileop %s: one with the same name already exists at index %i\n", fo->name, i);
+            free(fo);
 			//assert(0);
-			return;
+			return -1;
 		}
 	}
 
@@ -584,11 +585,12 @@ void _hub_add_fileop(struct Fileops_p* fo)
 		ERROR("_hub_fileops_lookup is full: too many Fileops_p!\n");
 		ERROR("Maximum supported: %i\n", MAX_FILEOPS);
 		ERROR("Check fileops_compareharness.c to increase\n");
-		return;
+		return -1;
 	}
 
 	_hub_fileops_lookup[_hub_fileops_count] = fo;
 	_hub_fileops_count++;
+    return 0;
 }
 
 
@@ -617,6 +619,17 @@ struct Fileops_p* _hub_find_fileop(const char* name)
 	name = "posix";
 	assert(0);
 
+	for(i=0; i<_hub_fileops_count; i++)
+	{
+		if(_hub_fileops_lookup[i] == NULL) { break; }
+		if(strcmp(name, _hub_fileops_lookup[i]->name)==0)
+		{
+			return _hub_fileops_lookup[i];
+		}
+	}
+
+	assert(0);
+
 	return NULL;
 }
 
@@ -626,7 +639,7 @@ RETT_OPEN _hub_OPEN(INTF_OPEN)
 	HUB_CHECK_RESOLVE_FILEOPS(_hub_, OPEN);
 	int access_result;
 
-	DEBUG_FILE("_hub_OPEN = %s\n", path);
+	DEBUG("_hub_OPEN = %s\n", path);
 	access_result = access(path, F_OK);
 	/**
 	 * We need to check if 'path' is a valid pointer, but not crash it 
@@ -1172,7 +1185,7 @@ RETT_CLOSE _hub_CLOSE(INTF_CLOSE)
 {
 	HUB_CHECK_RESOLVE_FILEOPS(_hub_, CLOSE);
 
-	DEBUG_FILE("%s: fd = %d\n", __func__, file);
+	DEBUG("%s: fd = %d\n", __func__, file);
 
 	if( (file<0) || (file >= OPEN_MAX) ) {
 		DEBUG("fd %i is larger than the maximum number of open files; ignoring it.\n", file);
@@ -1264,8 +1277,9 @@ RETT_DUP _hub_DUP(INTF_DUP)
 RETT_DUP2 _hub_DUP2(INTF_DUP2)
 {
 	HUB_CHECK_RESOLVE_FILEOPS(_hub_, DUP2);
+	RETT_DUP2 result;
 
-	DEBUG_FILE("CALL: _hub_DUP2(%i, %i)\n", file, fd2);
+	DEBUG("CALL: _hub_DUP2(%i, %i)\n", file, fd2);
 
 	if( (file<0) || (file >= OPEN_MAX) ) {
 		DEBUG("fd %i is larger than the maximum number of open files; ignoring it.\n", file);
@@ -1305,11 +1319,14 @@ RETT_DUP2 _hub_DUP2(INTF_DUP2)
 		DEBUG("_hub_DUP2: fd1 (%i) and fd2 (%i) have the same handler (%s)\n", file, fd2,
 			_hub_fd_lookup[file]->name);
 	}
-	
+
 	DEBUG("_hub_DUP2 is calling %s->DUP2(%i, %i) (p=%p)\n", _hub_fd_lookup[file]->name, file, fd2,
 		_hub_fd_lookup[file]->DUP2);
 
-	int result = _hub_fd_lookup[file]->DUP2(CALL_DUP2);
+	if (_hub_fd_lookup[file] == _hub_managed_fileops || _hub_fd_lookup[fd2] == _hub_managed_fileops)
+		result = _hub_managed_fileops->DUP2(CALL_DUP2);
+	else
+		result = _hub_fileops->DUP2(CALL_DUP2);
 
 
 	if(result < 0)
@@ -1520,11 +1537,15 @@ RETT_STAT _hub_STAT(INTF_STAT)
 {
 	CHECK_RESOLVE_FILEOPS(_hub_);
 	RETT_STAT result;
-	struct Fileops_p* op_to_use = NULL;
+	struct Fileops_p* op_to_use = _hub_managed_fileops;
+	DEBUG("%s: %s\n", __func__, path);
 
 	/* In case of absoulate path specified, check if it belongs to the persistent memory 
 	 * mount and only then use SplitFS, else redirect to POSIX
 	 */
+	if (!path || access(path, F_OK))
+		return _hub_fileops->STAT(CALL_STAT);
+
 	if(path[0] == '/') {
 		int len = strlen(NVMM_PATH);
 		char dest[len + 1];
@@ -1545,11 +1566,15 @@ RETT_STAT64 _hub_STAT64(INTF_STAT64)
 {
 	CHECK_RESOLVE_FILEOPS(_hub_);
 	RETT_STAT64 result;
-	struct Fileops_p* op_to_use = NULL;
+	struct Fileops_p* op_to_use = _hub_managed_fileops;
 
+	DEBUG("%s: %s\n", __func__, path);
 	/* In case of absoulate path specified, check if it belongs to the persistent memory 
 	 * mount and only then use SplitFS, else redirect to POSIX
 	 */
+	if (!path || access(path, F_OK))
+		return _hub_fileops->STAT64(CALL_STAT64);
+
 	if(path[0] == '/') {
 		int len = strlen(NVMM_PATH);
 		char dest[len + 1];
@@ -1563,7 +1588,7 @@ RETT_STAT64 _hub_STAT64(INTF_STAT64)
 		}
 	}
 
-	result = op_to_use->STAT64(CALL_STAT64);	
+	result = op_to_use->STAT64(CALL_STAT64);
 	return result;
 }
 
@@ -1571,11 +1596,15 @@ RETT_LSTAT _hub_LSTAT(INTF_LSTAT)
 {
 	CHECK_RESOLVE_FILEOPS(_hub_);
 	RETT_LSTAT result;
-	struct Fileops_p* op_to_use = NULL;
+	struct Fileops_p* op_to_use = _hub_managed_fileops;
 
+	DEBUG("%s: %s\n", __func__, path);
 	/* In case of absoulate path specified, check if it belongs to the persistent memory 
 	 * mount and only then use SplitFS, else redirect to POSIX
 	 */
+	if (!path || access(path, F_OK))
+		return _hub_fileops->LSTAT(CALL_LSTAT);
+
 	if(path[0] == '/') {
 		int len = strlen(NVMM_PATH);
 		char dest[len + 1];
@@ -1596,11 +1625,15 @@ RETT_LSTAT64 _hub_LSTAT64(INTF_LSTAT64)
 {
 	CHECK_RESOLVE_FILEOPS(_hub_);
 	RETT_LSTAT64 result;
-	struct Fileops_p* op_to_use = NULL;
+	struct Fileops_p* op_to_use = _hub_managed_fileops;
 
+	DEBUG("%s: %s\n", __func__, path);
 	/* In case of absoulate path specified, check if it belongs to the persistent memory 
 	 * mount and only then use SplitFS, else redirect to POSIX
 	 */
+	if (!path || access(path, F_OK))
+		return _hub_fileops->LSTAT64(CALL_LSTAT64);
+
 	if(path[0] == '/') {
 		int len = strlen(NVMM_PATH);
 		char dest[len + 1];

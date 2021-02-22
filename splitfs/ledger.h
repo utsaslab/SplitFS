@@ -182,7 +182,7 @@ struct full_dr {
 #define NUM_APP_TBL_MMAP_ENTRIES 10240
 #endif
 
-#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC
+#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC | WORKLOAD_PJD
 #define NUM_OVER_TBL_MMAP_ENTRIES 100 // 10240
 #define NUM_APP_TBL_MMAP_ENTRIES 100 // 10240
 #endif
@@ -416,6 +416,9 @@ pthread_spinlock_t staging_over_mmap_lock;
 #elif WORKLOAD_ROCKSDB
 #define DR_SIZE (128*1024*1024)
 #define DR_OVER_SIZE (128*1024*1024)
+#elif WORKLOAD_PJD
+#define DR_SIZE (8*1024)
+#define DR_OVER_SIZE (8*1024)
 #else
 #define DR_SIZE (256*1024*1024)
 #define DR_OVER_SIZE (256*1024*1024)

@@ -216,7 +216,7 @@ static inline void create_dr_mmap(struct NVNode *node, int is_overwrite)
 		assert(0);
 	}
 
-	_nvp_fileops->STAT(_STAT_VER, dr_fd, &stat_buf);
+	_nvp_fileops->FSTAT(_STAT_VER, dr_fd, &stat_buf);
 	if (!is_overwrite) {
 		__atomic_fetch_add(&num_drs_allocated, 1, __ATOMIC_SEQ_CST);
 	}
@@ -2730,7 +2730,7 @@ static int nvp_get_dr_mmap_address(struct NVFile *nvf, off_t offset,
 				   size_t len_to_write, size_t count,
 				   unsigned long *mmap_addr,
 				   off_t *offset_within_mmap,
-				   size_t *extent_length, int wr_lock,
+				   size_t *extent_length,
 				   int cpuid, int iswrite,
 				   struct NVTable_maps *tbl_app,
 				   struct NVTable_maps *tbl_over)
@@ -2811,15 +2811,6 @@ static int nvp_get_dr_mmap_address(struct NVFile *nvf, off_t offset,
 	}
 #endif
 
-	if (!wr_lock && !iswrite) {
-		TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
-		TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
-		NVP_UNLOCK_NODE_WR(nvf);
-
-		NVP_LOCK_NODE_RD(nvf, cpuid);
-		TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
-		TBL_ENTRY_LOCK_RD(tbl_over, cpuid);
-	}
 	return 0;
 
 not_found:
@@ -2897,7 +2888,7 @@ not_found:
 		__atomic_fetch_add(&num_drs_allocated, 1, __ATOMIC_SEQ_CST);
 		DEBUG_FILE("%s: Setting offset_start to DR_SIZE. FD = %d\n",
 			   __func__, nvf->fd);
-		_nvp_fileops->STAT(_STAT_VER, dr_fd, &stat_buf);
+		_nvp_fileops->FSTAT(_STAT_VER, dr_fd, &stat_buf);
 		nvf->node->dr_info.dr_serialno = stat_buf.st_ino;
 		nvf->node->dr_info.dr_fd = dr_fd;
 		nvf->node->dr_info.valid_offset = 0;
@@ -2938,16 +2929,6 @@ not_found:
 
 	nvp_manage_dr_memory(nvf, extent_length,
 			len_to_write, start_offset, index);
-
-	if (!wr_lock && !iswrite) {
-		TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
-		TBL_ENTRY_UNLOCK_RD(tbl_app, cpuid);
-		NVP_UNLOCK_NODE_WR(nvf);
-
-		NVP_LOCK_NODE_RD(nvf, cpuid);
-		TBL_ENTRY_LOCK_RD(tbl_app, cpuid);
-		TBL_ENTRY_LOCK_RD(tbl_over, cpuid);
-	}
 
 #if WORKLOAD_ROCKSDB
 	if (start_offset % MMAP_PAGE_SIZE != nvf->node->length % MMAP_PAGE_SIZE)
@@ -2994,7 +2975,7 @@ not_found:
 			nvp_get_dr_mmap_address(nvf, read_offset_beyond_true_length,
 						len_to_read, read_count,
 						&mmap_addr, &offset_within_mmap, &extent_length,
-						wr_lock, cpuid, 0, tbl_app, tbl_over);
+						cpuid, 0, tbl_app, tbl_over);
 			END_TIMING(get_dr_mmap_t, get_dr_mmap_time);
 		}
 
@@ -3004,7 +2985,7 @@ not_found:
 		nvp_get_dr_mmap_address(nvf, read_offset_beyond_true_length,
 					len_to_read, read_count,
 					&mmap_addr, &offset_within_mmap, &extent_length,
-					wr_lock, cpuid, 0, tbl_app, tbl_over);
+					cpuid, 0, tbl_app, tbl_over);
 		END_TIMING(get_dr_mmap_t, get_dr_mmap_time);
 			
 #endif // DATA_JOURNALING_ENABLED
@@ -3450,7 +3431,7 @@ RETT_PWRITE write_to_file_mmap(int file,
 
 	nvp_get_dr_mmap_address(nvf, write_offset_wrt_true_length, len_to_write,
 				write_count, &mmap_addr, &offset_within_mmap,
-				&extent_length, wr_lock, cpuid, 1, tbl_app, tbl_over);
+				&extent_length, cpuid, 1, tbl_app, tbl_over);
 	DEBUG_FILE("%s: mmap_addr = %p, extent_length = %lu, len_to_write = %lu\n",
 		   __func__, mmap_addr, extent_length, len_to_write);
 
@@ -3726,151 +3707,151 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 
 #if DATA_JOURNALING_ENABLED
 
-	 TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
-	 TBL_ENTRY_LOCK_WR(tbl_over);
+		 TBL_ENTRY_UNLOCK_RD(tbl_over, cpuid);
+		 TBL_ENTRY_LOCK_WR(tbl_over);
 
-	 // Get the file backed mmap address to which the write is to be performed. 
- get_addr:
-	 START_TIMING(get_dr_mmap_t, get_dr_mmap_time);
+		 // Get the file backed mmap address to which the write is to be performed. 
+	 get_addr:
+		 START_TIMING(get_dr_mmap_t, get_dr_mmap_time);
 
-	 nvp_get_over_dr_address(nvf, write_offset, over_len_to_write,
-				 &mmap_addr, &offset_within_mmap,
-				 &extent_length, wr_lock, cpuid,
-				 tbl_app, tbl_over);
-	 DEBUG_FILE("%s: extent_length = %lu, len_to_write = %lu\n",
-		      __func__, extent_length, over_len_to_write);
-	 END_TIMING(get_dr_mmap_t, get_dr_mmap_time);
+		 nvp_get_over_dr_address(nvf, write_offset, over_len_to_write,
+					 &mmap_addr, &offset_within_mmap,
+					 &extent_length, wr_lock, cpuid,
+					 tbl_app, tbl_over);
+		 DEBUG_FILE("%s: extent_length = %lu, len_to_write = %lu\n",
+			    __func__, extent_length, over_len_to_write);
+		 END_TIMING(get_dr_mmap_t, get_dr_mmap_time);
 
-	 if (extent_length < over_len_to_write) {
-		 size_t len_swapped = swap_extents(nvf, nvf->node->true_length);
-		 off_t offset_in_page = 0;
-		 START_TIMING(clear_dr_t, clear_dr_time);
-		 DEBUG_FILE("%s: EXTENT_LENGTH < LEN_TO_WRITE, "
-				 "EXTENT FD = %d, extent_length = %lu, "
-			"len_to_write = %lu\n",
-			__func__,
-			nvf->node->dr_info.dr_fd,
-			extent_length,
-			over_len_to_write);
+		 if (extent_length < over_len_to_write) {
+			 size_t len_swapped = swap_extents(nvf, nvf->node->true_length);
+			 off_t offset_in_page = 0;
+			 START_TIMING(clear_dr_t, clear_dr_time);
+			 DEBUG_FILE("%s: EXTENT_LENGTH < LEN_TO_WRITE, "
+				    "EXTENT FD = %d, extent_length = %lu, "
+				    "len_to_write = %lu\n",
+				    __func__,
+				    nvf->node->dr_info.dr_fd,
+				    extent_length,
+				    over_len_to_write);
 #if BG_CLEANING
-		 change_dr_mmap(nvf->node, 1);
+			 change_dr_mmap(nvf->node, 1);
 #else
-		 create_dr_mmap(nvf->node, 1);
+			 create_dr_mmap(nvf->node, 1);
 #endif
-		 END_TIMING(clear_dr_t, clear_dr_time);
+			 END_TIMING(clear_dr_t, clear_dr_time);
 
-		 DEBUG_FILE("%s: RECEIVED OTHER EXTENT. "
-				 "dr over fd = %d, dr over addr = %p, "
-				 "dr over start off = %lu, "
-				 "dr over end off = %lu\n",
-				 __func__, nvf->node->dr_over_info.dr_fd,
-				 nvf->node->dr_over_info.start_addr,
-				 nvf->node->dr_over_info.dr_offset_start,
-				 nvf->node->dr_over_info.dr_offset_end);
+			 DEBUG_FILE("%s: RECEIVED OTHER EXTENT. "
+				    "dr over fd = %d, dr over addr = %p, "
+				    "dr over start off = %lu, "
+				    "dr over end off = %lu\n",
+				    __func__, nvf->node->dr_over_info.dr_fd,
+				    nvf->node->dr_over_info.start_addr,
+				    nvf->node->dr_over_info.dr_offset_start,
+				    nvf->node->dr_over_info.dr_offset_end);
 
-		 goto get_addr;
-	 }
+			 goto get_addr;
+		 }
 
 #else // DATA_JOURNALING_ENABLED
 
-	 START_TIMING(read_tbl_mmap_t, read_tbl_mmap_time);
-	 read_tbl_mmap_entry(nvf->node, write_offset,
-			     over_len_to_write, &mmap_addr,
-			     &extent_length, 1);
-	 END_TIMING(read_tbl_mmap_t, read_tbl_mmap_time);
+		 START_TIMING(read_tbl_mmap_t, read_tbl_mmap_time);
+		 read_tbl_mmap_entry(nvf->node, write_offset,
+				     over_len_to_write, &mmap_addr,
+				     &extent_length, 1);
+		 END_TIMING(read_tbl_mmap_t, read_tbl_mmap_time);
  
-	 if (mmap_addr == 0) {
+		 if (mmap_addr == 0) {
 #if WORKLOAD_FILEBENCH
-           extent_length = _nvp_fileops->PWRITE(nvf->fd, buf, over_len_to_write, write_offset);
-           goto post_write;
+			 extent_length = _nvp_fileops->PWRITE(nvf->fd, buf, over_len_to_write, write_offset);
+			 goto post_write;
 #else
-           extent_length = write_to_file_mmap(file, write_offset,
-                   over_len_to_write, 1,
-                   cpuid, buf, 
-                   nvf);
-           goto post_write;
+			 extent_length = write_to_file_mmap(file, write_offset,
+							    over_len_to_write, 1,
+							    cpuid, buf, 
+							    nvf);
+			 goto post_write;
 #endif
-	   }
+		 }
 
 #endif // DATA_JOURNALING_ENABLED
 
-	   if (extent_length > over_len_to_write)
-	     extent_length = over_len_to_write;
+		 if (extent_length > over_len_to_write)
+			 extent_length = over_len_to_write;
 
-	   // The write is performed to file backed mmap
-	   START_TIMING(copy_overwrite_t, copy_overwrite_time);
+		 // The write is performed to file backed mmap
+		 START_TIMING(copy_overwrite_t, copy_overwrite_time);
 
 #if NON_TEMPORAL_WRITES
 
-	   DEBUG_FILE("%s: memcpy args: buf = %p, "
-		      "mmap_addr = %p, length = %lu. "
-		      "File off = %lld. Inode = %lu\n",
-		      __func__, buf, (void *) mmap_addr,
-		      extent_length, write_offset, nvf->node->serialno);
+		 DEBUG_FILE("%s: memcpy args: buf = %p, "
+			    "mmap_addr = %p, length = %lu. "
+			    "File off = %lld. Inode = %lu\n",
+			    __func__, buf, (void *) mmap_addr,
+			    extent_length, write_offset, nvf->node->serialno);
 
-	   if(MEMCPY_NON_TEMPORAL((char *)mmap_addr, buf, extent_length) == NULL) {
-	     printf("%s: non-temporal memcpy failed\n", __func__);
-	     fflush(NULL);
-	     assert(0);
-	   }
-	   _mm_sfence();
-	   num_mfence++;
-	   num_write_nontemporal++;
-	   non_temporal_write_size += extent_length;
+		 if(MEMCPY_NON_TEMPORAL((char *)mmap_addr, buf, extent_length) == NULL) {
+			 printf("%s: non-temporal memcpy failed\n", __func__);
+			 fflush(NULL);
+			 assert(0);
+		 }
+		 _mm_sfence();
+		 num_mfence++;
+		 num_write_nontemporal++;
+		 non_temporal_write_size += extent_length;
 
 #else //NON_TEMPORAL_WRITES
 
-	 if(FSYNC_MEMCPY((char *)mmap_addr, buf, extent_length) != (char *)mmap_addr) {
-		 printf("%s: memcpy failed\n", __func__);
-		 fflush(NULL);
-		 assert(0);
-	 }
+		 if(FSYNC_MEMCPY((char *)mmap_addr, buf, extent_length) != (char *)mmap_addr) {
+			 printf("%s: memcpy failed\n", __func__);
+			 fflush(NULL);
+			 assert(0);
+		 }
 
 #if DIRTY_TRACKING
 
-	 modifyBmap((struct merkleBtreeNode *)bitmap_root,
-		      offset_within_mmap, extent_length);
+		 modifyBmap((struct merkleBtreeNode *)bitmap_root,
+			    offset_within_mmap, extent_length);
 
 #endif //DIRTY_TRACKING
 
-	 num_memcpy_write++;
+		 num_memcpy_write++;
 
 #endif //NON_TEMPORAL_WRITES
 
 #if NVM_DELAY
-	 perfmodel_add_delay(0, extent_length);
+		 perfmodel_add_delay(0, extent_length);
 #endif
 
-	 END_TIMING(copy_overwrite_t, copy_overwrite_time);
+		 END_TIMING(copy_overwrite_t, copy_overwrite_time);
 
 #if DATA_JOURNALING_ENABLED
  
-	 START_TIMING(insert_tbl_mmap_t, insert_tbl_mmap_time);
-	 insert_over_tbl_mmap_entry(nvf->node,
-				    write_offset,
-				    offset_within_mmap,
-				    extent_length,
-				    mmap_addr);
-	 END_TIMING(insert_tbl_mmap_t, insert_tbl_mmap_time);
+		 START_TIMING(insert_tbl_mmap_t, insert_tbl_mmap_time);
+		 insert_over_tbl_mmap_entry(nvf->node,
+					    write_offset,
+					    offset_within_mmap,
+					    extent_length,
+					    mmap_addr);
+		 END_TIMING(insert_tbl_mmap_t, insert_tbl_mmap_time);
 
 #endif // DATA_JOURNALING_ENABLED
  
- post_write:
-	 memcpy_write_size += extent_length;
-	 len_to_write -= extent_length;
-	 write_offset += extent_length;
-	 write_count  += extent_length;
-	 buf += extent_length;
+	 post_write:
+		 memcpy_write_size += extent_length;
+		 len_to_write -= extent_length;
+		 write_offset += extent_length;
+		 write_count  += extent_length;
+		 buf += extent_length;
 
 #if DATA_JOURNALING_ENABLED
  
-	   START_TIMING(append_log_entry_t, append_log_entry_time);
-	   persist_append_entry(nvf->node->serialno,
-				nvf->node->dr_over_info.dr_serialno,
-				write_offset,
-				offset_within_mmap,
-				extent_length);
-	   END_TIMING(append_log_entry_t, append_log_entry_time);
+		 START_TIMING(append_log_entry_t, append_log_entry_time);
+		 persist_append_entry(nvf->node->serialno,
+				      nvf->node->dr_over_info.dr_serialno,
+				      write_offset,
+				      offset_within_mmap,
+				      extent_length);
+		 END_TIMING(append_log_entry_t, append_log_entry_time);
 
 #endif // DATA_JOURNALING_ENABLED
 
@@ -3885,16 +3866,16 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 	 return write_count;
 
 	 // If we need to append data, we should call _nvp_extend_write to write to anonymous mmap. 
- appends:
+appends:
 
-	START_TIMING(appends_t, appends_time);
-	extendFileReturn = _nvp_extend_write(file, buf,
-					     len_to_write,
-					     write_offset,
-					     wr_lock, cpuid,
-					     nvf,
-					     tbl_app,
-					     tbl_over);
+	 START_TIMING(appends_t, appends_time);
+	 extendFileReturn = _nvp_extend_write(file, buf,
+					      len_to_write,
+					      write_offset,
+					      wr_lock, cpuid,
+					      nvf,
+					      tbl_app,
+					      tbl_over);
 
 	 END_TIMING(appends_t, appends_time);
 	 len_to_write -= extendFileReturn;
@@ -3909,7 +3890,7 @@ RETT_PWRITE _nvp_do_pwrite(INTF_PWRITE,
 		    nvf->node->serialno);
 
 	 return write_count;
- }
+}
 
  void _nvp_test_invalidate_node(struct NVFile* nvf)
 {
@@ -4069,7 +4050,7 @@ RETT_CLOSE _nvp_REAL_CLOSE(INTF_CLOSE, ino_t serialno, int async_file_closing) {
 		return result;
 	}
 
-	DEBUG_FILE("_nvp_REAL_CLOSE(%i): Ref count = %d\n", file, nvf->node->reference);
+	DEBUG("_nvp_REAL_CLOSE(%i): Ref count = %d\n", file, nvf->node->reference);
 	DEBUG_FILE("%s: Calling fsync flush on fsync\n", __func__);
 	cpuid = GET_CPUID();
 #if !SYSCALL_APPENDS
@@ -4176,6 +4157,7 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 #endif // SEQ_LIST || RAND_LIST
 #endif // BG_CLOSING
 
+
 	START_TIMING(open_t, open_time);
 	GLOBAL_LOCK_WR();
 
@@ -4274,6 +4256,7 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 		new_flags = new_flags & (~O_WRONLY);
 		new_flags = new_flags | O_RDWR;
 	}
+ again:
 	if (FLAGS_INCLUDE(oflag,O_CREAT))
 	{
 		va_list arg;
@@ -4304,6 +4287,10 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 	}
 	if(result<0)
 	{
+		if (errno == EACCES && new_flags != oflag) {
+			new_flags = oflag;
+			goto again;
+		}
 		DEBUG("_nvp_OPEN->%s_OPEN failed: %s\n",
 			_nvp_fileops->name, strerror(errno));
 		END_TIMING(open_t, open_time);
@@ -4412,7 +4399,7 @@ RETT_OPEN _nvp_OPEN(INTF_OPEN)
 		nvf->canWrite = 1;
 	} else if(oflag&O_WRONLY) {
 
-#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC | WORKLOAD_FIO | WORKLOAD_TPCC | WORKLOAD_YCSB | WORKLOAD_ROCKSDB
+#if WORKLOAD_TAR | WORKLOAD_GIT | WORKLOAD_RSYNC | WORKLOAD_FIO | WORKLOAD_TPCC | WORKLOAD_YCSB | WORKLOAD_ROCKSDB | WORKLOAD_PJD
 
 		nvf->posix = 0;
 		nvf->canRead = 1;
@@ -4640,7 +4627,7 @@ RETT_CLOSE _nvp_CLOSE(INTF_CLOSE)
 	START_TIMING(close_t, close_time);
 
 	GLOBAL_LOCK_WR();
-	DEBUG_FILE("_nvp_CLOSE(%i)\n", file);
+	DEBUG("_nvp_CLOSE(%i)\n", file);
 
 #if PASS_THROUGH_CALLS
 	num_close++;
@@ -4791,6 +4778,8 @@ RETT_EXECVE _nvp_EXECVE(INTF_EXECVE) {
 	close_cloexec_files();
 
 	for (i = 0; i < OPEN_MAX; i++) {
+		if (_nvp_fd_lookup[i].valid  && _nvp_fd_lookup[i].node != NULL)
+			_nvp_FSYNC(_nvp_fd_lookup[i].fd);
 		if (_nvp_fd_lookup[i].offset != NULL)
 			execve_fd_passing[i] = *(_nvp_fd_lookup[i].offset);
 		else
@@ -4862,6 +4851,7 @@ RETT_EXECVP _nvp_EXECVP(INTF_EXECVP) {
 	unsigned long offset_in_map = 0;
 	int pid = getpid();
 	char exec_nvp_filename[BUF_SIZE];
+	struct NVFile *nvf;
 
 	close_cloexec_files();
 
@@ -4873,8 +4863,9 @@ RETT_EXECVP _nvp_EXECVP(INTF_EXECVP) {
 	}
 
 	for (i = 0; i < OPEN_MAX; i++) {
-		if (_nvp_fd_lookup[i].node != NULL && _nvp_fd_lookup[i].valid)
+		if (_nvp_fd_lookup[i].node != NULL && _nvp_fd_lookup[i].valid) {
 			_nvp_FSYNC(_nvp_fd_lookup[i].fd);
+		}
 	}
 
 	sprintf(exec_nvp_filename, "exec-ledger-%d", pid);
@@ -4945,6 +4936,8 @@ RETT_EXECV _nvp_EXECV(INTF_EXECV) {
 	close_cloexec_files();
 
 	for (i = 0; i < OPEN_MAX; i++) {
+		if (_nvp_fd_lookup[i].valid  && _nvp_fd_lookup[i].node != NULL)
+			_nvp_FSYNC(_nvp_fd_lookup[i].fd);
 		if (_nvp_fd_lookup[i].offset != NULL)
 			execve_fd_passing[i] = *(_nvp_fd_lookup[i].offset);
 		else
@@ -5112,13 +5105,13 @@ RETT_FCNTL _nvp_FCNTL(INTF_FCNTL)
 	va_list ap;
 	void* arg;
 
-	if(nvf->posix || !nvf->valid) {
-		return _nvp_fileops->FCNTL(file, cmd, arg);
-	}
-
 	va_start (ap, cmd);
 	arg = va_arg (ap, void*);
 	va_end (ap);
+
+	if(nvf->posix || !nvf->valid) {
+		return _nvp_fileops->FCNTL(file, cmd, arg);
+	}
 
 	if(cmd == F_SETFD && ((int)arg | FD_CLOEXEC) && !nvf->posix) {
 		nvf->cloexec = true;
@@ -5520,7 +5513,7 @@ RETT_WRITE _nvp_WRITE(INTF_WRITE)
 	END_TIMING(write_t, write_time);
 	GLOBAL_UNLOCK_WR();
 
-	DEBUG_FILE("%s: Returning %d\n", __func__, result);
+	DEBUG("%s: Returning %d. nvf->node->length = %lu\n", __func__, result, nvf->node->length);
 	return result;
 }
 
@@ -5669,7 +5662,7 @@ RETT_PWRITE _nvp_PWRITE(INTF_PWRITE)
 
 RETT_PWRITE64 _nvp_PWRITE64(INTF_PWRITE64)
 {
-  return _nvp_PWRITE(CALL_PWRITE64);
+	return _nvp_PWRITE(CALL_PWRITE64);
 }
 
 RETT_SEEK _nvp_SEEK(INTF_SEEK)
@@ -6012,6 +6005,7 @@ RETT_DUP2 _nvp_DUP2(INTF_DUP2)
 	DEBUG("_nvp_DUP2(" PFFS_DUP2 ")\n", CALL_DUP2);
 	RETT_DUP2 ret = 0;
 
+	DEBUG("%s: fd1 = %d, fd2 = %d\n", __func__, file, fd2);
 	if(file<0) {
 		ret = _nvp_fileops->DUP(CALL_DUP);
 		return ret;
@@ -6032,7 +6026,12 @@ RETT_DUP2 _nvp_DUP2(INTF_DUP2)
 	struct NVFile* nvf = &_nvp_fd_lookup[file];
 	struct NVFile* nvf2 = &_nvp_fd_lookup[fd2];
 
-	if (nvf->posix) {
+	if (nvf2->valid && nvf2->node != NULL) {
+		DEBUG("%s: CALLING FSYNC\n", __func__);
+		_nvp_FSYNC(nvf2->fd);
+	}
+
+	if (nvf->posix || !nvf->valid) {
 		DEBUG("Call posix DUP2 for fd %d\n", nvf->fd);
 		nvf2->posix = nvf->posix;
 		int result = _nvp_fileops->DUP2(CALL_DUP2);
@@ -6137,7 +6136,7 @@ RETT_DUP2 _nvp_DUP2(INTF_DUP2)
 	SANITYCHECK(nvf2->node != NULL);
 	SANITYCHECK(nvf2->valid);
 
-	DEBUG("fd2 should now match fd1. "
+	DEBUG_FILE("fd2 should now match fd1. "
 		"Testing to make sure this is true.\n");
 
 	NVP_CHECK_NVF_VALID_WR(nvf2);
@@ -6603,80 +6602,107 @@ RETT_STAT _nvp_STAT(INTF_STAT)
 {
 	RETT_STAT result = 0;
 	int ret_open = 0;
+	int flag = 0;
 	struct NVFile *nvf = NULL;
 	int cpuid = GET_CPUID();
 	//return _nvp_fileops->STAT(_STAT_VER, path, buf);
 	//assert(0);
 	result = _nvp_fileops->STAT(CALL_STAT);
 	if (result == 0) {
-	  ret_open = _nvp_fileops->OPEN(path, O_RDONLY);
-	  if (ret_open < 0)
-	    assert(0);
+		flag = O_RDONLY;
+		if (!S_ISREG(buf->st_mode))
+			return result;
 
-	  nvf = &_nvp_fd_lookup[ret_open];
-	  NVP_LOCK_FD_RD(nvf, cpuid);
-	  if (nvf->posix || nvf->node == NULL || !(nvf->valid)) {
-	    NVP_UNLOCK_FD_RD(nvf, cpuid);
-	    _nvp_fileops->CLOSE(ret_open);
-	    return result;
-	  }
+		ret_open = _nvp_fileops->OPEN(path, flag);
+		if (ret_open < 0)
+			return result;
 
-	  NVP_LOCK_NODE_RD(nvf, cpuid);
-	  if (nvf->node->serialno == buf->st_ino) {
-	    if (buf->st_size < nvf->node->length)
-	      buf->st_size = nvf->node->length;
-	  }
-	  NVP_UNLOCK_NODE_RD(nvf, cpuid);
-	  NVP_UNLOCK_FD_RD(nvf, cpuid);
+		DEBUG("%s: path = %s. size = %lu. ISREG = %d. ret_open = %d\n",
+		    __func__, path, buf->st_size, S_ISREG(buf->st_mode), ret_open);
+
+		nvf = &_nvp_fd_lookup[ret_open];
+		NVP_LOCK_FD_RD(nvf, cpuid);
+		if (nvf->posix || nvf->node == NULL) {
+			NVP_UNLOCK_FD_RD(nvf, cpuid);
+			_nvp_fileops->CLOSE(ret_open);
+			return result;
+		}
+
+		NVP_LOCK_NODE_RD(nvf, cpuid);
+		if (nvf->node->serialno == buf->st_ino) {
+			if (buf->st_size < nvf->node->length)
+				buf->st_size = nvf->node->length;
+		}
+		NVP_UNLOCK_NODE_RD(nvf, cpuid);
+		NVP_UNLOCK_FD_RD(nvf, cpuid);
 	}
 
-	_nvp_fileops->CLOSE(ret_open);
+	if (ret_open != 0)
+		_nvp_fileops->CLOSE(ret_open);
+
 	return result;       	
 }
 
 RETT_STAT64 _nvp_STAT64(INTF_STAT64)
 {
-	RETT_STAT result = 0;
+	RETT_STAT64 result = 0;
 	int ret_open = 0;
 	struct NVFile *nvf = NULL;
 	int cpuid = GET_CPUID();
-	//return _nvp_fileops->STAT(_STAT_VER, path, buf);
+	//return _nvp_fileops->STAT64(_STAT_VER, path, buf);
 	//assert(0);
-	result = _nvp_fileops->STAT(CALL_STAT);
+	result = _nvp_fileops->STAT64(CALL_STAT64);
 	if (result == 0) {
-	  ret_open = _nvp_fileops->OPEN(path, O_RDONLY);
-	  if (ret_open < 0)
-	    assert(0);
+		if (!S_ISREG(buf->st_mode))
+			return result;
 
-	  nvf = &_nvp_fd_lookup[ret_open];
-	  NVP_LOCK_FD_RD(nvf, cpuid);
-	  if (nvf->posix || nvf->node == NULL || !(nvf->valid)) {
-	    NVP_UNLOCK_FD_RD(nvf, cpuid);
-	    _nvp_fileops->CLOSE(ret_open);
-	    return result;
-	  }
+		ret_open = _nvp_fileops->OPEN(path, O_RDONLY);
+		if (ret_open < 0)
+			return result;
 
-	  NVP_LOCK_NODE_RD(nvf, cpuid);
-	  if (nvf->node->serialno == buf->st_ino) {
-	    if (buf->st_size < nvf->node->length)
-	      buf->st_size = nvf->node->length;
-	  }
-	  NVP_UNLOCK_NODE_RD(nvf, cpuid);
-	  NVP_UNLOCK_FD_RD(nvf, cpuid);
+		nvf = &_nvp_fd_lookup[ret_open];
+		NVP_LOCK_FD_RD(nvf, cpuid);
+		if (nvf->posix || nvf->node == NULL || !(nvf->valid)) {
+			NVP_UNLOCK_FD_RD(nvf, cpuid);
+			_nvp_fileops->CLOSE(ret_open);
+			return result;
+		}
+
+		NVP_LOCK_NODE_RD(nvf, cpuid);
+		if (nvf->node->serialno == buf->st_ino) {
+			if (buf->st_size < nvf->node->length)
+				buf->st_size = nvf->node->length;
+		}
+		NVP_UNLOCK_NODE_RD(nvf, cpuid);
+		NVP_UNLOCK_FD_RD(nvf, cpuid);
 	}
 
-    _nvp_fileops->CLOSE(ret_open);
+	if (ret_open != 0)
+		_nvp_fileops->CLOSE(ret_open);
+
 	return result;       	
 }
 
 RETT_LSTAT _nvp_LSTAT(INTF_LSTAT)
 {
-	return _nvp_STAT64(CALL_STAT64);
+    RETT_LSTAT result;
+
+    result = _nvp_fileops->LSTAT(CALL_LSTAT);
+    if (S_ISLNK(buf->st_mode))
+        return result;
+
+    return _nvp_STAT(CALL_STAT);
 }
 
 RETT_LSTAT64 _nvp_LSTAT64(INTF_LSTAT64)
 {
-	return _nvp_STAT64(CALL_STAT64);
+    RETT_LSTAT result;
+
+    result = _nvp_fileops->LSTAT64(CALL_LSTAT64);
+    if (S_ISLNK(buf->st_mode))
+        return result;
+
+    return _nvp_STAT64(CALL_STAT64);
 }
 
 RETT_FSTAT _nvp_FSTAT(INTF_FSTAT)
@@ -6685,25 +6711,27 @@ RETT_FSTAT _nvp_FSTAT(INTF_FSTAT)
 	int ret_open = 0;
 	struct NVFile *nvf = NULL;
 	int cpuid = GET_CPUID();
-	//return _nvp_fileops->STAT(_STAT_VER, path, buf);
+	//return _nvp_fileops->FSTAT(CALL_FSTAT);
 	//assert(0);
 	result = _nvp_fileops->FSTAT(CALL_FSTAT);
 	if (result == 0) {
+		if (!S_ISREG(buf->st_mode))
+			return result;
 
-	  nvf = &_nvp_fd_lookup[ret_open];
-	  NVP_LOCK_FD_RD(nvf, cpuid);
-	  if (nvf->posix || nvf->node == NULL || !(nvf->valid)) {
-	    NVP_UNLOCK_FD_RD(nvf, cpuid);
-	    return result;
-	  }
+		nvf = &_nvp_fd_lookup[file];
+		NVP_LOCK_FD_RD(nvf, cpuid);
+		if (nvf->posix || nvf->node == NULL || !(nvf->valid)) {
+			NVP_UNLOCK_FD_RD(nvf, cpuid);
+			return result;
+		}
 
-	  NVP_LOCK_NODE_RD(nvf, cpuid);
-	  if (nvf->node->serialno == buf->st_ino) {
-	    if (buf->st_size < nvf->node->length)
-	      buf->st_size = nvf->node->length;
-	  }
-	  NVP_UNLOCK_NODE_RD(nvf, cpuid);
-	  NVP_UNLOCK_FD_RD(nvf, cpuid);
+		NVP_LOCK_NODE_RD(nvf, cpuid);
+		if (nvf->node->serialno == buf->st_ino) {
+			if (buf->st_size < nvf->node->length)
+				buf->st_size = nvf->node->length;
+		}
+		NVP_UNLOCK_NODE_RD(nvf, cpuid);
+		NVP_UNLOCK_FD_RD(nvf, cpuid);
 	}
 
 	return result;       	
@@ -6715,25 +6743,27 @@ RETT_FSTAT64 _nvp_FSTAT64(INTF_FSTAT64)
 	int ret_open = 0;
 	struct NVFile *nvf = NULL;
 	int cpuid = GET_CPUID();
-	//return _nvp_fileops->STAT(_STAT_VER, path, buf);
+	//return _nvp_fileops->FSTAT64(CALL_FSTAT64);
 	//assert(0);
 	result = _nvp_fileops->FSTAT64(CALL_FSTAT64);
 	if (result == 0) {
+		if (!S_ISREG(buf->st_mode))
+			return result;
 
-	  nvf = &_nvp_fd_lookup[ret_open];
-	  NVP_LOCK_FD_RD(nvf, cpuid);
-	  if (nvf->posix || nvf->node == NULL || !(nvf->valid)) {
-	    NVP_UNLOCK_FD_RD(nvf, cpuid);
-	    return result;
-	  }
+		nvf = &_nvp_fd_lookup[file];
+		NVP_LOCK_FD_RD(nvf, cpuid);
+		if (nvf->posix || nvf->node == NULL || !(nvf->valid)) {
+			NVP_UNLOCK_FD_RD(nvf, cpuid);
+			return result;
+		}
 
-	  NVP_LOCK_NODE_RD(nvf, cpuid);
-	  if (nvf->node->serialno == buf->st_ino) {
-	    if (buf->st_size < nvf->node->length)
-	      buf->st_size = nvf->node->length;
-	  }
-	  NVP_UNLOCK_NODE_RD(nvf, cpuid);
-	  NVP_UNLOCK_FD_RD(nvf, cpuid);
+		NVP_LOCK_NODE_RD(nvf, cpuid);
+		if (nvf->node->serialno == buf->st_ino) {
+			if (buf->st_size < nvf->node->length)
+				buf->st_size = nvf->node->length;
+		}
+		NVP_UNLOCK_NODE_RD(nvf, cpuid);
+		NVP_UNLOCK_FD_RD(nvf, cpuid);
 	}
 
 	return result;       	

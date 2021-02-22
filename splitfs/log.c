@@ -141,7 +141,7 @@ void init_append_log() {
 		assert(0);
 	}
 
-	ret =  posix_fallocate(app_log_fd, 0, APPEND_LOG_SIZE);
+	ret =  _hub_find_fileop("posix")->POSIX_FALLOCATE(app_log_fd, 0, APPEND_LOG_SIZE);
 	if (ret < 0) {
 		MSG("%s: posix_fallocate append long failed. Err = %s\n",
 		    __func__, strerror(errno));
@@ -200,7 +200,7 @@ void init_op_log() {
 		assert(0);
 	}
 
-	ret =  posix_fallocate(op_log_fd, 0, OP_LOG_SIZE);
+	ret =  _hub_find_fileop("posix")->POSIX_FALLOCATE(op_log_fd, 0, OP_LOG_SIZE);
 	if (ret < 0) {
 		MSG("%s: posix_fallocate op log failed. Err = %s\n",
 		    __func__, strerror(errno));

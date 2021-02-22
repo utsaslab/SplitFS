@@ -145,14 +145,18 @@ int execv_done;
 #define ADD_FUNCTP(FUNCT, prefix) fo->FUNCT = prefix##FUNCT; 
 #define ADD_FUNCTP_IWRAP(r, data, elem) ADD_FUNCTP(elem, data) 
 
-#define INIT_FILEOPS_P(NAME, PREFIX)					\
+#define INIT_FILEOPS_P(NAME, PREFIX, already_initialized)					\
 	struct Fileops_p* fo = (struct Fileops_p*) calloc(1, sizeof(struct Fileops_p)); \
 	fo->name = NAME;						\
 	fo->resolve = PREFIX##resolve_fileops;				\
-	BOOST_PP_SEQ_FOR_EACH(ADD_FUNCTP_IWRAP, PREFIX, ALLOPS_WPAREN); \
-	BOOST_PP_SEQ_FOR_EACH(ADD_FUNCTP_IWRAP, PREFIX, METAOPS);	\
-	BOOST_PP_SEQ_FOR_EACH(ADD_FUNCTP_IWRAP, PREFIX, SHM_WPAREN);	\
-	_hub_add_fileop(fo); 
+	if (_hub_add_fileop(fo) == 0) {\
+        BOOST_PP_SEQ_FOR_EACH(ADD_FUNCTP_IWRAP, PREFIX, ALLOPS_WPAREN); \
+        BOOST_PP_SEQ_FOR_EACH(ADD_FUNCTP_IWRAP, PREFIX, METAOPS);	\
+        BOOST_PP_SEQ_FOR_EACH(ADD_FUNCTP_IWRAP, PREFIX, SHM_WPAREN);	\
+        *already_initialized = 0;\
+    } else {\
+        *already_initialized = 1;\
+    }
 
 //extern struct Fileops_p* _hub_fileops_lookup[];
 #define MODULE_REGISTRATION_F(NAME, PREFIX, ...)			\
@@ -161,12 +165,13 @@ int execv_done;
 	int PREFIX##resolve_fileops(char*);				\
 	void PREFIX##init(void) __attribute__((constructor));		\
 	void PREFIX##init(void) {					\
-		DEBUG("Initializing " NAME "_init\n");			\
+		MSG("Initializing " NAME "_init\n");			\
 		PREFIX##fileops = NULL;					\
-		INIT_FILEOPS_P(NAME, PREFIX);				\
+    int already_initialized = -1;           \
+		INIT_FILEOPS_P(NAME, PREFIX, &already_initialized);				\
 		if(OPEN_MAX<1) {					\
 			OPEN_MAX = sysconf(_SC_OPEN_MAX);		\
-			OPEN_MAX = 32768;				\
+			OPEN_MAX = 1024;				\
 			DEBUG("Maximum simultaneous open files: %i\n", OPEN_MAX); \
 		}							\
 		__VA_ARGS__						\
@@ -706,7 +711,7 @@ struct Fileops_p {
 
 // These functions are used to manage the standard directory of available functions.
 // This directory lives in _hub_.
-void _hub_add_fileop(struct Fileops_p* fo);
+int _hub_add_fileop(struct Fileops_p* fo);
 struct Fileops_p* _hub_find_fileop(const char* name);
 
 void _hub_resolve_all_fileops(char* tree);
