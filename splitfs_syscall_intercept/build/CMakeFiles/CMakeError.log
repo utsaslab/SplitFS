@@ -1,0 +1,123 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b10d4/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b10d4.dir/build.make CMakeFiles/cmTC_b10d4.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b10d4.dir/CheckSymbolExists.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_b10d4.dir/CheckSymbolExists.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_b10d4
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b10d4.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_b10d4.dir/CheckSymbolExists.c.o  -o cmTC_b10d4 -rdynamic 
+CMakeFiles/cmTC_b10d4.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_b10d4.dir/build.make:97: recipe for target 'cmTC_b10d4' failed
+make[1]: *** [cmTC_b10d4] Error 1
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_b10d4/fast' failed
+make: *** [cmTC_b10d4/fast] Error 2
+
+File /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_416c8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_416c8.dir/build.make CMakeFiles/cmTC_416c8.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_416c8.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_416c8.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_416c8
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_416c8.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_416c8.dir/CheckFunctionExists.c.o  -o cmTC_416c8 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_416c8.dir/build.make:97: recipe for target 'cmTC_416c8' failed
+make[1]: *** [cmTC_416c8] Error 1
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_416c8/fast' failed
+make: *** [cmTC_416c8/fast] Error 2
+
+
+Performing C SOURCE FILE Test C_HAS__Wunreachable_code_return failed with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_04959/fast"
+/usr/bin/make -f CMakeFiles/cmTC_04959.dir/build.make CMakeFiles/cmTC_04959.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_04959.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -DC_HAS__Wunreachable_code_return   -Wunreachable-code-return -o CMakeFiles/cmTC_04959.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+cc: error: unrecognized command line option '-Wunreachable-code-return'
+CMakeFiles/cmTC_04959.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_04959.dir/src.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_04959.dir/src.c.o] Error 1
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_04959/fast' failed
+make: *** [cmTC_04959/fast] Error 2
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__Wunreachable_code_return failed with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_5bccb/fast"
+/usr/bin/make -f CMakeFiles/cmTC_5bccb.dir/build.make CMakeFiles/cmTC_5bccb.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_5bccb.dir/src.cxx.o
+/usr/bin/c++     -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -DCXX_HAS__Wunreachable_code_return   -Wunreachable-code-return -o CMakeFiles/cmTC_5bccb.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-Wunreachable-code-return'
+CMakeFiles/cmTC_5bccb.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_5bccb.dir/src.cxx.o' failed
+make[1]: *** [CMakeFiles/cmTC_5bccb.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_5bccb/fast' failed
+make: *** [cmTC_5bccb/fast] Error 2
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__Wmissing_variable_declarations failed with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_14f93/fast"
+/usr/bin/make -f CMakeFiles/cmTC_14f93.dir/build.make CMakeFiles/cmTC_14f93.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_14f93.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -DC_HAS__Wmissing_variable_declarations   -Wmissing-variable-declarations -o CMakeFiles/cmTC_14f93.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+cc: error: unrecognized command line option '-Wmissing-variable-declarations'
+CMakeFiles/cmTC_14f93.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_14f93.dir/src.c.o' failed
+make[1]: *** [CMakeFiles/cmTC_14f93.dir/src.c.o] Error 1
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_14f93/fast' failed
+make: *** [cmTC_14f93/fast] Error 2
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__Wmissing_variable_declarations failed with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e6654/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e6654.dir/build.make CMakeFiles/cmTC_e6654.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_e6654.dir/src.cxx.o
+/usr/bin/c++     -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -DCXX_HAS__Wmissing_variable_declarations   -Wmissing-variable-declarations -o CMakeFiles/cmTC_e6654.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-Wmissing-variable-declarations'
+CMakeFiles/cmTC_e6654.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_e6654.dir/src.cxx.o' failed
+make[1]: *** [CMakeFiles/cmTC_e6654.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_e6654/fast' failed
+make: *** [cmTC_e6654/fast] Error 2
+
+Source file was:
+int main() { return 0; }

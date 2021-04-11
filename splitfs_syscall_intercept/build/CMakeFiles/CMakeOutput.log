@@ -1,0 +1,1107 @@
+The system is: Linux - 4.13.0 - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/cc 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/home/om/wspace/splitfs-new/build/CMakeFiles/3.5.1/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /usr/bin/c++ 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is GNU, found in "/home/om/wspace/splitfs-new/build/CMakeFiles/3.5.1/CompilerIdCXX/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_fdac6/fast"
+/usr/bin/make -f CMakeFiles/cmTC_fdac6.dir/build.make CMakeFiles/cmTC_fdac6.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_fdac6.dir/testCCompiler.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_fdac6.dir/testCCompiler.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_fdac6
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fdac6.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_fdac6.dir/testCCompiler.c.o  -o cmTC_fdac6 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_4e298/fast"
+/usr/bin/make -f CMakeFiles/cmTC_4e298.dir/build.make CMakeFiles/cmTC_4e298.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_4e298.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_4e298.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.5/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_4e298
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4e298.dir/link.txt --verbose=1
+/usr/bin/cc      -v CMakeFiles/cmTC_4e298.dir/CMakeCCompilerABI.c.o  -o cmTC_4e298 -rdynamic  
+Using built-in specs.
+COLLECT_GCC=/usr/bin/cc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 5.4.0-6ubuntu1~16.04.12' --with-bugurl=file:///usr/share/doc/gcc-5/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-5 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-5-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-5-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-5-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.12) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_4e298' '-rdynamic' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/cca8gFNB.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_4e298 /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTC_4e298.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_4e298/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_4e298.dir/build.make CMakeFiles/cmTC_4e298.dir/build]
+  ignore line: [make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building C object CMakeFiles/cmTC_4e298.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc     -o CMakeFiles/cmTC_4e298.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.5/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_4e298]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4e298.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc      -v CMakeFiles/cmTC_4e298.dir/CMakeCCompilerABI.c.o  -o cmTC_4e298 -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper]
+  ignore line: [Target: x86_64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 5.4.0-6ubuntu1~16.04.12' --with-bugurl=file:///usr/share/doc/gcc-5/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-5 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-5-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-5-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-5-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.12) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_4e298' '-rdynamic' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/cca8gFNB.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_4e298 /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTC_4e298.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/cca8gFNB.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [--sysroot=/] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_4e298] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o] ==> ignore
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib]
+    arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../..]
+    arg [CMakeFiles/cmTC_4e298.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/crtend.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o] ==> ignore
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5] ==> [/usr/lib/gcc/x86_64-linux-gnu/5]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../..] ==> [/usr/lib]
+  implicit libs: [c]
+  implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/5;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib]
+  implicit fwks: []
+
+
+
+
+Detecting C [-std=c11] compiler features compiled with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_f907f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f907f.dir/build.make CMakeFiles/cmTC_f907f.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f907f.dir/feature_tests.c.o
+/usr/bin/cc    -std=c11 -o CMakeFiles/cmTC_f907f.dir/feature_tests.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_f907f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f907f.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_f907f.dir/feature_tests.c.o  -o cmTC_f907f -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:1c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c99] compiler features compiled with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b6c88/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b6c88.dir/build.make CMakeFiles/cmTC_b6c88.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b6c88.dir/feature_tests.c.o
+/usr/bin/cc    -std=c99 -o CMakeFiles/cmTC_b6c88.dir/feature_tests.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_b6c88
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b6c88.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_b6c88.dir/feature_tests.c.o  -o cmTC_b6c88 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c90] compiler features compiled with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_5afbe/fast"
+/usr/bin/make -f CMakeFiles/cmTC_5afbe.dir/build.make CMakeFiles/cmTC_5afbe.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5afbe.dir/feature_tests.c.o
+/usr/bin/cc    -std=c90 -o CMakeFiles/cmTC_5afbe.dir/feature_tests.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_5afbe
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5afbe.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_5afbe.dir/feature_tests.c.o  -o cmTC_5afbe -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:0c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:0c_variadic_macros
+Determining if the CXX compiler works passed with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_6009c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_6009c.dir/build.make CMakeFiles/cmTC_6009c.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_6009c.dir/testCXXCompiler.cxx.o
+/usr/bin/c++      -o CMakeFiles/cmTC_6009c.dir/testCXXCompiler.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_6009c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6009c.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_6009c.dir/testCXXCompiler.cxx.o  -o cmTC_6009c -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b06ef/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b06ef.dir/build.make CMakeFiles/cmTC_b06ef.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_b06ef.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++      -o CMakeFiles/cmTC_b06ef.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_b06ef
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b06ef.dir/link.txt --verbose=1
+/usr/bin/c++       -v CMakeFiles/cmTC_b06ef.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_b06ef -rdynamic  
+Using built-in specs.
+COLLECT_GCC=/usr/bin/c++
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 5.4.0-6ubuntu1~16.04.12' --with-bugurl=file:///usr/share/doc/gcc-5/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-5 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-5-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-5-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-5-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
+Thread model: posix
+gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.12) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_b06ef' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccjmNSb6.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_b06ef /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTC_b06ef.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_b06ef/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTC_b06ef.dir/build.make CMakeFiles/cmTC_b06ef.dir/build]
+  ignore line: [make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp']
+  ignore line: [Building CXX object CMakeFiles/cmTC_b06ef.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++      -o CMakeFiles/cmTC_b06ef.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_b06ef]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b06ef.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++       -v CMakeFiles/cmTC_b06ef.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_b06ef -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/c++]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper]
+  ignore line: [Target: x86_64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 5.4.0-6ubuntu1~16.04.12' --with-bugurl=file:///usr/share/doc/gcc-5/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-5 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-5-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-5-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-5-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
+  ignore line: [Thread model: posix]
+  ignore line: [gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.12) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTC_b06ef' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccjmNSb6.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTC_b06ef /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTC_b06ef.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccjmNSb6.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [--sysroot=/] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-zrelro] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_b06ef] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o] ==> ignore
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib]
+    arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../..]
+    arg [CMakeFiles/cmTC_b06ef.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-lm] ==> lib [m]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lc] ==> lib [c]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/crtend.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o] ==> ignore
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5] ==> [/usr/lib/gcc/x86_64-linux-gnu/5]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../..] ==> [/usr/lib]
+  implicit libs: [stdc++;m;c]
+  implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/5;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib]
+  implicit fwks: []
+
+
+
+
+Detecting CXX [-std=c++14] compiler features compiled with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_cb8f3/fast"
+/usr/bin/make -f CMakeFiles/cmTC_cb8f3.dir/build.make CMakeFiles/cmTC_cb8f3.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_cb8f3.dir/feature_tests.cxx.o
+/usr/bin/c++     -std=c++14 -o CMakeFiles/cmTC_cb8f3.dir/feature_tests.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_cb8f3
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cb8f3.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_cb8f3.dir/feature_tests.cxx.o  -o cmTC_cb8f3 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:1cxx_alias_templates
+    Feature record: CXX_FEATURE:1cxx_alignas
+    Feature record: CXX_FEATURE:1cxx_alignof
+    Feature record: CXX_FEATURE:1cxx_attributes
+    Feature record: CXX_FEATURE:1cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:1cxx_auto_type
+    Feature record: CXX_FEATURE:1cxx_binary_literals
+    Feature record: CXX_FEATURE:1cxx_constexpr
+    Feature record: CXX_FEATURE:1cxx_contextual_conversions
+    Feature record: CXX_FEATURE:1cxx_decltype
+    Feature record: CXX_FEATURE:1cxx_decltype_auto
+    Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
+    Feature record: CXX_FEATURE:1cxx_default_function_template_args
+    Feature record: CXX_FEATURE:1cxx_defaulted_functions
+    Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:1cxx_delegating_constructors
+    Feature record: CXX_FEATURE:1cxx_deleted_functions
+    Feature record: CXX_FEATURE:1cxx_digit_separators
+    Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:1cxx_explicit_conversions
+    Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:1cxx_extern_templates
+    Feature record: CXX_FEATURE:1cxx_final
+    Feature record: CXX_FEATURE:1cxx_func_identifier
+    Feature record: CXX_FEATURE:1cxx_generalized_initializers
+    Feature record: CXX_FEATURE:1cxx_generic_lambdas
+    Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:1cxx_inline_namespaces
+    Feature record: CXX_FEATURE:1cxx_lambdas
+    Feature record: CXX_FEATURE:1cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:1cxx_local_type_template_args
+    Feature record: CXX_FEATURE:1cxx_long_long_type
+    Feature record: CXX_FEATURE:1cxx_noexcept
+    Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:1cxx_nullptr
+    Feature record: CXX_FEATURE:1cxx_override
+    Feature record: CXX_FEATURE:1cxx_range_for
+    Feature record: CXX_FEATURE:1cxx_raw_string_literals
+    Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:1cxx_relaxed_constexpr
+    Feature record: CXX_FEATURE:1cxx_return_type_deduction
+    Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:1cxx_rvalue_references
+    Feature record: CXX_FEATURE:1cxx_sizeof_member
+    Feature record: CXX_FEATURE:1cxx_static_assert
+    Feature record: CXX_FEATURE:1cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:1cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_trailing_return_types
+    Feature record: CXX_FEATURE:1cxx_unicode_literals
+    Feature record: CXX_FEATURE:1cxx_uniform_initialization
+    Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:1cxx_user_literals
+    Feature record: CXX_FEATURE:1cxx_variable_templates
+    Feature record: CXX_FEATURE:1cxx_variadic_macros
+    Feature record: CXX_FEATURE:1cxx_variadic_templates
+
+
+Detecting CXX [-std=c++11] compiler features compiled with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_8c779/fast"
+/usr/bin/make -f CMakeFiles/cmTC_8c779.dir/build.make CMakeFiles/cmTC_8c779.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_8c779.dir/feature_tests.cxx.o
+/usr/bin/c++     -std=c++11 -o CMakeFiles/cmTC_8c779.dir/feature_tests.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_8c779
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8c779.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_8c779.dir/feature_tests.cxx.o  -o cmTC_8c779 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:1cxx_alias_templates
+    Feature record: CXX_FEATURE:1cxx_alignas
+    Feature record: CXX_FEATURE:1cxx_alignof
+    Feature record: CXX_FEATURE:1cxx_attributes
+    Feature record: CXX_FEATURE:0cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:1cxx_auto_type
+    Feature record: CXX_FEATURE:0cxx_binary_literals
+    Feature record: CXX_FEATURE:1cxx_constexpr
+    Feature record: CXX_FEATURE:0cxx_contextual_conversions
+    Feature record: CXX_FEATURE:1cxx_decltype
+    Feature record: CXX_FEATURE:0cxx_decltype_auto
+    Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
+    Feature record: CXX_FEATURE:1cxx_default_function_template_args
+    Feature record: CXX_FEATURE:1cxx_defaulted_functions
+    Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:1cxx_delegating_constructors
+    Feature record: CXX_FEATURE:1cxx_deleted_functions
+    Feature record: CXX_FEATURE:0cxx_digit_separators
+    Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:1cxx_explicit_conversions
+    Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:1cxx_extern_templates
+    Feature record: CXX_FEATURE:1cxx_final
+    Feature record: CXX_FEATURE:1cxx_func_identifier
+    Feature record: CXX_FEATURE:1cxx_generalized_initializers
+    Feature record: CXX_FEATURE:0cxx_generic_lambdas
+    Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:1cxx_inline_namespaces
+    Feature record: CXX_FEATURE:1cxx_lambdas
+    Feature record: CXX_FEATURE:0cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:1cxx_local_type_template_args
+    Feature record: CXX_FEATURE:1cxx_long_long_type
+    Feature record: CXX_FEATURE:1cxx_noexcept
+    Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:1cxx_nullptr
+    Feature record: CXX_FEATURE:1cxx_override
+    Feature record: CXX_FEATURE:1cxx_range_for
+    Feature record: CXX_FEATURE:1cxx_raw_string_literals
+    Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:0cxx_relaxed_constexpr
+    Feature record: CXX_FEATURE:0cxx_return_type_deduction
+    Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:1cxx_rvalue_references
+    Feature record: CXX_FEATURE:1cxx_sizeof_member
+    Feature record: CXX_FEATURE:1cxx_static_assert
+    Feature record: CXX_FEATURE:1cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:1cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_trailing_return_types
+    Feature record: CXX_FEATURE:1cxx_unicode_literals
+    Feature record: CXX_FEATURE:1cxx_uniform_initialization
+    Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:1cxx_user_literals
+    Feature record: CXX_FEATURE:0cxx_variable_templates
+    Feature record: CXX_FEATURE:1cxx_variadic_macros
+    Feature record: CXX_FEATURE:1cxx_variadic_templates
+
+
+Detecting CXX [-std=c++98] compiler features compiled with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e2019/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e2019.dir/build.make CMakeFiles/cmTC_e2019.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_e2019.dir/feature_tests.cxx.o
+/usr/bin/c++     -std=c++98 -o CMakeFiles/cmTC_e2019.dir/feature_tests.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_e2019
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e2019.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTC_e2019.dir/feature_tests.cxx.o  -o cmTC_e2019 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+
+    Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:0cxx_alias_templates
+    Feature record: CXX_FEATURE:0cxx_alignas
+    Feature record: CXX_FEATURE:0cxx_alignof
+    Feature record: CXX_FEATURE:0cxx_attributes
+    Feature record: CXX_FEATURE:0cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:0cxx_auto_type
+    Feature record: CXX_FEATURE:0cxx_binary_literals
+    Feature record: CXX_FEATURE:0cxx_constexpr
+    Feature record: CXX_FEATURE:0cxx_contextual_conversions
+    Feature record: CXX_FEATURE:0cxx_decltype
+    Feature record: CXX_FEATURE:0cxx_decltype_auto
+    Feature record: CXX_FEATURE:0cxx_decltype_incomplete_return_types
+    Feature record: CXX_FEATURE:0cxx_default_function_template_args
+    Feature record: CXX_FEATURE:0cxx_defaulted_functions
+    Feature record: CXX_FEATURE:0cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:0cxx_delegating_constructors
+    Feature record: CXX_FEATURE:0cxx_deleted_functions
+    Feature record: CXX_FEATURE:0cxx_digit_separators
+    Feature record: CXX_FEATURE:0cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:0cxx_explicit_conversions
+    Feature record: CXX_FEATURE:0cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:0cxx_extern_templates
+    Feature record: CXX_FEATURE:0cxx_final
+    Feature record: CXX_FEATURE:0cxx_func_identifier
+    Feature record: CXX_FEATURE:0cxx_generalized_initializers
+    Feature record: CXX_FEATURE:0cxx_generic_lambdas
+    Feature record: CXX_FEATURE:0cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:0cxx_inline_namespaces
+    Feature record: CXX_FEATURE:0cxx_lambdas
+    Feature record: CXX_FEATURE:0cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:0cxx_local_type_template_args
+    Feature record: CXX_FEATURE:0cxx_long_long_type
+    Feature record: CXX_FEATURE:0cxx_noexcept
+    Feature record: CXX_FEATURE:0cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:0cxx_nullptr
+    Feature record: CXX_FEATURE:0cxx_override
+    Feature record: CXX_FEATURE:0cxx_range_for
+    Feature record: CXX_FEATURE:0cxx_raw_string_literals
+    Feature record: CXX_FEATURE:0cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:0cxx_relaxed_constexpr
+    Feature record: CXX_FEATURE:0cxx_return_type_deduction
+    Feature record: CXX_FEATURE:0cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:0cxx_rvalue_references
+    Feature record: CXX_FEATURE:0cxx_sizeof_member
+    Feature record: CXX_FEATURE:0cxx_static_assert
+    Feature record: CXX_FEATURE:0cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:0cxx_thread_local
+    Feature record: CXX_FEATURE:0cxx_trailing_return_types
+    Feature record: CXX_FEATURE:0cxx_unicode_literals
+    Feature record: CXX_FEATURE:0cxx_uniform_initialization
+    Feature record: CXX_FEATURE:0cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:0cxx_user_literals
+    Feature record: CXX_FEATURE:0cxx_variable_templates
+    Feature record: CXX_FEATURE:0cxx_variadic_macros
+    Feature record: CXX_FEATURE:0cxx_variadic_templates
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_1cf57/fast"
+/usr/bin/make -f CMakeFiles/cmTC_1cf57.dir/build.make CMakeFiles/cmTC_1cf57.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_1cf57.dir/CheckIncludeFile.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_1cf57.dir/CheckIncludeFile.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_1cf57
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1cf57.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_1cf57.dir/CheckIncludeFile.c.o  -o cmTC_1cf57 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e17af/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e17af.dir/build.make CMakeFiles/cmTC_e17af.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_e17af.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_e17af.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_e17af
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e17af.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_e17af.dir/CheckFunctionExists.c.o  -o cmTC_e17af -rdynamic -lpthread 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+
+Performing C SOURCE FILE Test C_HAS__Wall succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_d3373/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d3373.dir/build.make CMakeFiles/cmTC_d3373.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d3373.dir/src.c.o
+/usr/bin/cc    -DC_HAS__Wall   -Wall -o CMakeFiles/cmTC_d3373.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_d3373
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d3373.dir/link.txt --verbose=1
+/usr/bin/cc   -DC_HAS__Wall    CMakeFiles/cmTC_d3373.dir/src.c.o  -o cmTC_d3373 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__Wall succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_07142/fast"
+/usr/bin/make -f CMakeFiles/cmTC_07142.dir/build.make CMakeFiles/cmTC_07142.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_07142.dir/src.cxx.o
+/usr/bin/c++     -DCXX_HAS__Wall   -Wall -o CMakeFiles/cmTC_07142.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_07142
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_07142.dir/link.txt --verbose=1
+/usr/bin/c++    -DCXX_HAS__Wall    CMakeFiles/cmTC_07142.dir/src.cxx.o  -o cmTC_07142 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__Wpointer_arith succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_d74b8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d74b8.dir/build.make CMakeFiles/cmTC_d74b8.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d74b8.dir/src.c.o
+/usr/bin/cc    -Wall -DC_HAS__Wpointer_arith   -Wpointer-arith -o CMakeFiles/cmTC_d74b8.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_d74b8
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d74b8.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -DC_HAS__Wpointer_arith    CMakeFiles/cmTC_d74b8.dir/src.c.o  -o cmTC_d74b8 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__Wpointer_arith succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_091e2/fast"
+/usr/bin/make -f CMakeFiles/cmTC_091e2.dir/build.make CMakeFiles/cmTC_091e2.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_091e2.dir/src.cxx.o
+/usr/bin/c++     -Wall -DCXX_HAS__Wpointer_arith   -Wpointer-arith -o CMakeFiles/cmTC_091e2.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_091e2
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_091e2.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -DCXX_HAS__Wpointer_arith    CMakeFiles/cmTC_091e2.dir/src.cxx.o  -o cmTC_091e2 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__Wunused_macros succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_c8936/fast"
+/usr/bin/make -f CMakeFiles/cmTC_c8936.dir/build.make CMakeFiles/cmTC_c8936.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c8936.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -DC_HAS__Wunused_macros   -Wunused-macros -o CMakeFiles/cmTC_c8936.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_c8936
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c8936.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -DC_HAS__Wunused_macros    CMakeFiles/cmTC_c8936.dir/src.c.o  -o cmTC_c8936 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__Wunused_macros succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_4c1dd/fast"
+/usr/bin/make -f CMakeFiles/cmTC_4c1dd.dir/build.make CMakeFiles/cmTC_4c1dd.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_4c1dd.dir/src.cxx.o
+/usr/bin/c++     -Wall -Wpointer-arith -DCXX_HAS__Wunused_macros   -Wunused-macros -o CMakeFiles/cmTC_4c1dd.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_4c1dd
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4c1dd.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -Wpointer-arith -DCXX_HAS__Wunused_macros    CMakeFiles/cmTC_4c1dd.dir/src.cxx.o  -o cmTC_4c1dd -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__Wsign_conversion succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a23f0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_a23f0.dir/build.make CMakeFiles/cmTC_a23f0.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_a23f0.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -DC_HAS__Wsign_conversion   -Wsign-conversion -o CMakeFiles/cmTC_a23f0.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_a23f0
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a23f0.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -DC_HAS__Wsign_conversion    CMakeFiles/cmTC_a23f0.dir/src.c.o  -o cmTC_a23f0 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__Wsign_conversion succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_2db3f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_2db3f.dir/build.make CMakeFiles/cmTC_2db3f.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_2db3f.dir/src.cxx.o
+/usr/bin/c++     -Wall -Wpointer-arith -Wunused-macros -DCXX_HAS__Wsign_conversion   -Wsign-conversion -o CMakeFiles/cmTC_2db3f.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_2db3f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2db3f.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -Wpointer-arith -Wunused-macros -DCXX_HAS__Wsign_conversion    CMakeFiles/cmTC_2db3f.dir/src.cxx.o  -o cmTC_2db3f -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__Wsign_compare succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ffab1/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ffab1.dir/build.make CMakeFiles/cmTC_ffab1.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ffab1.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -DC_HAS__Wsign_compare   -Wsign-compare -o CMakeFiles/cmTC_ffab1.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_ffab1
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ffab1.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -DC_HAS__Wsign_compare    CMakeFiles/cmTC_ffab1.dir/src.c.o  -o cmTC_ffab1 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__Wsign_compare succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_8405c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_8405c.dir/build.make CMakeFiles/cmTC_8405c.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_8405c.dir/src.cxx.o
+/usr/bin/c++     -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -DCXX_HAS__Wsign_compare   -Wsign-compare -o CMakeFiles/cmTC_8405c.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_8405c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8405c.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -DCXX_HAS__Wsign_compare    CMakeFiles/cmTC_8405c.dir/src.cxx.o  -o cmTC_8405c -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__Wconversion succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_d1eb7/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d1eb7.dir/build.make CMakeFiles/cmTC_d1eb7.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d1eb7.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -DC_HAS__Wconversion   -Wconversion -o CMakeFiles/cmTC_d1eb7.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_d1eb7
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d1eb7.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -DC_HAS__Wconversion    CMakeFiles/cmTC_d1eb7.dir/src.c.o  -o cmTC_d1eb7 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__Wconversion succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_116b3/fast"
+/usr/bin/make -f CMakeFiles/cmTC_116b3.dir/build.make CMakeFiles/cmTC_116b3.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_116b3.dir/src.cxx.o
+/usr/bin/c++     -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -DCXX_HAS__Wconversion   -Wconversion -o CMakeFiles/cmTC_116b3.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_116b3
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_116b3.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -DCXX_HAS__Wconversion    CMakeFiles/cmTC_116b3.dir/src.cxx.o  -o cmTC_116b3 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__fno_common succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_5637f/fast"
+/usr/bin/make -f CMakeFiles/cmTC_5637f.dir/build.make CMakeFiles/cmTC_5637f.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_5637f.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -DC_HAS__fno_common   -fno-common -o CMakeFiles/cmTC_5637f.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_5637f
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5637f.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -DC_HAS__fno_common    CMakeFiles/cmTC_5637f.dir/src.c.o  -o cmTC_5637f -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__fno_common succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_886ed/fast"
+/usr/bin/make -f CMakeFiles/cmTC_886ed.dir/build.make CMakeFiles/cmTC_886ed.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_886ed.dir/src.cxx.o
+/usr/bin/c++     -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -DCXX_HAS__fno_common   -fno-common -o CMakeFiles/cmTC_886ed.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_886ed
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_886ed.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -DCXX_HAS__fno_common    CMakeFiles/cmTC_886ed.dir/src.cxx.o  -o cmTC_886ed -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__Ofast succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_69761/fast"
+/usr/bin/make -f CMakeFiles/cmTC_69761.dir/build.make CMakeFiles/cmTC_69761.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_69761.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -DC_HAS__Ofast   -Ofast -o CMakeFiles/cmTC_69761.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_69761
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_69761.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -DC_HAS__Ofast    CMakeFiles/cmTC_69761.dir/src.c.o  -o cmTC_69761 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__Ofast succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e879c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_e879c.dir/build.make CMakeFiles/cmTC_e879c.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_e879c.dir/src.cxx.o
+/usr/bin/c++     -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -DCXX_HAS__Ofast   -Ofast -o CMakeFiles/cmTC_e879c.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_e879c
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e879c.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -DCXX_HAS__Ofast    CMakeFiles/cmTC_e879c.dir/src.cxx.o  -o cmTC_e879c -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__funroll_loops succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_3acd4/fast"
+/usr/bin/make -f CMakeFiles/cmTC_3acd4.dir/build.make CMakeFiles/cmTC_3acd4.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_3acd4.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -DC_HAS__funroll_loops   -funroll-loops -o CMakeFiles/cmTC_3acd4.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_3acd4
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3acd4.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -DC_HAS__funroll_loops    CMakeFiles/cmTC_3acd4.dir/src.c.o  -o cmTC_3acd4 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__funroll_loops succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_66ac3/fast"
+/usr/bin/make -f CMakeFiles/cmTC_66ac3.dir/build.make CMakeFiles/cmTC_66ac3.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_66ac3.dir/src.cxx.o
+/usr/bin/c++     -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -DCXX_HAS__funroll_loops   -funroll-loops -o CMakeFiles/cmTC_66ac3.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_66ac3
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_66ac3.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -DCXX_HAS__funroll_loops    CMakeFiles/cmTC_66ac3.dir/src.cxx.o  -o cmTC_66ac3 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__ftree_vectorize succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_78641/fast"
+/usr/bin/make -f CMakeFiles/cmTC_78641.dir/build.make CMakeFiles/cmTC_78641.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_78641.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -DC_HAS__ftree_vectorize   -ftree-vectorize -o CMakeFiles/cmTC_78641.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_78641
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_78641.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -DC_HAS__ftree_vectorize    CMakeFiles/cmTC_78641.dir/src.c.o  -o cmTC_78641 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__ftree_vectorize succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_bde70/fast"
+/usr/bin/make -f CMakeFiles/cmTC_bde70.dir/build.make CMakeFiles/cmTC_bde70.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_bde70.dir/src.cxx.o
+/usr/bin/c++     -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -DCXX_HAS__ftree_vectorize   -ftree-vectorize -o CMakeFiles/cmTC_bde70.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_bde70
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bde70.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -DCXX_HAS__ftree_vectorize    CMakeFiles/cmTC_bde70.dir/src.cxx.o  -o cmTC_bde70 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__m64 succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_66318/fast"
+/usr/bin/make -f CMakeFiles/cmTC_66318.dir/build.make CMakeFiles/cmTC_66318.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_66318.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -DC_HAS__m64   -m64 -o CMakeFiles/cmTC_66318.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_66318
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_66318.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -DC_HAS__m64    CMakeFiles/cmTC_66318.dir/src.c.o  -o cmTC_66318 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__m64 succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_465a7/fast"
+/usr/bin/make -f CMakeFiles/cmTC_465a7.dir/build.make CMakeFiles/cmTC_465a7.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_465a7.dir/src.cxx.o
+/usr/bin/c++     -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -DCXX_HAS__m64   -m64 -o CMakeFiles/cmTC_465a7.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_465a7
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_465a7.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -DCXX_HAS__m64    CMakeFiles/cmTC_465a7.dir/src.cxx.o  -o cmTC_465a7 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__Wmissing_prototypes succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_172d2/fast"
+/usr/bin/make -f CMakeFiles/cmTC_172d2.dir/build.make CMakeFiles/cmTC_172d2.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_172d2.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -DC_HAS__Wmissing_prototypes   -Wmissing-prototypes -o CMakeFiles/cmTC_172d2.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_172d2
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_172d2.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -DC_HAS__Wmissing_prototypes    CMakeFiles/cmTC_172d2.dir/src.c.o  -o cmTC_172d2 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test LINKER_HAS_RELRO succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ed1d5/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ed1d5.dir/build.make CMakeFiles/cmTC_ed1d5.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_ed1d5.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -Wmissing-prototypes -DLINKER_HAS_RELRO   -Wl,-z,relro -o CMakeFiles/cmTC_ed1d5.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_ed1d5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ed1d5.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -Wmissing-prototypes -DLINKER_HAS_RELRO    CMakeFiles/cmTC_ed1d5.dir/src.c.o  -o cmTC_ed1d5 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test LINKER_HAS_WARN_COMMON succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_3aab5/fast"
+/usr/bin/make -f CMakeFiles/cmTC_3aab5.dir/build.make CMakeFiles/cmTC_3aab5.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_3aab5.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -Wmissing-prototypes -DLINKER_HAS_WARN_COMMON   -Wl,--warn-common -o CMakeFiles/cmTC_3aab5.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_3aab5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3aab5.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -Wmissing-prototypes -DLINKER_HAS_WARN_COMMON    -Wl,-z,relro  CMakeFiles/cmTC_3aab5.dir/src.c.o  -o cmTC_3aab5 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test C_HAS__ggdb succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_3d5c8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_3d5c8.dir/build.make CMakeFiles/cmTC_3d5c8.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_3d5c8.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -Wmissing-prototypes -DC_HAS__ggdb   -ggdb -o CMakeFiles/cmTC_3d5c8.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_3d5c8
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3d5c8.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -Wmissing-prototypes -DC_HAS__ggdb    -Wl,-z,relro -Wl,--warn-common  CMakeFiles/cmTC_3d5c8.dir/src.c.o  -o cmTC_3d5c8 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__ggdb succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_31fc8/fast"
+/usr/bin/make -f CMakeFiles/cmTC_31fc8.dir/build.make CMakeFiles/cmTC_31fc8.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_31fc8.dir/src.cxx.o
+/usr/bin/c++     -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -DCXX_HAS__ggdb   -ggdb -o CMakeFiles/cmTC_31fc8.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_31fc8
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_31fc8.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -DCXX_HAS__ggdb    -Wl,-z,relro -Wl,--warn-common  CMakeFiles/cmTC_31fc8.dir/src.cxx.o  -o cmTC_31fc8 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__DDEBUG succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_d0924/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d0924.dir/build.make CMakeFiles/cmTC_d0924.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d0924.dir/src.c.o
+/usr/bin/cc  -DDEBUG  -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -Wmissing-prototypes -DC_HAS__DDEBUG   -o CMakeFiles/cmTC_d0924.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_d0924
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d0924.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -Wmissing-prototypes -DC_HAS__DDEBUG    -Wl,-z,relro -Wl,--warn-common  CMakeFiles/cmTC_d0924.dir/src.c.o  -o cmTC_d0924 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__DDEBUG succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_d444a/fast"
+/usr/bin/make -f CMakeFiles/cmTC_d444a.dir/build.make CMakeFiles/cmTC_d444a.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_d444a.dir/src.cxx.o
+/usr/bin/c++   -DDEBUG  -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -DCXX_HAS__DDEBUG   -o CMakeFiles/cmTC_d444a.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_d444a
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d444a.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -DCXX_HAS__DDEBUG    -Wl,-z,relro -Wl,--warn-common  CMakeFiles/cmTC_d444a.dir/src.cxx.o  -o cmTC_d444a -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__fno_omit_frame_pointer succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_77eb5/fast"
+/usr/bin/make -f CMakeFiles/cmTC_77eb5.dir/build.make CMakeFiles/cmTC_77eb5.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_77eb5.dir/src.c.o
+/usr/bin/cc    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -Wmissing-prototypes -DC_HAS__fno_omit_frame_pointer   -fno-omit-frame-pointer -o CMakeFiles/cmTC_77eb5.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_77eb5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_77eb5.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -Wmissing-prototypes -DC_HAS__fno_omit_frame_pointer    -Wl,-z,relro -Wl,--warn-common  CMakeFiles/cmTC_77eb5.dir/src.c.o  -o cmTC_77eb5 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__fno_omit_frame_pointer succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b3856/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b3856.dir/build.make CMakeFiles/cmTC_b3856.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_b3856.dir/src.cxx.o
+/usr/bin/c++     -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -DCXX_HAS__fno_omit_frame_pointer   -fno-omit-frame-pointer -o CMakeFiles/cmTC_b3856.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_b3856
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b3856.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -DCXX_HAS__fno_omit_frame_pointer    -Wl,-z,relro -Wl,--warn-common  CMakeFiles/cmTC_b3856.dir/src.cxx.o  -o cmTC_b3856 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_2 succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_515aa/fast"
+/usr/bin/make -f CMakeFiles/cmTC_515aa.dir/build.make CMakeFiles/cmTC_515aa.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_515aa.dir/src.c.o
+/usr/bin/cc  -D_FORTIFY_SOURCE=2  -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -Wmissing-prototypes -DC_HAS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_2   -U_FORTIFY_SOURCE -o CMakeFiles/cmTC_515aa.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_515aa
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_515aa.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -Wmissing-prototypes -DC_HAS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_2    -Wl,-z,relro -Wl,--warn-common  CMakeFiles/cmTC_515aa.dir/src.c.o  -o cmTC_515aa -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_2 succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ae990/fast"
+/usr/bin/make -f CMakeFiles/cmTC_ae990.dir/build.make CMakeFiles/cmTC_ae990.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_ae990.dir/src.cxx.o
+/usr/bin/c++   -D_FORTIFY_SOURCE=2  -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -DCXX_HAS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_2   -U_FORTIFY_SOURCE -o CMakeFiles/cmTC_ae990.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_ae990
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ae990.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -DCXX_HAS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_2    -Wl,-z,relro -Wl,--warn-common  CMakeFiles/cmTC_ae990.dir/src.cxx.o  -o cmTC_ae990 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
+Performing C SOURCE FILE Test C_HAS__D_LARGEFILE64_SOURCE succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_4df69/fast"
+/usr/bin/make -f CMakeFiles/cmTC_4df69.dir/build.make CMakeFiles/cmTC_4df69.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_4df69.dir/src.c.o
+/usr/bin/cc  -D_LARGEFILE64_SOURCE  -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -Wmissing-prototypes -DC_HAS__D_LARGEFILE64_SOURCE   -o CMakeFiles/cmTC_4df69.dir/src.c.o   -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_4df69
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4df69.dir/link.txt --verbose=1
+/usr/bin/cc   -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -Wmissing-prototypes -DC_HAS__D_LARGEFILE64_SOURCE    -Wl,-z,relro -Wl,--warn-common  CMakeFiles/cmTC_4df69.dir/src.c.o  -o cmTC_4df69 -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main(void) { return 0; }
+Performing C++ SOURCE FILE Test CXX_HAS__D_LARGEFILE64_SOURCE succeeded with the following output:
+Change Dir: /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_4db8a/fast"
+/usr/bin/make -f CMakeFiles/cmTC_4db8a.dir/build.make CMakeFiles/cmTC_4db8a.dir/build
+make[1]: Entering directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_4db8a.dir/src.cxx.o
+/usr/bin/c++   -D_LARGEFILE64_SOURCE  -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -DCXX_HAS__D_LARGEFILE64_SOURCE   -o CMakeFiles/cmTC_4db8a.dir/src.cxx.o -c /home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp/src.cxx
+Linking CXX executable cmTC_4db8a
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4db8a.dir/link.txt --verbose=1
+/usr/bin/c++    -Wall -Wpointer-arith -Wunused-macros -Wsign-conversion -Wsign-compare -Wconversion -fno-common -Ofast -funroll-loops -ftree-vectorize -m64 -DCXX_HAS__D_LARGEFILE64_SOURCE    -Wl,-z,relro -Wl,--warn-common  CMakeFiles/cmTC_4db8a.dir/src.cxx.o  -o cmTC_4db8a -rdynamic 
+make[1]: Leaving directory '/home/om/wspace/splitfs-new/build/CMakeFiles/CMakeTmp'
+
+Source file was:
+int main() { return 0; }
