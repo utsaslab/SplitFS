@@ -45,7 +45,6 @@ run_ycsb nova
 sudo $setup_dir/dax_config.sh
 run_ycsb boost
 
-:'
 sudo $setup_dir/dax_config.sh
 run_ycsb_boost sync_boost
 
@@ -54,5 +53,4 @@ sudo $setup_dir/nova_config.sh
 cd $current_dir
 
 sudo $setup_dir/dax_config.sh
-run_ycsb_boost posix_boost
-'
+run_ycsb posix_boost
