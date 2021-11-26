@@ -4083,7 +4083,7 @@ RETT_CLOSE _nvp_REAL_CLOSE(INTF_CLOSE, ino_t serialno, int async_file_closing) {
 	nvf->node->reference--;
 	NVP_UNLOCK_NODE_WR(nvf);
 
-#if WORKLOAD_ROCKSDB
+#if WORKLOAD_ROCKSDB | WORKLOAD_YCSB
 	struct stat sbuf;
 	if(_nvp_fileops->FSTAT(_STAT_VER, file, &sbuf) != 0) {
 		perror("Failed to stat file");
@@ -5818,7 +5818,7 @@ RETT_FTRUNC64 _nvp_FTRUNC64(INTF_FTRUNC64)
 		TBL_ENTRY_UNLOCK_WR(tbl_app);
 		NVP_UNLOCK_NODE_WR(nvf);
 		NVP_UNLOCK_FD_RD(nvf, cpuid);
-#if WORKLOAD_ROCKSDB
+#if WORKLOAD_ROCKSDB | WORKLOAD_YCSB
 		struct stat sbuf;
 		if(_nvp_fileops->FSTAT(_STAT_VER, file, &sbuf) != 0) {
 			perror("Failed to stat file");
