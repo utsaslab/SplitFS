@@ -2806,7 +2806,7 @@ static int nvp_get_dr_mmap_address(struct NVFile *nvf, off_t offset,
 
 #if WORKLOAD_ROCKSDB
 	if (start_offset % MMAP_PAGE_SIZE != nvf->node->length % MMAP_PAGE_SIZE) {
-		MSG("start_offset = %lld. valid offset = %lld. nvf->node->length = %lu. nvf->node->true_length = %lu\n", start_offset, nvf->node->dr_info.valid_offset, nvf->node->length, nvf->node->true_length);
+	  MSG("offset = %lu. start_offset = %lld. valid offset = %lld. nvf->node->length = %lu. nvf->node->true_length = %lu\n", offset, start_offset, nvf->node->dr_info.valid_offset, nvf->node->length, nvf->node->true_length);
 		assert(0);
 	}
 #endif
@@ -3473,21 +3473,12 @@ RETT_PWRITE write_to_file_mmap(int file,
 		goto get_addr;
 	}
 
-	if ((mmap_addr % MMAP_PAGE_SIZE) !=
-	    (nvf->node->length % MMAP_PAGE_SIZE)) {
-		MSG("%s: mmap_addr = %p, nvf->node->length = %lu, "
-		    "nvf->node->true_length = %lu. extent_length = %lu\n",
-		    __func__, mmap_addr, nvf->node->length,
-		    nvf->node->true_length, extent_length);
-		assert(0);
-	}
-
 	if (extent_length > len_to_write)
 		extent_length = len_to_write;
-	if((extent_length + write_offset) > nvf->node->length)
-		extension_with_node_length = extent_length + write_offset - nvf->node->length;
 
-	nvf->node->length += extension_with_node_length;
+	assert(extent_length == len_to_write);
+	if((extent_length + write_offset) > nvf->node->length)
+      	        nvf->node->length = extent_length + write_offset;
 
 	memcpy_write_size += extent_length;
 	append_write_size += extent_length;
@@ -6195,7 +6186,7 @@ RETT_UNLINK _nvp_UNLINK(INTF_UNLINK)
 	num_stat++;
 
 	CHECK_RESOLVE_FILEOPS(_nvp_);
-	DEBUG("CALL: _nvp_UNLINK\n");
+	DEBUG_FILE("CALL: _nvp_UNLINK for file: %s\n", path);
 
 	if (stat(path, &file_st) == 0) {
 		index = file_st.st_ino % OPEN_MAX;

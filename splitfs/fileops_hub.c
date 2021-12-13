@@ -1424,7 +1424,23 @@ RETT_UNLINK _hub_UNLINK(INTF_UNLINK)
 
 	DEBUG_FILE("CALL: _hub_UNLINK\n");
 
-	RETT_UNLINK result = _hub_managed_fileops->UNLINK(CALL_UNLINK);
+	struct Fileops_p* op_to_use = _hub_managed_fileops;	
+
+	/* In case of absoulate path specified, check if it belongs to the persistent memory 
+	 * mount and only then use SplitFS, else redirect to POSIX
+	 */
+	if(path[0] == '/') {
+		int len = strlen(NVMM_PATH);
+		char dest[len + 1];
+		dest[len] = '\0';
+		strncpy(dest, path, len);
+
+		if(strcmp(dest, NVMM_PATH) != 0) {
+			op_to_use = _hub_fileops;
+		}
+	}
+
+	RETT_UNLINK result = op_to_use->UNLINK(CALL_UNLINK);
 
 	DEBUG_FILE("%s: Return = %d\n", __func__, result);
 	return result;
