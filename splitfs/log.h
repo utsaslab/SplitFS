@@ -44,7 +44,7 @@ struct op_log_entry {
 	uint8_t op_type;
 	uint32_t mode;
 	uint32_t flags;
-};
+}__attribute__((packed));
 
 struct inode_path {
 	uint32_t file_ino;

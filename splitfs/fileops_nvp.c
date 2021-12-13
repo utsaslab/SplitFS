@@ -1718,7 +1718,7 @@ void nvp_free_dr_mmaps()
 		__atomic_fetch_sub(&num_drs_left, 1, __ATOMIC_SEQ_CST);
 		__atomic_fetch_add(&num_drs_freed, 1, __ATOMIC_SEQ_CST);
 	}
-	lfds711_queue_umm_cleanup( &qs_over, NULL );
+	//lfds711_queue_umm_cleanup( &qs_over, NULL );
 
 	for (i = 0; i < full_dr_idx; i++) {
 		addr = _nvp_full_drs[i].start_addr;
