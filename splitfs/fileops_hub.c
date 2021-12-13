@@ -574,13 +574,13 @@ int _hub_add_fileop(struct Fileops_p* fo)
 	{
 		if(!strcmp(_hub_fileops_lookup[i]->name, fo->name))
 		{
-      MSG("Can't add fileop %s: one with the same name already exists at index %i\n", fo->name, i);
-      free(fo);
-      //assert(0);
-#if WORKLOAD_ROCKSDB
-      return 0;
+		  MSG("Can't add fileop %s: one with the same name already exists at index %i\n", fo->name, i);
+		  free(fo);
+		  //assert(0);
+#if WORKLOAD_ROCKSDB | WORKLOAD_FIO
+		  return 0;
 #else
-      return -1;
+		  return -1;
 #endif
 		}
 	}
@@ -1539,7 +1539,7 @@ RETT_TRUNC _hub_TRUNC(INTF_TRUNC)
 
 RETT_STAT _hub_STAT(INTF_STAT)
 {
-	CHECK_RESOLVE_FILEOPS(_hub_);
+	HUB_CHECK_RESOLVE_FILEOPS(_hub_, STAT);
 	RETT_STAT result;
 	struct Fileops_p* op_to_use = _hub_managed_fileops;
 	DEBUG("%s: %s\n", __func__, path);
