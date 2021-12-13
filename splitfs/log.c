@@ -183,6 +183,12 @@ void init_append_log() {
 		}
 #endif // NON_TEMPORAL_WRITES
 	}
+
+	ret = _hub_find_fileop("posix")->FSYNC(app_log_fd);
+	if(ret < 0) {
+		MSG("%s: Failed to fsync append log\n", __func__);
+		assert(0);
+	}
 }
 
 void init_op_log() {
@@ -241,6 +247,12 @@ void init_op_log() {
 			assert(0);
 		}
 #endif // NON_TEMPORAL_WRITES
+	}
+
+	ret = _hub_find_fileop("posix")->FSYNC(op_log_fd);
+	if(ret < 0) {
+		MSG("%s: Failed to fsync op log\n", __func__);
+		assert(0);
 	}
 }
 
