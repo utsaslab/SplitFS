@@ -55,11 +55,13 @@ void persist_op_entry(uint32_t op_type,
 		      uint32_t flags) {
 	loff_t log_off;
 	size_t padding = 0;
+	loff_t checksum_pos = 0;
+	loff_t checksum_computation_pos = 0;
 	struct op_log_entry op_entry;
 
 	DEBUG_FILE("%s: START\n", __func__);
 
-	op_entry.entry_size = OP_LOG_ENTRY_SIZE + strlen(fname1);
+	op_entry.entry_size = OP_LOG_ENTRY_SIZE + strlen(fname1) - sizeof(uint32_t);
 	op_entry.file1_size = strlen(fname1);
 	if (fname2 != NULL) {
 		op_entry.entry_size += strlen(fname2);
@@ -79,18 +81,18 @@ void persist_op_entry(uint32_t op_type,
 	op_entry.op_type = op_type;
 	op_entry.mode = mode;
 	op_entry.flags = flags;
-	create_crc32((void *) &(op_entry.entry_size), op_entry.entry_size, &(op_entry.checksum)); 
+	checksum_pos = (void*)op_log + log_off;
+	checksum_computation_pos = (void*)op_log + log_off + sizeof(uint32_t);
 
-	DEBUG_FILE("%s: Got the checksum. log_off = %lu, op_log = %lu\n", __func__, log_off, op_log);
+	//create_crc32((void *) &(op_entry.entry_size), op_entry.entry_size, &(op_entry.checksum)); 
 	
-	//op_entry.checksum = checksum; // [TODO] Calculate Checksum
-	MEMCPY_NON_TEMPORAL((void *)op_log + log_off,
+	MEMCPY_NON_TEMPORAL((void *)op_log + log_off + sizeof(uint32_t),
 			    &op_entry,
 			    OP_LOG_ENTRY_SIZE);
 #if NVM_DELAY
 	perfmodel_add_delay(0, OP_LOG_ENTRY_SIZE);
 #endif
-	log_off += OP_LOG_ENTRY_SIZE;
+	log_off += OP_LOG_ENTRY_SIZE + sizeof(uint32_t);
 	MEMCPY_NON_TEMPORAL((void *)op_log + log_off,
 			    fname1,
 			    strlen(fname1));
@@ -116,6 +118,9 @@ void persist_op_entry(uint32_t op_type,
 		perfmodel_add_delay(0, padding);
 #endif
 	}
+
+	DEBUG_FILE("%s: Got the checksum. log_off = %lu, op_log = %lu\n", __func__, log_off, op_log);
+	create_crc32((void *) &(checksum_computation_pos), op_entry.entry_size, &(checksum_pos)); 
 
 	_mm_sfence();
 }
@@ -315,7 +320,7 @@ void ledger_op_log_recovery() {
 			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE),
 			       op_entry.file1_size
 			       );			
-			create_crc32((void *) &(op_entry.entry_size),
+			create_crc32((void *) (op_log + op_log_tail + sizeof(uint32_t)),
 			      op_entry.entry_size,
 			      &(computed_checksum)); 
 			if (computed_checksum != op_entry.checksum) {
@@ -348,7 +353,7 @@ void ledger_op_log_recovery() {
 			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE + op_entry.file1_size),
 			       op_entry.file2_size
 			       );
-			create_crc32((void *) &(op_entry.entry_size),
+			create_crc32((void *) (op_log + op_log_tail + sizeof(uint32_t)),
 			      op_entry.entry_size,
 			      &(computed_checksum)); 
 			if (computed_checksum != op_entry.checksum) {
@@ -381,7 +386,7 @@ void ledger_op_log_recovery() {
 			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE + op_entry.file1_size),
 			       op_entry.file2_size
 			       );
-			create_crc32((void *) &(op_entry.entry_size),
+			create_crc32((void *) (op_log + op_log_tail + sizeof(uint32_t)),
 			      op_entry.entry_size,
 			      &(computed_checksum)); 
 			if (computed_checksum != op_entry.checksum) {
@@ -414,7 +419,7 @@ void ledger_op_log_recovery() {
 			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE + op_entry.file1_size),
 			       op_entry.file2_size
 			       );
-			create_crc32((void *) &(op_entry.entry_size),
+			create_crc32((void *) (op_log + op_log_tail + sizeof(uint32_t)),
 			      op_entry.entry_size,
 			      &(computed_checksum)); 
 			if (computed_checksum != op_entry.checksum) {
@@ -443,7 +448,7 @@ void ledger_op_log_recovery() {
 			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE),
 			       op_entry.file1_size
 			       );			
-			create_crc32((void *) &(op_entry.entry_size),
+			create_crc32((void *) (op_log + op_log_tail + sizeof(uint32_t)),
 			      op_entry.entry_size,
 			      &(computed_checksum)); 
 			if (computed_checksum != op_entry.checksum) {
@@ -472,7 +477,7 @@ void ledger_op_log_recovery() {
 			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE),
 			       op_entry.file1_size
 			       );			
-			create_crc32((void *) &(op_entry.entry_size),
+			create_crc32((void *) (op_log + op_log_tail + sizeof(uint32_t)),
 			      op_entry.entry_size,
 			      &(computed_checksum)); 
 			if (computed_checksum != op_entry.checksum) {
@@ -501,7 +506,7 @@ void ledger_op_log_recovery() {
 			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE),
 			       op_entry.file1_size
 			       );			
-			create_crc32((void *) &(op_entry.entry_size),
+			create_crc32((void *) (op_log + op_log_tail + sizeof(uint32_t)),
 			      op_entry.entry_size,
 			      &(computed_checksum)); 
 			if (computed_checksum != op_entry.checksum) {
