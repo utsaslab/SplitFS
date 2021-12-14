@@ -45,10 +45,7 @@ echo "-- SplitFS POSIX --"
 cd $source_dir
 export LEDGER_DATAJ=0
 export LEDGER_POSIX=1
-export LEDGER_YCSB=0
-export LEDGER_PJD=0
 export LEDGER_FILEBENCH=1 
-export LEDGER_DEBUG=0
 make clean
 make -e
 sudo $setup_dir/dax_config.sh
