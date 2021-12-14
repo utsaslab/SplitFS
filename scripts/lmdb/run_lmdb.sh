@@ -40,6 +40,9 @@ sudo $setup_dir/pmfs_config.sh
 cd $current_dir
 run_lmdb pmfs
 
+export LEDGER_DATAJ=0
+export LEDGER_POSIX=1
+export LEDGER_YCSB=1
 echo "-- SplitFS POSIX --"
 make splitfs.posix
 sudo $setup_dir/dax_config.sh
