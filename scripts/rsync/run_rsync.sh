@@ -28,13 +28,8 @@ run_rsync relaxed_nova
 sudo $setup_dir/pmfs_config.sh
 run_rsync pmfs
 
-sudo $setup_dir/dax_config.sh
-run_rsync boost
-
-:'
-sudo $setup_dir/dax_config.sh
-run_rsync sync_boost
-
+export LEDGER_DATAJ=0
+export LEDGER_POSIX=1
+export LEDGER_RSYNC=1
 sudo $setup_dir/dax_config.sh
 run_rsync posix_boost
-'
