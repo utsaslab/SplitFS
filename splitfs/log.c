@@ -9,6 +9,26 @@ uint32_t crc32_for_byte(uint32_t r) {
 	return r ^ (uint32_t)0xFF000000L;
 }
 
+static void set_filenames(char* fname1, char *fname2, void *data, struct op_log_entry* op_entry);
+static void set_filename1(char* fname1, void *data, struct op_log_entry* op_entry);
+static void set_filename2(char* fname2, void *data, struct op_log_entry* op_entry);
+
+
+static void set_filenames(char* fname1, char *fname2, void *data, struct op_log_entry* op_entry) {
+	set_filename1(fname1, data, op_entry);
+	set_filename2(fname2, data, op_entry);
+}
+
+static void set_filename1(char* fname1, void *data, struct op_log_entry* op_entry) {
+	memcpy(fname1, data, op_entry->file1_size);
+	fname1[op_entry->file1_size] = '\0';
+}
+
+static void set_filename2(char* fname2, void *data, struct op_log_entry* op_entry) {
+	memcpy(fname2, data + op_entry->file1_size, op_entry->file2_size);
+	fname2[op_entry->file2_size] = '\0';
+}
+
 void create_crc32(const void *data, size_t n_bytes, uint32_t* crc) {
 	static uint32_t table[0x100];
 	if(!*table)
@@ -58,10 +78,11 @@ void persist_op_entry(uint32_t op_type,
 	loff_t checksum_pos = 0;
 	loff_t checksum_computation_pos = 0;
 	struct op_log_entry op_entry;
+	memset(&op_entry, 0, sizeof(op_entry));
 
 	DEBUG_FILE("%s: START\n", __func__);
 
-	op_entry.entry_size = OP_LOG_ENTRY_SIZE + strlen(fname1) - sizeof(uint32_t);
+	op_entry.entry_size = OP_LOG_ENTRY_SIZE + strlen(fname1);
 	op_entry.file1_size = strlen(fname1);
 	if (fname2 != NULL) {
 		op_entry.entry_size += strlen(fname2);
@@ -83,16 +104,15 @@ void persist_op_entry(uint32_t op_type,
 	op_entry.flags = flags;
 	checksum_pos = (void*)op_log + log_off;
 	checksum_computation_pos = (void*)op_log + log_off + sizeof(uint32_t);
+	op_entry.checksum = 0;
 
-	//create_crc32((void *) &(op_entry.entry_size), op_entry.entry_size, &(op_entry.checksum)); 
-	
-	MEMCPY_NON_TEMPORAL((void *)op_log + log_off + sizeof(uint32_t),
+	MEMCPY_NON_TEMPORAL((void *)op_log + log_off,
 			    &op_entry,
 			    OP_LOG_ENTRY_SIZE);
 #if NVM_DELAY
 	perfmodel_add_delay(0, OP_LOG_ENTRY_SIZE);
 #endif
-	log_off += OP_LOG_ENTRY_SIZE + sizeof(uint32_t);
+	log_off += OP_LOG_ENTRY_SIZE;
 	MEMCPY_NON_TEMPORAL((void *)op_log + log_off,
 			    fname1,
 			    strlen(fname1));
@@ -110,7 +130,8 @@ void persist_op_entry(uint32_t op_type,
 		log_off += strlen(fname2);
 	}
 	if (padding != 0) {
-		char padstr[padding];
+		char padstr[64];
+		memset(padstr, 0, 64);
 		MEMCPY_NON_TEMPORAL((void *)op_log + log_off,
 				    padstr,
 				    padding);
@@ -120,7 +141,12 @@ void persist_op_entry(uint32_t op_type,
 	}
 
 	DEBUG_FILE("%s: Got the checksum. log_off = %lu, op_log = %lu\n", __func__, log_off, op_log);
-	create_crc32((void *) &(checksum_computation_pos), op_entry.entry_size, &(checksum_pos)); 
+
+	// Always set this to 0 because checksum value depends on initial value of crc argument
+	// Using 0 everywhere for consistent checksums
+	uint32_t temp = 0;
+	create_crc32((void *) (checksum_computation_pos), op_entry.entry_size-sizeof(uint32_t), &(temp)); 
+	MEMCPY_NON_TEMPORAL(checksum_pos, &temp, sizeof(uint32_t));
 
 	_mm_sfence();
 }
@@ -311,32 +337,54 @@ void sync_and_clear_op_log() {
 	__sync_bool_compare_and_swap(&clearing_op_log, 1, 0);
 }
 
-void ledger_op_log_recovery() {
+static int verify_checksum(void* crc32_data, size_t crc32_size, struct op_log_entry * op_entry) {
+	uint32_t computed_checksum = 0;
+	create_crc32(crc32_data, crc32_size, &computed_checksum);
 
-	int flags = 0, ret = 0;
+	if (computed_checksum != op_entry->checksum) {
+		DEBUG_FILE("%s: checksum missmatch\n", __func__);
+		return -1;
+	}
+	// SUCCESS
+	return 0;
+}
+
+void ledger_op_log_recovery() {
 	char fname1[256], fname2[256];
 	struct op_log_entry op_entry;
-	uint32_t computed_checksum = 0;
-	op_log_tail = 0;
+	loff_t op_log_tail_recovery = 0;
+	int ret = 0;
+	void * crc32_data;
+	size_t crc32_size;
+	void *log_data;
 	
-	while(op_log_tail < op_log_lim) {
-		if (app_log + app_log_tail == '0')
-			goto end;		
+	char *charp;
+	while(op_log_tail_recovery < op_log_lim) {
+		memset(&op_entry, 0, sizeof(op_entry));
+		memset(fname1, 0, 256);
+		memset(fname2, 0, 256);
+		ret = 0;
+		charp = (char *)(op_log);
+
+		if (charp[op_log_tail_recovery] == '0')
+			goto end;
+
 		memcpy(&op_entry,
-		       (void *) (op_log + op_log_tail),
+		       (void *) (op_log + op_log_tail_recovery),
 		       OP_LOG_ENTRY_SIZE);
+
+		// MSG("Retrieved op log entry: type = %d; file1_size = %d; checksum = %d total size = %d; op_log_tail_recovery = %d\n", 
+		// 	op_entry.op_type, op_entry.file1_size, op_entry.checksum, op_entry.entry_size, op_log_tail_recovery);
+
+		crc32_data = (void *)(op_log + op_log_tail_recovery + sizeof(uint32_t));
+		crc32_size = op_entry.entry_size - sizeof(uint32_t);
+		log_data = (void *) (op_log + op_log_tail_recovery + OP_LOG_ENTRY_SIZE);
 
 		switch (op_entry.op_type) {
 		case LOG_DIR_CREATE:
-			memcpy(fname1,
-			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE),
-			       op_entry.file1_size
-			       );			
-			create_crc32((void *) (op_log + op_log_tail + sizeof(uint32_t)),
-			      op_entry.entry_size,
-			      &(computed_checksum)); 
-			if (computed_checksum != op_entry.checksum) {
-				DEBUG_FILE("%s: checksum missmatch\n", __func__);
+			set_filename1(fname1, log_data, &op_entry);
+			ret = verify_checksum(crc32_data, crc32_size, &op_entry);
+			if(ret != 0) {
 				return;
 			}
 			ret = access(fname1, F_OK);
@@ -349,7 +397,9 @@ void ledger_op_log_recovery() {
 					assert(0);
 				}
 			}
-			ret = mkdir(fname1, op_entry.mode);
+			// Use posix operation to ensure we don't come back to splitfs implementation
+			// TODO: Persist this
+			ret = _hub_find_fileop("posix")->MKDIR(fname1, op_entry.mode);
 			if (ret != 0) {
 				MSG("%s: mkdir failed. Err = %s\n",
 				    __func__, strerror(errno));
@@ -357,19 +407,9 @@ void ledger_op_log_recovery() {
 			}
 			break;
 		case LOG_RENAME:
-			memcpy(fname1,
-			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE),
-			       op_entry.file1_size
-			       );
-			memcpy(fname2,
-			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE + op_entry.file1_size),
-			       op_entry.file2_size
-			       );
-			create_crc32((void *) (op_log + op_log_tail + sizeof(uint32_t)),
-			      op_entry.entry_size,
-			      &(computed_checksum)); 
-			if (computed_checksum != op_entry.checksum) {
-				DEBUG_FILE("%s: checksum missmatch\n", __func__);
+			set_filenames(fname1, fname2, log_data, &op_entry);
+			ret = verify_checksum(crc32_data, crc32_size, &op_entry);
+			if(ret != 0) {
 				return;
 			}
 			ret = access(fname2, F_OK);
@@ -382,7 +422,8 @@ void ledger_op_log_recovery() {
 					assert(0);
 				}
 			}
-			ret = rename(fname1, fname2);
+			// TODO: Make this persistent
+			ret = _hub_find_fileop("posix")->RENAME(fname1, fname2);
 			if (ret != 0) {
 				MSG("%s: rename failed. Err = %s\n",
 				    __func__, strerror(errno));
@@ -390,19 +431,9 @@ void ledger_op_log_recovery() {
 			}
 			break;
 		case LOG_LINK:
-			memcpy(fname1,
-			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE),
-			       op_entry.file1_size
-			       );
-			memcpy(fname2,
-			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE + op_entry.file1_size),
-			       op_entry.file2_size
-			       );
-			create_crc32((void *) (op_log + op_log_tail + sizeof(uint32_t)),
-			      op_entry.entry_size,
-			      &(computed_checksum)); 
-			if (computed_checksum != op_entry.checksum) {
-				DEBUG_FILE("%s: checksum missmatch\n", __func__);
+			set_filenames(fname1, fname2, log_data, &op_entry);
+			ret = verify_checksum(crc32_data, crc32_size, &op_entry);
+			if(ret != 0) {
 				return;
 			}
 			ret = access(fname2, F_OK);
@@ -415,7 +446,8 @@ void ledger_op_log_recovery() {
 					assert(0);
 				}
 			}
-			ret = link(fname1, fname2);
+			// TODO: Make this persistent
+			ret = _hub_find_fileop("posix")->LINK(fname1, fname2);
 			if (ret != 0) {
 				MSG("%s: link failed. Err = %s\n",
 				    __func__, strerror(errno));
@@ -423,19 +455,9 @@ void ledger_op_log_recovery() {
 			}
 			break;
 		case LOG_SYMLINK:
-			memcpy(fname1,
-			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE),
-			       op_entry.file1_size
-			       );
-			memcpy(fname2,
-			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE + op_entry.file1_size),
-			       op_entry.file2_size
-			       );
-			create_crc32((void *) (op_log + op_log_tail + sizeof(uint32_t)),
-			      op_entry.entry_size,
-			      &(computed_checksum)); 
-			if (computed_checksum != op_entry.checksum) {
-				DEBUG_FILE("%s: checksum missmatch\n", __func__);
+			set_filenames(fname1, fname2, log_data, &op_entry);
+			ret = verify_checksum(crc32_data, crc32_size, &op_entry);
+			if(ret != 0) {
 				return;
 			}
 			ret = access(fname2, F_OK);
@@ -448,7 +470,8 @@ void ledger_op_log_recovery() {
 					assert(0);
 				}
 			}
-			ret = symlink(fname1, fname2);
+			// TODO: Make this persistent
+			ret = _hub_find_fileop("posix")->SYMLINK(fname1, fname2);
 			if (ret != 0) {
 				MSG("%s: symlink failed. Err = %s\n",
 				    __func__, strerror(errno));
@@ -456,15 +479,9 @@ void ledger_op_log_recovery() {
 			}
 			break;
 		case LOG_DIR_DELETE:
-			memcpy(fname1,
-			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE),
-			       op_entry.file1_size
-			       );			
-			create_crc32((void *) (op_log + op_log_tail + sizeof(uint32_t)),
-			      op_entry.entry_size,
-			      &(computed_checksum)); 
-			if (computed_checksum != op_entry.checksum) {
-				DEBUG_FILE("%s: checksum missmatch\n", __func__);
+			set_filename1(fname1, log_data, &op_entry);
+			ret = verify_checksum(crc32_data, crc32_size, &op_entry);
+			if(ret != 0) {
 				return;
 			}
 			ret = access(fname1, F_OK);
@@ -477,7 +494,8 @@ void ledger_op_log_recovery() {
 				else
 					goto next;
 			}
-			ret = rmdir(fname1);
+			// TODO: Make this persistent
+			ret = _hub_find_fileop("posix")->RMDIR(fname1);
 			if (ret != 0) {
 				MSG("%s: rmdir failed. Err = %s\n",
 				    __func__, strerror(errno));
@@ -485,15 +503,9 @@ void ledger_op_log_recovery() {
 			}
 			break;			
 		case LOG_FILE_CREATE:
-			memcpy(fname1,
-			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE),
-			       op_entry.file1_size
-			       );			
-			create_crc32((void *) (op_log + op_log_tail + sizeof(uint32_t)),
-			      op_entry.entry_size,
-			      &(computed_checksum)); 
-			if (computed_checksum != op_entry.checksum) {
-				DEBUG_FILE("%s: checksum missmatch\n", __func__);
+			set_filename1(fname1, log_data, &op_entry);
+			ret = verify_checksum(crc32_data, crc32_size, &op_entry);
+			if(ret != 0) {
 				return;
 			}
 			ret = access(fname1, F_OK);
@@ -506,23 +518,21 @@ void ledger_op_log_recovery() {
 					assert(0);
 				}
 			}
-			ret = open(fname1, op_entry.flags, op_entry.mode);
+			int fd;
+			fd = _hub_find_fileop("posix")->OPEN(fname1, op_entry.flags, op_entry.mode);
 			if (ret < 0) {
 				MSG("%s: create file failed. Err = %s\n",
 				    __func__, strerror(errno));
 				assert(0);
 			}
+			ret = _hub_find_fileop("posix")->CLOSE(ret);
+			ret = _hub_find_fileop("posix")->FSYNC(fd);
+			assert(ret == 0);
 			break;
 		case LOG_FILE_UNLINK:
-			memcpy(fname1,
-			       (void *) (op_log + op_log_tail + OP_LOG_ENTRY_SIZE),
-			       op_entry.file1_size
-			       );			
-			create_crc32((void *) (op_log + op_log_tail + sizeof(uint32_t)),
-			      op_entry.entry_size,
-			      &(computed_checksum)); 
-			if (computed_checksum != op_entry.checksum) {
-				DEBUG_FILE("%s: checksum missmatch\n", __func__);
+			set_filename1(fname1, log_data, &op_entry);	
+			ret = verify_checksum(crc32_data, crc32_size, &op_entry);
+			if(ret != 0) {
 				return;
 			}
 			ret = access(fname1, F_OK);
@@ -535,7 +545,8 @@ void ledger_op_log_recovery() {
 				else
 					goto next;
 			}
-			ret = unlink(fname1);
+			// TODO: Make this persistent
+			ret = _hub_find_fileop("posix")->UNLINK(fname1);
 			if (ret != 0) {
 				MSG("%s: unlink failed. Err = %s\n",
 				    __func__, strerror(errno));
@@ -545,9 +556,9 @@ void ledger_op_log_recovery() {
 		}
 
 	next:
-		op_log_tail += op_entry.entry_size;
-		if (op_log_tail % CLFLUSH_SIZE != 0) {
-			op_log_tail += (CLFLUSH_SIZE - (op_log_tail % CLFLUSH_SIZE));
+		op_log_tail_recovery += op_entry.entry_size;
+		if (op_log_tail_recovery % CLFLUSH_SIZE != 0) {
+			op_log_tail_recovery += (CLFLUSH_SIZE - (op_log_tail_recovery % CLFLUSH_SIZE));
 		}
 	}
 
