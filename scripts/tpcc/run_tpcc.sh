@@ -28,13 +28,8 @@ run_tpcc pmfs
 sudo $setup_dir/nova_config.sh
 run_tpcc nova
 
-sudo $setup_dir/dax_config.sh
-run_tpcc boost
-
-:'
-sudo $setup_dir/dax_config.sh
-run_tpcc_boost sync_boost
-
+export LEDGER_DATAJ=0
+export LEDGER_POSIX=1
+export LEDGER_TPCC=1
 sudo $setup_dir/dax_config.sh
 run_tpcc_boost posix_boost
-'
