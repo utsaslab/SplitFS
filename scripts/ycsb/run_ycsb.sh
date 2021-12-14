@@ -42,15 +42,12 @@ run_ycsb pmfs
 sudo $setup_dir/nova_config.sh
 run_ycsb nova
 
-sudo $setup_dir/dax_config.sh
-run_ycsb boost
-
-sudo $setup_dir/dax_config.sh
-run_ycsb_boost sync_boost
-
 cd $setup_dir
 sudo $setup_dir/nova_config.sh
 cd $current_dir
 
+export LEDGER_DATAJ=0
+export LEDGER_POSIX=1
+export LEDGER_YCSB=1
 sudo $setup_dir/dax_config.sh
 run_ycsb posix_boost
