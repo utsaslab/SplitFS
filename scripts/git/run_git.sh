@@ -37,16 +37,19 @@ sudo ./nova_config.sh
 cd $current_dir
 run_git nova
 
+export LEDGER_GIT=1 
 echo "-- SplitFS Posix --"
 make splitfs.posix
 sudo $setup_dir/dax_config.sh
 run_git splitfs-posix
 
+export LEDGER_GIT=1 
 echo "-- SplitFS Sync --"
 make splitfs.sync
 sudo $setup_dir/dax_config.sh
 run_git splitfs-sync
 
+export LEDGER_GIT=1 
 echo "-- SplitFS Strict --"
 make splitfs.strict
 sudo $setup_dir/dax_config.sh
