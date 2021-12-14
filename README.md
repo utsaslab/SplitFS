@@ -35,6 +35,7 @@ This tutorial walks you through the workflow of compiling splitfs, setting up ex
 
 3. <b>Set up SplitFS</b>
 ```
+$ export LEDGER_YCSB=1
 $ cd splitfs; make clean; make; cd .. # Compile SplitFS
 $ export LD_LIBRARY_PATH=./splitfs
 $ export NVP_TREE_FILE=./splitfs/bin/nvp_nvp.tree
