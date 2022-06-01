@@ -32,7 +32,7 @@ sofiles: $(COMMON_OBJ) $(NVP_SOFILES)
 
 # The only .so which doesn't follow the naming convention for its underlying file.
 libnvp.so: fileops_hub.o $(COMMON_OBJ)
-	$(CC) $(CLFAGS) -shared -Wl,-soname,$@ -o $@ $^ -ldl -funroll-loops -L. -lrt
+	$(CC) $(CFLAGS) -shared -Wl,-soname,$@ -o $@ $^ -ldl -funroll-loops -L. -lrt
 
 # Lives in a different directory.
 #libmoneta.so:
