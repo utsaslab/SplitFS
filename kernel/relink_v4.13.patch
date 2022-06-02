@@ -876,7 +876,8 @@ index 9bb36909..c2d4441 100644
 +	ext4_inode_resume_unlocked_dio(donor_inode);
 +
 +	ext4_handle_sync(handle);
-+	ext4_journal_stop(handle);
++	if (!relink)
++		ext4_journal_stop(handle);
 +	unlock_two_nondirectories(rec_inode, donor_inode);
 +
 +	return size_remapped;
