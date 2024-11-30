@@ -65,7 +65,7 @@ LICENSE file.
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <version>4.13.1</version>
       <scope>test</scope>
     </dependency>
     <!-- only for Cassandra test (Cassandra 2.2+ uses Sigar for collecting system information, and Sigar requires some native lib files) -->
